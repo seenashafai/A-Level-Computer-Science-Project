@@ -17,6 +17,8 @@
 		04904E03209790C80043C97A /* A_Level_Computer_Science_ProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04904E02209790C80043C97A /* A_Level_Computer_Science_ProjectTests.swift */; };
 		04904E0E209790C80043C97A /* A_Level_Computer_Science_ProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04904E0D209790C80043C97A /* A_Level_Computer_Science_ProjectUITests.swift */; };
 		0F0D6D9CA5EB278B2A9868A7 /* Pods_A_Level_Computer_Science_ProjectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C9CA0DCCC99354E97C94C79 /* Pods_A_Level_Computer_Science_ProjectUITests.framework */; };
+		3772778F21590566007532A0 /* ShowListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3772778E21590566007532A0 /* ShowListTableViewCell.swift */; };
+		37EEB00D21539EBC00A73760 /* tempTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EEB00C21539EBC00A73760 /* tempTableViewController.swift */; };
 		37F0E7BC214FD1E400D9E335 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F0E7BB214FD1E400D9E335 /* LoginViewController.swift */; };
 		37F0E7BE214FD20000D9E335 /* ShowListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F0E7BD214FD20000D9E335 /* ShowListTableViewController.swift */; };
 		37F0E7C0214FD21B00D9E335 /* ShowDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F0E7BF214FD21B00D9E335 /* ShowDetailViewController.swift */; };
@@ -56,6 +58,8 @@
 		04904E0D209790C80043C97A /* A_Level_Computer_Science_ProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = A_Level_Computer_Science_ProjectUITests.swift; sourceTree = "<group>"; };
 		04904E0F209790C80043C97A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		215E5B3DCEFF24395ACA28C4 /* Pods-A Level Computer Science ProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science ProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science ProjectTests/Pods-A Level Computer Science ProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3772778E21590566007532A0 /* ShowListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListTableViewCell.swift; sourceTree = "<group>"; };
+		37EEB00C21539EBC00A73760 /* tempTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tempTableViewController.swift; sourceTree = "<group>"; };
 		37F0E7BB214FD1E400D9E335 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		37F0E7BD214FD20000D9E335 /* ShowListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListTableViewController.swift; sourceTree = "<group>"; };
 		37F0E7BF214FD21B00D9E335 /* ShowDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +170,8 @@
 			isa = PBXGroup;
 			children = (
 				37F0E7BD214FD20000D9E335 /* ShowListTableViewController.swift */,
+				3772778E21590566007532A0 /* ShowListTableViewCell.swift */,
+				37EEB00C21539EBC00A73760 /* tempTableViewController.swift */,
 				37F0E7BF214FD21B00D9E335 /* ShowDetailViewController.swift */,
 			);
 			path = "Show List";
@@ -405,7 +411,9 @@
 			files = (
 				37F0E7C0214FD21B00D9E335 /* ShowDetailViewController.swift in Sources */,
 				37F0E7BC214FD1E400D9E335 /* LoginViewController.swift in Sources */,
+				37EEB00D21539EBC00A73760 /* tempTableViewController.swift in Sources */,
 				04904DEE209790C70043C97A /* AppDelegate.swift in Sources */,
+				3772778F21590566007532A0 /* ShowListTableViewCell.swift in Sources */,
 				37F0E7BE214FD20000D9E335 /* ShowListTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

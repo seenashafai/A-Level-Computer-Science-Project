@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -168,62 +169,10 @@
             </objects>
             <point key="canvasLocation" x="-1636" y="199.25037481259372"/>
         </scene>
-        <!--ShowListTableViewController-->
-        <scene sceneID="FW3-tN-14s">
-            <objects>
-                <tableViewController title="ShowListTableViewController" id="L1U-IB-OoO" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="NNC-71-CpD">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="72" id="3rE-5T-c1X">
-                                <rect key="frame" x="0.0" y="28" width="375" height="72"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3rE-5T-c1X" id="asl-Xm-nrg">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="71.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="The Cool Play" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M97-FX-Rta">
-                                            <rect key="frame" x="78" y="11" width="106" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="23rd - 25th October" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGu-8b-FPZ">
-                                            <rect key="frame" x="78" y="40" width="215" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" red="0.43106379533678751" green="0.42180202169091363" blue="0.42829057701667322" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B6A-EV-hlO">
-                                            <rect key="frame" x="16" y="11" width="52" height="50"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="P3t-yc-Ab9" kind="show" id="ex6-hW-OAB"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="L1U-IB-OoO" id="bOE-QV-2XZ"/>
-                            <outlet property="delegate" destination="L1U-IB-OoO" id="imJ-zc-aw2"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Show List" id="gQr-bL-rxe"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Pow-7T-mfl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="96.799999999999997" y="198.35082458770617"/>
-        </scene>
         <!--The Cool Play-->
         <scene sceneID="8pm-es-nWn">
             <objects>
-                <viewController title="The Cool Play" id="P3t-yc-Ab9" sceneMemberID="viewController">
+                <viewController title="The Cool Play" id="P3t-yc-Ab9" customClass="ShowDetailViewController" customModule="A_Level_Computer_Science_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZYT-qg-5p0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -234,6 +183,87 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qFv-QJ-wDZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="828" y="195"/>
+        </scene>
+        <!--Show List Table View Controller-->
+        <scene sceneID="zhU-P1-Qef">
+            <objects>
+                <viewController id="2kP-bS-Sog" customClass="ShowListTableViewController" customModule="A_Level_Computer_Science_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wpX-8G-4WB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E1g-ap-u61">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="90" id="PUn-cC-6Ma" customClass="ShowListTableViewCell" customModule="A_Level_Computer_Science_Project" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="90"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PUn-cC-6Ma" id="IzZ-KI-5QV">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Cool Play" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M97-FX-Rta">
+                                                    <rect key="frame" x="77" y="22" width="106" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="PmC-bN-qoX"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23rd - 25th October" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGu-8b-FPZ">
+                                                    <rect key="frame" x="76" y="48" width="217" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.43106379533678751" green="0.42180202169091363" blue="0.42829057701667322" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="B6A-EV-hlO">
+                                                    <rect key="frame" x="14" y="19" width="52" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="52" id="L8y-qH-SAa"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="B6A-EV-hlO" firstAttribute="bottom" secondItem="UGu-8b-FPZ" secondAttribute="bottom" id="A3r-BL-3SH"/>
+                                                <constraint firstItem="M97-FX-Rta" firstAttribute="leading" secondItem="B6A-EV-hlO" secondAttribute="trailing" constant="11" id="Cfy-M5-7tl"/>
+                                                <constraint firstItem="UGu-8b-FPZ" firstAttribute="leading" secondItem="B6A-EV-hlO" secondAttribute="trailing" constant="10" id="Ehj-cZ-mUj"/>
+                                                <constraint firstItem="M97-FX-Rta" firstAttribute="top" secondItem="IzZ-KI-5QV" secondAttribute="topMargin" constant="11" id="FAa-Ff-QiG"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="UGu-8b-FPZ" secondAttribute="trailing" constant="67" id="Vq9-fP-7vh"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="B6A-EV-hlO" secondAttribute="bottom" constant="10" id="lSZ-Ce-L7Z"/>
+                                                <constraint firstItem="UGu-8b-FPZ" firstAttribute="top" secondItem="M97-FX-Rta" secondAttribute="bottom" constant="5" id="t4L-6Y-EDQ"/>
+                                                <constraint firstItem="B6A-EV-hlO" firstAttribute="leading" secondItem="IzZ-KI-5QV" secondAttribute="leadingMargin" constant="-1" id="uMV-Uz-xHc"/>
+                                                <constraint firstItem="B6A-EV-hlO" firstAttribute="centerY" secondItem="IzZ-KI-5QV" secondAttribute="centerY" id="vJx-4y-oz5"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="cellDescriptionLabel" destination="UGu-8b-FPZ" id="813-P6-rdC"/>
+                                            <outlet property="cellImageView" destination="B6A-EV-hlO" id="Avw-gm-DYr"/>
+                                            <outlet property="cellNameLabel" destination="M97-FX-Rta" id="r3O-Vy-vya"/>
+                                            <segue destination="P3t-yc-Ab9" kind="show" id="rhi-jj-ubl"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="E1g-ap-u61" secondAttribute="trailing" id="T2P-38-McZ"/>
+                            <constraint firstItem="E1g-ap-u61" firstAttribute="leading" secondItem="wpX-8G-4WB" secondAttribute="leading" id="cdr-ii-nyz"/>
+                            <constraint firstItem="E1g-ap-u61" firstAttribute="bottom" secondItem="dda-5n-745" secondAttribute="bottom" id="hpG-Lx-ufI"/>
+                            <constraint firstItem="E1g-ap-u61" firstAttribute="top" secondItem="wpX-8G-4WB" secondAttribute="topMargin" constant="-44" id="mQi-EM-dC8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dda-5n-745"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="beS-pU-YdZ"/>
+                    <connections>
+                        <outlet property="tableView" destination="E1g-ap-u61" id="UjB-z1-M9T"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wYF-VV-OSd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="57" y="199"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bmK-Ma-mgD">
@@ -246,7 +276,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="L1U-IB-OoO" kind="relationship" relationship="rootViewController" id="Pfl-AJ-eNs"/>
+                        <segue destination="2kP-bS-Sog" kind="relationship" relationship="rootViewController" id="OWc-8p-AQC"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sbk-du-1Cv" userLabel="First Responder" sceneMemberID="firstResponder"/>

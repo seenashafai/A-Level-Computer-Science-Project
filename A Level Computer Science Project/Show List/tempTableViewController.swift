@@ -1,23 +1,20 @@
 //
-//  ShowListTableViewController.swift
+//  tempTableViewController.swift
 //  A Level Computer Science Project
 //
-//  Created by Shafai, Seena (JRBS) on 17/09/2018.
+//  Created by Shafai, Seena (JRBS) on 20/09/2018.
 //  Copyright © 2018 Seena Shafai. All rights reserved.
 //
 
 import UIKit
 
-class ShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class tempTableViewController: UITableViewController {
 
-    var showArray = ["Othello", "Macbeth", "Twelfth Night", "Romeo & Juliet"]
+    var showArray = ["a", "b", "c"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -25,38 +22,34 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
-    
-    
-    @IBOutlet weak var tableView: UITableView!
-    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
 
     // MARK: - Table view data source
 
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return showArray.count
+        return 0
     }
+
     
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ShowListTableViewCell
-        
-        cell.cellNameLabel.text = showArray[indexPath.row]
-        cell.cellDescriptionLabel.text = "December 3rd - 5th"
-        cell.cellImageView.image = nil
-        
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        let show = showArray[indexPath.row]
+        cell.textLabel?.text = show
+
+        // Configure the cell...
+
         return cell
     }
-    
-    
-    
-    
+
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
