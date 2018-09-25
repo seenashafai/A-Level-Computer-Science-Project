@@ -11,6 +11,7 @@ import UIKit
 class ShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var showArray = ["Othello", "Macbeth", "Twelfth Night", "Romeo & Juliet"]
+    var showDateArray = ["23rd-25th December", "6th-8th January", "15th-17th January", "1st-2nd Feburary"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,8 +49,8 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ShowListTableViewCell
         
         cell.cellNameLabel.text = showArray[indexPath.row]
-        cell.cellDescriptionLabel.text = "December 3rd - 5th"
-        cell.cellImageView.image = nil
+        cell.cellDescriptionLabel.text = showDateArray[indexPath.row]
+        cell.cellImageView.image = UIImage(named: showArray[indexPath.row] + ".jpg")
         
         return cell
     }

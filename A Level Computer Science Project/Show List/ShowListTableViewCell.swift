@@ -14,6 +14,14 @@ class ShowListTableViewCell: UITableViewCell {
     @IBOutlet weak var cellImageView: UIImageView!
     @IBOutlet weak var cellDescriptionLabel: UILabel!
     
+    // Here you can customize the appearance of your cell
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // Customize imageView like you need
+        //self.cellImageView.frame = CGRect(x: 10, y: 0, width: 40, height: 40)
+        self.cellImageView.contentMode = UIViewContentMode.scaleAspectFit
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
