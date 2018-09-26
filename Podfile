@@ -10,6 +10,7 @@ target 'A Level Computer Science Project' do
 	pod 'Firebase/Core'
 	pod 'Firebase/Database'
 	pod 'Firebase/Auth'
+	pod 'Firebase/Firestore'
 
   target 'A Level Computer Science ProjectTests' do
     inherit! :search_paths
