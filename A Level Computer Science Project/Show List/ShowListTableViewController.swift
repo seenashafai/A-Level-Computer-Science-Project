@@ -10,37 +10,22 @@ import UIKit
 
 class ShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    //MARK: - Variables
+    
     var showArray = ["Othello", "Macbeth", "Twelfth Night", "Romeo & Juliet"]
     var showDateArray = ["23rd-25th December", "6th-8th January", "15th-17th January", "1st-2nd Feburary"]
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-
-    
+    //MARK: - IB Links
     
     @IBOutlet weak var tableView: UITableView!
-    
 
-    // MARK: - Table view data source
+    // MARK: - TableView Delegate
 
-    
     func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return showArray.count
     }
     
@@ -55,7 +40,19 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(90)
+    }
     
+    //MARK: - View Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+    }
     
     
     /*
