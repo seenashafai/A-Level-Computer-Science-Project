@@ -35,11 +35,13 @@ class SignUpViewController: UIViewController {
         
         Auth.auth().createUser(withEmail: email!, password: password!) { (authResult, error) in
             // ...
-            if let error = error
+            guard let email = authResult?.user.email, error == nil else
             {
-                print(error.localizedDescription)
+                print(error!.localizedDescription)
                 return
             }
+            print("account created successfully")
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
