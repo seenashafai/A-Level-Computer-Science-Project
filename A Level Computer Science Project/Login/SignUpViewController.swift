@@ -17,6 +17,8 @@ class SignUpViewController: UIViewController {
     
     //MARK: - IBOutlets
     
+    @IBOutlet var textFields: [UITextField]!
+    
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
     
@@ -26,16 +28,13 @@ class SignUpViewController: UIViewController {
     
     @IBAction func signUpButton(_ sender: Any)
     {
-        let email = emailTextField.text
-        let password = passwordTextField.text
-        let confirmedPassword = confirmPasswordTextField.text
-        let firstName = firstNameTextField.text
-        let lastName = lastNameTextField.text
-        
-        
-        Auth.auth().createUser(withEmail: email!, password: password!) { (authResult, error) in
+        localValidation()
+    }
+    
+    func createUser() {
+        Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authResult, error) in
             // ...
-            guard let email = authResult?.user.email, error == nil else
+            guard let _ = authResult?.user.email, error == nil else
             {
                 print(error!.localizedDescription)
                 return
@@ -45,6 +44,16 @@ class SignUpViewController: UIViewController {
         }
     }
     
+    func localValidation()
+    {
+        for textField in self.textFields
+        {
+            if textField.text == ""
+            {
+                print("empty", textField.tag)
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
