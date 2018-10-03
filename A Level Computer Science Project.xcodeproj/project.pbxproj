@@ -276,13 +276,16 @@
 				TargetAttributes = {
 					04904DE9209790C70043C97A = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1000;
 					};
 					04904DFD209790C80043C97A = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1000;
 						TestTargetID = 04904DE9209790C70043C97A;
 					};
 					04904E08209790C80043C97A = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1000;
 						TestTargetID = 04904DE9209790C70043C97A;
 					};
 				};
@@ -627,7 +630,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "seenashafai.A-Level-Computer-Science-Project";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -646,7 +649,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "seenashafai.A-Level-Computer-Science-Project";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -667,7 +670,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "seenashafai.A-Level-Computer-Science-ProjectTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/A Level Computer Science Project.app/A Level Computer Science Project";
 			};
@@ -689,7 +692,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "seenashafai.A-Level-Computer-Science-ProjectTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/A Level Computer Science Project.app/A Level Computer Science Project";
 			};
@@ -710,7 +713,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "seenashafai.A-Level-Computer-Science-ProjectUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "A Level Computer Science Project";
 			};
@@ -731,7 +734,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "seenashafai.A-Level-Computer-Science-ProjectUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "A Level Computer Science Project";
 			};

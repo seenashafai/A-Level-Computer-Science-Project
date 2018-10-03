@@ -19,7 +19,7 @@ class ShowListTableViewCell: UITableViewCell {
         super.layoutSubviews()
         // Customize imageView like you need
         //self.cellImageView.frame = CGRect(x: 10, y: 0, width: 40, height: 40)
-        self.cellImageView.contentMode = UIViewContentMode.scaleAspectFit
+        self.cellImageView.contentMode = UIView.ContentMode.scaleAspectFit
     }
     
     override func awakeFromNib() {

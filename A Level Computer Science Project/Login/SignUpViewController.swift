@@ -38,7 +38,7 @@ class SignUpViewController: UIViewController {
             // ...
             guard let _ = authResult?.user.email, error == nil else
             {
-                self.present(self.alerts.presentLocalizedErrorAlert(error: (error?.localizedDescription)!), animated: true)
+                self.present(self.alerts.localizedErrorAlertController(error: (error?.localizedDescription)!), animated: true)
                 return
             }
             print("account created successfully")
@@ -58,9 +58,7 @@ class SignUpViewController: UIViewController {
             if textField.text == ""
             {
                 print("empty", textField.tag)
-                let emptyFieldAlert = UIAlertController(title: "Validation Error", message: "Please do not leave any fields empty", preferredStyle: .alert)
-                emptyFieldAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(emptyFieldAlert, animated: true)
+                self.present(self.alerts.validationErrorAlertController(message: "Please do not leave any fields empty"), animated: true)
                 allPresent = false
             }
         }
@@ -69,23 +67,17 @@ class SignUpViewController: UIViewController {
             if validation.isValueMatch(str1: passwordTextField.text!, str2: confirmPasswordTextField.text!) == false
             {
                 print("Passwords do not match")
-                let nonMatchingPassAlert = UIAlertController(title: "Validation Error", message: "Your passwords do not match. Please try again", preferredStyle: .alert)
-                nonMatchingPassAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(nonMatchingPassAlert, animated: true)
+                self.present(self.alerts.validationErrorAlertController(message: "Your passwords do not match. Please try again"), animated: true)
             }
             if validation.isValidEmail(emailStr: emailTextField.text!) == false
             {
                 print("Email Validation Error")
-                let nonMatchingPassAlert = UIAlertController(title: "Validation Error", message: "Your email is not formatted correctly. Please ensure you have entered your email address correctly", preferredStyle: .alert)
-                nonMatchingPassAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(nonMatchingPassAlert, animated: true)
+                self.present(self.alerts.validationErrorAlertController(message: "Your email is not formatted correctly. Please ensure you have entered your email address correctly"), animated: true)
             }
             if validation.isValidPass(passStr: passwordTextField.text!) == false
             {
                 print("Password Validation Error")
-                let nonMatchingPassAlert = UIAlertController(title: "Validation Error", message: "Your password is not acceptable. Please ensure you have fulfilfed the required criteria for a strong password", preferredStyle: .alert)
-                nonMatchingPassAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(nonMatchingPassAlert, animated: true)
+                self.present(self.alerts.validationErrorAlertController(message: "Your password is not acceptable. Please ensure you have fulfilfed the required criteria for a strong password"), animated: true)
             }
             else
             {

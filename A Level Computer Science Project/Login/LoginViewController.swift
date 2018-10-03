@@ -25,7 +25,7 @@ class LoginViewController: UIViewController {
             // ...
             if let error = error
             {
-                self.present(self.alerts.presentLocalizedErrorAlert(error: (error.localizedDescription)), animated: true)
+                self.present(self.alerts.localizedErrorAlertController(error: (error.localizedDescription)), animated: true)
                 return
             }
             else
