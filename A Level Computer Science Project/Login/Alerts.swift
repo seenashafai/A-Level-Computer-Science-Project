@@ -16,6 +16,12 @@ class Alerts {
         let localizedErrorAlert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
         localizedErrorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         return localizedErrorAlert
-        
+    }
+    
+    func validationErrorAlert(message: String) -> UIAlertController
+    {
+        let validationErrorAlert = UIAlertController(title: "Validation Error", message: message, preferredStyle: .alert)
+        validationErrorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        return validationErrorAlert
     }
 }

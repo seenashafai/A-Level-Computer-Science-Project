@@ -10,6 +10,8 @@ import UIKit
 import FirebaseAuth
 
 class LoginViewController: UIViewController {
+    
+    var alerts = Alerts()
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -23,10 +25,7 @@ class LoginViewController: UIViewController {
             // ...
             if let error = error
             {
-                print(error.localizedDescription)
-                let localizedErrorAlert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-                localizedErrorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(localizedErrorAlert, animated: true)
+                self.present(self.alerts.presentLocalizedErrorAlert(error: (error.localizedDescription)), animated: true)
                 return
             }
             else
