@@ -15,6 +15,7 @@ class SignUpViewController: UIViewController {
 
     var ref: DatabaseReference!
     var validation = Validation()
+    var alerts = Alerts()
     
     //MARK: - IBOutlets
     
@@ -37,10 +38,7 @@ class SignUpViewController: UIViewController {
             // ...
             guard let _ = authResult?.user.email, error == nil else
             {
-                print(error!.localizedDescription)
-                let localizedErrorAlert = UIAlertController(title: "Error", message: error!.localizedDescription, preferredStyle: .alert)
-                localizedErrorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(localizedErrorAlert, animated: true)
+                self.present(self.alerts.presentLocalizedErrorAlert(error: (error?.localizedDescription)!), animated: true)
                 return
             }
             print("account created successfully")
