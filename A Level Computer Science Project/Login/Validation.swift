@@ -24,18 +24,18 @@ class Validation {
         return passTest.evaluate(with: passStr)
     }
     
-    func presenceCheck(textFields: NSArray) -> Bool
+    //Validate confirmation entries
+    func isValueMatch(str1: String, str2: String) -> Bool
     {
-        var allPresent: Bool = true
-        for textField in textFields
+        if str1 == str2
         {
-            if textField.text == ""
-            {
-                print("empty", textField.tag)
-                allPresent = false
-            }
+            return true
         }
-        return allPresent
+        else
+        {
+            return false
+        }
     }
+    
 }
 

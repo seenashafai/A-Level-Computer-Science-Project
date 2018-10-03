@@ -16,14 +16,17 @@ class LoginViewController: UIViewController {
     
     @IBAction func signInButton(_ sender: Any)
     {
-        var email = emailTextField.text
-        var password = passwordTextField.text
+        let email = emailTextField.text
+        let password = passwordTextField.text
         
         Auth.auth().signIn(withEmail: email!, password: password!) { (authResult, error) in
             // ...
             if let error = error
             {
                 print(error.localizedDescription)
+                let localizedErrorAlert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                localizedErrorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(localizedErrorAlert, animated: true)
                 return
             }
             else

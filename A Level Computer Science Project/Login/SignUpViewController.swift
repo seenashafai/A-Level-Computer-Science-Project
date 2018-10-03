@@ -14,6 +14,7 @@ import FirebaseDatabase
 class SignUpViewController: UIViewController {
 
     var ref: DatabaseReference!
+    var validation = Validation()
     
     //MARK: - IBOutlets
     
@@ -28,7 +29,7 @@ class SignUpViewController: UIViewController {
     
     @IBAction func signUpButton(_ sender: Any)
     {
-        presenceCheck()
+        signUpValidation()
     }
     
     func createUser() {
@@ -37,14 +38,21 @@ class SignUpViewController: UIViewController {
             guard let _ = authResult?.user.email, error == nil else
             {
                 print(error!.localizedDescription)
+                let localizedErrorAlert = UIAlertController(title: "Error", message: error!.localizedDescription, preferredStyle: .alert)
+                localizedErrorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(localizedErrorAlert, animated: true)
                 return
             }
             print("account created successfully")
-            self.navigationController?.popViewController(animated: true)
+            let registrationSuccessful = UIAlertController(title: "Success", message: "Account has successfully been created. Please sign in with your new credentials", preferredStyle: .alert)
+            registrationSuccessful.addAction(UIAlertAction(title: "OK", style: .default, handler:
+                {action in self.navigationController?.popViewController(animated: true)
+            }))
+            self.present(registrationSuccessful, animated: true)
         }
     }
     
-    func presenceCheck()
+    func signUpValidation()
     {
         var allPresent: Bool = true
         for textField in self.textFields
@@ -52,12 +60,39 @@ class SignUpViewController: UIViewController {
             if textField.text == ""
             {
                 print("empty", textField.tag)
+                let emptyFieldAlert = UIAlertController(title: "Validation Error", message: "Please do not leave any fields empty", preferredStyle: .alert)
+                emptyFieldAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(emptyFieldAlert, animated: true)
                 allPresent = false
             }
         }
         if allPresent == true
         {
-            self.createUser()
+            if validation.isValueMatch(str1: passwordTextField.text!, str2: confirmPasswordTextField.text!) == false
+            {
+                print("Passwords do not match")
+                let nonMatchingPassAlert = UIAlertController(title: "Validation Error", message: "Your passwords do not match. Please try again", preferredStyle: .alert)
+                nonMatchingPassAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(nonMatchingPassAlert, animated: true)
+            }
+            if validation.isValidEmail(emailStr: emailTextField.text!) == false
+            {
+                print("Email Validation Error")
+                let nonMatchingPassAlert = UIAlertController(title: "Validation Error", message: "Your email is not formatted correctly. Please ensure you have entered your email address correctly", preferredStyle: .alert)
+                nonMatchingPassAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(nonMatchingPassAlert, animated: true)
+            }
+            if validation.isValidPass(passStr: passwordTextField.text!) == false
+            {
+                print("Password Validation Error")
+                let nonMatchingPassAlert = UIAlertController(title: "Validation Error", message: "Your password is not acceptable. Please ensure you have fulfilfed the required criteria for a strong password", preferredStyle: .alert)
+                nonMatchingPassAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(nonMatchingPassAlert, animated: true)
+            }
+            else
+            {
+                createUser()
+            }
         }
     }
     
@@ -71,14 +106,9 @@ class SignUpViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func createAlerts()
+    {
+        
     }
-    */
 
 }
