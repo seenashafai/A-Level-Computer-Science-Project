@@ -28,7 +28,7 @@ class SignUpViewController: UIViewController {
     
     @IBAction func signUpButton(_ sender: Any)
     {
-        localValidation()
+        presenceCheck()
     }
     
     func createUser() {
@@ -44,16 +44,24 @@ class SignUpViewController: UIViewController {
         }
     }
     
-    func localValidation()
+    func presenceCheck()
     {
+        var allPresent: Bool = true
         for textField in self.textFields
         {
             if textField.text == ""
             {
                 print("empty", textField.tag)
+                allPresent = false
             }
         }
+        if allPresent == true
+        {
+            self.createUser()
+        }
     }
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -23,6 +23,7 @@
 		37F0E7BE214FD20000D9E335 /* ShowListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F0E7BD214FD20000D9E335 /* ShowListTableViewController.swift */; };
 		37F0E7C0214FD21B00D9E335 /* ShowDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F0E7BF214FD21B00D9E335 /* ShowDetailViewController.swift */; };
 		785153F88F15D52C4648815E /* Pods_A_Level_Computer_Science_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D977C10CDF05505EED7573AE /* Pods_A_Level_Computer_Science_Project.framework */; };
+		BD89FD7E2163ECF10050D379 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD89FD7D2163ECF10050D379 /* Validation.swift */; };
 		C7D6CE759F22409B696810B1 /* Pods_A_Level_Computer_Science_ProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B8D6CC6617262BFDFD756C1 /* Pods_A_Level_Computer_Science_ProjectTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,7 @@
 		77ADA9478C091920A75503B3 /* Pods-A Level Computer Science ProjectUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science ProjectUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science ProjectUITests/Pods-A Level Computer Science ProjectUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7B6A2DD5C9DB7DD58BD591D7 /* Pods-A Level Computer Science Project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science Project.release.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science Project/Pods-A Level Computer Science Project.release.xcconfig"; sourceTree = "<group>"; };
 		7C9CA0DCCC99354E97C94C79 /* Pods_A_Level_Computer_Science_ProjectUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_A_Level_Computer_Science_ProjectUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD89FD7D2163ECF10050D379 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		C14979C336016DFAF86C603D /* Pods-A Level Computer Science ProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science ProjectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science ProjectTests/Pods-A Level Computer Science ProjectTests.release.xcconfig"; sourceTree = "<group>"; };
 		D977C10CDF05505EED7573AE /* Pods_A_Level_Computer_Science_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_A_Level_Computer_Science_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -171,6 +173,7 @@
 			children = (
 				37F0E7BB214FD1E400D9E335 /* LoginViewController.swift */,
 				04FB57FB215C208500673B7D /* SignUpViewController.swift */,
+				BD89FD7D2163ECF10050D379 /* Validation.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				04904DEE209790C70043C97A /* AppDelegate.swift in Sources */,
 				3772778F21590566007532A0 /* ShowListTableViewCell.swift in Sources */,
 				37F0E7BE214FD20000D9E335 /* ShowListTableViewController.swift in Sources */,
+				BD89FD7E2163ECF10050D379 /* Validation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -613,7 +617,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AZQME83VC4;
 				INFOPLIST_FILE = "A Level Computer Science Project/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "seenashafai.A-Level-Computer-Science-Project";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -629,7 +636,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AZQME83VC4;
 				INFOPLIST_FILE = "A Level Computer Science Project/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "seenashafai.A-Level-Computer-Science-Project";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -646,7 +656,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AZQME83VC4;
 				INFOPLIST_FILE = "A Level Computer Science ProjectTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "seenashafai.A-Level-Computer-Science-ProjectTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -664,7 +678,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AZQME83VC4;
 				INFOPLIST_FILE = "A Level Computer Science ProjectTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "seenashafai.A-Level-Computer-Science-ProjectTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -681,7 +699,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AZQME83VC4;
 				INFOPLIST_FILE = "A Level Computer Science ProjectUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "seenashafai.A-Level-Computer-Science-ProjectUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -698,7 +720,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AZQME83VC4;
 				INFOPLIST_FILE = "A Level Computer Science ProjectUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "seenashafai.A-Level-Computer-Science-ProjectUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
