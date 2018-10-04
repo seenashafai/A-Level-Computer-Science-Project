@@ -11,6 +11,7 @@ target 'A Level Computer Science Project' do
 	pod 'Firebase/Database'
 	pod 'Firebase/Auth'
 	pod 'Firebase/Firestore'
+	pod 'IQKeyboardManagerSwift'
 
   target 'A Level Computer Science ProjectTests' do
     inherit! :search_paths

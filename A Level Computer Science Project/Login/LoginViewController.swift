@@ -38,6 +38,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        emailTextField.keyboardType = UIKeyboardType.emailAddress
 
         // Do any additional setup after loading the view.
     }
