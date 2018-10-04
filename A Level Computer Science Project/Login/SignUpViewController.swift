@@ -9,11 +9,13 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseFirestore
 
 
 class SignUpViewController: UIViewController {
 
     var ref: DatabaseReference!
+    var db: Firestore!
     var validation = Validation()
     var alerts = Alerts()
     
@@ -48,6 +50,7 @@ class SignUpViewController: UIViewController {
             }))
             self.present(registrationSuccessful, animated: true)
         }
+        let userRef = db.collection("users")
     }
     
     func signUpValidation()
@@ -86,19 +89,17 @@ class SignUpViewController: UIViewController {
         }
     }
     
-
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let settings = FirestoreSettings()
+        Firestore.firestore().settings = settings
+        db = Firestore.firestore()
 
         ref = Database.database().reference()
         // Do any additional setup after loading the view.
     }
-    
-
-    func createAlerts()
-    {
-        
-    }
-
 }
