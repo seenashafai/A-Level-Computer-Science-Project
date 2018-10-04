@@ -14,7 +14,7 @@ import FirebaseFirestore
 
 class SignUpViewController: UIViewController {
 
-    var ref: DatabaseReference!
+    var ref: DocumentReference? = nil
     var db: Firestore!
     var validation = Validation()
     var alerts = Alerts()
@@ -49,8 +49,22 @@ class SignUpViewController: UIViewController {
                 {action in self.navigationController?.popViewController(animated: true)
             }))
             self.present(registrationSuccessful, animated: true)
+
         }
-        let userRef = db.collection("users")
+
+        ref = db.collection("users").addDocument(data: [
+            "firstName": firstNameTextField.text,
+            "lastName": lastNameTextField.text,
+            "email": emailTextField.text
+            
+        ]) { err in
+            if let err = err {
+                print("error")
+            } else
+            {
+                print("success", self.ref!.documentID)
+            }
+        }
     }
     
     func signUpValidation()
@@ -72,12 +86,12 @@ class SignUpViewController: UIViewController {
                 print("Passwords do not match")
                 self.present(self.alerts.validationErrorAlertController(message: "Your passwords do not match. Please try again"), animated: true)
             }
-            if validation.isValidEmail(emailStr: emailTextField.text!) == false
+            else if validation.isValidEmail(emailStr: emailTextField.text!) == false
             {
                 print("Email Validation Error")
                 self.present(self.alerts.validationErrorAlertController(message: "Your email is not formatted correctly. Please ensure you have entered your email address correctly"), animated: true)
             }
-            if validation.isValidPass(passStr: passwordTextField.text!) == false
+           else if validation.isValidPass(passStr: passwordTextField.text!) == false
             {
                 print("Password Validation Error")
                 self.present(self.alerts.validationErrorAlertController(message: "Your password is not acceptable. Please ensure you have fulfilfed the required criteria for a strong password"), animated: true)
@@ -99,7 +113,6 @@ class SignUpViewController: UIViewController {
         Firestore.firestore().settings = settings
         db = Firestore.firestore()
 
-        ref = Database.database().reference()
         // Do any additional setup after loading the view.
     }
 }

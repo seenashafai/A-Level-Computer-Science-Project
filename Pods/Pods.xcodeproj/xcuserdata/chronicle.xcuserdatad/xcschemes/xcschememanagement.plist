@@ -44,25 +44,30 @@
 			<key>orderHint</key>
 			<integer>6</integer>
 		</dict>
-		<key>Pods-A Level Computer Science Project.xcscheme</key>
+		<key>IQKeyboardManagerSwift.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>16</integer>
+			<integer>14</integer>
 		</dict>
-		<key>Pods-A Level Computer Science ProjectTests.xcscheme</key>
+		<key>Pods-A Level Computer Science Project.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>17</integer>
 		</dict>
-		<key>Pods-A Level Computer Science ProjectUITests.xcscheme</key>
+		<key>Pods-A Level Computer Science ProjectTests.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>18</integer>
 		</dict>
-		<key>Protobuf.xcscheme</key>
+		<key>Pods-A Level Computer Science ProjectUITests.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>19</integer>
+		</dict>
+		<key>Protobuf.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>20</integer>
 		</dict>
 		<key>gRPC-C++.xcscheme</key>
 		<dict>
@@ -97,12 +102,12 @@
 		<key>leveldb-library.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>14</integer>
+			<integer>15</integer>
 		</dict>
 		<key>nanopb.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>15</integer>
+			<integer>16</integer>
 		</dict>
 	</dict>
 </dict>
