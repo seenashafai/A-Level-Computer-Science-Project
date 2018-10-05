@@ -359,21 +359,14 @@
                             <tableView clipsSubviews="YES" contentMode="scaleAspectFit" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E1g-ap-u61">
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <searchBar key="tableHeaderView" contentMode="redraw" showsCancelButton="YES" id="fnq-fL-iJ0">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="QNf-nr-vRc">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <textInputTraits key="textInputTraits"/>
-                                    <scopeButtonTitles>
-                                        <string>Title</string>
-                                        <string>Title</string>
-                                    </scopeButtonTitles>
-                                    <connections>
-                                        <outlet property="delegate" destination="2kP-bS-Sog" id="Vwl-zB-Sv2"/>
-                                    </connections>
                                 </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="95" id="PUn-cC-6Ma" customClass="ShowListTableViewCell" customModule="A_Level_Computer_Science_Project" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="84" width="375" height="95"/>
+                                        <rect key="frame" x="0.0" y="72" width="375" height="95"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PUn-cC-6Ma" id="IzZ-KI-5QV">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="94.666666666666671"/>
@@ -435,7 +428,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Show List" id="P9v-fG-sjO"/>
                     <connections>
-                        <outlet property="searchBar" destination="fnq-fL-iJ0" id="Ci6-Dj-ZNJ"/>
                         <outlet property="searchDisplayController" destination="qAX-Od-iZy" id="0fm-2z-5oK"/>
                         <outlet property="tableView" destination="E1g-ap-u61" id="UjB-z1-M9T"/>
                     </connections>
@@ -444,7 +436,6 @@
                 <searchDisplayController id="qAX-Od-iZy">
                     <connections>
                         <outlet property="delegate" destination="2kP-bS-Sog" id="Pg3-Gn-4UK"/>
-                        <outlet property="searchBar" destination="fnq-fL-iJ0" id="fic-aw-fNo"/>
                         <outlet property="searchContentsController" destination="2kP-bS-Sog" id="8vv-Hz-6Fw"/>
                         <outlet property="searchResultsDataSource" destination="2kP-bS-Sog" id="d2a-y6-qfv"/>
                         <outlet property="searchResultsDelegate" destination="2kP-bS-Sog" id="YUK-mw-git"/>

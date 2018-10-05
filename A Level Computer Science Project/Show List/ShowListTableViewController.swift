@@ -13,7 +13,10 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     //MARK: - Variables
     
     var showArray = ["Othello", "Macbeth", "Twelfth Night", "Romeo & Juliet"]
-    var showDateArray = ["23rd-25th December", "6th-8th January", "15th-17th January", "1st-2nd Feburary"]
+    var showDateArray = ["23rd-25th December", "6th-8th January", "15th-17th January", "1st-3rd Feburary"]
+    
+    //MARK: - Properties
+    var shows = [Show]()
     
     //MARK: - IB Links
     
@@ -27,16 +30,16 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return showArray.count
+        return shows.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ShowListTableViewCell
-        
-        cell.cellNameLabel.text = showArray[indexPath.row]
-        cell.cellDescriptionLabel.text = showDateArray[indexPath.row]
-        cell.cellImageView.image = UIImage(named: showArray[indexPath.row] + ".jpg")
+        let show = shows[indexPath.row]
+        cell.cellNameLabel.text = show.name
+        cell.cellDescriptionLabel.text = show.date
+        cell.cellImageView.image = UIImage(named: show.name + ".jpg")
         
         return cell
     }
@@ -59,7 +62,14 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
+        shows = [
+            Show(name: "Othello", category: "School Play", date: "23rd-25th December"),
+            Show(name: "Macbeth", category: "School Play", date: "6th-8th January"),
+            Show(name: "Twelfth Night", category: "School Play", date: "15th-17th January"),
+            Show(name: "Romeo & Juliet", category: "School Play", date: "1st-3rd February")
+        ]
     }
+
     
     
     /*
