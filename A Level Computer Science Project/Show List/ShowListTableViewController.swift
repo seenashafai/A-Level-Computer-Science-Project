@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
     //MARK: - Variables
     
@@ -18,7 +18,8 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     //MARK: - IB Links
     
     @IBOutlet weak var tableView: UITableView!
-
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     // MARK: - TableView Delegate
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -42,6 +43,12 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(90)
+    }
+    
+    //MARK: - UISearchBarDelegate
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
     }
     
     //MARK: - View Lifecycle
