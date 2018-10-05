@@ -14,7 +14,6 @@ import FirebaseFirestore
 
 class SignUpViewController: UIViewController {
 
-    var ref: DocumentReference? = nil
     var db: Firestore!
     var validation = Validation()
     var alerts = Alerts()
@@ -51,8 +50,8 @@ class SignUpViewController: UIViewController {
             self.present(registrationSuccessful, animated: true)
 
         }
-
-        ref = db.collection("users").addDocument(data: [
+        var ref: DocumentReference? = nil
+        db.collection("users").document(emailTextField.text!).setData([
             "firstName": firstNameTextField.text,
             "lastName": lastNameTextField.text,
             "email": emailTextField.text
@@ -62,7 +61,7 @@ class SignUpViewController: UIViewController {
                 print("error")
             } else
             {
-                print("success", self.ref!.documentID)
+                print("success")
             }
         }
     }
