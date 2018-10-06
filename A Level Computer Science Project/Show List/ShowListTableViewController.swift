@@ -21,7 +21,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     //MARK: - IB Links
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet var searchBar: UISearchBar!
     
     // MARK: - TableView Delegate
 
@@ -36,10 +36,10 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ShowListTableViewCell
-        let show = shows[indexPath.row]
-        cell.cellNameLabel.text = show.name
-        cell.cellDescriptionLabel.text = show.date
-        cell.cellImageView.image = UIImage(named: show.name + ".jpg")
+        let current = currentShow[indexPath.row]
+        cell.cellNameLabel.text = current.name
+        cell.cellDescriptionLabel.text = current.date
+        cell.cellImageView.image = UIImage(named: current.name + ".jpg")
         
         return cell
     }
@@ -51,7 +51,12 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     //MARK: - UISearchBarDelegate
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+        guard searchText.isEmpty else { currentShow = shows; return}
+        currentShow = shows.filter({ show -> Bool in
+            guard let text = searchBar.text else { return false }
+            return show.name.contains(text)
+        })
+        tableView.reloadData()
     }
     
     //MARK: - View Lifecycle
@@ -61,6 +66,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        searchBar.delegate = self
         
         shows = [
             Show(name: "Othello", category: "School Play", date: "23rd-25th December"),
@@ -68,6 +74,8 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
             Show(name: "Twelfth Night", category: "School Play", date: "15th-17th January"),
             Show(name: "Romeo & Juliet", category: "School Play", date: "1st-3rd February")
         ]
+        currentShow = shows
+        print(currentShow)
     }
 
     
