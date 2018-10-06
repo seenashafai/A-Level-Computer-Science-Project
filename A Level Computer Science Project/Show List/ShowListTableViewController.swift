@@ -8,15 +8,17 @@
 
 import UIKit
 
-class ShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class ShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     //MARK: - Variables
     
     var showArray = ["Othello", "Macbeth", "Twelfth Night", "Romeo & Juliet"]
     var showDateArray = ["23rd-25th December", "6th-8th January", "15th-17th January", "1st-3rd Feburary"]
+    var filteredShows = [Show]()
     
     //MARK: - Properties
     var shows = [Show]()
+    let searchController = UISearchController(searchResultsController: nil)
     
     //MARK: - IB Links
     
@@ -30,16 +32,26 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering()
+        {
+            return filteredShows.count
+        }
+        
         return shows.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ShowListTableViewCell
-        let current = currentShow[indexPath.row]
-        cell.cellNameLabel.text = current.name
-        cell.cellDescriptionLabel.text = current.date
-        cell.cellImageView.image = UIImage(named: current.name + ".jpg")
+        let show: Show
+        if isFiltering() {
+            show = filteredShows[indexPath.row]
+        } else {
+            show = shows[indexPath.row]
+        }
+        cell.cellNameLabel.text = show.name
+        cell.cellDescriptionLabel.text = show.date
+        cell.cellImageView.image = UIImage(named: show.name + ".jpg")
         
         return cell
     }
@@ -50,14 +62,30 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     //MARK: - UISearchBarDelegate
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard searchText.isEmpty else { currentShow = shows; return}
-        currentShow = shows.filter({ show -> Bool in
-            guard let text = searchBar.text else { return false }
-            return show.name.contains(text)
+    //MARK: - Private instance methods
+    
+    func searchBarIsEmpty() -> Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    func isFiltering() -> Bool {
+        let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
+        return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
+    }
+    
+    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+        filteredShows = shows.filter({( show : Show) -> Bool in
+            let doesCategoryMatch = (scope == "All") || (show.category == scope + " Play")
+            
+            if searchBarIsEmpty() {
+                return doesCategoryMatch
+            } else {
+                return doesCategoryMatch && show.name.lowercased().contains(searchText.lowercased())
+            }
         })
         tableView.reloadData()
     }
+    
     
     //MARK: - View Lifecycle
     
@@ -66,7 +94,15 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        searchBar.delegate = self
+        
+        searchController.searchBar.scopeButtonTitles = ["All", "School", "House", "Independent"]
+        searchController.searchBar.delegate = self
+        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Shows"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
         
         shows = [
             Show(name: "Othello", category: "School Play", date: "23rd-25th December"),
@@ -74,8 +110,6 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
             Show(name: "Twelfth Night", category: "School Play", date: "15th-17th January"),
             Show(name: "Romeo & Juliet", category: "School Play", date: "1st-3rd February")
         ]
-        currentShow = shows
-        print(currentShow)
     }
 
     
@@ -125,4 +159,20 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     */
 
+}
+
+extension ShowListTableViewController: UISearchResultsUpdating {
+    //MARK: - UISearchResultsUpdatingDelegate
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+        filterContentForSearchText(searchController.searchBar.text!, scope: scope)
+    }
+}
+
+extension ShowListTableViewController: UISearchBarDelegate {
+    //MARK: - UISearchBar Delegate
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+    }
 }
