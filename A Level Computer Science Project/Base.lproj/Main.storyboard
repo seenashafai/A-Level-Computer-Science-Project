@@ -421,7 +421,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dda-5n-745"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Show List" id="P9v-fG-sjO"/>
+                    <navigationItem key="navigationItem" title="Show List" id="P9v-fG-sjO">
+                        <barButtonItem key="rightBarButtonItem" title="Sort" id="q5z-ak-luz">
+                            <connections>
+                                <action selector="sortTableAction:" destination="2kP-bS-Sog" id="uvc-xw-g6M"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="searchDisplayController" destination="qAX-Od-iZy" id="0fm-2z-5oK"/>
                         <outlet property="tableView" destination="E1g-ap-u61" id="UjB-z1-M9T"/>

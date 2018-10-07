@@ -14,6 +14,8 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     var showArray = ["Othello", "Macbeth", "Twelfth Night", "Romeo & Juliet"]
     var showDateArray = ["23rd-25th December", "6th-8th January", "15th-17th January", "1st-3rd Feburary"]
+    var avgDateArray = ["24 Dec 2017", "7 Jan 2018", "16 Jan 2018", "2 Feb 2018"]
+    var convertedDateArray: [Date] = []
     var filteredShows = [Show]()
     
     //MARK: - Properties
@@ -23,7 +25,9 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     //MARK: - IB Links
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet var searchBar: UISearchBar!
+    @IBAction func sortTableAction(_ sender: Any) {
+        presentSortingActionSheet()
+    }
     
     // MARK: - TableView Delegate
 
@@ -112,43 +116,50 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         ]
     }
 
+    func presentSortingActionSheet()
+    {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Sort by Date", style: .default, handler: {(UIAlertAction) in
+            self.sort()
+        }))
+        alert.addAction(UIAlertAction(title: "Sort by Alphabetical Order", style: .default, handler: {(UIAlertAction) in
+            self.sort()
+        }))
+        alert.addAction(UIAlertAction(title: "Sort by Rating", style: .default, handler: {(UIAlertAction) in
+            self.sort()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in }
+        )
+        
+        self.present(alert, animated: true, completion: {
+            print("completion")
+        })
+        
+    }
     
+    func sort()
+    {
+     convertDates()
+    }
+
+    func convertDates()
+    {
+        var dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MM, yyyy"
+        for d in avgDateArray
+        {
+            let date = dateFormatter.date(from: d)
+            if let date = date {
+                convertedDateArray.append(date)
+            }
+        }
+        print("converted date", convertedDateArray)
+        var sortedDateArray: [Date] = []
+        sortedDateArray = convertedDateArray.sorted(by: { $0.compare($1) == .orderedAscending})
+        print(sortedDateArray)
+        tableView.reloadData()
+    }
     
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     /*
     // MARK: - Navigation
 
