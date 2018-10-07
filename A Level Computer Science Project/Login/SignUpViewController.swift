@@ -8,8 +8,8 @@
 
 import UIKit
 import FirebaseAuth
-import FirebaseDatabase
 import FirebaseFirestore
+
 
 
 class SignUpViewController: UIViewController {
@@ -39,7 +39,7 @@ class SignUpViewController: UIViewController {
             // ...
             guard let _ = authResult?.user.email, error == nil else
             {
-                self.present(self.alerts.localizedErrorAlertController(error: (error?.localizedDescription)!), animated: true)
+                self.present(self.alerts.localizedErrorAlertController(message: (error?.localizedDescription)!), animated: true)
                 return
             }
             print("account created successfully")
@@ -50,7 +50,7 @@ class SignUpViewController: UIViewController {
             self.present(registrationSuccessful, animated: true)
 
         }
-        var ref: DocumentReference? = nil
+        var _: DocumentReference? = nil
         db.collection("users").document(emailTextField.text!).setData([
             "firstName": firstNameTextField.text,
             "lastName": lastNameTextField.text,

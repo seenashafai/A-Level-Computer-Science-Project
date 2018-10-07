@@ -11,9 +11,9 @@ import UIKit
 
 class Alerts {
     
-    func localizedErrorAlertController(error: String) -> UIAlertController
+    func localizedErrorAlertController(message: String) -> UIAlertController
     {
-        let localizedErrorAlert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+        let localizedErrorAlert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         localizedErrorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         return localizedErrorAlert
     }
