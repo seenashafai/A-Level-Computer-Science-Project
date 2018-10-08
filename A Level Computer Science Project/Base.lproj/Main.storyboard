@@ -45,7 +45,7 @@
                                     <segue destination="Qac-YE-pa3" kind="show" id="XHZ-rO-xO1"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cFz-GG-ZAi">
+                            <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cFz-GG-ZAi">
                                 <rect key="frame" x="50" y="369" width="275" height="30"/>
                                 <color key="backgroundColor" red="0.90822905300000001" green="0.9606726766" blue="0.98163539170000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -55,7 +55,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ees-Pe-IMi">
+                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ees-Pe-IMi">
                                 <rect key="frame" x="50" y="319" width="275" height="30"/>
                                 <color key="backgroundColor" red="0.90999617470000005" green="0.96245815079999997" blue="0.98144656299999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="textColor"/>
@@ -185,6 +185,8 @@
                     <connections>
                         <outlet property="emailTextField" destination="Ees-Pe-IMi" id="7M9-lJ-yCh"/>
                         <outlet property="passwordTextField" destination="cFz-GG-ZAi" id="EHv-z4-Dd2"/>
+                        <outletCollection property="textFields" destination="Ees-Pe-IMi" collectionClass="NSMutableArray" id="JUg-Bx-2QP"/>
+                        <outletCollection property="textFields" destination="cFz-GG-ZAi" collectionClass="NSMutableArray" id="95U-CW-3eI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8mv-3H-7nb" userLabel="First Responder" sceneMemberID="firstResponder"/>

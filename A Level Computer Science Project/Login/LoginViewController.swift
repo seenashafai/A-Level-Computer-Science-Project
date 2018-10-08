@@ -15,11 +15,17 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet var textFields: [UITextField]!
     
     @IBAction func signInButton(_ sender: Any)
     {
         let email = emailTextField.text
         let password = passwordTextField.text
+        
+        if textBoxIsFilled() == false
+        {
+            
+        }
         
         Auth.auth().signIn(withEmail: email!, password: password!) { (authResult, error) in
             // ...
@@ -34,6 +40,22 @@ class LoginViewController: UIViewController {
                 self.performSegue(withIdentifier: "toShowList", sender: self)
             }
         }
+    }
+    
+    //MARK: - Private Instance Methofs
+    func textBoxIsFilled() -> Bool
+    {
+        var allPresent: Bool = true
+        for textField in self.textFields
+        {
+            if textField.text == ""
+            {
+                print("empty", textField.tag)
+                self.present(self.alerts.validationErrorAlertController(message: "Please do not leave any fields empty"), animated: true)
+                allPresent = false
+            }
+        }
+        return allPresent
     }
     
     //MARK: - View Life Cycle
