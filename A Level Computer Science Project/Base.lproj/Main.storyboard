@@ -191,7 +191,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8mv-3H-7nb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-726.08695652173924" y="198.88392857142856"/>
+            <point key="canvasLocation" x="-727.20000000000005" y="198.76847290640396"/>
         </scene>
         <!--Sign Up-->
         <scene sceneID="FSs-6E-iaM">
@@ -309,7 +309,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M8x-Xh-KOY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-726.08695652173924" y="894.64285714285711"/>
+            <point key="canvasLocation" x="-727.20000000000005" y="894.0886699507389"/>
         </scene>
         <!--The Cool Play-->
         <scene sceneID="8pm-es-nWn">

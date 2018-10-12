@@ -17,13 +17,19 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     var showDateArray = ["23rd-25th December", "6th-8th January", "15th-17th January", "1st-3rd Feburary"]
     var avgDateArray = ["24 Dec 2017", "7 Jan 2018", "16 Jan 2018", "2 Feb 2018"]
     var convertedDateArray: [Date] = []
-    var db: Firestore!
+    var dbShowArray = [Any]()
+
+    
+    //MARK: - FirebaseT2
     var documents: [DocumentSnapshot] = []
     var listener: ListenerRegistration!
+    var dbShows = [Show]()
+
+
+    var db: Firestore!
     var filteredShows = [Show]()
     
     //MARK: - Properties
-    var dbShows = [Show]()
     var shows = [Show]()
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -46,7 +52,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
             return filteredShows.count
         }
         
-        return shows.count
+        return dbShows.count
     }
     
     
@@ -56,7 +62,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         if isFiltering() {
             show = filteredShows[indexPath.row]
         } else {
-            show = shows[indexPath.row]
+            show = dbShows[indexPath.row]
         }
         cell.cellNameLabel.text = show.name
         cell.cellDescriptionLabel.text = String(show.category)
@@ -83,8 +89,8 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        filteredShows = shows.filter({( show : Show) -> Bool in
-            let doesCategoryMatch = (scope == "All") || (show.category == scope + " Play")
+        filteredShows = dbShows.filter({( show : Show) -> Bool in
+            let doesCategoryMatch = (scope == "All") || (show.category == scope)
             
             if searchBarIsEmpty() {
                 return doesCategoryMatch
@@ -112,8 +118,9 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         
         let settings = FirestoreSettings()
-        Firestore.firestore().settings = settings
         db = Firestore.firestore()
+        db.settings = settings
+        settings.areTimestampsInSnapshotsEnabled = true
         self.query = baseQuery()
         
         self.tableView.delegate = self
@@ -127,15 +134,6 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         searchController.searchBar.placeholder = "Search Shows"
         navigationItem.searchController = searchController
         definesPresentationContext = true
-        
-        shows = [
-            Show(name: "Othello", category: "School Play"), //date: "23rd-25th December"),
-            Show(name: "Macbeth", category: "School Play"), //date: "6th-8th January"),
-            Show(name: "Twelfth Night", category: "School Play"), //date: "15th-17th January"),
-            Show(name: "Romeo & Juliet", category: "School Play"), //date: "1st-3rd February")
-        ]
-        
-        pullFromFirestore()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -145,6 +143,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         self.listener =  query?.addSnapshotListener { (documents, error) in
             guard let snapshot = documents else {
                 print("Error fetching documents results: \(error!)")
@@ -153,6 +152,8 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
             
             let results = snapshot.documents.map { (document) -> Show in
                 if let show = Show(dictionary: document.data()) {
+                    print(show, "showDict")
+                    print(Show.self, document.data())
                     return show
                 } else {
                     fatalError("Unable to initialize type \(Show.self) with dictionary \(document.data())")
@@ -164,10 +165,10 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
             print(self.dbShows, "dbshows")
             print(documents, "docs")
             self.tableView.reloadData()
-            
+
         }
     }
-    
+
     func presentSortingActionSheet()
     {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -188,11 +189,9 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         })
         
     }
-    
+    /*
     func pullFromFirestore()
     {
-        var dbShowArray = [AnyObject]()
-        var documentDict = [String : Any]()
         db.collection("shows").getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
@@ -200,13 +199,14 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
                 for document in querySnapshot!.documents {
                     print("\(document.documentID) => \(document.data())")
                     var dict = document.data()
-                    dbShowArray.append(dict as AnyObject)
-                    print("TRACER")
+                    self.dbShowArray.append(dict)
+                    print(self.dbShowArray, "showArray")
                 }
             }
         }
-        print(dbShowArray, "show")
+
     }
+ */
     
     func sort()
     {
