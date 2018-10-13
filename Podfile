@@ -11,6 +11,7 @@ target 'A Level Computer Science Project' do
 	pod 'Firebase/Database'
 	pod 'Firebase/Auth'
 	pod 'Firebase/Firestore'
+	pod 'Firebase/Storage'
 	pod 'IQKeyboardManagerSwift'
 
   target 'A Level Computer Science ProjectTests' do

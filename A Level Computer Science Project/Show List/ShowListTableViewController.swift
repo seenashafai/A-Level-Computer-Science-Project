@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseFirestore
+import FirebaseStorage
 
 class ShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -121,6 +122,10 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         db = Firestore.firestore()
         db.settings = settings
         settings.areTimestampsInSnapshotsEnabled = true
+        settings.isPersistenceEnabled = false
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+
         self.query = baseQuery()
         
         self.tableView.delegate = self
