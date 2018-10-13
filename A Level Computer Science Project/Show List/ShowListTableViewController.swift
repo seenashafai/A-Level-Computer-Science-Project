@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseFirestore
 import FirebaseStorage
 
@@ -66,6 +67,8 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
             show = dbShows[indexPath.row]
         }
         cell.cellNameLabel.text = show.name
+        var date = Date(timeIntervalSince1970: TimeInterval(show.date.seconds))
+        print(date, "date")
         cell.cellDescriptionLabel.text = String(show.category)
         cell.cellImageView.image = UIImage(named: show.name + ".jpg")
         
@@ -118,10 +121,10 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let settings = FirestoreSettings()
         db = Firestore.firestore()
-        db.settings = settings
+        let settings = FirestoreSettings()
         settings.areTimestampsInSnapshotsEnabled = true
+        db.settings = settings
         settings.isPersistenceEnabled = false
         let storage = Storage.storage()
         let storageRef = storage.reference()
@@ -236,16 +239,19 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.reloadData()
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "toDetailsView"
+        {
+            let destinationVC = segue.destination as! ShowDetailViewController
+            let indexPath = self.tableView.indexPathForSelectedRow
+            let show = dbShows[indexPath!.row]
+            destinationVC.showTitle = show.name
+        }
     }
-    */
-
 }
 
 extension ShowListTableViewController: UISearchResultsUpdating {

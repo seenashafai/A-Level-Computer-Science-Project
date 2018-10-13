@@ -10,8 +10,11 @@ import UIKit
 
 class ShowDetailViewController: UIViewController {
 
+    var showTitle: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = showTitle
 
         // Do any additional setup after loading the view.
     }
