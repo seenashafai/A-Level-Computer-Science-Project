@@ -38,4 +38,15 @@ extension Show {
     
 }
 
+class showFunctions {
+    
+    func getDateFromEpoch(timeInterval: Double) -> String
+    {
+        let date = Date(timeIntervalSince1970: timeInterval)
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_GB")
+        dateFormatter.dateStyle = .medium
+        return dateFormatter.string(from: date)
+    }
+}
 

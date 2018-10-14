@@ -15,7 +15,6 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
 
     //MARK: - Variables
     
-    var showArray = ["Othello", "Macbeth", "Twelfth Night", "Romeo & Juliet"]
     var showDateArray = ["23rd-25th December", "6th-8th January", "15th-17th January", "1st-3rd Feburary"]
     var avgDateArray = ["24 Dec 2017", "7 Jan 2018", "16 Jan 2018", "2 Feb 2018"]
     var convertedDateArray: [Date] = []
@@ -33,6 +32,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     //MARK: - Properties
     var shows = [Show]()
+    var showFuncs = showFunctions()
     let searchController = UISearchController(searchResultsController: nil)
     
     //MARK: - IB Links
@@ -68,8 +68,11 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         }
         cell.cellNameLabel.text = show.name
         var date = Date(timeIntervalSince1970: TimeInterval(show.date.seconds))
+        var medDate = showFuncs.getDateFromEpoch(timeInterval: TimeInterval(show.date.seconds))
         print(date, "date")
-        cell.cellDescriptionLabel.text = String(show.category)
+        print(medDate, "medDate")
+        
+        cell.cellDescriptionLabel.text = medDate
         cell.cellImageView.image = UIImage(named: show.name + ".jpg")
         
         return cell
@@ -126,8 +129,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         settings.areTimestampsInSnapshotsEnabled = true
         db.settings = settings
         settings.isPersistenceEnabled = false
-        let storage = Storage.storage()
-        let storageRef = storage.reference()
+
 
         self.query = baseQuery()
         
