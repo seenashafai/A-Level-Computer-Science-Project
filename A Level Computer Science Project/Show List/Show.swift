@@ -10,7 +10,11 @@ import Foundation
 import FirebaseFirestore
 
 
-struct Show {
+struct Show: Comparable {
+    static func < (lhs: Show, rhs: Show) -> Bool {
+        return lhs.date.seconds < rhs.date.seconds
+    }
+    
     let name: String
     let category: String
     let date: Timestamp

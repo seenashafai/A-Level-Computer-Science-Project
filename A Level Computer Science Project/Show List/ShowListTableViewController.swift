@@ -14,13 +14,7 @@ import FirebaseStorage
 class ShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     //MARK: - Variables
-    
-    var showDateArray = ["23rd-25th December", "6th-8th January", "15th-17th January", "1st-3rd Feburary"]
-    var avgDateArray = ["24 Dec 2017", "7 Jan 2018", "16 Jan 2018", "2 Feb 2018"]
-    var convertedDateArray: [Date] = []
-    var dbShowArray = [Any]()
 
-    
     //MARK: - FirebaseT2
     var documents: [DocumentSnapshot] = []
     var listener: ListenerRegistration!
@@ -31,7 +25,6 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     var filteredShows = [Show]()
     
     //MARK: - Properties
-    var shows = [Show]()
     var showFuncs = showFunctions()
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -53,7 +46,6 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         {
             return filteredShows.count
         }
-        
         return dbShows.count
     }
     
@@ -67,10 +59,8 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
             show = dbShows[indexPath.row]
         }
         cell.cellNameLabel.text = show.name
-        var date = Date(timeIntervalSince1970: TimeInterval(show.date.seconds))
-        var medDate = showFuncs.getDateFromEpoch(timeInterval: TimeInterval(show.date.seconds))
-        print(date, "date")
-        print(medDate, "medDate")
+        _ = Date(timeIntervalSince1970: TimeInterval(show.date.seconds))
+        let medDate = showFuncs.getDateFromEpoch(timeInterval: TimeInterval(show.date.seconds))
         
         cell.cellDescriptionLabel.text = medDate
         cell.cellImageView.image = UIImage(named: show.name + ".jpg")
@@ -162,8 +152,6 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
             
             let results = snapshot.documents.map { (document) -> Show in
                 if let show = Show(dictionary: document.data()) {
-                    print(show, "showDict")
-                    print(Show.self, document.data())
                     return show
                 } else {
                     fatalError("Unable to initialize type \(Show.self) with dictionary \(document.data())")
@@ -172,8 +160,6 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
             
             self.dbShows = results
             self.documents = snapshot.documents
-            print(self.dbShows, "dbshows")
-            print(documents, "docs")
             self.tableView.reloadData()
 
         }
@@ -184,6 +170,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Sort by Date", style: .default, handler: {(UIAlertAction) in
             self.sort()
+            self.tableView.reloadData()
         }))
         alert.addAction(UIAlertAction(title: "Sort by Alphabetical Order", style: .default, handler: {(UIAlertAction) in
             self.sort()
@@ -220,27 +207,8 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     func sort()
     {
-     convertDates()
+        dbShows = dbShows.sorted(by: { $0.date.seconds < $1.date.seconds })
     }
-
-    func convertDates()
-    {
-        var dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MM, yyyy"
-        for d in avgDateArray
-        {
-            let date = dateFormatter.date(from: d)
-            if let date = date {
-                convertedDateArray.append(date)
-            }
-        }
-        print("converted date", convertedDateArray)
-        var sortedDateArray: [Date] = []
-        sortedDateArray = convertedDateArray.sorted(by: { $0.compare($1) == .orderedAscending})
-        print(sortedDateArray)
-        tableView.reloadData()
-    }
-    
     
     // MARK: - Navigation
 
@@ -269,5 +237,11 @@ extension ShowListTableViewController: UISearchBarDelegate {
     //MARK: - UISearchBar Delegate
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+    }
+}
+
+extension Array where Element == [String:String] {
+    func sorted(by key: String) -> [[String:String]] {
+        return sorted { $0[key] ?? "" < $1[key] ?? "" }
     }
 }
