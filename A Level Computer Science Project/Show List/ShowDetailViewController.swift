@@ -7,9 +7,30 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class ShowDetailViewController: UIViewController {
 
+    var isUserSignedIn: Bool = false
+    
+    @IBAction func toTicketPortal(_ sender: Any) {
+        if Auth.auth().currentUser != nil {
+            print(Auth.auth().currentUser?.email)
+            isUserSignedIn = true
+        } else {
+            let userNotSignedIn = UIAlertController(title: "Error", message: "You must be signed in to order tickets. Please proceed to create an account", preferredStyle: .alert)
+            userNotSignedIn.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+                print("cancel")
+            }))
+            userNotSignedIn.addAction(UIAlertAction(title: "Sign In", style: .default, handler: { action in
+                print("signin")
+            }))
+            self.present(userNotSignedIn, animated: true)
+        }
+    }
+    
+    
     var showTitle: String = ""
     
     override func viewDidLoad() {
@@ -25,14 +46,24 @@ class ShowDetailViewController: UIViewController {
     }
     
 
-    /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool {
+        if let id = identifier {
+            if id == "toTicketPortal" {
+                print("im already tracerrrrrr")
+                if isUserSignedIn != true {
+                    print("nope")
+                    return false
+                }
+                else {return true}
+                
+            }
+        }
+        return true
     }
-    */
-
+    
+  
 }

@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 import FirebaseStorage
-import MaterialComponents
+import MaterialComponents.MaterialSnackbar
 
 class ShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -206,11 +206,24 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         }
 
     }
+     
+     let action = MDCSnackbarMessageAction()
+     let actionHandler = {() in
+     let answerMessage = MDCSnackbarMessage()
+     answerMessage.text = "Fascinating"
+     MDCSnackbarManager.show(answerMessage)
+     }
+     action.handler = actionHandler
+     action.title = "OK"
+     message.action = action
  */
     
     func sortByDate()
     {
         let message = MDCSnackbarMessage()
+        let action = MDCSnackbarMessageAction()
+        
+        
         dateSortIndex = dateSortIndex + 1
         if dateSortIndex % 2 != 0
         {
