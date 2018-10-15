@@ -123,6 +123,44 @@ PODS:
   - GTMSessionFetcher/Core (1.2.0)
   - IQKeyboardManagerSwift (6.2.0)
   - leveldb-library (1.20)
+  - MaterialComponents/AnimationTiming (67.0.0)
+  - MaterialComponents/Buttons (67.0.0):
+    - MaterialComponents/Ink
+    - MaterialComponents/private/Math
+    - MaterialComponents/private/Shapes
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Typography
+    - MDFInternationalization
+    - MDFTextAccessibility
+  - MaterialComponents/Ink (67.0.0):
+    - MaterialComponents/private/Math
+  - MaterialComponents/OverlayWindow (67.0.0):
+    - MaterialComponents/private/Application
+  - MaterialComponents/private/Application (67.0.0)
+  - MaterialComponents/private/KeyboardWatcher (67.0.0):
+    - MaterialComponents/private/Application
+  - MaterialComponents/private/Math (67.0.0)
+  - MaterialComponents/private/Overlay (67.0.0)
+  - MaterialComponents/private/Shapes (67.0.0):
+    - MaterialComponents/private/Math
+    - MaterialComponents/ShadowLayer
+  - MaterialComponents/ShadowElevations (67.0.0)
+  - MaterialComponents/ShadowLayer (67.0.0):
+    - MaterialComponents/ShadowElevations
+  - MaterialComponents/Snackbar (67.0.0):
+    - MaterialComponents/AnimationTiming
+    - MaterialComponents/Buttons
+    - MaterialComponents/OverlayWindow
+    - MaterialComponents/private/Application
+    - MaterialComponents/private/KeyboardWatcher
+    - MaterialComponents/private/Overlay
+    - MaterialComponents/Typography
+  - MaterialComponents/Typography (67.0.0):
+    - MaterialComponents/private/Application
+    - MaterialComponents/private/Math
+  - MDFInternationalization (1.1.0)
+  - MDFTextAccessibility (1.2.0)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
@@ -137,6 +175,7 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Firebase/Storage
   - IQKeyboardManagerSwift
+  - MaterialComponents/Snackbar
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -160,6 +199,9 @@ SPEC REPOS:
     - GTMSessionFetcher
     - IQKeyboardManagerSwift
     - leveldb-library
+    - MaterialComponents
+    - MDFInternationalization
+    - MDFTextAccessibility
     - nanopb
     - Protobuf
 
@@ -184,9 +226,12 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
+  MaterialComponents: ba0b153b1fa427be83aad80b05784b2cfecec847
+  MDFInternationalization: b5b8626628abf026e630e5ebaeee563037712cbb
+  MDFTextAccessibility: 94098925e0853551c5a311ce7c1ecefbe297cdb6
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
 
-PODFILE CHECKSUM: 8d4c715846602ed16da22a80aa4094507060c1ff
+PODFILE CHECKSUM: b12fcea49c2c6f1cd1a4d1ecc7f528cfbb09505d
 
 COCOAPODS: 1.5.0

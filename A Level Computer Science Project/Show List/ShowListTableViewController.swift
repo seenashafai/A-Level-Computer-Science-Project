@@ -10,11 +10,14 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 import FirebaseStorage
+import MaterialComponents
 
 class ShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     //MARK: - Variables
-
+    var dateSortIndex = 0
+    var nameSortIndex = 0
+    
     //MARK: - FirebaseT2
     var documents: [DocumentSnapshot] = []
     var listener: ListenerRegistration!
@@ -113,6 +116,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.dateSortIndex = 0
         
         db = Firestore.firestore()
         let settings = FirestoreSettings()
@@ -169,14 +173,13 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Sort by Date", style: .default, handler: {(UIAlertAction) in
-            self.sort()
-            self.tableView.reloadData()
+            self.sortByDate()
         }))
         alert.addAction(UIAlertAction(title: "Sort by Alphabetical Order", style: .default, handler: {(UIAlertAction) in
-            self.sort()
+            self.sortByName()
         }))
         alert.addAction(UIAlertAction(title: "Sort by Rating", style: .default, handler: {(UIAlertAction) in
-            self.sort()
+            print("rate")
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in }
         )
@@ -205,9 +208,44 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
  */
     
-    func sort()
+    func sortByDate()
     {
-        dbShows = dbShows.sorted(by: { $0.date.seconds < $1.date.seconds })
+        let message = MDCSnackbarMessage()
+        dateSortIndex = dateSortIndex + 1
+        if dateSortIndex % 2 != 0
+        {
+            dbShows = dbShows.sorted(by: { $0.date.seconds < $1.date.seconds })
+            self.tableView.reloadData()
+            message.text = "Displaying oldest shows first"
+            MDCSnackbarManager.show(message)
+        }
+        else
+        {
+            dbShows = dbShows.sorted(by: { $0.date.seconds > $1.date.seconds })
+            self.tableView.reloadData()
+            message.text = "Displaying upcoming shows first"
+            MDCSnackbarManager.show(message)
+        }
+    }
+    
+    func sortByName()
+    {
+        let message = MDCSnackbarMessage()
+        nameSortIndex = nameSortIndex + 1
+        if nameSortIndex % 2 == 0
+        {
+            dbShows = dbShows.sorted(by: { $0.name > $1.name })
+            self.tableView.reloadData()
+            message.text = "Displaying shows in reverse alphabetical order"
+            MDCSnackbarManager.show(message)
+        }
+        else
+        {
+            dbShows = dbShows.sorted(by: { $0.name < $1.name })
+            self.tableView.reloadData()
+            message.text = "Displaying shows in alphabetical order"
+            MDCSnackbarManager.show(message)
+        }
     }
     
     // MARK: - Navigation
