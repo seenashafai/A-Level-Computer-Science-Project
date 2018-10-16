@@ -143,6 +143,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.listener.remove()
+        print("listener removed")
     }
     
     override func viewWillAppear(_ animated: Bool) {

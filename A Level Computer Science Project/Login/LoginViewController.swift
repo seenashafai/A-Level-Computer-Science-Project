@@ -8,11 +8,13 @@
 
 import UIKit
 import FirebaseAuth
+import MaterialComponents.MaterialSnackbar
 
 class LoginViewController: UIViewController {
     
     var alerts = Alerts()
-
+    var user = FirebaseUser()
+    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet var textFields: [UITextField]!
@@ -58,12 +60,44 @@ class LoginViewController: UIViewController {
         return allPresent
     }
     
+    
+    
+    
+   /*
+    func isUserSignedIn() -> Bool
+    {
+        if Auth.auth().currentUser != nil {
+            print(Auth.auth().currentUser?.email, "JEFF")
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func getCurrentUser() -> String
+    {
+        var userEmail: String = ""
+        if isUserSignedIn() == true
+        {
+            userEmail = (Auth.auth().currentUser?.email)!
+            print(userEmail)
+            return userEmail as! String
+            
+        }
+        else
+        {
+            print("not signed in")
+        }
+        return userEmail
+    }
+    */
     //MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.keyboardType = UIKeyboardType.emailAddress
         self.navigationController?.isNavigationBarHidden = true
+        
         // Do any additional setup after loading the view.
     }
     
@@ -86,15 +120,45 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if user.isUserSignedIn() == true
+        {
+            do {
+                let message = MDCSnackbarMessage()
+                message.text = "Signing out current user \(user.getCurrentUserDisplayName())"
+                MDCSnackbarManager.show(message)
+                try Auth.auth().signOut()
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+                }
+            catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+            }
+        }
+        else
+        {
+            print("User is not signed in")
+        }
     }
-    */
+
+
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toSignUpView"
+        {
+            if user.isUserSignedIn() == true {
+            do {
+                try Auth.auth().signOut()
+                print("User signed out")
+                
+            }
+            catch let signOutError as NSError {
+                print ("Error signing out: %@", signOutError)
+            }
+            }
+        }
+    }
 
 }

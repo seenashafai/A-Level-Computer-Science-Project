@@ -48,7 +48,13 @@ class SignUpViewController: UIViewController {
                 {action in self.navigationController?.popViewController(animated: true)
             }))
             self.present(registrationSuccessful, animated: true)
-
+        
+        }
+        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+        changeRequest?.displayName = firstNameTextField.text
+        print("changeRequest")
+        changeRequest?.commitChanges { (error) in
+            print("displayName update error")
         }
         var _: DocumentReference? = nil
         db.collection("users").document(emailTextField.text!).setData([
@@ -108,8 +114,7 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let settings = FirestoreSettings()
-        Firestore.firestore().settings = settings
+
         db = Firestore.firestore()
 
         // Do any additional setup after loading the view.
