@@ -48,6 +48,16 @@ class FirebaseUser
         return userDisplayName
     }
             
-
+    func isUserEmailVerified() -> Bool
+    {
+        if Auth.auth().currentUser?.isEmailVerified == true
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+    }
     
 }

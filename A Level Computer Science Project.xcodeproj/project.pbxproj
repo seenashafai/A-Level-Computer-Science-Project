@@ -50,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		040ABC8F2097934B00F07B6A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		04360C2B21775B5800AE8C5C /* A Level Computer Science Project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "A Level Computer Science Project.entitlements"; sourceTree = "<group>"; };
 		04904DEA209790C70043C97A /* A Level Computer Science Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "A Level Computer Science Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04904DED209790C70043C97A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04904DF2209790C70043C97A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -146,6 +147,7 @@
 		04904DEC209790C70043C97A /* A Level Computer Science Project */ = {
 			isa = PBXGroup;
 			children = (
+				04360C2B21775B5800AE8C5C /* A Level Computer Science Project.entitlements */,
 				04904DED209790C70043C97A /* AppDelegate.swift */,
 				04904DF1209790C70043C97A /* Main.storyboard */,
 				04FB57FA215C206600673B7D /* Login */,
@@ -294,6 +296,11 @@
 					04904DE9209790C70043C97A = {
 						CreatedOnToolsVersion = 9.3;
 						LastSwiftMigration = 1000;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					04904DFD209790C80043C97A = {
 						CreatedOnToolsVersion = 9.3;
@@ -649,6 +656,7 @@
 			baseConfigurationReference = 412F4565258162D4CE801AF1 /* Pods-A Level Computer Science Project.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "A Level Computer Science Project/A Level Computer Science Project.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AZQME83VC4;
 				INFOPLIST_FILE = "A Level Computer Science Project/Info.plist";
@@ -668,6 +676,7 @@
 			baseConfigurationReference = 7B6A2DD5C9DB7DD58BD591D7 /* Pods-A Level Computer Science Project.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "A Level Computer Science Project/A Level Computer Science Project.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AZQME83VC4;
 				INFOPLIST_FILE = "A Level Computer Science Project/Info.plist";

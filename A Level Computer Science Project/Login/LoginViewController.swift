@@ -15,6 +15,10 @@ class LoginViewController: UIViewController {
     var alerts = Alerts()
     var user = FirebaseUser()
     
+    @IBAction func autoFill(_ sender: Any) {
+        emailTextField.text = "test90@test.com"
+        passwordTextField.text = "Test123"
+    }
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet var textFields: [UITextField]!
@@ -95,7 +99,8 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        emailTextField.keyboardType = UIKeyboardType.emailAddress
+        emailTextField.keyboardType = .emailAddress
+        passwordTextField.textContentType = .password
         self.navigationController?.isNavigationBarHidden = true
         
         // Do any additional setup after loading the view.

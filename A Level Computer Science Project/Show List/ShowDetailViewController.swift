@@ -13,20 +13,42 @@ import FirebaseAuth
 class ShowDetailViewController: UIViewController {
 
     var isUserSignedIn: Bool = false
+    var user = FirebaseUser()
     
     @IBAction func toTicketPortal(_ sender: Any) {
-        if Auth.auth().currentUser != nil {
-            print(Auth.auth().currentUser?.email)
-            isUserSignedIn = true
-        } else {
+        if user.isUserSignedIn() == false
+        {
+            print("NS")
             let userNotSignedIn = UIAlertController(title: "Error", message: "You must be signed in to order tickets. Please proceed to create an account", preferredStyle: .alert)
             userNotSignedIn.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
                 print("cancel")
             }))
             userNotSignedIn.addAction(UIAlertAction(title: "Sign In", style: .default, handler: { action in
+                self.navigationController?.popToRootViewController(animated: true)
                 print("signin")
             }))
             self.present(userNotSignedIn, animated: true)
+        }
+        if user.isUserEmailVerified() == false
+        {
+            print("NV")
+            let userEmailNotVerified = UIAlertController(title: "Error", message: "You may not order tickets until you have verified yout account. Would you like us to re-send the verification email?", preferredStyle: .alert)
+            userEmailNotVerified.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+                print("cancel")
+            }))
+            userEmailNotVerified.addAction(UIAlertAction(title: "Re-send", style: .default, handler: { action in
+                Auth.auth().currentUser?.sendEmailVerification { (error) in
+                    if let error = error {
+                        print(error.localizedDescription, "error")
+                    } else
+                    {
+                        print("email sent")
+                    }
+                }
+                self.navigationController?.popToRootViewController(animated: true)
+                print("signin")
+            }))
+            self.present(userEmailNotVerified, animated: true)
         }
     }
     
@@ -51,19 +73,35 @@ class ShowDetailViewController: UIViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     
     override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool {
-        if let id = identifier {
-            if id == "toTicketPortal" {
-                print("im already tracerrrrrr")
-                if isUserSignedIn != true {
-                    print("nope")
+        if let id = identifier
+        {
+            if id == "toTicketPortal"
+            {
+                if  user.isUserSignedIn() != true
+                {
+                    print("no user signed in")
                     return false
                 }
-                else {return true}
-                
+                if user.isUserEmailVerified() != true
+                {
+                    print("email not verified")
+                    return false
+                }
+                else
+                {
+                    return true
+                }
             }
         }
         return true
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toTicketPortal"
+        {
+            let destinationVC = segue.destination as! TicketPortalViewController
+            destinationVC.showNameTextLabel.text = showTitle
+        }
+    }
   
 }

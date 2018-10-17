@@ -43,7 +43,7 @@ class SignUpViewController: UIViewController {
                 return
             }
             print("account created successfully")
-            let registrationSuccessful = UIAlertController(title: "Success", message: "Account has successfully been created. Please sign in with your new credentials", preferredStyle: .alert)
+            let registrationSuccessful = UIAlertController(title: "Success", message: "Account has successfully been created. A verification email has been sent to you; you will be unable to book tickets until you have verified your account.", preferredStyle: .alert)
             registrationSuccessful.addAction(UIAlertAction(title: "OK", style: .default, handler:
                 {action in self.navigationController?.popViewController(animated: true)
             }))
@@ -55,6 +55,14 @@ class SignUpViewController: UIViewController {
         print("changeRequest")
         changeRequest?.commitChanges { (error) in
             print("displayName update error")
+        }
+        Auth.auth().currentUser?.sendEmailVerification { (error) in
+            if let error = error {
+                print(error.localizedDescription, "error")
+            } else
+            {
+                print("email sent")
+            }
         }
         var _: DocumentReference? = nil
         db.collection("users").document(emailTextField.text!).setData([
@@ -114,7 +122,12 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        emailTextField.keyboardType = .emailAddress
+        if #available(iOS 12.0, *) {
+            passwordTextField.textContentType = .newPassword
+            confirmPasswordTextField.textContentType = .newPassword
+            emailTextField.textContentType = .username
+        }
         db = Firestore.firestore()
 
         // Do any additional setup after loading the view.
