@@ -10,6 +10,7 @@
 		040ABC902097934B00F07B6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 040ABC8F2097934B00F07B6A /* GoogleService-Info.plist */; };
 		040ABC912097934B00F07B6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 040ABC8F2097934B00F07B6A /* GoogleService-Info.plist */; };
 		040ABC922097934B00F07B6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 040ABC8F2097934B00F07B6A /* GoogleService-Info.plist */; };
+		04360C2D2177DA5100AE8C5C /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04360C2C2177DA5100AE8C5C /* Ticket.swift */; };
 		04904DEE209790C70043C97A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04904DED209790C70043C97A /* AppDelegate.swift */; };
 		04904DF3209790C70043C97A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04904DF1209790C70043C97A /* Main.storyboard */; };
 		04904DF5209790C80043C97A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04904DF4209790C80043C97A /* Assets.xcassets */; };
@@ -51,6 +52,7 @@
 /* Begin PBXFileReference section */
 		040ABC8F2097934B00F07B6A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04360C2B21775B5800AE8C5C /* A Level Computer Science Project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "A Level Computer Science Project.entitlements"; sourceTree = "<group>"; };
+		04360C2C2177DA5100AE8C5C /* Ticket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
 		04904DEA209790C70043C97A /* A Level Computer Science Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "A Level Computer Science Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04904DED209790C70043C97A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04904DF2209790C70043C97A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				049CD70321754C5700DD5429 /* TicketPortalViewController.swift */,
+				04360C2C2177DA5100AE8C5C /* Ticket.swift */,
 			);
 			path = Ticketing;
 			sourceTree = "<group>";
@@ -479,6 +482,7 @@
 				049CD70421754C5700DD5429 /* TicketPortalViewController.swift in Sources */,
 				04904DEE209790C70043C97A /* AppDelegate.swift in Sources */,
 				3772778F21590566007532A0 /* ShowListTableViewCell.swift in Sources */,
+				04360C2D2177DA5100AE8C5C /* Ticket.swift in Sources */,
 				BD90ACCF21676737003C831A /* Show.swift in Sources */,
 				37F0E7BE214FD20000D9E335 /* ShowListTableViewController.swift in Sources */,
 				BD89FD7E2163ECF10050D379 /* Validation.swift in Sources */,

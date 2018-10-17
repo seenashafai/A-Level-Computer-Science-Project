@@ -11,6 +11,32 @@ import Firebase
 import FirebaseAuth
 
 
+struct User {
+    
+    let firstName: String
+    let lastName: String
+    let emailAddress: String
+    
+    var dictionary: [String: Any] {
+        return [
+            "firstName": firstName,
+            "lastName": lastName,
+            "emailAddress": emailAddress
+        ]
+    }
+}
+
+extension User {
+    init?(dictionary: [String: Any]) {
+        guard let firstName = dictionary["firstName"] as? String,
+        let lastName = dictionary["lastName"] as? String,
+        let emailAddress = dictionary["emailAddress"] as? String
+        
+            else {return nil}
+        self.init(firstName: firstName, lastName: lastName, emailAddress: emailAddress)
+     }
+}
+
 class FirebaseUser
 {
     func isUserSignedIn() -> Bool

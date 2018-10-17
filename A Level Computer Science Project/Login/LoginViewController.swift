@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
     var user = FirebaseUser()
     
     @IBAction func autoFill(_ sender: Any) {
-        emailTextField.text = "test90@test.com"
+        emailTextField.text = "seenas@btinternet.com"
         passwordTextField.text = "Test123"
     }
     @IBOutlet weak var emailTextField: UITextField!
@@ -27,12 +27,7 @@ class LoginViewController: UIViewController {
     {
         let email = emailTextField.text
         let password = passwordTextField.text
-        
-        if textBoxIsFilled() == false
-        {
-            
-        }
-        
+
         Auth.auth().signIn(withEmail: email!, password: password!) { (authResult, error) in
             // ...
             if let error = error
@@ -48,7 +43,7 @@ class LoginViewController: UIViewController {
         }
     }
     
-    //MARK: - Private Instance Methofs
+    //MARK: - Private Instance Methods
     func textBoxIsFilled() -> Bool
     {
         var allPresent: Bool = true
@@ -65,36 +60,6 @@ class LoginViewController: UIViewController {
     }
     
     
-    
-    
-   /*
-    func isUserSignedIn() -> Bool
-    {
-        if Auth.auth().currentUser != nil {
-            print(Auth.auth().currentUser?.email, "JEFF")
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func getCurrentUser() -> String
-    {
-        var userEmail: String = ""
-        if isUserSignedIn() == true
-        {
-            userEmail = (Auth.auth().currentUser?.email)!
-            print(userEmail)
-            return userEmail as! String
-            
-        }
-        else
-        {
-            print("not signed in")
-        }
-        return userEmail
-    }
-    */
     //MARK: - View Life Cycle
     
     override func viewDidLoad() {

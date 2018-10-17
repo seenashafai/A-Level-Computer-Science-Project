@@ -100,7 +100,8 @@ class ShowDetailViewController: UIViewController {
         if segue.identifier == "toTicketPortal"
         {
             let destinationVC = segue.destination as! TicketPortalViewController
-            destinationVC.showNameTextLabel.text = showTitle
+            print(showTitle, "showtitle")
+            destinationVC.ticketShowTitle = showTitle
         }
     }
   

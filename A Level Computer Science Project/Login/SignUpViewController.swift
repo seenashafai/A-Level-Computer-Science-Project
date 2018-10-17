@@ -68,7 +68,7 @@ class SignUpViewController: UIViewController {
         db.collection("users").document(emailTextField.text!).setData([
             "firstName": firstNameTextField.text,
             "lastName": lastNameTextField.text,
-            "email": emailTextField.text
+            "emailAddress": emailTextField.text
             
         ]) { err in
             if let err = err {
