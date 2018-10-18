@@ -37,16 +37,13 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         var numberOfTickets = Int(ticketNumberTextField.text!)
         var house = houseSelected
         var date = dateSelected
-        pushToFirestore()
-    }
-    
-    func pushToFirestore()
-    {
+        print(house, "house")
+        print(date, "date")
         let dbRef = db.collection("users").document(userEmail()).collection("ticket").document(ticketShowTitle)
         dbRef.setData([
-            "date": dateSelected,
-            "numberOfTickets": Int(ticketNumberTextField.text!),
-            "house": houseSelected
+            "date": date,
+            "numberOfTickets": numberOfTickets,
+            "house": house
             
         ]) { err in
             if let err = err {
@@ -57,6 +54,9 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
             }
         }
     }
+    
+
+    
     //MARK: - Properties
     
     var houseArray = ["Coll", "JCAJ", "DWG", "JMG", "NA", "HWTA", "ABH", "SPH", "AMM", "NPTL", "JDM", "MGHM", "JD", "PEPW", "JMO'B", "RDO-C", "JDN", "BJH", "ASR", "JRBS", "NCWS", "EJNR", "PAH", "AW", "PGW"]
@@ -96,14 +96,16 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         return ""
     }
     
-    private func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == datePickerView
         {
             dateSelected = dateArray[row]
+            print(dateSelected)
         }
         if pickerView == housePickerView
         {
             houseSelected = houseArray[row]
+            print(houseSelected)
         }
     }
     
