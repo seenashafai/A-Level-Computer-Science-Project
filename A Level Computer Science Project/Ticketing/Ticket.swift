@@ -10,7 +10,19 @@ import Foundation
 
 struct Ticket {
     
-    var showName: String = ""
-    var numberOfTickets: Int = 0
+    var availableTickets: Int = 0
+    
+    var dictionary: [String: Any] {
+        return [
+            "availableTickets": availableTickets
+        ]
+    }
+}
 
+extension Ticket {
+    init?(dictionary: [String: Any]) {
+        guard let availableTickets = dictionary["availableTickets"] as? Int
+            else {return nil}
+        self.init(availableTickets: availableTickets)
+    }
 }

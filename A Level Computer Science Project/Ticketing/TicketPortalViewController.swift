@@ -17,7 +17,10 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     var user = FirebaseUser()
     var dateSelected: String = ""
     var houseSelected: String = ""
-
+    var documents: [DocumentSnapshot] = []
+    var listener: ListenerRegistration!
+    var show = [Show]()
+    var ticket = [Ticket]()
     
     
     //MARK: - IB Links
@@ -32,31 +35,6 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         self.ticketNumberTextField.text = Int(ticketNumberStepper.value).description
     }
     
-    @IBAction func submitButtonPressed(_ sender: Any)
-    {
-        var numberOfTickets = Int(ticketNumberTextField.text!)
-        var house = houseSelected
-        var date = dateSelected
-        print(house, "house")
-        print(date, "date")
-        let dbRef = db.collection("users").document(userEmail()).collection("ticket").document(ticketShowTitle)
-        dbRef.setData([
-            "date": date,
-            "numberOfTickets": numberOfTickets,
-            "house": house
-            
-        ]) { err in
-            if let err = err {
-                print("error")
-            } else
-            {
-                print("success")
-            }
-        }
-    }
-    
-
-    
     //MARK: - Properties
     
     var houseArray = ["Coll", "JCAJ", "DWG", "JMG", "NA", "HWTA", "ABH", "SPH", "AMM", "NPTL", "JDM", "MGHM", "JD", "PEPW", "JMO'B", "RDO-C", "JDN", "BJH", "ASR", "JRBS", "NCWS", "EJNR", "PAH", "AW", "PGW"]
@@ -65,6 +43,41 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     
     var ticketShowTitle: String = ""
     
+    
+    @IBAction func submitButtonPressed(_ sender: Any)
+    {
+        let numberOfTickets = Int(ticketNumberTextField.text!)
+        let house = houseSelected
+        let date = dateSelected
+        print(house, "house")
+        print(date, "date")
+        let userTicketRef = db.collection("shows").document(ticketShowTitle).collection("ticketing").document("statistics")
+        userTicketRef.setData([
+            "availableTickets": ticket[0].availableTickets - numberOfTickets!,
+            
+        ]) { err in
+            if err != nil {
+                print("error")
+            } else
+            {
+                print("success")
+            }
+        }
+
+    }
+        
+
+    fileprivate func baseQuery() -> Query{
+        return db.collection("shows").document(ticketShowTitle).collection("ticketing").whereField("availableTickets", isGreaterThan: 0)
+    }
+    fileprivate var query: Query? {
+        didSet {
+            if let listener = listener{
+                listener.remove()
+            }
+        }
+    }
+
     
     //MARK: - UIPickerViewDelegate
     
@@ -109,6 +122,9 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         }
     }
     
+    
+    
+    
     //MARK: - Private Instance Methods
     func userEmail() -> String
     {
@@ -120,7 +136,8 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
-        
+        self.query = baseQuery()
+
         ticketNumberTextField.text = String(1)
         ticketNumberStepper.maximumValue = 5
         ticketNumberStepper.minimumValue = 1
@@ -131,6 +148,34 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.listener.remove()
+        print("listener removed")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.listener =  query?.addSnapshotListener { (documents, error) in
+            guard let snapshot = documents else {
+                print("Error fetching documents results: \(error!)")
+                return
+            }
+            
+            let results = snapshot.documents.map { (document) -> Ticket in
+                if let ticket = Ticket(dictionary: document.data()) {
+                    return ticket
+                } else {
+                    fatalError("Unable to initialize type \(Ticket.self) with dictionary \(document.data())")
+                }
+            }
+            
+            self.ticket = results
+            self.documents = snapshot.documents
+            print(self.ticket)
+        }
+    }
 
     /*
     // MARK: - Navigation

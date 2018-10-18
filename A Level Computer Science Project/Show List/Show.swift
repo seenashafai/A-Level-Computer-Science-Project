@@ -19,12 +19,14 @@ struct Show: Comparable {
     let name: String
     let category: String
     let date: Timestamp
+    let availableTickets: Int
     
     var dictionary: [String: Any] {
         return [
             "Date": Timestamp(),
             "name": name,
-            "Category": category
+            "Category": category,
+            "availableTickets": availableTickets
         ]
     }
 }
@@ -33,12 +35,13 @@ extension Show {
     init?(dictionary: [String : Any]) {
         guard let name = dictionary["name"] as? String,
         let category = dictionary["Category"] as? String,
-        let date: Timestamp = dictionary["Date"] as? Timestamp
+        let date: Timestamp = dictionary["Date"] as? Timestamp,
+        let availableTickets = dictionary["availableTickets"] as? Int
             
            // let date = dictionary["Date"] as? String
             else {return nil}
         
-        self.init(name: name, category: category, date: date)
+        self.init(name: name, category: category, date: date, availableTickets: availableTickets)
     }
     
 }
