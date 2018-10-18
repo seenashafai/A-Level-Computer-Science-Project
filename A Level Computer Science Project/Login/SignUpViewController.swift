@@ -64,7 +64,7 @@ class SignUpViewController: UIViewController {
                 print("email sent")
             }
         }
-        var _: DocumentReference? = nil
+        //var _: DocumentReference? = nil
         db.collection("users").document(emailTextField.text!).setData([
             "firstName": firstNameTextField.text,
             "lastName": lastNameTextField.text,

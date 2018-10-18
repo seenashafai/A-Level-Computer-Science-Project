@@ -459,7 +459,11 @@
                         <viewLayoutGuide key="safeArea" id="EYO-ZP-WmT"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="ehd-fB-tiJ">
-                        <barButtonItem key="rightBarButtonItem" title="Submit" id="w5M-vp-fId"/>
+                        <barButtonItem key="rightBarButtonItem" title="Submit" id="w5M-vp-fId">
+                            <connections>
+                                <action selector="submitButtonPressed:" destination="1vT-Fj-vmz" id="ac7-fn-Fgv"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="datePickerView" destination="LSn-9E-YQN" id="ugJ-s3-FrU"/>

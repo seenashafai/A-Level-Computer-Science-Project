@@ -14,7 +14,59 @@ import FirebaseFirestore
 class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var db: Firestore!
+    var user = FirebaseUser()
+    var dateSelected: String = ""
+    var houseSelected: String = ""
 
+    
+    
+    //MARK: - IB Links
+    
+    @IBOutlet weak var ticketNumberTextField: UITextField!
+    @IBOutlet weak var ticketNumberStepper: UIStepper!
+    
+    @IBOutlet weak var datePickerView: UIPickerView!
+    @IBOutlet weak var housePickerView: UIPickerView!
+    
+    @IBAction func ticketNumberStepperAction(_ sender: Any) {
+        self.ticketNumberTextField.text = Int(ticketNumberStepper.value).description
+    }
+    
+    @IBAction func submitButtonPressed(_ sender: Any)
+    {
+        var numberOfTickets = Int(ticketNumberTextField.text!)
+        var house = houseSelected
+        var date = dateSelected
+        pushToFirestore()
+    }
+    
+    func pushToFirestore()
+    {
+        let dbRef = db.collection("users").document(userEmail()).collection("ticket").document(ticketShowTitle)
+        dbRef.setData([
+            "date": dateSelected,
+            "numberOfTickets": Int(ticketNumberTextField.text!),
+            "house": houseSelected
+            
+        ]) { err in
+            if let err = err {
+                print("error")
+            } else
+            {
+                print("success")
+            }
+        }
+    }
+    //MARK: - Properties
+    
+    var houseArray = ["Coll", "JCAJ", "DWG", "JMG", "NA", "HWTA", "ABH", "SPH", "AMM", "NPTL", "JDM", "MGHM", "JD", "PEPW", "JMO'B", "RDO-C", "JDN", "BJH", "ASR", "JRBS", "NCWS", "EJNR", "PAH", "AW", "PGW"]
+    
+    var dateArray = ["Please select a date...","Thursday 4th December", "Friday 5th December", "Saturday 6th December"]
+    
+    var ticketShowTitle: String = ""
+    
+    
+    //MARK: - UIPickerViewDelegate
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -43,34 +95,36 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         }
         return ""
     }
-
     
-    @IBOutlet weak var ticketNumberTextField: UITextField!
-    @IBOutlet weak var ticketNumberStepper: UIStepper!
-    
-    @IBAction func ticketNumberStepperAction(_ sender: Any) {
-        self.ticketNumberTextField.text = Int(ticketNumberStepper.value).description
+    private func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == datePickerView
+        {
+            dateSelected = dateArray[row]
+        }
+        if pickerView == housePickerView
+        {
+            houseSelected = houseArray[row]
+        }
     }
-    @IBOutlet weak var datePickerView: UIPickerView!
-    @IBOutlet weak var housePickerView: UIPickerView!
     
-    var houseArray = ["Please select a house...", "Coll", "JCAJ", "DWG", "JMG", "NA", "HWTA", "ABH", "SPH", "AMM", "NPTL", "JDM", "MGHM", "JD", "PEPW", "JMO'B", "RDO-C", "JDN", "BJH", "ASR", "JRBS", "NCWS", "EJNR", "PAH", "AW", "PGW"]
+    //MARK: - Private Instance Methods
+    func userEmail() -> String
+    {
+        return user.getCurrentUserEmail()
+    }
     
-    var dateArray = ["Please select a date...","Thursday 4th December", "Friday 5th December", "Saturday 6th December"]
-    
-    var ticketShowTitle: String = ""
-    
-    
-
+    //MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
-
-        print(ticketShowTitle)
+        
+        ticketNumberTextField.text = String(1)
         ticketNumberStepper.maximumValue = 5
+        ticketNumberStepper.minimumValue = 1
+        houseArray = houseArray.sorted(by: {$0 < $1})
+        houseArray.insert("Please select a house...", at: 0)
         navigationItem.title = "Booking for \(ticketShowTitle)"
-        print(houseArray.count)
 
         // Do any additional setup after loading the view.
     }
