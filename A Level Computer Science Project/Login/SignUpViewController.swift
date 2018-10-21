@@ -14,12 +14,15 @@ import FirebaseFirestore
 
 class SignUpViewController: UIViewController {
 
+    //MARK: - Properties
     var db: Firestore!
     var validation = Validation()
     var alerts = Alerts()
+    var user = FirebaseUser()
     
-    //MARK: - IBOutlets
+    //MARK: - IB Links
     
+    //Text Fields
     @IBOutlet var textFields: [UITextField]!
     
     @IBOutlet weak var firstNameTextField: UITextField!
@@ -29,13 +32,17 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     
+    //Sign-up button action
     @IBAction func signUpButton(_ sender: Any)
     {
         signUpValidation()
     }
     
-    func createUser() {
-        Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authResult, error) in
+    //MARK: - FirebaseAuth Methods
+    func createUser()
+    {
+        Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!)
+        { (authResult, error) in
             // ...
             guard let _ = authResult?.user.email, error == nil else
             {
@@ -50,29 +57,17 @@ class SignUpViewController: UIViewController {
             self.present(registrationSuccessful, animated: true)
         
         }
-        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-        changeRequest?.displayName = firstNameTextField.text
-        print("changeRequest")
-        changeRequest?.commitChanges { (error) in
-            print("displayName update error")
-        }
-        Auth.auth().currentUser?.sendEmailVerification { (error) in
-            if let error = error {
-                print(error.localizedDescription, "error")
-            } else
-            {
-                print("email sent")
-            }
-        }
+        user.sendUserValidationEmail()
+        
         //var _: DocumentReference? = nil
         db.collection("users").document(emailTextField.text!).setData([
-            "firstName": firstNameTextField.text,
-            "lastName": lastNameTextField.text,
-            "emailAddress": emailTextField.text
+            "firstName": firstNameTextField.text!,
+            "lastName": lastNameTextField.text!,
+            "emailAddress": emailTextField.text!
             
         ]) { err in
-            if let err = err {
-                print("error")
+            if err != nil {
+                print("error", err?.localizedDescription)
             } else
             {
                 print("success")
@@ -80,6 +75,7 @@ class SignUpViewController: UIViewController {
         }
     }
     
+    //MARK: - Local validation
     func signUpValidation()
     {
         var allPresent: Bool = true
@@ -116,9 +112,26 @@ class SignUpViewController: UIViewController {
         }
     }
     
+    //Change request for displayName
+    /*
+    private func changeRequest()
+    {
+        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+        changeRequest?.displayName = firstNameTextField.text
+        print("changeRequest")
+        changeRequest?.commitChanges { (error) in
+            print("displayName update error")
+        }
+    }
+    */
+    
+    //Dimsiss keyboard on touch
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
+    //MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()

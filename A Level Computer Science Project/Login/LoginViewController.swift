@@ -12,23 +12,31 @@ import MaterialComponents.MaterialSnackbar
 
 class LoginViewController: UIViewController {
     
+    //MARK: - Properties
     var alerts = Alerts()
     var user = FirebaseUser()
     
-    @IBAction func autoFill(_ sender: Any) {
-        emailTextField.text = "seenas@btinternet.com"
-        passwordTextField.text = "Test123"
-    }
+    //MARK: - IB Links
+    
+    //Textfields
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet var textFields: [UITextField]!
     
+    //Autofill details
+    @IBAction func autoFill(_ sender: Any) {
+        emailTextField.text = "seenas@btinternet.com"
+        passwordTextField.text = "Test123"
+    }
+    
+    //Sign-in button action
     @IBAction func signInButton(_ sender: Any)
     {
         let email = emailTextField.text
         let password = passwordTextField.text
 
-        Auth.auth().signIn(withEmail: email!, password: password!) { (authResult, error) in
+        Auth.auth().signIn(withEmail: email!, password: password!)
+        { (authResult, error) in
             // ...
             if let error = error
             {
@@ -44,6 +52,7 @@ class LoginViewController: UIViewController {
     }
     
     //MARK: - Private Instance Methods
+    //Check if textbox is empty
     func textBoxIsFilled() -> Bool
     {
         var allPresent: Bool = true
@@ -85,11 +94,7 @@ class LoginViewController: UIViewController {
         self.view.endEditing(true)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+    //Present signing out snackbar
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if user.isUserSignedIn() == true

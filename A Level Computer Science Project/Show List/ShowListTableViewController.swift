@@ -18,16 +18,15 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     var dateSortIndex = 0
     var nameSortIndex = 0
     
-    //MARK: - FirebaseT2
+    //MARK: - Initialise Firebase Properties
     var documents: [DocumentSnapshot] = []
     var listener: ListenerRegistration!
     var dbShows = [Show]()
-
-
     var db: Firestore!
-    var filteredShows = [Show]()
     
-    //MARK: - Properties
+    
+    //MARK: - Search bar Properties
+    var filteredShows = [Show]()
     var showFuncs = showFunctions()
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -38,7 +37,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         presentSortingActionSheet()
     }
     
-    // MARK: - TableView Delegate
+    // MARK: - TableView Datasource
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -52,6 +51,8 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         return dbShows.count
     }
     
+    
+    //MARK: - TableView Delegate
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ShowListTableViewCell
@@ -75,9 +76,9 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         return CGFloat(90)
     }
     
-    //MARK: - UISearchBarDelegate
+    //MARK: - UISearchBar Methods
     
-    //MARK: - Private instance methods
+    //Private instance methods
     
     func searchBarIsEmpty() -> Bool {
         return searchController.searchBar.text?.isEmpty ?? true
@@ -101,6 +102,20 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.reloadData()
     }
     
+    //MARK: - setSearchBarSettings
+    private func setSearchBarSettings()
+    {
+        searchController.searchBar.scopeButtonTitles = ["All", "School", "House", "Independent"]
+        searchController.searchBar.delegate = self
+        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Shows"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+    }
+    
+    //MARK: - Firebase Queries
     fileprivate func baseQuery() -> Query{
         return db.collection("shows").limit(to: 50)
     }
@@ -112,32 +127,27 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    //MARK: - View Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.dateSortIndex = 0
-        
+    //MARK: - setFirebaseSettings
+    func setFirebaseSettings()
+    {
         db = Firestore.firestore()
         let settings = FirestoreSettings()
         settings.areTimestampsInSnapshotsEnabled = true
         db.settings = settings
         settings.isPersistenceEnabled = false
-
-
+    }
+    
+    //MARK: - View Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.dateSortIndex = 0
+        setFirebaseSettings()
         self.query = baseQuery()
-        
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        setSearchBarSettings()
         
-        searchController.searchBar.scopeButtonTitles = ["All", "School", "House", "Independent"]
-        searchController.searchBar.delegate = self
-        
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search Shows"
-        navigationItem.searchController = searchController
-        definesPresentationContext = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -190,41 +200,10 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         })
         
     }
-    /*
-    func pullFromFirestore()
-    {
-        db.collection("shows").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
-                    var dict = document.data()
-                    self.dbShowArray.append(dict)
-                    print(self.dbShowArray, "showArray")
-                }
-            }
-        }
-
-    }
-     
-     let action = MDCSnackbarMessageAction()
-     let actionHandler = {() in
-     let answerMessage = MDCSnackbarMessage()
-     answerMessage.text = "Fascinating"
-     MDCSnackbarManager.show(answerMessage)
-     }
-     action.handler = actionHandler
-     action.title = "OK"
-     message.action = action
- */
     
     func sortByDate()
     {
-        let message = MDCSnackbarMessage()
-        let action = MDCSnackbarMessageAction()
-        
-        
+        let message = MDCSnackbarMessage()        
         dateSortIndex = dateSortIndex + 1
         if dateSortIndex % 2 != 0
         {

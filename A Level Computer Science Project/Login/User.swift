@@ -86,4 +86,16 @@ class FirebaseUser
         }
     }
     
+    func sendUserValidationEmail()
+    {
+        Auth.auth().currentUser?.sendEmailVerification { (error) in
+            if let error = error {
+                print(error.localizedDescription, "error")
+            } else
+            {
+                print("email sent")
+            }
+        }
+    }
+    
 }
