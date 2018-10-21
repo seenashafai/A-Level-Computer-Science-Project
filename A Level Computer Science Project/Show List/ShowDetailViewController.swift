@@ -12,9 +12,11 @@ import FirebaseAuth
 
 class ShowDetailViewController: UIViewController {
 
+    //MARK: - Properties
     var isUserSignedIn: Bool = false
     var user = FirebaseUser()
     
+    //MARK: - IB Links
     @IBAction func toTicketPortal(_ sender: Any) {
         if user.isUserSignedIn() == false
         {
@@ -55,6 +57,7 @@ class ShowDetailViewController: UIViewController {
     
     var showTitle: String = ""
     
+    //MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = showTitle
@@ -62,16 +65,9 @@ class ShowDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
     // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    
+    //Segue preparation
     override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool {
         if let id = identifier
         {

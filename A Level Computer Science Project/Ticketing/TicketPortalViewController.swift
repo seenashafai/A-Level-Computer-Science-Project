@@ -51,9 +51,13 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         let date = dateSelected
         print(house, "house")
         print(date, "date")
-        let userTicketRef = db.collection("shows").document(ticketShowTitle).collection("ticketing").document("statistics")
-        userTicketRef.setData([
+        let ticketAvailabilityRef = db.collection("shows").document(ticketShowTitle).collection("ticketing").document("statistics")
+        print(ticket)
+        ticketAvailabilityRef.updateData([
+            
             "availableTickets": ticket[0].availableTickets - numberOfTickets!,
+            "numberOfTicketHolders": ticket[0].numberOfTicketHolders + 1,
+            "ticketHolders": FieldValue.arrayUnion([user.getCurrentUserEmail()])
             
         ]) { err in
             if err != nil {
@@ -63,12 +67,12 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
                 print("success")
             }
         }
-
     }
-        
+    
+    //MARK: - Firebase Query methods
 
-    fileprivate func baseQuery() -> Query{
-        return db.collection("shows").document(ticketShowTitle).collection("ticketing").whereField("availableTickets", isGreaterThan: 0)
+ fileprivate func baseQuery() -> Query{
+        return db.collection("shows").document(ticketShowTitle).collection("ticketing")
     }
     fileprivate var query: Query? {
         didSet {
@@ -77,6 +81,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
             }
         }
     }
+ 
 
     
     //MARK: - UIPickerViewDelegate
@@ -156,6 +161,8 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //listenOnTicketStatistics()
+        //listenOnTicketHolders()
         
         self.listener =  query?.addSnapshotListener { (documents, error) in
             guard let snapshot = documents else {
@@ -174,17 +181,8 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
             self.ticket = results
             self.documents = snapshot.documents
             print(self.ticket)
+         }
         }
-    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+
+
