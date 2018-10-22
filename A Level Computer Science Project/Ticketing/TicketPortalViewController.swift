@@ -21,6 +21,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     var listener: ListenerRegistration!
     var show = [Show]()
     var ticket = [Ticket]()
+    var houseInitialsArray = [String]()
     
     
     //MARK: - IB Links
@@ -36,9 +37,6 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     }
     
     //MARK: - Properties
-    
-    var houseArray = ["Coll", "JCAJ", "DWG", "JMG", "NA", "HWTA", "ABH", "SPH", "AMM", "NPTL", "JDM", "MGHM", "JD", "PEPW", "JMO'B", "RDO-C", "JDN", "BJH", "ASR", "JRBS", "NCWS", "EJNR", "PAH", "AW", "PGW"]
-    
     var dateArray = ["Please select a date...","Thursday 4th December", "Friday 5th December", "Saturday 6th December"]
     
     var ticketShowTitle: String = ""
@@ -61,12 +59,13 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
             
         ]) { err in
             if err != nil {
-                print("error")
+                print("error", err?.localizedDescription)
             } else
             {
                 print("success")
             }
         }
+        
     }
     
     //MARK: - Firebase Query methods
@@ -97,7 +96,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         }
         if pickerView == housePickerView
         {
-            return houseArray.count
+            return houseInitialsArray.count
         }
         return 0
     }
@@ -109,7 +108,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         }
         if pickerView == housePickerView
         {
-            return houseArray[row]
+            return houseInitialsArray[row]
         }
         return ""
     }
@@ -122,7 +121,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         }
         if pickerView == housePickerView
         {
-            houseSelected = houseArray[row]
+            houseSelected = houseInitialsArray[row]
             print(houseSelected)
         }
     }
@@ -146,8 +145,6 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         ticketNumberTextField.text = String(1)
         ticketNumberStepper.maximumValue = 5
         ticketNumberStepper.minimumValue = 1
-        houseArray = houseArray.sorted(by: {$0 < $1})
-        houseArray.insert("Please select a house...", at: 0)
         navigationItem.title = "Booking for \(ticketShowTitle)"
 
         // Do any additional setup after loading the view.
@@ -161,8 +158,15 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //listenOnTicketStatistics()
-        //listenOnTicketHolders()
+        
+        let houseArrayRef = db.collection("properties").document("houses")
+        houseArrayRef.getDocument {(documentSnapshot, error) in
+            if let document = documentSnapshot {
+                self.houseInitialsArray = document["houseInitialsArray"] as? Array ?? [""]
+                print(self.houseInitialsArray)
+            }
+            self.housePickerView.reloadAllComponents()
+        }
         
         self.listener =  query?.addSnapshotListener { (documents, error) in
             guard let snapshot = documents else {
@@ -182,7 +186,16 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
             self.documents = snapshot.documents
             print(self.ticket)
          }
+        
+        
+ 
+
+        
         }
 }
 
+/*
+ let houseArrayRef = db.collection("properties").document("houses")
+ houseArrayRef.setData(["houseInitialsArray": ["Please select a house...","ABH", "AMM", "ASR", "AW", "BJH", "Coll", "DWG", "EJNR", "HWTA", "JCAJ", "JD", "JDM", "JDN", "JMG", "JMO\'B", "JRBS", "MGHM", "NA", "NCWS", "NPTL", "PAH", "PEPW", "PGW", "RDO-C", "SPH"]])
+ */
 
