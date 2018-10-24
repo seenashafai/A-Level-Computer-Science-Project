@@ -442,8 +442,9 @@ class PassServer < Sinatra::Base
     pass_json["authenticationToken"] = pass[:authentication_token]
     pass_json["webServiceURL"] = "http://#{settings.hostname}:#{settings.port}/"
     pass_json["barcode"]["message"] = barcode_string_for_pass(pass)
-    pass_json["eventTicket"]["primaryFields"][0]["value"] = user[:seatRef]
-    pass_json["eventTicket"]["secondaryFields"][0]["value"] = user[:name]
+    pass_json["eventTicket"]["auxiliaryFields"][0]["value"] = user[:seatRef]
+    pass_json["eventTicket"]["headerFields"][0]["label"] = user[:email]
+    pass_json["eventTicket"]["headerFields"][0]["value"] = user[:name]
 
     # Write out the updated JSON
     File.open(json_file_path, "w") do |f|

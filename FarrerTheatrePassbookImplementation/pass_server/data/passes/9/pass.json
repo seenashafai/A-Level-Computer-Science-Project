@@ -2,13 +2,13 @@
   "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
   "formatVersion": 1,
   "organizationName": "Farrer Theatre",
-  "serialNumber": "78d0af723bb36bfabec3ead4d844f0c7",
+  "serialNumber": "18f69ed7eea300bafbb256667d4f7f91",
   "teamIdentifier": "AZQME83VC4",
   "webServiceURL": "http://Rogue01.local:4567/",
-  "authenticationToken": "672af03dcde6b59290a89d785ce0466c",
+  "authenticationToken": "63f3b204f92819606b74a3281e6f04d1",
   "description": "Play Ticket",
   "foregroundColor": "#FFFFFF",
-  "backgroundColor": "#FF6161",
+  "backgroundColor": "#631313",
   "logoText": "Farrer Theatre",
   "locations": [
     {
@@ -23,14 +23,14 @@
   "barcode": {
     "messageEncoding": "utf-8",
     "format": "PKBarcodeFormatQR",
-    "message": "{\"pass_type_id\":\"pass.com.codekollektiv.balance\",\"serial_number\":\"78d0af723bb36bfabec3ead4d844f0c7\",\"authentication_token\":\"672af03dcde6b59290a89d785ce0466c\"}"
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"18f69ed7eea300bafbb256667d4f7f91\",\"authentication_token\":\"63f3b204f92819606b74a3281e6f04d1\"}"
   },
   "eventTicket": {
     "headerFields": [
       {
         "key": "fullName",
-        "label": "Big@jeff.com",
-        "value": "Big Jeff"
+        "label": "seena@shafai.com",
+        "value": "Seena Shafai"
       }
     ],
     "primaryFields": [
@@ -51,7 +51,7 @@
       {
         "key": "seatRef",
         "label": "Seat Reference",
-        "value": null
+        "value": "B25"
       },
       {
         "label": "venue",

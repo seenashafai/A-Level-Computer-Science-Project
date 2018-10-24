@@ -2,10 +2,10 @@
   "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
   "formatVersion": 1,
   "organizationName": "Farrer Theatre",
-  "serialNumber": "78d0af723bb36bfabec3ead4d844f0c7",
+  "serialNumber": "f3cfdfb9f1a19b0819930ef1311486f5",
   "teamIdentifier": "AZQME83VC4",
   "webServiceURL": "http://Rogue01.local:4567/",
-  "authenticationToken": "672af03dcde6b59290a89d785ce0466c",
+  "authenticationToken": "694a44b1673f65a251747c03d18dcf7f",
   "description": "Play Ticket",
   "foregroundColor": "#FFFFFF",
   "backgroundColor": "#FF6161",
@@ -23,14 +23,14 @@
   "barcode": {
     "messageEncoding": "utf-8",
     "format": "PKBarcodeFormatQR",
-    "message": "{\"pass_type_id\":\"pass.com.codekollektiv.balance\",\"serial_number\":\"78d0af723bb36bfabec3ead4d844f0c7\",\"authentication_token\":\"672af03dcde6b59290a89d785ce0466c\"}"
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"f3cfdfb9f1a19b0819930ef1311486f5\",\"authentication_token\":\"694a44b1673f65a251747c03d18dcf7f\"}"
   },
   "eventTicket": {
     "headerFields": [
       {
         "key": "fullName",
-        "label": "Big@jeff.com",
-        "value": "Big Jeff"
+        "label": "jeff@rino.com",
+        "value": "Jefferino"
       }
     ],
     "primaryFields": [
@@ -51,7 +51,7 @@
       {
         "key": "seatRef",
         "label": "Seat Reference",
-        "value": null
+        "value": "A14"
       },
       {
         "label": "venue",
