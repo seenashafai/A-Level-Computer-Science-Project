@@ -462,6 +462,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Submit" id="w5M-vp-fId">
                             <connections>
                                 <action selector="submitButtonPressed:" destination="1vT-Fj-vmz" id="ac7-fn-Fgv"/>
+                                <segue destination="0r6-cp-q6a" kind="show" id="s84-Nk-gc2"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -475,6 +476,31 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T4H-2b-Oem" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1984.8" y="198.76847290640396"/>
+        </scene>
+        <!--Ticket Summary View Controller-->
+        <scene sceneID="Cxt-0t-vze">
+            <objects>
+                <viewController id="0r6-cp-q6a" customClass="TicketSummaryViewController" customModule="A_Level_Computer_Science_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4qA-aj-M01">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ha-i4-BzE">
+                                <rect key="frame" x="84" y="210" width="170" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="addPassButtonPressed:" destination="0r6-cp-q6a" eventType="touchUpInside" id="Mw1-Ol-Uq4"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="6vk-Ir-aes"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="piv-JE-QjR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2904.8000000000002" y="198.76847290640396"/>
         </scene>
         <!--Show List-->
         <scene sceneID="zhU-P1-Qef">
