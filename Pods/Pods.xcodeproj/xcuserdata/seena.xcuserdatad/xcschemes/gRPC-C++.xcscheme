@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3DDC652106173D095AB98EBA0E3BC170"
+               BlueprintIdentifier = "D86547CCD4EC2C6E06D0BD7BFCC9BB29"
                BuildableName = "grpcpp.framework"
                BlueprintName = "gRPC-C++"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3DDC652106173D095AB98EBA0E3BC170"
+            BlueprintIdentifier = "D86547CCD4EC2C6E06D0BD7BFCC9BB29"
             BuildableName = "grpcpp.framework"
             BlueprintName = "gRPC-C++"
             ReferencedContainer = "container:Pods.xcodeproj">

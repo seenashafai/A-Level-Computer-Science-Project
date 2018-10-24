@@ -8,6 +8,9 @@
 
 import UIKit
 import AVFoundation
+import MaterialComponents.MaterialSnackbar
+import PKHUD
+
 
 class QRScannerViewController: UIViewController {
 
@@ -70,6 +73,21 @@ class QRScannerViewController: UIViewController {
         //Begin capture session when view appears
         captureSession.startRunning()
     }
+    
+    func presentQROutput(decodedMessage: String)
+    {
+        if presentedViewController != nil
+        {
+            return
+        }
+        
+        //Flash a success message from PKHud
+        HUD.flash(.success, delay: 1.0)
+        //Present snackbar with QR Code data from Material Design
+        let message = MDCSnackbarMessage()
+        message.text = "QR Data: \(decodedMessage)"
+        MDCSnackbarManager.show(message)
+    }
 }
 
 extension QRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
@@ -91,6 +109,7 @@ extension QRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
             if metadataObj.stringValue != nil
             {
                 print("QR Code detected")
+                presentQROutput(decodedMessage: metadataObj.stringValue!)
             }
         }
     }
