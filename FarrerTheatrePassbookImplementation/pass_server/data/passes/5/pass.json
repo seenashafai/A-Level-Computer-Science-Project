@@ -1,0 +1,42 @@
+{
+  "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
+  "formatVersion": 1,
+  "organizationName": "CodeKollektiv",
+  "serialNumber": "e611a8248c79cc004a2c4be9b5600584",
+  "teamIdentifier": "AZQME83VC4",
+  "webServiceURL": "http://Rogue01.local:4567/",
+  "authenticationToken": "9874d8efc9d0899462112fa271617776",
+  "description": "Balance Card for CodeKollektiv",
+  "foregroundColor": "#FFFFFF",
+  "backgroundColor": "#631313",
+  "logoText": "CodeKollektiv",
+  "locations": [
+    {
+      "latitude": 52.497181,
+      "longitude": 13.384972
+    }
+  ],
+  "barcode": {
+    "messageEncoding": "utf-8",
+    "format": "PKBarcodeFormatQR",
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"e611a8248c79cc004a2c4be9b5600584\",\"authentication_token\":\"9874d8efc9d0899462112fa271617776\"}"
+  },
+  "storeCard": {
+    "primaryFields": [
+      {
+        "key": "balance",
+        "label": "Balance",
+        "value": 0.0,
+        "currencyCode": "EUR",
+        "changeMessage": "Balance updated to %@."
+      }
+    ],
+    "secondaryFields": [
+      {
+        "key": "fullName",
+        "label": "Name",
+        "value": "Holy Cow"
+      }
+    ]
+  }
+}

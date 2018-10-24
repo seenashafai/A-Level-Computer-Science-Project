@@ -1,0 +1,42 @@
+{
+  "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
+  "formatVersion": 1,
+  "organizationName": "CodeKollektiv",
+  "serialNumber": "b492c6787de7ac0bd1aeaab126626a70",
+  "teamIdentifier": "AZQME83VC4",
+  "webServiceURL": "http://Rogue01.local:4567/",
+  "authenticationToken": "2aed1b2617960875b81ed1df39a11f3d",
+  "description": "Balance Card for CodeKollektiv",
+  "foregroundColor": "#FFFFFF",
+  "backgroundColor": "#631313",
+  "logoText": "CodeKollektiv",
+  "locations": [
+    {
+      "latitude": 52.497181,
+      "longitude": 13.384972
+    }
+  ],
+  "barcode": {
+    "messageEncoding": "utf-8",
+    "format": "PKBarcodeFormatQR",
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"b492c6787de7ac0bd1aeaab126626a70\",\"authentication_token\":\"2aed1b2617960875b81ed1df39a11f3d\"}"
+  },
+  "storeCard": {
+    "primaryFields": [
+      {
+        "key": "balance",
+        "label": "Balance",
+        "value": 72.0,
+        "currencyCode": "EUR",
+        "changeMessage": "Balance updated to %@."
+      }
+    ],
+    "secondaryFields": [
+      {
+        "key": "fullName",
+        "label": "Name",
+        "value": "O lawd"
+      }
+    ]
+  }
+}
