@@ -10,6 +10,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Admin-->
+        <scene sceneID="1Yi-eG-9gi">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Admin" id="GZu-Wv-eda" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hlj-s9-yHv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-103" y="-256"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="kOO-Ra-mik">
             <objects>
@@ -195,6 +203,7 @@
                         <outlet property="passwordTextField" destination="cFz-GG-ZAi" id="EHv-z4-Dd2"/>
                         <outletCollection property="textFields" destination="Ees-Pe-IMi" collectionClass="NSMutableArray" id="JUg-Bx-2QP"/>
                         <outletCollection property="textFields" destination="cFz-GG-ZAi" collectionClass="NSMutableArray" id="95U-CW-3eI"/>
+                        <segue destination="GZu-Wv-eda" kind="show" id="gAc-yp-FQN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8mv-3H-7nb" userLabel="First Responder" sceneMemberID="firstResponder"/>

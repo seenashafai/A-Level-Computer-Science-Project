@@ -13,6 +13,8 @@
 		04360C2D2177DA5100AE8C5C /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04360C2C2177DA5100AE8C5C /* Ticket.swift */; };
 		04360C2F217E364500AE8C5C /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04360C2E217E364500AE8C5C /* PassKit.framework */; };
 		04480B64217E391600975ED6 /* TicketSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04480B63217E391600975ED6 /* TicketSummaryViewController.swift */; };
+		046F38B92180C7880026EA16 /* Admin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046F38B82180C7880026EA16 /* Admin.storyboard */; };
+		046F38BE2180C83E0026EA16 /* InitialAdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */; };
 		04904DEE209790C70043C97A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04904DED209790C70043C97A /* AppDelegate.swift */; };
 		04904DF3209790C70043C97A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04904DF1209790C70043C97A /* Main.storyboard */; };
 		04904DF5209790C80043C97A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04904DF4209790C80043C97A /* Assets.xcassets */; };
@@ -21,6 +23,7 @@
 		04904E0E209790C80043C97A /* A_Level_Computer_Science_ProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04904E0D209790C80043C97A /* A_Level_Computer_Science_ProjectUITests.swift */; };
 		049CD70421754C5700DD5429 /* TicketPortalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CD70321754C5700DD5429 /* TicketPortalViewController.swift */; };
 		049CD706217624C500DD5429 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CD705217624C500DD5429 /* User.swift */; };
+		04F5848C218112D1007E0AAD /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F5848B218112D1007E0AAD /* QRScannerViewController.swift */; };
 		04FB57FC215C208500673B7D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB57FB215C208500673B7D /* SignUpViewController.swift */; };
 		0F0D6D9CA5EB278B2A9868A7 /* Pods_A_Level_Computer_Science_ProjectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C9CA0DCCC99354E97C94C79 /* Pods_A_Level_Computer_Science_ProjectUITests.framework */; };
 		3772778F21590566007532A0 /* ShowListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3772778E21590566007532A0 /* ShowListTableViewCell.swift */; };
@@ -57,6 +60,8 @@
 		04360C2C2177DA5100AE8C5C /* Ticket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
 		04360C2E217E364500AE8C5C /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		04480B63217E391600975ED6 /* TicketSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketSummaryViewController.swift; sourceTree = "<group>"; };
+		046F38B82180C7880026EA16 /* Admin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Admin.storyboard; sourceTree = "<group>"; };
+		046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialAdminViewController.swift; sourceTree = "<group>"; };
 		04904DEA209790C70043C97A /* A Level Computer Science Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "A Level Computer Science Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04904DED209790C70043C97A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04904DF2209790C70043C97A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -71,6 +76,7 @@
 		04904E0F209790C80043C97A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		049CD70321754C5700DD5429 /* TicketPortalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketPortalViewController.swift; sourceTree = "<group>"; };
 		049CD705217624C500DD5429 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		04F5848B218112D1007E0AAD /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		04FB57FB215C208500673B7D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		215E5B3DCEFF24395ACA28C4 /* Pods-A Level Computer Science ProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science ProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science ProjectTests/Pods-A Level Computer Science ProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3772778E21590566007532A0 /* ShowListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListTableViewCell.swift; sourceTree = "<group>"; };
@@ -130,6 +136,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		046F38BA2180C7F30026EA16 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				04904DF1209790C70043C97A /* Main.storyboard */,
+				046F38B82180C7880026EA16 /* Admin.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		046F38BC2180C8240026EA16 /* Admin */ = {
+			isa = PBXGroup;
+			children = (
+				046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */,
+				04F5848B218112D1007E0AAD /* QRScannerViewController.swift */,
+			);
+			path = Admin;
+			sourceTree = "<group>";
+		};
 		04904DE1209790C70043C97A = {
 			isa = PBXGroup;
 			children = (
@@ -157,9 +181,10 @@
 			children = (
 				04360C2B21775B5800AE8C5C /* A Level Computer Science Project.entitlements */,
 				04904DED209790C70043C97A /* AppDelegate.swift */,
-				04904DF1209790C70043C97A /* Main.storyboard */,
+				046F38BA2180C7F30026EA16 /* Storyboards */,
 				04FB57FA215C206600673B7D /* Login */,
 				37F0E7BA214FD1A000D9E335 /* Show List */,
+				046F38BC2180C8240026EA16 /* Admin */,
 				049CD70221754C3200DD5429 /* Ticketing */,
 				04904DF4209790C80043C97A /* Assets.xcassets */,
 				04904DF6209790C80043C97A /* LaunchScreen.storyboard */,
@@ -353,6 +378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04904DF8209790C80043C97A /* LaunchScreen.storyboard in Resources */,
+				046F38B92180C7880026EA16 /* Admin.storyboard in Resources */,
 				040ABC902097934B00F07B6A /* GoogleService-Info.plist in Resources */,
 				04904DF5209790C80043C97A /* Assets.xcassets in Resources */,
 				04904DF3209790C70043C97A /* Main.storyboard in Resources */,
@@ -489,6 +515,8 @@
 				37F0E7C0214FD21B00D9E335 /* ShowDetailViewController.swift in Sources */,
 				BD90ACCD21652154003C831A /* Alerts.swift in Sources */,
 				37F0E7BC214FD1E400D9E335 /* LoginViewController.swift in Sources */,
+				046F38BE2180C83E0026EA16 /* InitialAdminViewController.swift in Sources */,
+				04F5848C218112D1007E0AAD /* QRScannerViewController.swift in Sources */,
 				049CD70421754C5700DD5429 /* TicketPortalViewController.swift in Sources */,
 				04904DEE209790C70043C97A /* AppDelegate.swift in Sources */,
 				3772778F21590566007532A0 /* ShowListTableViewCell.swift in Sources */,
