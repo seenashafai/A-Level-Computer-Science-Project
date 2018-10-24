@@ -82,11 +82,17 @@ class QRScannerViewController: UIViewController {
         }
         
         //Flash a success message from PKHud
-        HUD.flash(.success, delay: 1.0)
+        HUD.flash(.success)
         //Present snackbar with QR Code data from Material Design
         let message = MDCSnackbarMessage()
         message.text = "QR Data: \(decodedMessage)"
         MDCSnackbarManager.show(message)
+        
+        
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.captureSession.startRunning()
     }
 }
 
@@ -109,6 +115,8 @@ extension QRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
             if metadataObj.stringValue != nil
             {
                 print("QR Code detected")
+                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+                self.captureSession.stopRunning()
                 presentQROutput(decodedMessage: metadataObj.stringValue!)
             }
         }
