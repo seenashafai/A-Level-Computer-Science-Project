@@ -11,7 +11,7 @@ require './pass_server'
 use Rack::MethodOverride
 
 # Pass Server Settings
-PassServer.set :hostname, "Rogue01.local"
+PassServer.set :hostname, "http://Rogue01.local"
 PassServer.set :port, 4567
 PassServer.set :pass_type_identifier, "pass.com.theatrePass.A-Level-CompSciProj"
 PassServer.set :team_identifier, "AZQME83VC4"

@@ -23,6 +23,9 @@
 		04904E0E209790C80043C97A /* A_Level_Computer_Science_ProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04904E0D209790C80043C97A /* A_Level_Computer_Science_ProjectUITests.swift */; };
 		049CD70421754C5700DD5429 /* TicketPortalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CD70321754C5700DD5429 /* TicketPortalViewController.swift */; };
 		049CD706217624C500DD5429 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CD705217624C500DD5429 /* User.swift */; };
+		04C4507C2181CDCD009ECD30 /* QRDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C4507B2181CDCD009ECD30 /* QRDetailsViewController.swift */; };
+		04C450802181D545009ECD30 /* PKUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C4507F2181D545009ECD30 /* PKUser.swift */; };
+		04C450862181E909009ECD30 /* PKTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C450852181E909009ECD30 /* PKTesting.swift */; };
 		04F5848C218112D1007E0AAD /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F5848B218112D1007E0AAD /* QRScannerViewController.swift */; };
 		04FB57FC215C208500673B7D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB57FB215C208500673B7D /* SignUpViewController.swift */; };
 		0F0D6D9CA5EB278B2A9868A7 /* Pods_A_Level_Computer_Science_ProjectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C9CA0DCCC99354E97C94C79 /* Pods_A_Level_Computer_Science_ProjectUITests.framework */; };
@@ -76,6 +79,9 @@
 		04904E0F209790C80043C97A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		049CD70321754C5700DD5429 /* TicketPortalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketPortalViewController.swift; sourceTree = "<group>"; };
 		049CD705217624C500DD5429 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		04C4507B2181CDCD009ECD30 /* QRDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRDetailsViewController.swift; sourceTree = "<group>"; };
+		04C4507F2181D545009ECD30 /* PKUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKUser.swift; sourceTree = "<group>"; };
+		04C450852181E909009ECD30 /* PKTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKTesting.swift; sourceTree = "<group>"; };
 		04F5848B218112D1007E0AAD /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		04FB57FB215C208500673B7D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		215E5B3DCEFF24395ACA28C4 /* Pods-A Level Computer Science ProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science ProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science ProjectTests/Pods-A Level Computer Science ProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -150,6 +156,9 @@
 			children = (
 				046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */,
 				04F5848B218112D1007E0AAD /* QRScannerViewController.swift */,
+				04C4507B2181CDCD009ECD30 /* QRDetailsViewController.swift */,
+				04C4507F2181D545009ECD30 /* PKUser.swift */,
+				04C450852181E909009ECD30 /* PKTesting.swift */,
 			);
 			path = Admin;
 			sourceTree = "<group>";
@@ -513,6 +522,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04C450862181E909009ECD30 /* PKTesting.swift in Sources */,
+				04C4507C2181CDCD009ECD30 /* QRDetailsViewController.swift in Sources */,
+				04C450802181D545009ECD30 /* PKUser.swift in Sources */,
 				04FB57FC215C208500673B7D /* SignUpViewController.swift in Sources */,
 				37F0E7C0214FD21B00D9E335 /* ShowDetailViewController.swift in Sources */,
 				BD90ACCD21652154003C831A /* Alerts.swift in Sources */,

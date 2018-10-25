@@ -45,10 +45,28 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="QR Scanner" image="qr_code" selectedImage="qr_code" id="HNC-8b-ldU"/>
                     <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <segue destination="teF-n0-17Q" kind="show" identifier="toQRDetails" id="BmF-CU-3w5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W2Z-57-IOL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1142" y="259"/>
+        </scene>
+        <!--Details View Controller-->
+        <scene sceneID="qDi-yp-QH5">
+            <objects>
+                <viewController id="teF-n0-17Q" customClass="QRDetailsViewController" customModule="A_Level_Computer_Science_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Yqz-pc-5By">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="YvX-OD-tq3"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PrV-ek-GAa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2006" y="259"/>
         </scene>
         <!--Admin Portal-->
         <scene sceneID="zNr-7Y-0fq">

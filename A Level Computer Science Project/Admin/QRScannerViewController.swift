@@ -87,6 +87,7 @@ class QRScannerViewController: UIViewController {
         let message = MDCSnackbarMessage()
         message.text = "QR Data: \(decodedMessage)"
         MDCSnackbarManager.show(message)
+        performSegue(withIdentifier: "toQRDetails", sender: nil)
         
         
     }
