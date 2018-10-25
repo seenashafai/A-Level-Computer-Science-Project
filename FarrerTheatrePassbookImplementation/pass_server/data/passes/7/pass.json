@@ -4,7 +4,7 @@
   "organizationName": "Farrer Theatre",
   "serialNumber": "0f9414895e7bf542f38a341b92805e5f",
   "teamIdentifier": "AZQME83VC4",
-  "webServiceURL": "http://Rogue01.local:4567/",
+  "webServiceURL": "http://rogue01.local:6789/",
   "authenticationToken": "e5700d4c86608f0671181e44bcfd5dbf",
   "description": "Play Ticket",
   "foregroundColor": "#FFFFFF",

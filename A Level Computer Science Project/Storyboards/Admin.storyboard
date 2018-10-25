@@ -46,7 +46,7 @@
                     <tabBarItem key="tabBarItem" title="QR Scanner" image="qr_code" selectedImage="qr_code" id="HNC-8b-ldU"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <segue destination="teF-n0-17Q" kind="show" identifier="toQRDetails" id="BmF-CU-3w5"/>
+                        <segue destination="teF-n0-17Q" kind="show" identifier="toQRDetails" id="HbK-bn-q9M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W2Z-57-IOL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -56,7 +56,7 @@
         <!--Details View Controller-->
         <scene sceneID="qDi-yp-QH5">
             <objects>
-                <viewController id="teF-n0-17Q" customClass="QRDetailsViewController" customModule="A_Level_Computer_Science_Project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="QRScannerDetails" id="teF-n0-17Q" customClass="QRDetailsViewController" customModule="A_Level_Computer_Science_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yqz-pc-5By">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -66,7 +66,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PrV-ek-GAa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2006" y="259"/>
+            <point key="canvasLocation" x="2034" y="302"/>
         </scene>
         <!--Admin Portal-->
         <scene sceneID="zNr-7Y-0fq">
@@ -84,6 +84,14 @@
                                     <segue destination="nL6-uk-cwF" kind="show" id="KGQ-O6-Y5Z"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYK-CB-6Xc">
+                                <rect key="frame" x="142" y="507" width="160" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="To JSON Decoder View"/>
+                                <connections>
+                                    <segue destination="teF-n0-17Q" kind="show" id="yHE-Ac-KbG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="nfZ-eq-dBd"/>
@@ -92,7 +100,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jPM-Wj-Zp8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1143" y="-400"/>
+            <point key="canvasLocation" x="1141.5999999999999" y="-400.49261083743846"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="ezN-tr-u8M">
@@ -116,4 +124,7 @@
     <resources>
         <image name="qr_code" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="HbK-bn-q9M"/>
+    </inferredMetricsTieBreakers>
 </document>

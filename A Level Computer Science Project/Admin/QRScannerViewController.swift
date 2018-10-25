@@ -17,6 +17,7 @@ class QRScannerViewController: UIViewController {
     //MARK: - Properties
     var captureSession = AVCaptureSession()
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+    var globalMessage = ""
     
     //MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -87,20 +88,34 @@ class QRScannerViewController: UIViewController {
         let message = MDCSnackbarMessage()
         message.text = "QR Data: \(decodedMessage)"
         MDCSnackbarManager.show(message)
-        performSegue(withIdentifier: "toQRDetails", sender: nil)
         
+        //JSON Decoding
+        let jsonData = Data(decodedMessage.utf8) //Convert string to Swift 'Data' type for decoding
+        let decoder = JSONDecoder() //Initialise JSON Decoder
+        do {
+            let barcode = try decoder.decode(PKBarcode.self, from: jsonData) //Decode with decoder & data
+        } catch {
+            print(error)
+        }
         
+        super.performSegue(withIdentifier: "toQRDetails", sender: nil)
+
     }
+
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.captureSession.startRunning()
     }
+    
+    
+
 }
 
 extension QRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection)
     {
+        var decodedMessage: String!
         // Check if the metadataObjects array is not nil and it contains at least one object (i.e. a code).
         if metadataObjects.count == 0
         {
@@ -118,7 +133,8 @@ extension QRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
                 print("QR Code detected")
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
                 self.captureSession.stopRunning()
-                presentQROutput(decodedMessage: metadataObj.stringValue!)
+                decodedMessage = metadataObj.stringValue!
+                presentQROutput(decodedMessage: decodedMessage)
             }
         }
     }

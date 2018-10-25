@@ -14,6 +14,7 @@ class PassServer < Sinatra::Base
   configure do
     # Register MIME type for pass files
     mime_type :pkpass, 'application/vnd.apple.pkpass'
+    set :bind, '0.0.0.0'
   end
 
   before do
