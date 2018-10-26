@@ -98,10 +98,17 @@ class QRScannerViewController: UIViewController {
             print(error)
         }
         
-        super.performSegue(withIdentifier: "toQRDetails", sender: nil)
+        performSegue(withIdentifier: "toQRDetails", sender: nil)
 
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toQRDetails"
+        {
+            var destVC = segue.destination as! QRDetailsViewController
+            destVC.passVar = globalMessage
+        }
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.captureSession.startRunning()
@@ -134,6 +141,7 @@ extension QRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
                 self.captureSession.stopRunning()
                 decodedMessage = metadataObj.stringValue!
+                globalMessage = metadataObj.stringValue!
                 presentQROutput(decodedMessage: decodedMessage)
             }
         }

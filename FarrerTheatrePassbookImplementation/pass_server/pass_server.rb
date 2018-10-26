@@ -247,13 +247,8 @@ class PassServer < Sinatra::Base
 
   get "/users/:user_id" do
     user = self.users.where(:id => params[:user_id]).first
-    if request.accept.include? "application/json"
       content_type 'application/json', :charset => 'utf-8'
       user.to_json
-    else
-      erb :'users/show.html', :locals => { :user => user }
-    end
-  end
 
   get "/users/:user_id/edit" do
     user = self.users.where(:id => params[:user_id]).first
