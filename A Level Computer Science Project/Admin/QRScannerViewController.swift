@@ -18,6 +18,10 @@ class QRScannerViewController: UIViewController {
     var captureSession = AVCaptureSession()
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var globalMessage = ""
+    var barcodeMethods = Barcode()
+    let APIEndpoint = "http://192.168.1.24:6789"
+    var returnedUser: PKUser?
+
     
     //MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -82,24 +86,34 @@ class QRScannerViewController: UIViewController {
             return
         }
         
-        //Flash a success message from PKHud
-        HUD.flash(.success)
-        //Present snackbar with QR Code data from Material Design
-        let message = MDCSnackbarMessage()
-        message.text = "QR Data: \(decodedMessage)"
-        MDCSnackbarManager.show(message)
-        
         //JSON Decoding
-        let jsonData = Data(decodedMessage.utf8) //Convert string to Swift 'Data' type for decoding
-        let decoder = JSONDecoder() //Initialise JSON Decoder
-        do {
-            let barcode = try decoder.decode(PKBarcode.self, from: jsonData) //Decode with decoder & data
-        } catch {
-            print(error)
+        let barcode = barcodeMethods.decodeJSONString(JSONString: decodedMessage)
+        
+        barcodeMethods.sendJSONRequest(withMethod: "GET", APIEndpoint: APIEndpoint, path: "/user_for_pass/\(String(describing: barcode!.pass_type_id))/\(String(describing: barcode!.serial_number))/\(String(describing: barcode!.authentication_token))", formFields: nil) { user, error in
+            guard user != nil else {
+                print(error, "error")
+                return
+            }
+            print(user, "user")
+            self.returnedUser = user
+            
+            //Flash a success message from PKHud
+            HUD.flash(.success)
+            
+            //Present snackbar with QR Code data
+            let message = MDCSnackbarMessage()
+            let action = MDCSnackbarMessageAction()
+            let actionHandler = {() in
+                self.performSegue(withIdentifier: "toQRDetails", sender: nil)
+            }
+            action.handler = actionHandler
+            action.title = "More"
+            message.action = action
+            message.text = "User info: \(self.returnedUser!.name, self.returnedUser!.email)"
+            MDCSnackbarManager.show(message)
         }
         
-        performSegue(withIdentifier: "toQRDetails", sender: nil)
-
+        print(returnedUser?.email, "email")
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -25,7 +25,6 @@
 		049CD706217624C500DD5429 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CD705217624C500DD5429 /* User.swift */; };
 		04C4507C2181CDCD009ECD30 /* QRDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C4507B2181CDCD009ECD30 /* QRDetailsViewController.swift */; };
 		04C450802181D545009ECD30 /* PKUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C4507F2181D545009ECD30 /* PKUser.swift */; };
-		04C450862181E909009ECD30 /* PKTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C450852181E909009ECD30 /* PKTesting.swift */; };
 		04C450882181F33A009ECD30 /* PKBarcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C450872181F33A009ECD30 /* PKBarcode.swift */; };
 		04F5848C218112D1007E0AAD /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F5848B218112D1007E0AAD /* QRScannerViewController.swift */; };
 		04FB57FC215C208500673B7D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB57FB215C208500673B7D /* SignUpViewController.swift */; };
@@ -33,12 +32,12 @@
 		37F0E7BC214FD1E400D9E335 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F0E7BB214FD1E400D9E335 /* LoginViewController.swift */; };
 		37F0E7BE214FD20000D9E335 /* ShowListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F0E7BD214FD20000D9E335 /* ShowListTableViewController.swift */; };
 		37F0E7C0214FD21B00D9E335 /* ShowDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F0E7BF214FD21B00D9E335 /* ShowDetailViewController.swift */; };
-		57E189D01187A02E80A8D177 /* Pods_A_Level_Computer_Science_ProjectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C427DA0C5202B42E5EC473B0 /* Pods_A_Level_Computer_Science_ProjectUITests.framework */; };
-		A08E24D179DD09901EBA8D7B /* Pods_A_Level_Computer_Science_ProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 208E695345306877E787E04F /* Pods_A_Level_Computer_Science_ProjectTests.framework */; };
+		4004B54DB31CFECAC45078FE /* Pods_A_Level_Computer_Science_ProjectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF806FDDD7C570A195F7399 /* Pods_A_Level_Computer_Science_ProjectUITests.framework */; };
+		808EF5B5A517680A28A4D533 /* Pods_A_Level_Computer_Science_ProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB5DF790B78909C7B9B8F888 /* Pods_A_Level_Computer_Science_ProjectTests.framework */; };
+		9FE2BC276001D3B0A4E020B3 /* Pods_A_Level_Computer_Science_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECF2E581416C55336E6B500B /* Pods_A_Level_Computer_Science_Project.framework */; };
 		BD89FD7E2163ECF10050D379 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD89FD7D2163ECF10050D379 /* Validation.swift */; };
 		BD90ACCD21652154003C831A /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD90ACCC21652154003C831A /* Alerts.swift */; };
 		BD90ACCF21676737003C831A /* Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD90ACCE21676737003C831A /* Show.swift */; };
-		D238EA3C2F67173B775737DB /* Pods_A_Level_Computer_Science_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE0940AB5A50017A780F441 /* Pods_A_Level_Computer_Science_Project.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,26 +81,25 @@
 		049CD705217624C500DD5429 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		04C4507B2181CDCD009ECD30 /* QRDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRDetailsViewController.swift; sourceTree = "<group>"; };
 		04C4507F2181D545009ECD30 /* PKUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKUser.swift; sourceTree = "<group>"; };
-		04C450852181E909009ECD30 /* PKTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKTesting.swift; sourceTree = "<group>"; };
 		04C450872181F33A009ECD30 /* PKBarcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKBarcode.swift; sourceTree = "<group>"; };
 		04F5848B218112D1007E0AAD /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		04FB57FB215C208500673B7D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		19501FEAEA6A164DF4F11C28 /* Pods-A Level Computer Science ProjectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science ProjectUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science ProjectUITests/Pods-A Level Computer Science ProjectUITests.release.xcconfig"; sourceTree = "<group>"; };
-		1AE0940AB5A50017A780F441 /* Pods_A_Level_Computer_Science_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_A_Level_Computer_Science_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		208E695345306877E787E04F /* Pods_A_Level_Computer_Science_ProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_A_Level_Computer_Science_ProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		35812F6BDC1EA21C34DD450E /* Pods-A Level Computer Science Project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science Project.release.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science Project/Pods-A Level Computer Science Project.release.xcconfig"; sourceTree = "<group>"; };
+		204CD32E2AE9D8E082A7D859 /* Pods-A Level Computer Science ProjectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science ProjectUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science ProjectUITests/Pods-A Level Computer Science ProjectUITests.release.xcconfig"; sourceTree = "<group>"; };
+		285E2D0F77B733A2AB4DF270 /* Pods-A Level Computer Science Project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science Project.release.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science Project/Pods-A Level Computer Science Project.release.xcconfig"; sourceTree = "<group>"; };
 		3772778E21590566007532A0 /* ShowListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListTableViewCell.swift; sourceTree = "<group>"; };
 		37F0E7BB214FD1E400D9E335 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		37F0E7BD214FD20000D9E335 /* ShowListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListTableViewController.swift; sourceTree = "<group>"; };
 		37F0E7BF214FD21B00D9E335 /* ShowDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailViewController.swift; sourceTree = "<group>"; };
-		45CE23697206A0DF8C701790 /* Pods-A Level Computer Science ProjectUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science ProjectUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science ProjectUITests/Pods-A Level Computer Science ProjectUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		6D3246AF115A46C007467F38 /* Pods-A Level Computer Science ProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science ProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science ProjectTests/Pods-A Level Computer Science ProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3BC17DF2D114471235D62C41 /* Pods-A Level Computer Science ProjectUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science ProjectUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science ProjectUITests/Pods-A Level Computer Science ProjectUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		5DF806FDDD7C570A195F7399 /* Pods_A_Level_Computer_Science_ProjectUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_A_Level_Computer_Science_ProjectUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		818C8EFAAC0A1F549FD2C1E4 /* Pods-A Level Computer Science ProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science ProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science ProjectTests/Pods-A Level Computer Science ProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
+		94FCF368E580D2AA07FA0BAF /* Pods-A Level Computer Science ProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science ProjectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science ProjectTests/Pods-A Level Computer Science ProjectTests.release.xcconfig"; sourceTree = "<group>"; };
+		A4363F547F4E750A59359B02 /* Pods-A Level Computer Science Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science Project.debug.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science Project/Pods-A Level Computer Science Project.debug.xcconfig"; sourceTree = "<group>"; };
+		BB5DF790B78909C7B9B8F888 /* Pods_A_Level_Computer_Science_ProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_A_Level_Computer_Science_ProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD89FD7D2163ECF10050D379 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		BD90ACCC21652154003C831A /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		BD90ACCE21676737003C831A /* Show.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Show.swift; sourceTree = "<group>"; };
-		C427DA0C5202B42E5EC473B0 /* Pods_A_Level_Computer_Science_ProjectUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_A_Level_Computer_Science_ProjectUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CAAAF567C34D4BC6646AC601 /* Pods-A Level Computer Science ProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science ProjectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science ProjectTests/Pods-A Level Computer Science ProjectTests.release.xcconfig"; sourceTree = "<group>"; };
-		F3B347FAD25C4E466C14B579 /* Pods-A Level Computer Science Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science Project.debug.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science Project/Pods-A Level Computer Science Project.debug.xcconfig"; sourceTree = "<group>"; };
+		ECF2E581416C55336E6B500B /* Pods_A_Level_Computer_Science_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_A_Level_Computer_Science_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +108,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04360C2F217E364500AE8C5C /* PassKit.framework in Frameworks */,
-				D238EA3C2F67173B775737DB /* Pods_A_Level_Computer_Science_Project.framework in Frameworks */,
+				9FE2BC276001D3B0A4E020B3 /* Pods_A_Level_Computer_Science_Project.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,7 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A08E24D179DD09901EBA8D7B /* Pods_A_Level_Computer_Science_ProjectTests.framework in Frameworks */,
+				808EF5B5A517680A28A4D533 /* Pods_A_Level_Computer_Science_ProjectTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57E189D01187A02E80A8D177 /* Pods_A_Level_Computer_Science_ProjectUITests.framework in Frameworks */,
+				4004B54DB31CFECAC45078FE /* Pods_A_Level_Computer_Science_ProjectUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,9 +135,9 @@
 			isa = PBXGroup;
 			children = (
 				04360C2E217E364500AE8C5C /* PassKit.framework */,
-				1AE0940AB5A50017A780F441 /* Pods_A_Level_Computer_Science_Project.framework */,
-				208E695345306877E787E04F /* Pods_A_Level_Computer_Science_ProjectTests.framework */,
-				C427DA0C5202B42E5EC473B0 /* Pods_A_Level_Computer_Science_ProjectUITests.framework */,
+				ECF2E581416C55336E6B500B /* Pods_A_Level_Computer_Science_Project.framework */,
+				BB5DF790B78909C7B9B8F888 /* Pods_A_Level_Computer_Science_ProjectTests.framework */,
+				5DF806FDDD7C570A195F7399 /* Pods_A_Level_Computer_Science_ProjectUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -161,7 +159,6 @@
 				04C4507B2181CDCD009ECD30 /* QRDetailsViewController.swift */,
 				04C4507F2181D545009ECD30 /* PKUser.swift */,
 				04C450872181F33A009ECD30 /* PKBarcode.swift */,
-				04C450852181E909009ECD30 /* PKTesting.swift */,
 			);
 			path = Admin;
 			sourceTree = "<group>";
@@ -174,7 +171,7 @@
 				04904E0C209790C80043C97A /* A Level Computer Science ProjectUITests */,
 				04904DEB209790C70043C97A /* Products */,
 				02E514B4C1E34FCD2454B726 /* Frameworks */,
-				88221C575AE501A36C8E11CE /* Pods */,
+				EB485B9827643A11ACB0FCD4 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -257,15 +254,15 @@
 			path = "Show List";
 			sourceTree = "<group>";
 		};
-		88221C575AE501A36C8E11CE /* Pods */ = {
+		EB485B9827643A11ACB0FCD4 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F3B347FAD25C4E466C14B579 /* Pods-A Level Computer Science Project.debug.xcconfig */,
-				35812F6BDC1EA21C34DD450E /* Pods-A Level Computer Science Project.release.xcconfig */,
-				6D3246AF115A46C007467F38 /* Pods-A Level Computer Science ProjectTests.debug.xcconfig */,
-				CAAAF567C34D4BC6646AC601 /* Pods-A Level Computer Science ProjectTests.release.xcconfig */,
-				45CE23697206A0DF8C701790 /* Pods-A Level Computer Science ProjectUITests.debug.xcconfig */,
-				19501FEAEA6A164DF4F11C28 /* Pods-A Level Computer Science ProjectUITests.release.xcconfig */,
+				A4363F547F4E750A59359B02 /* Pods-A Level Computer Science Project.debug.xcconfig */,
+				285E2D0F77B733A2AB4DF270 /* Pods-A Level Computer Science Project.release.xcconfig */,
+				818C8EFAAC0A1F549FD2C1E4 /* Pods-A Level Computer Science ProjectTests.debug.xcconfig */,
+				94FCF368E580D2AA07FA0BAF /* Pods-A Level Computer Science ProjectTests.release.xcconfig */,
+				3BC17DF2D114471235D62C41 /* Pods-A Level Computer Science ProjectUITests.debug.xcconfig */,
+				204CD32E2AE9D8E082A7D859 /* Pods-A Level Computer Science ProjectUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -277,11 +274,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 04904E12209790C80043C97A /* Build configuration list for PBXNativeTarget "A Level Computer Science Project" */;
 			buildPhases = (
-				DD60B131AC31619193A1779D /* [CP] Check Pods Manifest.lock */,
+				745289EBE7D4646B210CA131 /* [CP] Check Pods Manifest.lock */,
 				04904DE6209790C70043C97A /* Sources */,
 				04904DE7209790C70043C97A /* Frameworks */,
 				04904DE8209790C70043C97A /* Resources */,
-				C68ADC4A2C22E55994985A38 /* [CP] Embed Pods Frameworks */,
+				B23A436ECC9DF5829CEFFB40 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -296,7 +293,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 04904E15209790C80043C97A /* Build configuration list for PBXNativeTarget "A Level Computer Science ProjectTests" */;
 			buildPhases = (
-				E154A361CAE9A15EDA586B85 /* [CP] Check Pods Manifest.lock */,
+				D15E924A6A31B1941B566357 /* [CP] Check Pods Manifest.lock */,
 				04904DFA209790C80043C97A /* Sources */,
 				04904DFB209790C80043C97A /* Frameworks */,
 				04904DFC209790C80043C97A /* Resources */,
@@ -315,7 +312,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 04904E18209790C80043C97A /* Build configuration list for PBXNativeTarget "A Level Computer Science ProjectUITests" */;
 			buildPhases = (
-				0CCD65AEAC85B76BC94B37C1 /* [CP] Check Pods Manifest.lock */,
+				C03AE7E57DBA76CFFA4540E4 /* [CP] Check Pods Manifest.lock */,
 				04904E05209790C80043C97A /* Sources */,
 				04904E06209790C80043C97A /* Frameworks */,
 				04904E07209790C80043C97A /* Resources */,
@@ -416,7 +413,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0CCD65AEAC85B76BC94B37C1 /* [CP] Check Pods Manifest.lock */ = {
+		745289EBE7D4646B210CA131 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -431,14 +428,14 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-A Level Computer Science ProjectUITests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-A Level Computer Science Project-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C68ADC4A2C22E55994985A38 /* [CP] Embed Pods Frameworks */ = {
+		B23A436ECC9DF5829CEFFB40 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -490,7 +487,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-A Level Computer Science Project/Pods-A Level Computer Science Project-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DD60B131AC31619193A1779D /* [CP] Check Pods Manifest.lock */ = {
+		C03AE7E57DBA76CFFA4540E4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -505,14 +502,14 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-A Level Computer Science Project-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-A Level Computer Science ProjectUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E154A361CAE9A15EDA586B85 /* [CP] Check Pods Manifest.lock */ = {
+		D15E924A6A31B1941B566357 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -541,7 +538,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04C450862181E909009ECD30 /* PKTesting.swift in Sources */,
 				04C4507C2181CDCD009ECD30 /* QRDetailsViewController.swift in Sources */,
 				04C450802181D545009ECD30 /* PKUser.swift in Sources */,
 				04FB57FC215C208500673B7D /* SignUpViewController.swift in Sources */,
@@ -730,7 +726,7 @@
 		};
 		04904E13209790C80043C97A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3B347FAD25C4E466C14B579 /* Pods-A Level Computer Science Project.debug.xcconfig */;
+			baseConfigurationReference = A4363F547F4E750A59359B02 /* Pods-A Level Computer Science Project.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "A Level Computer Science Project/A Level Computer Science Project.entitlements";
@@ -750,7 +746,7 @@
 		};
 		04904E14209790C80043C97A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 35812F6BDC1EA21C34DD450E /* Pods-A Level Computer Science Project.release.xcconfig */;
+			baseConfigurationReference = 285E2D0F77B733A2AB4DF270 /* Pods-A Level Computer Science Project.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "A Level Computer Science Project/A Level Computer Science Project.entitlements";
@@ -770,7 +766,7 @@
 		};
 		04904E16209790C80043C97A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6D3246AF115A46C007467F38 /* Pods-A Level Computer Science ProjectTests.debug.xcconfig */;
+			baseConfigurationReference = 818C8EFAAC0A1F549FD2C1E4 /* Pods-A Level Computer Science ProjectTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -792,7 +788,7 @@
 		};
 		04904E17209790C80043C97A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CAAAF567C34D4BC6646AC601 /* Pods-A Level Computer Science ProjectTests.release.xcconfig */;
+			baseConfigurationReference = 94FCF368E580D2AA07FA0BAF /* Pods-A Level Computer Science ProjectTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -814,7 +810,7 @@
 		};
 		04904E19209790C80043C97A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 45CE23697206A0DF8C701790 /* Pods-A Level Computer Science ProjectUITests.debug.xcconfig */;
+			baseConfigurationReference = 3BC17DF2D114471235D62C41 /* Pods-A Level Computer Science ProjectUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -835,7 +831,7 @@
 		};
 		04904E1A209790C80043C97A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 19501FEAEA6A164DF4F11C28 /* Pods-A Level Computer Science ProjectUITests.release.xcconfig */;
+			baseConfigurationReference = 204CD32E2AE9D8E082A7D859 /* Pods-A Level Computer Science ProjectUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

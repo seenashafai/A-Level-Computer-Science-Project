@@ -227,7 +227,7 @@ class PassServer < Sinatra::Base
   # List of users
   get "/users" do
     ordered_users = self.users.order(:name).all
-    if request.accept.include? "application/json"
+    if request.accept.include? 'application/json'
       content_type 'application/json', :charset => 'utf-8'
       ordered_users.to_json
     else
@@ -249,6 +249,7 @@ class PassServer < Sinatra::Base
     user = self.users.where(:id => params[:user_id]).first
       content_type 'application/json', :charset => 'utf-8'
       user.to_json
+  end
 
   get "/users/:user_id/edit" do
     user = self.users.where(:id => params[:user_id]).first
