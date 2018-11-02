@@ -1,23 +1,20 @@
 //
-//  ShowListTableViewController.swift
+//  AdminShowListTableViewController.swift
 //  A Level Computer Science Project
 //
-//  Created by Shafai, Seena (JRBS) on 17/09/2018.
+//  Created by Chronicle on 01/11/2018.
 //  Copyright © 2018 Seena Shafai. All rights reserved.
 //
 
 import UIKit
 import Firebase
-import FirebaseFirestore
-import FirebaseStorage
 import MaterialComponents.MaterialSnackbar
 
-class ShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AdminShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     //MARK: - Variables
     var dateSortIndex = 0
     var nameSortIndex = 0
-    var userIsAdmin: Bool?
     
     //MARK: - Initialise Firebase Properties
     var documents: [DocumentSnapshot] = []
@@ -39,7 +36,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     // MARK: - TableView Datasource
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -103,12 +100,6 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.reloadData()
     }
     
-    //MARK: - Admin Settings
-    @objc func adminSettingsTapped()
-    {
-        print("epic admin time")
-    }
-    
     //MARK: - setSearchBarSettings
     private func setSearchBarSettings()
     {
@@ -138,31 +129,25 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     func setFirebaseSettings()
     {
         db = Firestore.firestore()
+        let settings = FirestoreSettings()
+        settings.areTimestampsInSnapshotsEnabled = true
+        db.settings = settings
+        settings.isPersistenceEnabled = false
     }
     
     //MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print(userIsAdmin, "admin")
-
         self.dateSortIndex = 0
         setFirebaseSettings()
         self.query = baseQuery()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         setSearchBarSettings()
-        if userIsAdmin == true
-        {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(adminSettingsTapped))
-        }
-        else{
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(presentSortingActionSheet))
-        }
         
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.listener.remove()
@@ -189,11 +174,11 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
             self.dbShows = results
             self.documents = snapshot.documents
             self.tableView.reloadData()
-
+            
         }
     }
-
-    @objc func presentSortingActionSheet()
+    
+    func presentSortingActionSheet()
     {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Sort by Date", style: .default, handler: {(UIAlertAction) in
@@ -216,7 +201,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     func sortByDate()
     {
-        let message = MDCSnackbarMessage()        
+        let message = MDCSnackbarMessage()
         dateSortIndex = dateSortIndex + 1
         if dateSortIndex % 2 != 0
         {
@@ -255,7 +240,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toDetailsView"
@@ -268,7 +253,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
 }
 
-extension ShowListTableViewController: UISearchResultsUpdating {
+extension AdminShowListTableViewController: UISearchResultsUpdating {
     //MARK: - UISearchResultsUpdatingDelegate
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
@@ -277,15 +262,9 @@ extension ShowListTableViewController: UISearchResultsUpdating {
     }
 }
 
-extension ShowListTableViewController: UISearchBarDelegate {
+extension AdminShowListTableViewController: UISearchBarDelegate {
     //MARK: - UISearchBar Delegate
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
-    }
-}
-
-extension Array where Element == [String:String] {
-    func sorted(by key: String) -> [[String:String]] {
-        return sorted { $0[key] ?? "" < $1[key] ?? "" }
     }
 }
