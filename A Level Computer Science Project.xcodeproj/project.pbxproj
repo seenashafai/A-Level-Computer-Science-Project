@@ -34,6 +34,7 @@
 		37F0E7C0214FD21B00D9E335 /* ShowDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F0E7BF214FD21B00D9E335 /* ShowDetailViewController.swift */; };
 		424C7276EBB653F4F0C34161 /* Pods_A_Level_Computer_Science_ProjectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 679ABF60FC7DCA2308ACF4AB /* Pods_A_Level_Computer_Science_ProjectUITests.framework */; };
 		BD4C2C1B218B57740059BBB4 /* AdminShowListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4C2C1A218B57740059BBB4 /* AdminShowListTableViewController.swift */; };
+		BD4C2C1D218C635A0059BBB4 /* AddShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4C2C1C218C635A0059BBB4 /* AddShowViewController.swift */; };
 		BD89FD7E2163ECF10050D379 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD89FD7D2163ECF10050D379 /* Validation.swift */; };
 		BD90ACCD21652154003C831A /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD90ACCC21652154003C831A /* Alerts.swift */; };
 		BD90ACCF21676737003C831A /* Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD90ACCE21676737003C831A /* Show.swift */; };
@@ -97,6 +98,7 @@
 		A9DC9798A5403709D709E26B /* Pods-A Level Computer Science ProjectUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science ProjectUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science ProjectUITests/Pods-A Level Computer Science ProjectUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B298EA4BC17B556A2C4D6809 /* Pods-A Level Computer Science Project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science Project.release.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science Project/Pods-A Level Computer Science Project.release.xcconfig"; sourceTree = "<group>"; };
 		BD4C2C1A218B57740059BBB4 /* AdminShowListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminShowListTableViewController.swift; sourceTree = "<group>"; };
+		BD4C2C1C218C635A0059BBB4 /* AddShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShowViewController.swift; sourceTree = "<group>"; };
 		BD89FD7D2163ECF10050D379 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		BD90ACCC21652154003C831A /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		BD90ACCE21676737003C831A /* Show.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Show.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				37F0E7BD214FD20000D9E335 /* ShowListTableViewController.swift */,
+				BD4C2C1C218C635A0059BBB4 /* AddShowViewController.swift */,
 				3772778E21590566007532A0 /* ShowListTableViewCell.swift */,
 				37F0E7BF214FD21B00D9E335 /* ShowDetailViewController.swift */,
 				BD90ACCE21676737003C831A /* Show.swift */,
@@ -548,6 +551,7 @@
 				37F0E7C0214FD21B00D9E335 /* ShowDetailViewController.swift in Sources */,
 				BD4C2C1B218B57740059BBB4 /* AdminShowListTableViewController.swift in Sources */,
 				BD90ACCD21652154003C831A /* Alerts.swift in Sources */,
+				BD4C2C1D218C635A0059BBB4 /* AddShowViewController.swift in Sources */,
 				37F0E7BC214FD1E400D9E335 /* LoginViewController.swift in Sources */,
 				046F38BE2180C83E0026EA16 /* InitialAdminViewController.swift in Sources */,
 				04F5848C218112D1007E0AAD /* QRScannerViewController.swift in Sources */,
