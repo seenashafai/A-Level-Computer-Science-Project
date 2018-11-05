@@ -16,10 +16,14 @@ class AddShowViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     //MARK: - Properties
     var db: Firestore!
     var dateArray = ["Please select a date...","Thursday 4th December", "Friday 5th December", "Saturday 6th December"]
+    var houseInitialsArray = [String]()
+    var dateSelected: String = ""
+    var houseSelected: String = ""
 
     
     
     @IBAction func confirmAction(_ sender: Any) {
+        convertDate()
         var venue = "Caccia Studio"
         var availableTickets = 400
         var name = "TheCoolShow"
@@ -39,8 +43,8 @@ class AddShowViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet var showNameTextField: UITextField!
     @IBOutlet var categorySegmentedControl: UISegmentedControl!
     @IBOutlet var venueSegmentedControl: UISegmentedControl!
-    @IBOutlet var datePickerView: UIPickerView!
     @IBOutlet var housePickerView: UIPickerView!
+    @IBOutlet weak var datePickerView: UIDatePicker!
     
     //MARK: - UIPickerViewDelegate
     
@@ -49,10 +53,6 @@ class AddShowViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == datePickerView
-        {
-            return dateArray.count
-        }
         if pickerView == housePickerView
         {
             return houseInitialsArray.count
@@ -61,10 +61,6 @@ class AddShowViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == datePickerView
-        {
-            return dateArray[row]
-        }
         if pickerView == housePickerView
         {
             return houseInitialsArray[row]
@@ -73,11 +69,6 @@ class AddShowViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == datePickerView
-        {
-            dateSelected = dateArray[row]
-            print(dateSelected)
-        }
         if pickerView == housePickerView
         {
             houseSelected = houseInitialsArray[row]
@@ -85,6 +76,16 @@ class AddShowViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
     }
     
+    func convertDate()
+    {
+        datePickerView.datePickerMode = UIDatePicker.Mode.date
+        var dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMM yyyy"
+        var selectedDate = dateFormatter.date(from: datePickerView.date)
+        var dateStamp:TimeInterval = selectedDate.timeIntervalSince1970
+        var dateSt:Int = Int(dateStamp)
+        print(selectedDate)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,6 +99,7 @@ class AddShowViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             }
             self.housePickerView.reloadAllComponents()
         }
+        
 
         // Do any additional setup after loading the view.
     }
