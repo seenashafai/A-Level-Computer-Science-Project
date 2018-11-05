@@ -9,10 +9,14 @@
 import UIKit
 import Firebase
 
-class AddShowViewController: UIViewController {
+class AddShowViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    
 
     //MARK: - Properties
     var db: Firestore!
+    var dateArray = ["Please select a date...","Thursday 4th December", "Friday 5th December", "Saturday 6th December"]
+
     
     
     @IBAction func confirmAction(_ sender: Any) {
@@ -38,11 +42,62 @@ class AddShowViewController: UIViewController {
     @IBOutlet var datePickerView: UIPickerView!
     @IBOutlet var housePickerView: UIPickerView!
     
+    //MARK: - UIPickerViewDelegate
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == datePickerView
+        {
+            return dateArray.count
+        }
+        if pickerView == housePickerView
+        {
+            return houseInitialsArray.count
+        }
+        return 0
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == datePickerView
+        {
+            return dateArray[row]
+        }
+        if pickerView == housePickerView
+        {
+            return houseInitialsArray[row]
+        }
+        return ""
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == datePickerView
+        {
+            dateSelected = dateArray[row]
+            print(dateSelected)
+        }
+        if pickerView == housePickerView
+        {
+            houseSelected = houseInitialsArray[row]
+            print(houseSelected)
+        }
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
+        
+        let houseArrayRef = db.collection("properties").document("houses")
+        houseArrayRef.getDocument {(documentSnapshot, error) in
+            if let document = documentSnapshot {
+                self.houseInitialsArray = document["houseInitialsArray"] as? Array ?? [""]
+                print(self.houseInitialsArray)
+            }
+            self.housePickerView.reloadAllComponents()
+        }
 
         // Do any additional setup after loading the view.
     }
