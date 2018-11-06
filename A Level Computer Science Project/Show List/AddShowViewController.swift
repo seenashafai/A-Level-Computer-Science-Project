@@ -9,33 +9,43 @@
 import UIKit
 import Firebase
 
-class AddShowViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class AddShowViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     
 
     //MARK: - Properties
     var db: Firestore!
-    var dateArray = ["Please select a date...","Thursday 4th December", "Friday 5th December", "Saturday 6th December"]
-    var houseInitialsArray = [String]()
-    var dateSelected: String = ""
-    var houseSelected: String = ""
+    var show: Show?
+    var imagePicker: UIImagePickerController = UIImagePickerController()
 
     
+    @IBOutlet var imageView: UIImageView!
+    @IBAction func pickImageAction(_ sender: Any) {
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
+    {
+        if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        {
+            imageView.image = selectedImage
+        }
+    dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func confirmAction(_ sender: Any) {
-        convertDate()
-        var venue = "Caccia Studio"
-        var availableTickets = 400
-        var name = "TheCoolShow"
-        var category = "House"
-        var date = "19th October 2019"
-        let showRef = db.collection("shows").document(name)
+        let date = convertDate()
+        let venue = setVenue()
+        let name = showNameTextField.text
+        let category = setCategory()
+        let availableTickets = setAvailableSeats(venue: venue)
+        let showRef = db.collection("shows").document(name!)
         showRef.setData([
-            "Category": category,
-            "Date": date,
-            "availableTickets": availableTickets,
-            "name": name,
-            "venue": venue
+            "name": name as Any,
+            "venue": venue as Any,
+            "availableTickets": availableTickets as Any,
+            "Category": category as Any,
+            "Date": date as Any
         ])
     }
     
@@ -46,61 +56,79 @@ class AddShowViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet var housePickerView: UIPickerView!
     @IBOutlet weak var datePickerView: UIDatePicker!
     
-    //MARK: - UIPickerViewDelegate
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == housePickerView
-        {
-            return houseInitialsArray.count
-        }
-        return 0
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == housePickerView
-        {
-            return houseInitialsArray[row]
-        }
-        return ""
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == housePickerView
-        {
-            houseSelected = houseInitialsArray[row]
-            print(houseSelected)
-        }
-    }
-    
-    func convertDate()
+    func convertDate() -> NSDate?
     {
-        datePickerView.datePickerMode = UIDatePicker.Mode.date
-        var dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMM yyyy"
-        var selectedDate = dateFormatter.date(from: datePickerView.date)
-        var dateStamp:TimeInterval = selectedDate.timeIntervalSince1970
-        var dateSt:Int = Int(dateStamp)
-        print(selectedDate)
+        let timeStamp: NSDate = datePickerView!.date as NSDate
+        return timeStamp
+    }
+    
+    func setVenue() -> String?
+    {
+        let index = venueSegmentedControl.selectedSegmentIndex
+        let venue: String?
+        switch index {
+            case 0:
+                venue = "Farrer Theatre"
+                return venue
+            case 1:
+                venue = "Caccia Studio"
+                return venue
+            case 2:
+                venue = "Empty Space"
+                return venue
+            
+        default:
+            venue = ""
+            return venue
+        }
+    }
+    
+    func setAvailableSeats(venue: String?) -> Int?
+    {
+        var availableSeats: Int?
+        switch venue {
+        case "Farrer Theatre":
+            availableSeats = 400
+            return availableSeats
+        case "Caccia Studio":
+            availableSeats = 100
+            return availableSeats
+        case "Empty Space":
+            availableSeats = 50
+            return availableSeats
+            
+        default:
+            availableSeats = 0
+            return availableSeats
+        }
+    }
+    
+    func setCategory() -> String?
+    {
+        let index = categorySegmentedControl.selectedSegmentIndex
+        let category: String?
+        switch index {
+            case 0:
+                category = "House"
+                return category
+            case 1:
+                category = "School"
+                return category
+            case 2:
+                category = "Independent"
+                return category
+            
+        default:
+            category = ""
+            return  category
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
-        
-        let houseArrayRef = db.collection("properties").document("houses")
-        houseArrayRef.getDocument {(documentSnapshot, error) in
-            if let document = documentSnapshot {
-                self.houseInitialsArray = document["houseInitialsArray"] as? Array ?? [""]
-                print(self.houseInitialsArray)
-            }
-            self.housePickerView.reloadAllComponents()
-        }
-        
-
+        imagePicker.delegate = self
+        imagePicker.sourceType = UIImagePickerController.SourceType.savedPhotosAlbum
         // Do any additional setup after loading the view.
     }
     

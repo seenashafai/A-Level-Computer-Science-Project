@@ -10,7 +10,9 @@ import Foundation
 import FirebaseFirestore
 
 
-struct Show: Comparable {
+struct Show: Comparable
+
+{
     
     //Conforming to comparable protocol
     static func < (lhs: Show, rhs: Show) -> Bool {
