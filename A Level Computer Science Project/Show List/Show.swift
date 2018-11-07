@@ -59,6 +59,52 @@ class showFunctions {
         dateFormatter.dateStyle = .medium
         return dateFormatter.string(from: date)
     }
+    
+    func setData(index: Int, var1: Any, var2: Any, var3: Any) -> Any?
+    {
+        var pickedVar: Any
+        switch index {
+        case 0:
+            pickedVar = var1
+            return pickedVar
+        case 1:
+            pickedVar = var2
+            return pickedVar
+        case 2:
+            pickedVar = var3
+            return pickedVar
+            
+        default:
+            pickedVar = ""
+            return pickedVar
+        }
+    }
+    
+    func setAvailableSeats(venue: String?) -> Int?
+    {
+        var availableSeats: Int?
+        switch venue {
+        case "Farrer Theatre":
+            availableSeats = 400
+            return availableSeats
+        case "Caccia Studio":
+            availableSeats = 100
+            return availableSeats
+        case "Empty Space":
+            availableSeats = 50
+            return availableSeats
+            
+        default:
+            availableSeats = 0
+            return availableSeats
+        }
+    }
+    
+    func convertDate(date: NSDate) -> NSDate?
+    {
+        let timeStamp: NSDate = date
+        return timeStamp
+    }
 }
 
 

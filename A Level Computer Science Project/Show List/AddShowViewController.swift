@@ -8,17 +8,19 @@
 
 import UIKit
 import Firebase
+import FirebaseStorage
+import PKHUD
 
 class AddShowViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    
-
     //MARK: - Properties
     var db: Firestore!
     var show: Show?
     var imagePicker: UIImagePickerController = UIImagePickerController()
+    let storage = Storage.storage()
+    let showFunc = showFunctions()
 
-    
+    //MARK: - Image Picker Methods
     @IBOutlet var imageView: UIImageView!
     @IBAction func pickImageAction(_ sender: Any) {
         self.present(imagePicker, animated: true, completion: nil)
@@ -33,12 +35,13 @@ class AddShowViewController: UIViewController, UIImagePickerControllerDelegate, 
     dismiss(animated: true, completion: nil)
     }
     
+    //Submitting form
     @IBAction func confirmAction(_ sender: Any) {
-        let date = convertDate()
-        let venue = setVenue()
+        let date = showFunc.convertDate(date: datePickerView!.date as NSDate)
+        let venue = showFunc.setData(index: venueSegmentedControl.selectedSegmentIndex, var1: "Farrer Theatre", var2: "Caccia Studio", var3: "Empty Space")
         let name = showNameTextField.text
-        let category = setCategory()
-        let availableTickets = setAvailableSeats(venue: venue)
+        let category = showFunc.setData(index: categorySegmentedControl.selectedSegmentIndex, var1: "House", var2: "School", var3: "Independent")
+        let availableTickets = showFunc.setAvailableSeats(venue: venue as? String)
         let showRef = db.collection("shows").document(name!)
         showRef.setData([
             "name": name as Any,
@@ -47,86 +50,23 @@ class AddShowViewController: UIViewController, UIImagePickerControllerDelegate, 
             "Category": category as Any,
             "Date": date as Any
         ])
+        HUD.flash(HUDContentType.success, delay: 0.3)
+        self.navigationController?.popViewController(animated: true)
     }
     
-    
+    //MARK: - IB Links
     @IBOutlet var showNameTextField: UITextField!
     @IBOutlet var categorySegmentedControl: UISegmentedControl!
     @IBOutlet var venueSegmentedControl: UISegmentedControl!
-    @IBOutlet var housePickerView: UIPickerView!
     @IBOutlet weak var datePickerView: UIDatePicker!
+
     
-    func convertDate() -> NSDate?
-    {
-        let timeStamp: NSDate = datePickerView!.date as NSDate
-        return timeStamp
-    }
     
-    func setVenue() -> String?
-    {
-        let index = venueSegmentedControl.selectedSegmentIndex
-        let venue: String?
-        switch index {
-            case 0:
-                venue = "Farrer Theatre"
-                return venue
-            case 1:
-                venue = "Caccia Studio"
-                return venue
-            case 2:
-                venue = "Empty Space"
-                return venue
-            
-        default:
-            venue = ""
-            return venue
-        }
-    }
-    
-    func setAvailableSeats(venue: String?) -> Int?
-    {
-        var availableSeats: Int?
-        switch venue {
-        case "Farrer Theatre":
-            availableSeats = 400
-            return availableSeats
-        case "Caccia Studio":
-            availableSeats = 100
-            return availableSeats
-        case "Empty Space":
-            availableSeats = 50
-            return availableSeats
-            
-        default:
-            availableSeats = 0
-            return availableSeats
-        }
-    }
-    
-    func setCategory() -> String?
-    {
-        let index = categorySegmentedControl.selectedSegmentIndex
-        let category: String?
-        switch index {
-            case 0:
-                category = "House"
-                return category
-            case 1:
-                category = "School"
-                return category
-            case 2:
-                category = "Independent"
-                return category
-            
-        default:
-            category = ""
-            return  category
-        }
-    }
-    
+    //MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
+        datePickerView.setValue(UIColor.white, forKeyPath: "textColor")
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerController.SourceType.savedPhotosAlbum
         // Do any additional setup after loading the view.

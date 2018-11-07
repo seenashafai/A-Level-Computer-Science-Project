@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import FirebaseFirestore
+import PKHUD
 
 class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -51,6 +52,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         print(date, "date")
         let ticketAvailabilityRef = db.collection("shows").document(ticketShowTitle).collection("ticketing").document("statistics")
         print(ticket)
+        print(user.getCurrentUserEmail(), "currentUserEmail")
         ticketAvailabilityRef.updateData([
             
             "availableTickets": ticket[0].availableTickets - numberOfTickets!,
