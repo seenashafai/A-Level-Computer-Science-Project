@@ -10,55 +10,68 @@ import UIKit
 
 class SecondarySeatSelectionViewController: UIViewController {
 
-    @IBOutlet weak var cafeView: UIView!
+    @IBOutlet weak var venueView: UIView!
     
-    struct Table {
+    struct Seat {
         let x: Int
         let y: Int
     }
     
-    var tables = [
-        Table(x: 2, y: 3), Table(x: 4, y: 3), Table(x: 6, y: 3),
-        Table(x: 1, y: 5), Table(x: 3, y: 5), Table(x: 5, y: 5), Table(x: 7, y: 5),
-        Table(x: 2, y: 7), Table(x: 4, y: 7), Table(x: 6, y: 7)]
+    var seats = [Seat]()
     
-    let cafeWidth = 8
-    let cafeHeight = 10
+    let venueWidth = 8
+    let venueHeight = 10
     
     
     func viewForCoordinate(x: Int, y: Int, size: CGSize) -> UIView {
-        let centerX = Int(cafeView.frame.size.width / CGFloat(cafeWidth)) * x
-        let centerY = Int(cafeView.frame.size.height / CGFloat(cafeHeight)) * y
+        let centerX = Int(venueView.frame.size.width / CGFloat(venueWidth)) * x
+        let centerY = Int(venueView.frame.size.height / CGFloat(venueHeight)) * y
         let view = UIView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
         view.center = CGPoint(x: centerX, y: centerY)
         print(view.description, "viewDesc")
         return view
     }
     
-    
+    func generateSeats() {
+        var width: Int = 10
+        var start: Int = 5
+        for j in 0..<10
+        {
+            for i in 0..<width
+            {
+                seats.append(Seat(x: i + start, y: j))
+            }
+            width = width + 1
+            if start > 0
+            {
+                start = start - 1
+            }
+
+        }
+    }
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        cafeView.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
-
+        venueView.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
+        generateSeats()
         // draw the grid
-        for row in 1..<cafeHeight {
-            for column in 1..<cafeWidth {
+        for row in 1..<venueHeight {
+            for column in 1..<venueWidth {
                 let gridDot = viewForCoordinate(x: row, y: column, size: CGSize(width: 1, height: 1))
                 gridDot.backgroundColor = UIColor.black
-                cafeView.addSubview(gridDot)
+                venueView.addSubview(gridDot)
                 print("drawGrid")
             }
         }
         
         // draw the seats
-        for table in tables {
+        for table in seats {
             let tableView = viewForCoordinate(x: table.x, y: table.y, size: CGSize(width: 20, height: 20))
             tableView.layer.cornerRadius = 8
             tableView.backgroundColor = UIColor(hue: 100/360.0, saturation: 0.44, brightness: 0.33, alpha: 1)
-            cafeView.addSubview(tableView)
+            venueView.addSubview(tableView)
             print("drawTable")
         }
         
