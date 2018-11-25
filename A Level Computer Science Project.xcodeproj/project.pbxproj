@@ -33,7 +33,6 @@
 		37F0E7BC214FD1E400D9E335 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F0E7BB214FD1E400D9E335 /* LoginViewController.swift */; };
 		37F0E7BE214FD20000D9E335 /* ShowListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F0E7BD214FD20000D9E335 /* ShowListTableViewController.swift */; };
 		37F0E7C0214FD21B00D9E335 /* ShowDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F0E7BF214FD21B00D9E335 /* ShowDetailViewController.swift */; };
-		37FFAFAA2194432B003F6DD3 /* MainSeatSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FFAFA92194432B003F6DD3 /* MainSeatSelectionViewController.swift */; };
 		37FFAFAC21944337003F6DD3 /* SecondarySeatSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FFAFAB21944337003F6DD3 /* SecondarySeatSelectionViewController.swift */; };
 		424C7276EBB653F4F0C34161 /* Pods_A_Level_Computer_Science_ProjectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 679ABF60FC7DCA2308ACF4AB /* Pods_A_Level_Computer_Science_ProjectUITests.framework */; };
 		BD4C2C1B218B57740059BBB4 /* AdminShowListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4C2C1A218B57740059BBB4 /* AdminShowListTableViewController.swift */; };
@@ -94,7 +93,6 @@
 		37F0E7BB214FD1E400D9E335 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		37F0E7BD214FD20000D9E335 /* ShowListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListTableViewController.swift; sourceTree = "<group>"; };
 		37F0E7BF214FD21B00D9E335 /* ShowDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailViewController.swift; sourceTree = "<group>"; };
-		37FFAFA92194432B003F6DD3 /* MainSeatSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSeatSelectionViewController.swift; sourceTree = "<group>"; };
 		37FFAFAB21944337003F6DD3 /* SecondarySeatSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondarySeatSelectionViewController.swift; sourceTree = "<group>"; };
 		46BE936E5560545E57BC3C85 /* Pods-A Level Computer Science Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science Project.debug.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science Project/Pods-A Level Computer Science Project.debug.xcconfig"; sourceTree = "<group>"; };
 		4F2443A8AFB8F00A5ACD7A53 /* Pods_A_Level_Computer_Science_ProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_A_Level_Computer_Science_ProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -236,7 +234,6 @@
 			isa = PBXGroup;
 			children = (
 				049CD70321754C5700DD5429 /* TicketPortalViewController.swift */,
-				37FFAFA92194432B003F6DD3 /* MainSeatSelectionViewController.swift */,
 				37FFAFAB21944337003F6DD3 /* SecondarySeatSelectionViewController.swift */,
 				04480B63217E391600975ED6 /* TicketSummaryViewController.swift */,
 				04360C2C2177DA5100AE8C5C /* Ticket.swift */,
@@ -562,7 +559,6 @@
 				BD4C2C1B218B57740059BBB4 /* AdminShowListTableViewController.swift in Sources */,
 				BD90ACCD21652154003C831A /* Alerts.swift in Sources */,
 				BD4C2C1D218C635A0059BBB4 /* AddShowViewController.swift in Sources */,
-				37FFAFAA2194432B003F6DD3 /* MainSeatSelectionViewController.swift in Sources */,
 				37F0E7BC214FD1E400D9E335 /* LoginViewController.swift in Sources */,
 				046F38BE2180C83E0026EA16 /* InitialAdminViewController.swift in Sources */,
 				04F5848C218112D1007E0AAD /* QRScannerViewController.swift in Sources */,

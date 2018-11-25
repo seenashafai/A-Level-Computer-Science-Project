@@ -19,7 +19,7 @@ class QRScannerViewController: UIViewController {
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var globalMessage = ""
     var barcodeMethods = Barcode()
-    let APIEndpoint = "http://192.168.1.24:6789"
+    let APIEndpoint = "http://192.168.1.11:6789"
     var returnedUser: PKUser?
 
     
@@ -109,7 +109,7 @@ class QRScannerViewController: UIViewController {
             action.handler = actionHandler
             action.title = "More"
             message.action = action
-            message.text = "User info: \(self.returnedUser!.name, self.returnedUser!.email)"
+            message.text = "Name: \(self.returnedUser!.name), Seat: \(self.returnedUser!.email)"
             MDCSnackbarManager.show(message)
         }
         

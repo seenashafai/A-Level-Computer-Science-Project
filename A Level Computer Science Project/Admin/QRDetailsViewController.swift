@@ -12,7 +12,7 @@ class QRDetailsViewController: UIViewController {
 
     //MARK: - Properties
     var passVar: String = ""
-    let APIEndpoint = "http://192.168.1.24:6789"
+    let APIEndpoint = "http://10.3.74.33:6789"
     var barcodeMethods = Barcode()
     
     func decodeJSONString()
@@ -41,5 +41,3 @@ class QRDetailsViewController: UIViewController {
     }
 
 }
-
-//guard let url = URL(string: "http://192.168.1.24:6789/user_for_pass/\(barcode.pass_type_id)/\(barcode.serial_number)/\(barcode.authentication_token)") else {return}

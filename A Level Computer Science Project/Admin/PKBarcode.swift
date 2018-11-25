@@ -13,6 +13,7 @@ struct PKBarcode: Codable {
     let pass_type_id: String
     let serial_number: String
     let authentication_token: String
+    
 }
 
 class Barcode {
