@@ -745,7 +745,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Continue" id="w5M-vp-fId">
                             <connections>
                                 <action selector="submitButtonPressed:" destination="1vT-Fj-vmz" id="ac7-fn-Fgv"/>
-                                <segue destination="bvZ-3p-Q6n" kind="show" id="qhS-jk-zcf"/>
+                                <segue destination="bvZ-3p-Q6n" kind="show" identifier="toSeatSelection" id="qhS-jk-zcf"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -778,12 +778,56 @@
                                             <constraint firstAttribute="height" constant="273" id="Khb-lv-DMX"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VALUE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HG8-KO-uec">
+                                        <rect key="frame" x="-35" y="162" width="261" height="59"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="59" id="k3z-Iw-UvF"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="16"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Seats Allocated" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PKn-DF-Psy">
+                                        <rect key="frame" x="-35" y="115" width="261" height="59"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="59" id="D8Y-p8-X8i"/>
+                                            <constraint firstAttribute="width" constant="261" id="SDc-bM-GY6"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="16"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VALUE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSk-m2-tO8">
+                                        <rect key="frame" x="146" y="162" width="261" height="59"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="59" id="2zA-Lu-jID"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="16"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remaining Seats" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BCD-8l-PdA">
+                                        <rect key="frame" x="146" y="115" width="261" height="59"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="261" id="4N2-iI-wyS"/>
+                                            <constraint firstAttribute="height" constant="59" id="GqU-OO-6cv"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="16"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="q4k-u0-vtQ" firstAttribute="centerX" secondItem="kb3-HS-5W3" secondAttribute="centerX" id="0zR-21-MBt"/>
+                                    <constraint firstItem="PKn-DF-Psy" firstAttribute="trailing" secondItem="HG8-KO-uec" secondAttribute="trailing" id="3y7-YI-dFN"/>
                                     <constraint firstItem="q4k-u0-vtQ" firstAttribute="top" secondItem="kb3-HS-5W3" secondAttribute="top" constant="297" id="4Jf-zC-WY4"/>
                                     <constraint firstAttribute="bottom" secondItem="q4k-u0-vtQ" secondAttribute="bottom" constant="242" id="6ka-s8-eNR"/>
+                                    <constraint firstItem="PKn-DF-Psy" firstAttribute="leading" secondItem="HG8-KO-uec" secondAttribute="leading" id="74R-Yy-AYG"/>
+                                    <constraint firstItem="HG8-KO-uec" firstAttribute="baseline" secondItem="WSk-m2-tO8" secondAttribute="baseline" id="9og-17-uoM"/>
+                                    <constraint firstItem="BCD-8l-PdA" firstAttribute="trailing" secondItem="WSk-m2-tO8" secondAttribute="trailing" id="Auy-Sg-0yv"/>
                                     <constraint firstAttribute="trailing" secondItem="q4k-u0-vtQ" secondAttribute="trailing" constant="66" id="CAv-WH-OOi"/>
+                                    <constraint firstItem="BCD-8l-PdA" firstAttribute="leading" secondItem="WSk-m2-tO8" secondAttribute="leading" id="CJE-od-pXU"/>
+                                    <constraint firstAttribute="trailing" secondItem="BCD-8l-PdA" secondAttribute="trailing" constant="-32" id="CXC-on-h0I"/>
+                                    <constraint firstItem="q4k-u0-vtQ" firstAttribute="top" secondItem="HG8-KO-uec" secondAttribute="bottom" constant="76" id="OUL-Mq-ce7"/>
+                                    <constraint firstItem="PKn-DF-Psy" firstAttribute="top" secondItem="kb3-HS-5W3" secondAttribute="top" constant="115" id="dPW-0m-0Lx"/>
+                                    <constraint firstItem="PKn-DF-Psy" firstAttribute="leading" secondItem="kb3-HS-5W3" secondAttribute="leading" constant="-35" id="hzT-uZ-LXy"/>
+                                    <constraint firstItem="PKn-DF-Psy" firstAttribute="baseline" secondItem="BCD-8l-PdA" secondAttribute="baseline" id="oC5-qK-ray"/>
                                     <constraint firstItem="q4k-u0-vtQ" firstAttribute="leading" secondItem="kb3-HS-5W3" secondAttribute="leading" constant="66" id="oEU-aX-HfM"/>
                                 </constraints>
                             </scrollView>
@@ -807,6 +851,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="confirmBarButtonOutlet" destination="19H-Bt-xDu" id="ZB0-mv-nnL"/>
+                        <outlet property="remainingSeatsLabel" destination="WSk-m2-tO8" id="CZ4-Ok-lpm"/>
+                        <outlet property="totalSeatsLabel" destination="HG8-KO-uec" id="3AZ-k3-fDq"/>
                         <outlet property="venueView" destination="q4k-u0-vtQ" id="Qbv-Y8-9pj"/>
                     </connections>
                 </viewController>

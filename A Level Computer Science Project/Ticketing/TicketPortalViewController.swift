@@ -188,13 +188,18 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
             self.documents = snapshot.documents
             print(self.ticket)
          }
-        
-        
- 
-
-        
         }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toSeatSelection"
+        {
+            let destinationVC = segue.destination as! SecondarySeatSelectionViewController
+            destinationVC.allocatedSeats = Int(ticketNumberTextField.text!)
+        }
+    }
+    
 }
+
 
 /*
  let houseArrayRef = db.collection("properties").document("houses")

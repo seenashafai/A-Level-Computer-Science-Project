@@ -13,7 +13,12 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     @IBOutlet weak var venueView: UIView!
     var mySubViews = [Int]()
     var selectedSeat: Int?
+    
+    var allocatedSeats: Int?
+    var remainingSeats: Int?
 
+    @IBOutlet weak var remainingSeatsLabel: UILabel!
+    @IBOutlet weak var totalSeatsLabel: UILabel!
     
     struct Seat {
         let x: Int
@@ -71,6 +76,9 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
         confirmBarButtonOutlet.isEnabled = false
         venueView.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
         generateSeats()
+        totalSeatsLabel.text = allocatedSeats?.description
+        remainingSeats = allocatedSeats
+        remainingSeatsLabel.text = allocatedSeats?.description
         /* draw the grid
         for row in 1..<venueHeight {
             for column in 1..<venueWidth {
@@ -114,17 +122,46 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
         seatSelected(seatRef: selectedSeat!)
     }
     
+    var picked = [Int]()
+    
     func seatSelected(seatRef: Int)
     {
         var seatView = venueView.viewWithTag(seatRef)
         if seatView?.backgroundColor == UIColor.orange
         {
             seatView?.backgroundColor = UIColor(hue: 100/360.0, saturation: 0.44, brightness: 0.33, alpha: 1)
+            confirmBarButtonOutlet.isEnabled = false
+            for i in 0..<picked.count
+            {
+                if picked[i] == selectedSeat
+                {
+                    picked.remove(at: i)
+                    remainingSeats = remainingSeats! + 1
+                    remainingSeatsLabel.text = remainingSeats?.description
+                }
+            }
+            print(picked)
         }
         else {
-            seatView?.backgroundColor = UIColor.orange
+            if picked.count == allocatedSeats
+            {
+                print("no")
+                confirmBarButtonOutlet.isEnabled = true
+            }
+            else {
+                seatView?.backgroundColor = UIColor.orange
+                picked.append(selectedSeat!)
+                print(picked)
+                print(remainingSeats, "remaining")
+                remainingSeats = remainingSeats! - 1
+                remainingSeatsLabel.text = remainingSeats?.description
+                if picked.count == allocatedSeats
+                {
+                    confirmBarButtonOutlet.isEnabled = true
+                }
+
+            }
         }
-        confirmBarButtonOutlet.isEnabled = true
     }
 
     
