@@ -9,6 +9,13 @@
 import Foundation
 import FirebaseFirestore
 
+enum Venues: String {
+    case Farrer = "Farrer Theatre"
+    case Caccia = "Caccia Studio"
+    case EmptySpace = "Empty Space"
+    case other
+    
+}
 
 struct Show: Comparable
 
@@ -23,13 +30,16 @@ struct Show: Comparable
     let category: String
     let date: Timestamp
     let availableTickets: Int
+   // let director: String
+    let venue: String
     
     var dictionary: [String: Any] {
         return [
-            "Date": Timestamp(),
             "name": name,
             "Category": category,
-            "availableTickets": availableTickets
+            "Date": Timestamp(),
+            "availableTickets": availableTickets,
+            "venue": venue
         ]
     }
 }
@@ -39,15 +49,17 @@ extension Show {
         guard let name = dictionary["name"] as? String,
         let category = dictionary["Category"] as? String,
         let date: Timestamp = dictionary["Date"] as? Timestamp,
-        let availableTickets = dictionary["availableTickets"] as? Int
-            
-           // let date = dictionary["Date"] as? String
+        let availableTickets = dictionary["availableTickets"] as? Int,
+        let venue = dictionary["venue"] as? String
+        
             else {return nil}
         
-        self.init(name: name, category: category, date: date, availableTickets: availableTickets)
+        self.init(name: name, category: category, date: date, availableTickets: availableTickets, venue: venue)
     }
     
+    
 }
+
 
 class showFunctions {
     

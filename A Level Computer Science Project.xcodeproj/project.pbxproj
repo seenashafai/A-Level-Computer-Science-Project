@@ -27,6 +27,8 @@
 		04C450802181D545009ECD30 /* PKUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C4507F2181D545009ECD30 /* PKUser.swift */; };
 		04C450882181F33A009ECD30 /* PKBarcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C450872181F33A009ECD30 /* PKBarcode.swift */; };
 		04F5848C218112D1007E0AAD /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F5848B218112D1007E0AAD /* QRScannerViewController.swift */; };
+		04F7126B21AC818C00E958D6 /* TicketConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7126A21AC818C00E958D6 /* TicketConfirmationViewController.swift */; };
+		04F7126D21AC81DF00E958D6 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7126C21AC81DF00E958D6 /* Transaction.swift */; };
 		04FB57FC215C208500673B7D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB57FB215C208500673B7D /* SignUpViewController.swift */; };
 		375B6A6321935CEC0005E4B7 /* Seat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375B6A6221935CEC0005E4B7 /* Seat.swift */; };
 		3772778F21590566007532A0 /* ShowListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3772778E21590566007532A0 /* ShowListTableViewCell.swift */; };
@@ -87,6 +89,8 @@
 		04C4507F2181D545009ECD30 /* PKUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKUser.swift; sourceTree = "<group>"; };
 		04C450872181F33A009ECD30 /* PKBarcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKBarcode.swift; sourceTree = "<group>"; };
 		04F5848B218112D1007E0AAD /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
+		04F7126A21AC818C00E958D6 /* TicketConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketConfirmationViewController.swift; sourceTree = "<group>"; };
+		04F7126C21AC81DF00E958D6 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		04FB57FB215C208500673B7D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		375B6A6221935CEC0005E4B7 /* Seat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seat.swift; sourceTree = "<group>"; };
 		3772778E21590566007532A0 /* ShowListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListTableViewCell.swift; sourceTree = "<group>"; };
@@ -236,7 +240,9 @@
 				049CD70321754C5700DD5429 /* TicketPortalViewController.swift */,
 				37FFAFAB21944337003F6DD3 /* SecondarySeatSelectionViewController.swift */,
 				04480B63217E391600975ED6 /* TicketSummaryViewController.swift */,
+				04F7126A21AC818C00E958D6 /* TicketConfirmationViewController.swift */,
 				04360C2C2177DA5100AE8C5C /* Ticket.swift */,
+				04F7126C21AC81DF00E958D6 /* Transaction.swift */,
 				375B6A6221935CEC0005E4B7 /* Seat.swift */,
 			);
 			path = Ticketing;
@@ -552,11 +558,13 @@
 			files = (
 				04C4507C2181CDCD009ECD30 /* QRDetailsViewController.swift in Sources */,
 				04C450802181D545009ECD30 /* PKUser.swift in Sources */,
+				04F7126D21AC81DF00E958D6 /* Transaction.swift in Sources */,
 				375B6A6321935CEC0005E4B7 /* Seat.swift in Sources */,
 				04FB57FC215C208500673B7D /* SignUpViewController.swift in Sources */,
 				04C450882181F33A009ECD30 /* PKBarcode.swift in Sources */,
 				37F0E7C0214FD21B00D9E335 /* ShowDetailViewController.swift in Sources */,
 				BD4C2C1B218B57740059BBB4 /* AdminShowListTableViewController.swift in Sources */,
+				04F7126B21AC818C00E958D6 /* TicketConfirmationViewController.swift in Sources */,
 				BD90ACCD21652154003C831A /* Alerts.swift in Sources */,
 				BD4C2C1D218C635A0059BBB4 /* AddShowViewController.swift in Sources */,
 				37F0E7BC214FD1E400D9E335 /* LoginViewController.swift in Sources */,

@@ -64,8 +64,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
             show = dbShows[indexPath.row]
         }
         cell.cellNameLabel.text = show.name
-        let derate = Date(timeIntervalSince1970: TimeInterval(show.date.seconds))
-        print(derate, "derate")
+
         let medDate = showFuncs.getDateFromEpoch(timeInterval: TimeInterval(show.date.seconds))
         
         cell.cellDescriptionLabel.text = medDate
@@ -266,6 +265,8 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
             let indexPath = self.tableView.indexPathForSelectedRow
             let show = dbShows[indexPath!.row]
             destinationVC.showTitle = show.name
+            destinationVC.show = show
+            
         }
     }
 }

@@ -50,24 +50,26 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         let date = dateSelected
         print(house, "house")
         print(date, "date")
+        let seatsArray = arrayGen()
         let ticketAvailabilityRef = db.collection("shows").document(ticketShowTitle).collection("ticketing").document("statistics")
         print(ticket)
+        print(seatsArray, "seats")
         print(user.getCurrentUserEmail(), "currentUserEmail")
         ticketAvailabilityRef.updateData([
-            
             "availableTickets": ticket[0].availableTickets - numberOfTickets!,
             "numberOfTicketHolders": ticket[0].numberOfTicketHolders + 1,
             "ticketHolders": FieldValue.arrayUnion([user.getCurrentUserEmail()])
-            
-        ]) { err in
+        ])  { err in
             if err != nil {
                 print("error", err?.localizedDescription)
             } else
             {
                 print("success")
+                self.performSegue(withIdentifier: "toSeatSelection", sender: nil)
             }
         }
-        
+        print("bobby")
+
     }
     
     //MARK: - Firebase Query methods
@@ -83,7 +85,16 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         }
     }
  
-
+    func arrayGen() -> [Int]
+    {
+        var seatsArray = [Int]()
+        for i in 0..<100
+        {
+            seatsArray.append(i)
+        }
+        print(seatsArray)
+        return seatsArray
+    }
     
     //MARK: - UIPickerViewDelegate
     
@@ -195,6 +206,10 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         {
             let destinationVC = segue.destination as! SecondarySeatSelectionViewController
             destinationVC.allocatedSeats = Int(ticketNumberTextField.text!)
+            destinationVC.showName = ticketShowTitle
+            destinationVC.date = dateSelected
+            destinationVC.house = houseSelected
+            
         }
     }
     

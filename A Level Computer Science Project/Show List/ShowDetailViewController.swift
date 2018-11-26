@@ -12,6 +12,13 @@ import FirebaseAuth
 
 class ShowDetailViewController: UIViewController {
 
+    @IBOutlet weak var venueLabel: UILabel!
+    @IBOutlet weak var datesLabel: UILabel!
+    @IBOutlet weak var directorLabel: UILabel!
+    var show: Show?
+    var showFuncs = showFunctions()
+    
+    
     //MARK: - Properties
     var isUserSignedIn: Bool = false
     var user = FirebaseUser()
@@ -61,6 +68,12 @@ class ShowDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = showTitle
+        
+        let convertedDate = showFuncs.getDateFromEpoch(timeInterval: TimeInterval((show?.date.seconds)!))
+        
+        venueLabel.text = show?.venue
+        directorLabel.text = "anyDirector"
+        datesLabel.text = convertedDate
 
         // Do any additional setup after loading the view.
     }
