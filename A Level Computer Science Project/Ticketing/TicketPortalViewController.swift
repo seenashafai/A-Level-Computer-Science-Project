@@ -17,6 +17,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     var db: Firestore!
     var user = FirebaseUser()
     var dateSelected: String = ""
+    var dateIndex: Int = 0
     var houseSelected: String = ""
     var documents: [DocumentSnapshot] = []
     var listener: ListenerRegistration!
@@ -51,11 +52,12 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         print(house, "house")
         print(date, "date")
         let seatsArray = arrayGen()
-        let ticketAvailabilityRef = db.collection("shows").document(ticketShowTitle).collection("ticketing").document("statistics")
+        let ticketAvailabilityRef = db.collection("shows").document(ticketShowTitle).collection(String(dateIndex)).document("statistics")
         print(ticket)
         print(seatsArray, "seats")
         print(user.getCurrentUserEmail(), "currentUserEmail")
         ticketAvailabilityRef.updateData([
+           // "availableSeats": seatsArray, // generate new seating chart
             "availableTickets": ticket[0].availableTickets - numberOfTickets!,
             "numberOfTicketHolders": ticket[0].numberOfTicketHolders + 1,
             "ticketHolders": FieldValue.arrayUnion([user.getCurrentUserEmail()])
@@ -75,7 +77,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     //MARK: - Firebase Query methods
 
  fileprivate func baseQuery() -> Query{
-        return db.collection("shows").document(ticketShowTitle).collection("ticketing")
+        return db.collection("shows").document(ticketShowTitle).collection("1")
     }
     fileprivate var query: Query? {
         didSet {
@@ -130,6 +132,8 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         if pickerView == datePickerView
         {
             dateSelected = dateArray[row]
+            dateIndex = pickerView.selectedRow(inComponent: 0)
+            print(dateIndex, "index")
             print(dateSelected)
         }
         if pickerView == housePickerView
@@ -138,7 +142,6 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
             print(houseSelected)
         }
     }
-    
     
     
     
@@ -188,6 +191,8 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
             }
             
             let results = snapshot.documents.map { (document) -> Ticket in
+                print(document.data(), "docData")
+                print(document, "doc")
                 if let ticket = Ticket(dictionary: document.data()) {
                     return ticket
                 } else {
@@ -208,6 +213,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
             destinationVC.allocatedSeats = Int(ticketNumberTextField.text!)
             destinationVC.showName = ticketShowTitle
             destinationVC.date = dateSelected
+            destinationVC.dateIndex = dateIndex
             destinationVC.house = houseSelected
             
         }

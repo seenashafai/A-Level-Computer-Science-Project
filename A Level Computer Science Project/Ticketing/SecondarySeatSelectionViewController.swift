@@ -25,6 +25,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
 
     var allocatedSeats: Int?
     var remainingSeats: Int?
+    var dateIndex: Int!
     var showName: String!
     var seatsArray: [Int]!
     var date: String!
@@ -45,7 +46,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     
     @IBOutlet weak var confirmBarButtonOutlet: UIBarButtonItem!
     @IBAction func confirmBarButtonAction(_ sender: Any) {
-        let statsRef = db.collection("shows").document(showName).collection("ticketing").document("statistics")
+        let statsRef = db.collection("shows").document(showName).collection(String(dateIndex)).document("statistics")
         print(user.getCurrentUserEmail(), "currentUserEmail")
         statsRef.updateData([
             "availableSeats": compareSeats(),
@@ -154,7 +155,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     //MARK: - Firebase Query methods
     
     fileprivate func baseQuery() -> Query{
-        return db.collection("shows").document(showName).collection("ticketing")
+        return db.collection("shows").document(showName).collection(String(dateIndex))
     }
     fileprivate var query: Query? {
         didSet {
