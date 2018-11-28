@@ -42,6 +42,7 @@
 		BD89FD7E2163ECF10050D379 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD89FD7D2163ECF10050D379 /* Validation.swift */; };
 		BD90ACCD21652154003C831A /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD90ACCC21652154003C831A /* Alerts.swift */; };
 		BD90ACCF21676737003C831A /* Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD90ACCE21676737003C831A /* Show.swift */; };
+		BDB0EEC321AF00DD00D2A744 /* testTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB0EEC221AF00DD00D2A744 /* testTableTableViewController.swift */; };
 		C6BCE0ECA2BEB20F7B02B62D /* Pods_A_Level_Computer_Science_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9524BA26A7BC9710475318F5 /* Pods_A_Level_Computer_Science_Project.framework */; };
 		FF2DE5F89962C91ED0503ECA /* Pods_A_Level_Computer_Science_ProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F2443A8AFB8F00A5ACD7A53 /* Pods_A_Level_Computer_Science_ProjectTests.framework */; };
 /* End PBXBuildFile section */
@@ -110,6 +111,7 @@
 		BD89FD7D2163ECF10050D379 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		BD90ACCC21652154003C831A /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		BD90ACCE21676737003C831A /* Show.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Show.swift; sourceTree = "<group>"; };
+		BDB0EEC221AF00DD00D2A744 /* testTableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testTableTableViewController.swift; sourceTree = "<group>"; };
 		DC0ED3BCA26088325A26542B /* Pods-A Level Computer Science ProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science ProjectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science ProjectTests/Pods-A Level Computer Science ProjectTests.release.xcconfig"; sourceTree = "<group>"; };
 		EF06BFAFEC0BBCD2588C032D /* Pods-A Level Computer Science ProjectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science ProjectUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science ProjectUITests/Pods-A Level Computer Science ProjectUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -265,6 +267,7 @@
 			children = (
 				37F0E7BD214FD20000D9E335 /* ShowListTableViewController.swift */,
 				BD4C2C1C218C635A0059BBB4 /* AddShowViewController.swift */,
+				BDB0EEC221AF00DD00D2A744 /* testTableTableViewController.swift */,
 				3772778E21590566007532A0 /* ShowListTableViewCell.swift */,
 				37F0E7BF214FD21B00D9E335 /* ShowDetailViewController.swift */,
 				BD90ACCE21676737003C831A /* Show.swift */,
@@ -568,6 +571,7 @@
 				BD90ACCD21652154003C831A /* Alerts.swift in Sources */,
 				BD4C2C1D218C635A0059BBB4 /* AddShowViewController.swift in Sources */,
 				37F0E7BC214FD1E400D9E335 /* LoginViewController.swift in Sources */,
+				BDB0EEC321AF00DD00D2A744 /* testTableTableViewController.swift in Sources */,
 				046F38BE2180C83E0026EA16 /* InitialAdminViewController.swift in Sources */,
 				04F5848C218112D1007E0AAD /* QRScannerViewController.swift in Sources */,
 				049CD70421754C5700DD5429 /* TicketPortalViewController.swift in Sources */,

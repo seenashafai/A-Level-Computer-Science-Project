@@ -56,8 +56,9 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         print(ticket)
         print(seatsArray, "seats")
         print(user.getCurrentUserEmail(), "currentUserEmail")
+        print("availableTickets", ticket[0].availableTickets)
         ticketAvailabilityRef.updateData([
-           // "availableSeats": seatsArray, // generate new seating chart
+            "availableSeats": seatsArray, // generate new seating chart
             "availableTickets": ticket[0].availableTickets - numberOfTickets!,
             "numberOfTicketHolders": ticket[0].numberOfTicketHolders + 1,
             "ticketHolders": FieldValue.arrayUnion([user.getCurrentUserEmail()])

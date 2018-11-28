@@ -11,6 +11,7 @@ import Firebase
 import FirebaseFirestore
 import FirebaseStorage
 import MaterialComponents.MaterialSnackbar
+import PKHUD
 
 class ShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -72,6 +73,33 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         
         return cell
     }
+    
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+    {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Add") { (action, view, handler) in
+            print("Add Action Tapped")
+            HUD.flash(HUDContentType.systemActivity, delay: 1.5)
+            
+            HUD.flash(HUDContentType.success)
+            tableView.reloadRows(at: [indexPath], with: .none)
+        }
+        deleteAction.backgroundColor = .green
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
+    }
+    
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+    {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
+            print("Delete Action Tapped")
+        }
+        deleteAction.backgroundColor = .red
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
+    }
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(90)
@@ -139,6 +167,42 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     func setFirebaseSettings()
     {
         db = Firestore.firestore()
+    }
+    
+    func resetShowStatistics()
+    {
+        let seatsArray = arrayGen()
+        let ticketAvailabilityRef = db.collection("shows").document(ticketShowTitle).collection(String(dateIndex)).document("statistics")
+        print(ticket)
+        print(seatsArray, "seats")
+        print(user.getCurrentUserEmail(), "currentUserEmail")
+        print("availableTickets", ticket[0].availableTickets)
+        ticketAvailabilityRef.updateData([
+            "availableSeats": seatsArray, // generate new seating chart
+            "availableTickets": ticket[0].availableTickets - numberOfTickets!,
+            "numberOfTicketHolders": ticket[0].numberOfTicketHolders + 1,
+            "ticketHolders": FieldValue.arrayUnion([user.getCurrentUserEmail()])
+        ])  { err in
+            if err != nil {
+                print("error", err?.localizedDescription)
+            } else
+            {
+                print("success")
+                self.performSegue(withIdentifier: "toSeatSelection", sender: nil)
+            }
+        }
+        print("bobby")
+    }
+    
+    func arrayGen() -> [Int]
+    {
+        var seatsArray = [Int]()
+        for i in 0..<100
+        {
+            seatsArray.append(i)
+        }
+        print(seatsArray)
+        return seatsArray
     }
     
     //MARK: - View Lifecycle
