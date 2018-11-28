@@ -80,7 +80,25 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         let deleteAction = UIContextualAction(style: .destructive, title: "Add") { (action, view, handler) in
             print("Add Action Tapped")
             HUD.flash(HUDContentType.systemActivity, delay: 1.5)
-            
+            let seatsArray = self.arrayGen()
+            for i in 1..<4
+            {
+                let ticketAvailabilityRef = self.db.collection("shows").document(self.dbShows[indexPath.row].name).collection(String(i)).document("statistics")
+                print(seatsArray, "seats")
+                ticketAvailabilityRef.setData([
+                    "availableSeats": seatsArray, // generate new seating chart
+                    "availableTickets": 0,
+                    "numberOfTicketHolders": 0,
+                    "ticketHolders": FieldValue.arrayUnion([])
+                ])  { err in
+                    if err != nil {
+                        print("error", err?.localizedDescription)
+                    } else
+                    {
+                        print("success")
+                    }
+                }
+            }
             HUD.flash(HUDContentType.success)
             tableView.reloadRows(at: [indexPath], with: .none)
         }
@@ -169,30 +187,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         db = Firestore.firestore()
     }
     
-    func resetShowStatistics()
-    {
-        let seatsArray = arrayGen()
-        let ticketAvailabilityRef = db.collection("shows").document(ticketShowTitle).collection(String(dateIndex)).document("statistics")
-        print(ticket)
-        print(seatsArray, "seats")
-        print(user.getCurrentUserEmail(), "currentUserEmail")
-        print("availableTickets", ticket[0].availableTickets)
-        ticketAvailabilityRef.updateData([
-            "availableSeats": seatsArray, // generate new seating chart
-            "availableTickets": ticket[0].availableTickets - numberOfTickets!,
-            "numberOfTicketHolders": ticket[0].numberOfTicketHolders + 1,
-            "ticketHolders": FieldValue.arrayUnion([user.getCurrentUserEmail()])
-        ])  { err in
-            if err != nil {
-                print("error", err?.localizedDescription)
-            } else
-            {
-                print("success")
-                self.performSegue(withIdentifier: "toSeatSelection", sender: nil)
-            }
-        }
-        print("bobby")
-    }
+
     
     func arrayGen() -> [Int]
     {
