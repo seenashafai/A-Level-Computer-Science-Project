@@ -18,12 +18,11 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     var user = FirebaseUser()
     var dateSelected: String = ""
     var dateIndex: Int = 0
-    var houseSelected: String = ""
     var documents: [DocumentSnapshot] = []
     var listener: ListenerRegistration!
     var show = [Show]()
     var ticket = [Ticket]()
-    var houseInitialsArray = [String]()
+    var currentUser: User?
     
     
     //MARK: - IB Links
@@ -32,7 +31,6 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     @IBOutlet weak var ticketNumberStepper: UIStepper!
     
     @IBOutlet weak var datePickerView: UIPickerView!
-    @IBOutlet weak var housePickerView: UIPickerView!
     
     @IBAction func ticketNumberStepperAction(_ sender: Any) {
         self.ticketNumberTextField.text = Int(ticketNumberStepper.value).description
@@ -47,9 +45,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     @IBAction func submitButtonPressed(_ sender: Any)
     {
         let numberOfTickets = Int(ticketNumberTextField.text!)
-        let house = houseSelected
         let date = dateSelected
-        print(house, "house")
         print(date, "date")
         let seatsArray = arrayGen()
         let ticketAvailabilityRef = db.collection("shows").document(ticketShowTitle).collection(String(dateIndex)).document("statistics")
@@ -109,10 +105,6 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         {
             return dateArray.count
         }
-        if pickerView == housePickerView
-        {
-            return houseInitialsArray.count
-        }
         return 0
     }
     
@@ -120,10 +112,6 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         if pickerView == datePickerView
         {
             return dateArray[row]
-        }
-        if pickerView == housePickerView
-        {
-            return houseInitialsArray[row]
         }
         return ""
     }
@@ -135,11 +123,6 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
             dateIndex = pickerView.selectedRow(inComponent: 0)
             print(dateIndex, "index")
             print(dateSelected)
-        }
-        if pickerView == housePickerView
-        {
-            houseSelected = houseInitialsArray[row]
-            print(houseSelected)
         }
     }
     
@@ -158,6 +141,18 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         db = Firestore.firestore()
         self.query = baseQuery()
 
+        let userEmail = Auth.auth().currentUser?.email
+        let userRef = db.collection("users").document(userEmail!)
+        userRef.getDocument {(documentSnapshot, error) in
+            if let document = documentSnapshot {
+                self.currentUser = User(dictionary: document.data()!)
+                print(document.data(), "docData")
+                print(self.currentUser.debugDescription, "debugLoad")
+                print(User(dictionary: document.data() ?? [:]), "userDocData")
+                
+            }
+        }
+        
         ticketNumberTextField.text = String(1)
         ticketNumberStepper.maximumValue = 5
         ticketNumberStepper.minimumValue = 1
@@ -174,15 +169,6 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        let houseArrayRef = db.collection("properties").document("houses")
-        houseArrayRef.getDocument {(documentSnapshot, error) in
-            if let document = documentSnapshot {
-                self.houseInitialsArray = document["houseInitialsArray"] as? Array ?? [""]
-                print(self.houseInitialsArray)
-            }
-            self.housePickerView.reloadAllComponents()
-        }
         
         self.listener =  query?.addSnapshotListener { (documents, error) in
             guard let snapshot = documents else {
@@ -214,7 +200,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
             destinationVC.showName = ticketShowTitle
             destinationVC.date = dateSelected
             destinationVC.dateIndex = dateIndex
-            destinationVC.house = houseSelected
+            destinationVC.currentUser = currentUser
             
         }
     }

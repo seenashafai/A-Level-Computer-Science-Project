@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Transation {
+struct Transaction {
 
     var date: String = ""
     var email: String = ""
@@ -30,7 +30,7 @@ struct Transation {
 }
 
 
-extension Transation {
+extension Transaction {
     init?(dictionary: [String: Any]) {
         guard let date = dictionary["date"] as? String,
             let email = dictionary["email"] as? String,

@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import CoreLocation
+import MapKit
 
 class ShowDetailViewController: UIViewController {
 
@@ -68,6 +70,8 @@ class ShowDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = showTitle
+       
+        
         
         let convertedDate = showFuncs.getDateFromEpoch(timeInterval: TimeInterval((show?.date.seconds)!))
         

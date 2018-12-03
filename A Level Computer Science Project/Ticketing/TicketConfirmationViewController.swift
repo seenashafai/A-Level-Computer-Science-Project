@@ -16,7 +16,7 @@ class TicketConfirmationViewController: UIViewController {
     var db: Firestore!
     var documents: [DocumentSnapshot] = []
     var listener: ListenerRegistration!
-    var transaction = [Transation]()
+    var transaction = [Transaction]()
     
     @IBOutlet weak var showLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -69,11 +69,11 @@ class TicketConfirmationViewController: UIViewController {
                 return
             }
             
-            let results = snapshot.documents.map { (document) -> Transation in
-                if let transaction = Transation(dictionary: document.data()) {
+            let results = snapshot.documents.map { (document) -> Transaction in
+                if let transaction = Transaction(dictionary: document.data()) {
                     return transaction
                 } else {
-                    fatalError("Unable to initialize type \(Transation.self) with dictionary \(document.data())")
+                    fatalError("Unable to initialize type \(Transaction.self) with dictionary \(document.data())")
                 }
             }
             
