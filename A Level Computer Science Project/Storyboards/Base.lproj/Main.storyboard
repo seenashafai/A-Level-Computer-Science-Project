@@ -668,6 +668,14 @@
                                             <constraint firstAttribute="height" constant="128" id="Tpu-pv-K1h"/>
                                         </constraints>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BNw-Ue-hCZ">
+                                        <rect key="frame" x="192" y="409" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Map"/>
+                                        <connections>
+                                            <segue destination="tdI-sv-soy" kind="show" id="Fvo-vH-P2h"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="r4g-mI-jSp" firstAttribute="trailing" secondItem="WZ2-kf-2QV" secondAttribute="trailing" constant="32" id="0Y9-ge-90o"/>
@@ -729,34 +737,34 @@
             </objects>
             <point key="canvasLocation" x="1077.5999999999999" y="198.76847290640396"/>
         </scene>
-        <!--View Controller-->
+        <!--Theatre Map View Controller-->
         <scene sceneID="Rwc-NZ-9oa">
             <objects>
-                <viewController id="tdI-sv-soy" sceneMemberID="viewController">
+                <viewController id="tdI-sv-soy" customClass="TheatreMapViewController" customModule="A_Level_Computer_Science_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LeW-Za-X3c">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="9hh-wF-dme">
-                                <rect key="frame" x="0.0" y="102" width="375" height="676"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="375" id="jC7-OP-w3f"/>
-                                    <constraint firstAttribute="height" constant="676" id="x5P-Y5-xut"/>
-                                </constraints>
+                                <rect key="frame" x="0.0" y="88" width="375" height="724"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="9hh-wF-dme" secondAttribute="bottom" constant="34" id="ANx-TC-8Aa"/>
-                            <constraint firstItem="9hh-wF-dme" firstAttribute="leading" secondItem="LeW-Za-X3c" secondAttribute="leading" id="DAq-Z1-aLy"/>
-                            <constraint firstAttribute="trailing" secondItem="9hh-wF-dme" secondAttribute="trailing" id="dfW-XY-Utc"/>
+                            <constraint firstAttribute="trailing" secondItem="9hh-wF-dme" secondAttribute="trailing" id="4a0-Xm-uJF"/>
+                            <constraint firstItem="9hh-wF-dme" firstAttribute="leading" secondItem="LeW-Za-X3c" secondAttribute="leading" id="5wm-gC-yaM"/>
+                            <constraint firstItem="9hh-wF-dme" firstAttribute="top" secondItem="Uli-j8-mLK" secondAttribute="top" id="H9P-AH-2g3"/>
+                            <constraint firstAttribute="bottom" secondItem="9hh-wF-dme" secondAttribute="bottom" id="rud-p2-Ncz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Uli-j8-mLK"/>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="9hh-wF-dme" id="1z4-6n-g02"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P8Y-kt-F5O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1940" y="-521"/>
+            <point key="canvasLocation" x="1940" y="-521.67487684729065"/>
         </scene>
         <!--Title-->
         <scene sceneID="MYD-Qv-KbR">

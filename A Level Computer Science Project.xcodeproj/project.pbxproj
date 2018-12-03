@@ -16,6 +16,8 @@
 		045D5ADA21AFF5C5001BA669 /* MVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D5AD921AFF5C5001BA669 /* MVC.swift */; };
 		046F38B92180C7880026EA16 /* Admin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046F38B82180C7880026EA16 /* Admin.storyboard */; };
 		046F38BE2180C83E0026EA16 /* InitialAdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */; };
+		04819CEF21B55EBB001E6471 /* TheatreMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04819CEE21B55EBB001E6471 /* TheatreMapViewController.swift */; };
+		04819CF121B58592001E6471 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04819CF021B58592001E6471 /* MapKit.framework */; };
 		04904DEE209790C70043C97A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04904DED209790C70043C97A /* AppDelegate.swift */; };
 		04904DF3209790C70043C97A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04904DF1209790C70043C97A /* Main.storyboard */; };
 		04904DF5209790C80043C97A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04904DF4209790C80043C97A /* Assets.xcassets */; };
@@ -74,6 +76,8 @@
 		045D5AD921AFF5C5001BA669 /* MVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVC.swift; sourceTree = "<group>"; };
 		046F38B82180C7880026EA16 /* Admin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Admin.storyboard; sourceTree = "<group>"; };
 		046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialAdminViewController.swift; sourceTree = "<group>"; };
+		04819CEE21B55EBB001E6471 /* TheatreMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheatreMapViewController.swift; sourceTree = "<group>"; };
+		04819CF021B58592001E6471 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		04904DEA209790C70043C97A /* A Level Computer Science Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "A Level Computer Science Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04904DED209790C70043C97A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04904DF2209790C70043C97A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -124,6 +128,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04360C2F217E364500AE8C5C /* PassKit.framework in Frameworks */,
+				04819CF121B58592001E6471 /* MapKit.framework in Frameworks */,
 				C6BCE0ECA2BEB20F7B02B62D /* Pods_A_Level_Computer_Science_Project.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -150,6 +155,7 @@
 		02E514B4C1E34FCD2454B726 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04819CF021B58592001E6471 /* MapKit.framework */,
 				04360C2E217E364500AE8C5C /* PassKit.framework */,
 				9524BA26A7BC9710475318F5 /* Pods_A_Level_Computer_Science_Project.framework */,
 				4F2443A8AFB8F00A5ACD7A53 /* Pods_A_Level_Computer_Science_ProjectTests.framework */,
@@ -273,6 +279,7 @@
 				BDB0EEC221AF00DD00D2A744 /* testTableTableViewController.swift */,
 				3772778E21590566007532A0 /* ShowListTableViewCell.swift */,
 				37F0E7BF214FD21B00D9E335 /* ShowDetailViewController.swift */,
+				04819CEE21B55EBB001E6471 /* TheatreMapViewController.swift */,
 				BD90ACCE21676737003C831A /* Show.swift */,
 			);
 			path = "Show List";
@@ -366,6 +373,9 @@
 						LastSwiftMigration = 1000;
 						SystemCapabilities = {
 							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Maps.iOS = {
 								enabled = 1;
 							};
 							com.apple.Wallet = {
@@ -565,6 +575,7 @@
 				045D5ADA21AFF5C5001BA669 /* MVC.swift in Sources */,
 				04C4507C2181CDCD009ECD30 /* QRDetailsViewController.swift in Sources */,
 				04C450802181D545009ECD30 /* PKUser.swift in Sources */,
+				04819CEF21B55EBB001E6471 /* TheatreMapViewController.swift in Sources */,
 				04F7126D21AC81DF00E958D6 /* Transaction.swift in Sources */,
 				375B6A6321935CEC0005E4B7 /* Seat.swift in Sources */,
 				04FB57FC215C208500673B7D /* SignUpViewController.swift in Sources */,
