@@ -11,6 +11,7 @@ import Firebase
 import FirebaseFirestore
 import FirebaseStorage
 import MaterialComponents.MaterialSnackbar
+import PKHUD
 
 class ShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -72,6 +73,51 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         
         return cell
     }
+    
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+    {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Add") { (action, view, handler) in
+            print("Add Action Tapped")
+            HUD.flash(HUDContentType.systemActivity, delay: 1.5)
+            let seatsArray = self.arrayGen()
+            for i in 1..<4
+            {
+                let ticketAvailabilityRef = self.db.collection("shows").document(self.dbShows[indexPath.row].name).collection(String(i)).document("statistics")
+                print(seatsArray, "seats")
+                ticketAvailabilityRef.setData([
+                    "availableSeats": seatsArray, // generate new seating chart
+                    "availableTickets": 0,
+                    "numberOfTicketHolders": 0,
+                    "ticketHolders": FieldValue.arrayUnion([])
+                ])  { err in
+                    if err != nil {
+                        print("error", err?.localizedDescription)
+                    } else
+                    {
+                        print("success")
+                    }
+                }
+            }
+            HUD.flash(HUDContentType.success)
+            tableView.reloadRows(at: [indexPath], with: .none)
+        }
+        deleteAction.backgroundColor = .green
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
+    }
+    
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+    {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
+            print("Delete Action Tapped")
+        }
+        deleteAction.backgroundColor = .red
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
+    }
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(90)
@@ -139,6 +185,19 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     func setFirebaseSettings()
     {
         db = Firestore.firestore()
+    }
+    
+
+    
+    func arrayGen() -> [Int]
+    {
+        var seatsArray = [Int]()
+        for i in 0..<100
+        {
+            seatsArray.append(i)
+        }
+        print(seatsArray)
+        return seatsArray
     }
     
     //MARK: - View Lifecycle

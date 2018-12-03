@@ -28,7 +28,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     var remainingSeats: Int?
     var dateIndex: Int!
     var showName: String!
-    var seatsArray: [Int]!
+    var seatsArray: [Int]?
     var date: String!
 
     @IBOutlet weak var remainingSeatsLabel: UILabel!
@@ -94,14 +94,14 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
         print(picked, "picked")
         for seat in 0..<picked.count
         {
-            for i in 0..<seatsArray.count
+            for i in 0..<seatsArray!.count
             {
-                print(seatsArray[i], "seatspicked")
+                print(seatsArray?[i], "seatspicked")
                 print(picked[seat], "pickedseat")
-                if picked[seat] == seatsArray[i]
+                if picked[seat] == seatsArray?[i]
                 {
-                    seatsArray.remove(at: seat)
-                    print("removed", seatsArray[i])
+                    seatsArray!.remove(at: seat)
+                    print("removed", seatsArray?[i])
                 }
             }
             print(seatsArray, "withRemoved")
@@ -112,9 +112,9 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     func compareSeats() -> [Int]
     {
         
-        seatsArray = seatsArray.filter { !picked.contains($0) }
+        seatsArray = seatsArray!.filter { !picked.contains($0) }
         print(seatsArray, "withNewRemoved")
-        return seatsArray
+        return seatsArray!
     }
     
     func generateSeats() {
@@ -221,7 +221,8 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
             seatView.tag = index
             print(seatView.tag, "tag")
             print(seatsArray, "seats")
-            if seatsArray.contains(seatView.tag)
+            guard seatsArray?.count != nil else {print("Seats not set up in Database"); return}
+            if (seatsArray?.contains(seatView.tag))!
             {
                 seatView.backgroundColor = UIColor(hue: 100/360.0, saturation: 0.44, brightness: 0.33, alpha: 1)
                 print("el samo")
