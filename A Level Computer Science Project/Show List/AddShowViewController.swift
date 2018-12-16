@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseFirestore
 import FirebaseStorage
 import PKHUD
 
@@ -37,24 +38,7 @@ class AddShowViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     //Submitting form
     @IBAction func confirmAction(_ sender: Any) {
-        let date = showFunc.convertDate(date: datePickerView!.date as NSDate)
-        let venue = showFunc.setData(index: venueSegmentedControl.selectedSegmentIndex, var1: "Farrer Theatre", var2: "Caccia Studio", var3: "Empty Space")
-        let name = showNameTextField.text
-        let director = "anyDirector"
-        let category = showFunc.setData(index: categorySegmentedControl.selectedSegmentIndex, var1: "House", var2: "School", var3: "Independent")
-        let availableTickets = showFunc.setAvailableSeats(venue: venue as? String)
-        let showRef = db.collection("shows").document(name!)
-        showRef.setData([
-            "name": name as Any,
-            "venue": venue as Any,
-            "availableTickets": availableTickets as Any,
-            "Category": category as Any,
-            "Date": date as Any,
-            "director": director as Any
-        ])
-        
-        HUD.flash(HUDContentType.success, delay: 0.3)
-        self.navigationController?.popViewController(animated: true)
+        self.performSegue(withIdentifier: "toMoreDetails", sender: self)
     }
     
     //MARK: - IB Links
@@ -75,6 +59,33 @@ class AddShowViewController: UIViewController, UIImagePickerControllerDelegate, 
         // Do any additional setup after loading the view.
     }
     
+    func setVariables() -> [String: Any]
+    {
+        let date = showFunc.convertDate(date: datePickerView!.date as NSDate)
+        let venue = showFunc.setData(index: venueSegmentedControl.selectedSegmentIndex, var1: "Farrer Theatre", var2: "Caccia Studio", var3: "Empty Space")
+        let name = showNameTextField.text
+        let director = "anyDirector"
+        let category = showFunc.setData(index: categorySegmentedControl.selectedSegmentIndex, var1: "House", var2: "School", var3: "Independent")
+        let availableTickets = showFunc.setAvailableSeats(venue: venue as? String)
+        let showDataDict: [String: Any] = [
+            "name": name as Any,
+            "venue": venue as Any,
+            "availableTickets": availableTickets as Any,
+            "Category": category as Any,
+            "Date": date as Any,
+            "director": director as Any
+        ]
+        return showDataDict
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toMoreDetails"
+        {
+            let destVC = segue.destination as! MoreDetailsViewController
+            destVC.showDataDict = setVariables()
+        }
+    }
+
 
     /*
     // MARK: - Navigation

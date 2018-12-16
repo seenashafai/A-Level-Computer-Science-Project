@@ -77,8 +77,11 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     @available(iOS 11.0, *)
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Add") { (action, view, handler) in
-            print("Add Action Tapped")
+        let deleteAction = UIContextualAction(style: .destructive, title: "Reset") { (action, view, handler) in
+            let resetShowAlert = UIAlertController(title: "Warning", message: "You are about to reset the back-end data for the show, this action cannot be undone. Would you like to continue?", preferredStyle: .alert)
+            resetShowAlert.addAction(UIAlertAction(title: "Reset", style: .destructive, handler: { action in
+            
+            print("Reset Show Back-end")
             HUD.flash(HUDContentType.systemActivity, delay: 1.5)
             let seatsArray = self.arrayGen()
             for i in 1..<4
@@ -101,6 +104,10 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
             }
             HUD.flash(HUDContentType.success)
             tableView.reloadRows(at: [indexPath], with: .none)
+            }))
+            resetShowAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(resetShowAlert, animated: true)
+
         }
         deleteAction.backgroundColor = .green
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])

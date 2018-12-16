@@ -22,7 +22,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     var documents: [DocumentSnapshot] = []
     var listener: ListenerRegistration!
     var ticket = [Ticket]()
-    var currentUser: User?
+    var currentUser: [String: Any] = [:]
 
     var allocatedSeats: Int?
     var remainingSeats: Int?
@@ -65,18 +65,18 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
 
             }
         }
-        let house = currentUser?.house
+        let house = currentUser["house"]
         print(currentUser.debugDescription, "debug")
-        print(currentUser?.house, "currentUserHouse")
-        var transactionRef = db.collection("transactions")
-        transactionRef.addDocument(data: [
+        print(house, "currentUserHouse")
+        var transactionRef = db.collection("transactions").document("currentTransaction")
+        transactionRef.setData([
             "email": user.getCurrentUserEmail(),
             "show": showName,
             "tickets": allocatedSeats,
             "seats": picked,
             "date": date,
             "house": house
-            ])
+        ])
     }
     
     func viewForCoordinate(x: Int, y: Int, size: CGSize) -> UIView {

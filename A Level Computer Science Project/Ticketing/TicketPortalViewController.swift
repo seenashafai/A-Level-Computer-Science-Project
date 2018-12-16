@@ -22,7 +22,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     var listener: ListenerRegistration!
     var show = [Show]()
     var ticket = [Ticket]()
-    var currentUser: User?
+    var currentUser: [String: Any] = [:]
     
     
     //MARK: - IB Links
@@ -54,7 +54,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         print(user.getCurrentUserEmail(), "currentUserEmail")
         print("availableTickets", ticket[0].availableTickets)
         ticketAvailabilityRef.updateData([
-            "availableSeats": seatsArray, // generate new seating chart
+            //"availableSeats": seatsArray, // generate new seating chart
             "availableTickets": ticket[0].availableTickets - numberOfTickets!,
             "numberOfTicketHolders": ticket[0].numberOfTicketHolders + 1,
             "ticketHolders": FieldValue.arrayUnion([user.getCurrentUserEmail()])
@@ -146,10 +146,8 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         let userRef = db.collection("users").document(userEmail!)
         userRef.getDocument {(documentSnapshot, error) in
             if let document = documentSnapshot {
-                self.currentUser = User(dictionary: document.data()!)
-                print(document.data(), "docData")
-                print(self.currentUser.debugDescription, "debugLoad")
-                print(User(dictionary: document.data() ?? [:]), "userDocData")
+                self.currentUser = (document.data() ?? nil)!
+                print(self.currentUser["house"], "housetime")
                 
             }
         }

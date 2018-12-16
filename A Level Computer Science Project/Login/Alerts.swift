@@ -31,4 +31,6 @@ class Alerts {
         invalidHouseErrorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         return invalidHouseErrorAlert
     }
+    
+    
 }

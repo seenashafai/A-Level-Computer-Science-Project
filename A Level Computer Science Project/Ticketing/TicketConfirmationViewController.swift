@@ -17,6 +17,7 @@ class TicketConfirmationViewController: UIViewController {
     var documents: [DocumentSnapshot] = []
     var listener: ListenerRegistration!
     var transaction = [Transaction]()
+    var user = FirebaseUser()
     
     @IBOutlet weak var showLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -26,9 +27,35 @@ class TicketConfirmationViewController: UIViewController {
     @IBOutlet weak var houseLabel: UILabel!
     
     @IBAction func finishAction(_ sender: Any) {
-        HUD.flash(HUDContentType.success, delay: 0.5)
-        let  vc =  self.navigationController?.viewControllers[2]
-        navigationController?.popToViewController(vc!, animated: true)
+        HUD.show(HUDContentType.systemActivity)
+        
+        let email = user.getCurrentUserEmail()
+        let userTicketRef = db.collection("users").document(email).collection("tickets").document("show")
+        userTicketRef.setData([
+            "show": showLabel.text!,
+            "seats": seatsLabel.text!,
+            "tickets": ticketsLabel.text!,
+            "date": dateLabel.text!
+        ]) { err in
+            if err != nil {
+                print("errorino", err?.localizedDescription as Any)
+                HUD.flash(HUDContentType.error)
+            } else
+            {
+                self.db.collection("transactions").document("currentTransaction").delete()
+                    { err in
+                        if let err = err {
+                            print("Error removing document: \(err)")
+                        } else {
+                            print("Document successfully removed!")
+                        }
+                }
+                HUD.flash(HUDContentType.success, delay: 0.5)
+                let  vc =  self.navigationController?.viewControllers[2]
+                self.navigationController?.popToViewController(vc!, animated: true)
+                print("success/dome")
+            }
+        }
     }
     
     
@@ -73,8 +100,9 @@ class TicketConfirmationViewController: UIViewController {
                 if let transaction = Transaction(dictionary: document.data()) {
                     return transaction
                 } else {
-                    fatalError("Unable to initialize type \(Transaction.self) with dictionary \(document.data())")
+                    print(document.data().debugDescription, "docDebugDesc")
                 }
+                return self.transaction[0]
             }
             
             self.transaction = results
