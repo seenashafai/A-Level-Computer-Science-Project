@@ -35,7 +35,7 @@ class MoreDetailsViewController: UIViewController, UIPickerViewDelegate, UIPicke
         print(showDataDict)
         let showRef = db.collection("shows").document(name)
         showRef.setData(showDataDict!)
-        
+        navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: true)
     }
     
     //MARK: - UIPickerViewDelegate

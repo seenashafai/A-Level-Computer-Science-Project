@@ -30,16 +30,21 @@ struct Show: Comparable
     let category: String
     let date: Timestamp
     let availableTickets: Int
-   // let director: String
     let venue: String
+    let description: String
+    let director: String
+    let house: String
     
     var dictionary: [String: Any] {
         return [
-            "name": name,
-            "Category": category,
-            "Date": Timestamp(),
-            "availableTickets": availableTickets,
-            "venue": venue
+            "name": name,//
+            "Category": category,//
+            "Date": Timestamp(),//
+            "availableTickets": availableTickets,//
+            "venue": venue,//
+            "description": description,//
+            "director": director,//
+            "house": house//
         ]
     }
 }
@@ -50,11 +55,14 @@ extension Show {
         let category = dictionary["Category"] as? String,
         let date: Timestamp = dictionary["Date"] as? Timestamp,
         let availableTickets = dictionary["availableTickets"] as? Int,
-        let venue = dictionary["venue"] as? String
+        let venue = dictionary["venue"] as? String,
+        let description = dictionary["description"] as? String,
+        let director = dictionary["director"] as? String,
+        let house = dictionary["house"] as? String
         
             else {return nil}
         
-        self.init(name: name, category: category, date: date, availableTickets: availableTickets, venue: venue)
+        self.init(name: name, category: category, date: date, availableTickets: availableTickets, venue: venue, description: description, director: director, house: house)
     }
     
     

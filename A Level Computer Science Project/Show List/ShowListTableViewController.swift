@@ -25,11 +25,11 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     var listener: ListenerRegistration!
     var dbShows = [Show]()
     var db: Firestore!
+    var showFuncs = showFunctions()
     
     
     //MARK: - Search bar Properties
     var filteredShows = [Show]()
-    var showFuncs = showFunctions()
     let searchController = UISearchController(searchResultsController: nil)
     
     //MARK: - IB Links
@@ -90,7 +90,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
                 print(seatsArray, "seats")
                 ticketAvailabilityRef.setData([
                     "availableSeats": seatsArray, // generate new seating chart
-                    "availableTickets": 0,
+                    "availableTickets": 100,
                     "numberOfTicketHolders": 0,
                     "ticketHolders": FieldValue.arrayUnion([])
                 ])  { err in
@@ -100,6 +100,25 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
                     {
                         print("success")
                     }
+                }
+            }
+            let showDetailsRef = self.db.collection("shows").document(self.dbShows[indexPath.row].name)
+            print(seatsArray, "seats")
+            showDetailsRef.setData([
+                "Category": "", // generate new seating chart
+                "Date": self.showFuncs.convertDate(date: NSDate.init(timeIntervalSince1970: 0)),
+                "availableTickets": 0,
+                "director": "",
+                "description": "",
+                "name": self.dbShows[indexPath.row].name,
+                "venue": "",
+                "house": ""
+            ])  { err in
+                if err != nil {
+                    print("error", err?.localizedDescription)
+                } else
+                {
+                    print("success")
                 }
             }
             HUD.flash(HUDContentType.success)

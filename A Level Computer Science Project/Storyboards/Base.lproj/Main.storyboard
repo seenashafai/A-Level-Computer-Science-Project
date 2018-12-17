@@ -710,6 +710,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="datesLabel" destination="uhk-yr-WGh" id="8gh-af-poE"/>
+                        <outlet property="descriptionTextView" destination="WZ2-kf-2QV" id="Cva-7B-BHn"/>
                         <outlet property="directorLabel" destination="mUS-Ga-mFn" id="vwi-B5-LYq"/>
                         <outlet property="mapView" destination="9hh-wF-dme" id="V7o-3D-bYS"/>
                         <outlet property="venueLabel" destination="HAb-fK-ave" id="EOh-hN-NBZ"/>
