@@ -24,4 +24,13 @@ class Alerts {
         validationErrorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         return validationErrorAlert
     }
+    
+    func invalidHouseErrorAlertController() -> UIAlertController
+    {
+        let invalidHouseErrorAlert = UIAlertController(title: "Error", message: "Please select a house", preferredStyle: .alert)
+        invalidHouseErrorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        return invalidHouseErrorAlert
+    }
+    
+    
 }

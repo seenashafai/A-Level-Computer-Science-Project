@@ -9,16 +9,19 @@
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
+import PKHUD
 
 
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     //MARK: - Properties
     var db: Firestore!
     var validation = Validation()
     var alerts = Alerts()
     var user = FirebaseUser()
+    var houseInitialsArray = [String]()
+    var houseSelected: String?
     
     //MARK: - IB Links
     
@@ -35,6 +38,8 @@ class SignUpViewController: UIViewController {
     //Sign-up button action
     @IBAction func signUpButton(_ sender: Any)
     {
+        guard housePickerView.selectedRow(inComponent: 0) != 0 else {self.present(alerts.invalidHouseErrorAlertController(), animated: true); return}
+        HUD.show(HUDContentType.systemActivity)
         signUpValidation()
     }
     
@@ -54,6 +59,7 @@ class SignUpViewController: UIViewController {
             registrationSuccessful.addAction(UIAlertAction(title: "OK", style: .default, handler:
                 {action in self.navigationController?.popViewController(animated: true)
             }))
+            HUD.flash(HUDContentType.success, delay: 0.3)
             self.present(registrationSuccessful, animated: true)
         
         }
@@ -64,6 +70,7 @@ class SignUpViewController: UIViewController {
             "firstName": firstNameTextField.text!,
             "lastName": lastNameTextField.text!,
             "emailAddress": emailTextField.text!,
+            "house": houseSelected,
             "admin": false
             
         ]) { err in
@@ -73,6 +80,38 @@ class SignUpViewController: UIViewController {
             {
                 print("success")
             }
+        }
+    }
+    
+    @IBOutlet weak var housePickerView: UIPickerView!
+    
+    //MARK: - UIPickerViewDelegate
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == housePickerView
+        {
+            return houseInitialsArray.count
+        }
+        return 0
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == housePickerView
+        {
+            return houseInitialsArray[row]
+        }
+        return ""
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == housePickerView
+        {
+            houseSelected = houseInitialsArray[row]
+            print(houseSelected)
         }
     }
     
@@ -136,13 +175,23 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        db = Firestore.firestore()
+        
+        let houseArrayRef = db.collection("properties").document("houses")
+        houseArrayRef.getDocument {(documentSnapshot, error) in
+            if let document = documentSnapshot {
+                self.houseInitialsArray = document["houseInitialsArray"] as? Array ?? [""]
+                print(self.houseInitialsArray)
+            }
+            self.housePickerView.reloadAllComponents()
+        }
+        
         emailTextField.keyboardType = .emailAddress
         if #available(iOS 12.0, *) {
             passwordTextField.textContentType = .newPassword
             confirmPasswordTextField.textContentType = .newPassword
             emailTextField.textContentType = .username
         }
-        db = Firestore.firestore()
 
         // Do any additional setup after loading the view.
     }

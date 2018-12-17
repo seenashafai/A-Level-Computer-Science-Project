@@ -16,7 +16,7 @@
                 <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="welcomeViewController" id="nL6-uk-cwF" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Foi-cb-aNJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1188" y="-819"/>
+            <point key="canvasLocation" x="1790" y="-846"/>
         </scene>
         <!--QR Scanner-->
         <scene sceneID="ggA-PO-1hU">
@@ -36,7 +36,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W2Z-57-IOL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1142" y="259"/>
+            <point key="canvasLocation" x="1142" y="323"/>
         </scene>
         <!--Details View Controller-->
         <scene sceneID="qDi-yp-QH5">
@@ -51,7 +51,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PrV-ek-GAa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2975" y="259"/>
+            <point key="canvasLocation" x="1990" y="323"/>
         </scene>
         <!--Admin Portal-->
         <scene sceneID="zNr-7Y-0fq">

@@ -25,11 +25,11 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     var listener: ListenerRegistration!
     var dbShows = [Show]()
     var db: Firestore!
+    var showFuncs = showFunctions()
     
     
     //MARK: - Search bar Properties
     var filteredShows = [Show]()
-    var showFuncs = showFunctions()
     let searchController = UISearchController(searchResultsController: nil)
     
     //MARK: - IB Links
@@ -77,8 +77,11 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     @available(iOS 11.0, *)
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Add") { (action, view, handler) in
-            print("Add Action Tapped")
+        let deleteAction = UIContextualAction(style: .destructive, title: "Reset") { (action, view, handler) in
+            let resetShowAlert = UIAlertController(title: "Warning", message: "You are about to reset the back-end data for the show, this action cannot be undone. Would you like to continue?", preferredStyle: .alert)
+            resetShowAlert.addAction(UIAlertAction(title: "Reset", style: .destructive, handler: { action in
+            
+            print("Reset Show Back-end")
             HUD.flash(HUDContentType.systemActivity, delay: 1.5)
             let seatsArray = self.arrayGen()
             for i in 1..<4
@@ -87,7 +90,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
                 print(seatsArray, "seats")
                 ticketAvailabilityRef.setData([
                     "availableSeats": seatsArray, // generate new seating chart
-                    "availableTickets": 0,
+                    "availableTickets": 100,
                     "numberOfTicketHolders": 0,
                     "ticketHolders": FieldValue.arrayUnion([])
                 ])  { err in
@@ -99,8 +102,31 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
                     }
                 }
             }
+            let showDetailsRef = self.db.collection("shows").document(self.dbShows[indexPath.row].name)
+            print(seatsArray, "seats")
+            showDetailsRef.setData([
+                "Category": "", // generate new seating chart
+                "Date": self.showFuncs.convertDate(date: NSDate.init(timeIntervalSince1970: 0)),
+                "availableTickets": 0,
+                "director": "",
+                "description": "",
+                "name": self.dbShows[indexPath.row].name,
+                "venue": "",
+                "house": ""
+            ])  { err in
+                if err != nil {
+                    print("error", err?.localizedDescription)
+                } else
+                {
+                    print("success")
+                }
+            }
             HUD.flash(HUDContentType.success)
             tableView.reloadRows(at: [indexPath], with: .none)
+            }))
+            resetShowAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(resetShowAlert, animated: true)
+
         }
         deleteAction.backgroundColor = .green
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])

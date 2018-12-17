@@ -22,6 +22,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     var documents: [DocumentSnapshot] = []
     var listener: ListenerRegistration!
     var ticket = [Ticket]()
+    var currentUser: [String: Any] = [:]
 
     var allocatedSeats: Int?
     var remainingSeats: Int?
@@ -29,7 +30,6 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     var showName: String!
     var seatsArray: [Int]?
     var date: String!
-    var house: String!
 
     @IBOutlet weak var remainingSeatsLabel: UILabel!
     @IBOutlet weak var totalSeatsLabel: UILabel!
@@ -46,6 +46,8 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     
     @IBOutlet weak var confirmBarButtonOutlet: UIBarButtonItem!
     @IBAction func confirmBarButtonAction(_ sender: Any) {
+        
+        
         let statsRef = db.collection("shows").document(showName).collection(String(dateIndex)).document("statistics")
         print(user.getCurrentUserEmail(), "currentUserEmail")
         statsRef.updateData([
@@ -63,16 +65,18 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
 
             }
         }
-        
-        var transactionRef = db.collection("transactions")
-        transactionRef.addDocument(data: [
+        let house = currentUser["house"]
+        print(currentUser.debugDescription, "debug")
+        print(house, "currentUserHouse")
+        var transactionRef = db.collection("transactions").document("currentTransaction")
+        transactionRef.setData([
             "email": user.getCurrentUserEmail(),
             "show": showName,
             "tickets": allocatedSeats,
             "seats": picked,
             "date": date,
             "house": house
-            ])
+        ])
     }
     
     func viewForCoordinate(x: Int, y: Int, size: CGSize) -> UIView {
@@ -234,14 +238,12 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
             
     }
         
-        
-        for view in venueView.subviews {
-            mySubViews.append(view.tag)
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(getIndex(_:)))
-            gestureRecognizer.view?.tag = index
+        for view in venueView.subviews { //Iterate through subviews
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(getIndex(_:))) //Define gesture recogniser
+            gestureRecognizer.view?.tag = index //Set tag of GR
+            mySubViews.append(view.tag) //Add seat's tag to array
             gestureRecognizer.delegate = self
-            view.addGestureRecognizer(gestureRecognizer)
-            
+            view.addGestureRecognizer(gestureRecognizer) //Add GR to seat
         }
     }
     
@@ -282,14 +284,13 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
                 confirmBarButtonOutlet.isEnabled = true
             }
             else {
-                seatView?.backgroundColor = UIColor.orange
-                picked.append(selectedSeat!)
-                print(picked)
-                print(remainingSeats, "remaining")
-                remainingSeats = remainingSeats! - 1
-                remainingSeatsLabel.text = remainingSeats?.description
-                if picked.count == allocatedSeats
+                seatView?.backgroundColor = UIColor.orange //Set colour
+                picked.append(selectedSeat!) //Add seat number to array
+                remainingSeats = remainingSeats! - 1 //Reduce the number of seats allocated
+                remainingSeatsLabel.text = remainingSeats?.description //Output number of seats allocated remaining
+                if picked.count == allocatedSeats //If all seats allocated have been selected
                 {
+                    //Enable the user to continue to the next view
                     confirmBarButtonOutlet.isEnabled = true
                 }
 

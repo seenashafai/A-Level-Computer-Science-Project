@@ -13,8 +13,14 @@
 		04360C2D2177DA5100AE8C5C /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04360C2C2177DA5100AE8C5C /* Ticket.swift */; };
 		04360C2F217E364500AE8C5C /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04360C2E217E364500AE8C5C /* PassKit.framework */; };
 		04480B64217E391600975ED6 /* TicketSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04480B63217E391600975ED6 /* TicketSummaryViewController.swift */; };
+		045D5ADA21AFF5C5001BA669 /* MVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D5AD921AFF5C5001BA669 /* MVC.swift */; };
 		046F38B92180C7880026EA16 /* Admin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046F38B82180C7880026EA16 /* Admin.storyboard */; };
 		046F38BE2180C83E0026EA16 /* InitialAdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */; };
+		047479F221B722D80085934A /* UserTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047479F121B722D80085934A /* UserTicket.swift */; };
+		04819CEF21B55EBB001E6471 /* TheatreMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04819CEE21B55EBB001E6471 /* TheatreMapViewController.swift */; };
+		04819CF121B58592001E6471 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04819CF021B58592001E6471 /* MapKit.framework */; };
+		04876EFD21C5C09600E07836 /* MoreDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04876EFC21C5C09600E07836 /* MoreDetailsViewController.swift */; };
+		04876EFF21C7D32300E07836 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04876EFE21C7D32300E07836 /* LocalAuthentication.framework */; };
 		04904DEE209790C70043C97A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04904DED209790C70043C97A /* AppDelegate.swift */; };
 		04904DF3209790C70043C97A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04904DF1209790C70043C97A /* Main.storyboard */; };
 		04904DF5209790C80043C97A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04904DF4209790C80043C97A /* Assets.xcassets */; };
@@ -42,7 +48,6 @@
 		BD89FD7E2163ECF10050D379 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD89FD7D2163ECF10050D379 /* Validation.swift */; };
 		BD90ACCD21652154003C831A /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD90ACCC21652154003C831A /* Alerts.swift */; };
 		BD90ACCF21676737003C831A /* Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD90ACCE21676737003C831A /* Show.swift */; };
-		BDB0EEC321AF00DD00D2A744 /* testTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB0EEC221AF00DD00D2A744 /* testTableTableViewController.swift */; };
 		C6BCE0ECA2BEB20F7B02B62D /* Pods_A_Level_Computer_Science_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9524BA26A7BC9710475318F5 /* Pods_A_Level_Computer_Science_Project.framework */; };
 		FF2DE5F89962C91ED0503ECA /* Pods_A_Level_Computer_Science_ProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F2443A8AFB8F00A5ACD7A53 /* Pods_A_Level_Computer_Science_ProjectTests.framework */; };
 /* End PBXBuildFile section */
@@ -70,8 +75,14 @@
 		04360C2C2177DA5100AE8C5C /* Ticket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
 		04360C2E217E364500AE8C5C /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		04480B63217E391600975ED6 /* TicketSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketSummaryViewController.swift; sourceTree = "<group>"; };
+		045D5AD921AFF5C5001BA669 /* MVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVC.swift; sourceTree = "<group>"; };
 		046F38B82180C7880026EA16 /* Admin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Admin.storyboard; sourceTree = "<group>"; };
 		046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialAdminViewController.swift; sourceTree = "<group>"; };
+		047479F121B722D80085934A /* UserTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTicket.swift; sourceTree = "<group>"; };
+		04819CEE21B55EBB001E6471 /* TheatreMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheatreMapViewController.swift; sourceTree = "<group>"; };
+		04819CF021B58592001E6471 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		04876EFC21C5C09600E07836 /* MoreDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreDetailsViewController.swift; sourceTree = "<group>"; };
+		04876EFE21C7D32300E07836 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		04904DEA209790C70043C97A /* A Level Computer Science Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "A Level Computer Science Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04904DED209790C70043C97A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04904DF2209790C70043C97A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -111,7 +122,6 @@
 		BD89FD7D2163ECF10050D379 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		BD90ACCC21652154003C831A /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		BD90ACCE21676737003C831A /* Show.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Show.swift; sourceTree = "<group>"; };
-		BDB0EEC221AF00DD00D2A744 /* testTableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testTableTableViewController.swift; sourceTree = "<group>"; };
 		DC0ED3BCA26088325A26542B /* Pods-A Level Computer Science ProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science ProjectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science ProjectTests/Pods-A Level Computer Science ProjectTests.release.xcconfig"; sourceTree = "<group>"; };
 		EF06BFAFEC0BBCD2588C032D /* Pods-A Level Computer Science ProjectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science ProjectUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science ProjectUITests/Pods-A Level Computer Science ProjectUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -121,7 +131,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04876EFF21C7D32300E07836 /* LocalAuthentication.framework in Frameworks */,
 				04360C2F217E364500AE8C5C /* PassKit.framework in Frameworks */,
+				04819CF121B58592001E6471 /* MapKit.framework in Frameworks */,
 				C6BCE0ECA2BEB20F7B02B62D /* Pods_A_Level_Computer_Science_Project.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,6 +160,8 @@
 		02E514B4C1E34FCD2454B726 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04876EFE21C7D32300E07836 /* LocalAuthentication.framework */,
+				04819CF021B58592001E6471 /* MapKit.framework */,
 				04360C2E217E364500AE8C5C /* PassKit.framework */,
 				9524BA26A7BC9710475318F5 /* Pods_A_Level_Computer_Science_Project.framework */,
 				4F2443A8AFB8F00A5ACD7A53 /* Pods_A_Level_Computer_Science_ProjectTests.framework */,
@@ -205,6 +219,7 @@
 			children = (
 				04360C2B21775B5800AE8C5C /* A Level Computer Science Project.entitlements */,
 				04904DED209790C70043C97A /* AppDelegate.swift */,
+				045D5AD921AFF5C5001BA669 /* MVC.swift */,
 				046F38BA2180C7F30026EA16 /* Storyboards */,
 				04FB57FA215C206600673B7D /* Login */,
 				37F0E7BA214FD1A000D9E335 /* Show List */,
@@ -244,6 +259,7 @@
 				04480B63217E391600975ED6 /* TicketSummaryViewController.swift */,
 				04F7126A21AC818C00E958D6 /* TicketConfirmationViewController.swift */,
 				04360C2C2177DA5100AE8C5C /* Ticket.swift */,
+				047479F121B722D80085934A /* UserTicket.swift */,
 				04F7126C21AC81DF00E958D6 /* Transaction.swift */,
 				375B6A6221935CEC0005E4B7 /* Seat.swift */,
 			);
@@ -266,10 +282,11 @@
 			isa = PBXGroup;
 			children = (
 				37F0E7BD214FD20000D9E335 /* ShowListTableViewController.swift */,
+				04876EFC21C5C09600E07836 /* MoreDetailsViewController.swift */,
 				BD4C2C1C218C635A0059BBB4 /* AddShowViewController.swift */,
-				BDB0EEC221AF00DD00D2A744 /* testTableTableViewController.swift */,
 				3772778E21590566007532A0 /* ShowListTableViewCell.swift */,
 				37F0E7BF214FD21B00D9E335 /* ShowDetailViewController.swift */,
+				04819CEE21B55EBB001E6471 /* TheatreMapViewController.swift */,
 				BD90ACCE21676737003C831A /* Show.swift */,
 			);
 			path = "Show List";
@@ -363,6 +380,9 @@
 						LastSwiftMigration = 1000;
 						SystemCapabilities = {
 							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Maps.iOS = {
 								enabled = 1;
 							};
 							com.apple.Wallet = {
@@ -559,19 +579,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				045D5ADA21AFF5C5001BA669 /* MVC.swift in Sources */,
 				04C4507C2181CDCD009ECD30 /* QRDetailsViewController.swift in Sources */,
 				04C450802181D545009ECD30 /* PKUser.swift in Sources */,
+				04819CEF21B55EBB001E6471 /* TheatreMapViewController.swift in Sources */,
 				04F7126D21AC81DF00E958D6 /* Transaction.swift in Sources */,
 				375B6A6321935CEC0005E4B7 /* Seat.swift in Sources */,
 				04FB57FC215C208500673B7D /* SignUpViewController.swift in Sources */,
 				04C450882181F33A009ECD30 /* PKBarcode.swift in Sources */,
 				37F0E7C0214FD21B00D9E335 /* ShowDetailViewController.swift in Sources */,
 				BD4C2C1B218B57740059BBB4 /* AdminShowListTableViewController.swift in Sources */,
+				04876EFD21C5C09600E07836 /* MoreDetailsViewController.swift in Sources */,
+				047479F221B722D80085934A /* UserTicket.swift in Sources */,
 				04F7126B21AC818C00E958D6 /* TicketConfirmationViewController.swift in Sources */,
 				BD90ACCD21652154003C831A /* Alerts.swift in Sources */,
 				BD4C2C1D218C635A0059BBB4 /* AddShowViewController.swift in Sources */,
 				37F0E7BC214FD1E400D9E335 /* LoginViewController.swift in Sources */,
-				BDB0EEC321AF00DD00D2A744 /* testTableTableViewController.swift in Sources */,
 				046F38BE2180C83E0026EA16 /* InitialAdminViewController.swift in Sources */,
 				04F5848C218112D1007E0AAD /* QRScannerViewController.swift in Sources */,
 				049CD70421754C5700DD5429 /* TicketPortalViewController.swift in Sources */,

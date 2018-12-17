@@ -17,7 +17,11 @@ class LoginViewController: UIViewController {
     var alerts = Alerts()
     var user = FirebaseUser()
     var db: Firestore!
+    var documents: [DocumentSnapshot] = []
+    var listener: ListenerRegistration!
     var isAdmin: Bool?
+    var global = Global()
+    
 
     
     //MARK: - IB Links
@@ -103,11 +107,27 @@ class LoginViewController: UIViewController {
         settings.isPersistenceEnabled = false
     }
     
+    
+    //MARK: - Firebase Query methods
+    
+    fileprivate func baseQuery() -> Query{
+        return db.collection("users")
+    }
+    fileprivate var query: Query? {
+        didSet {
+            if let listener = listener{
+                listener.remove()
+            }
+        }
+    }
+    
     //MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setFirebaseSettings()
+        db = Firestore.firestore()
+        self.query = baseQuery()
         emailTextField.keyboardType = .emailAddress
         passwordTextField.textContentType = .password
         self.navigationController?.isNavigationBarHidden = true
@@ -122,6 +142,7 @@ class LoginViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+       // self.listener.remove()
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
@@ -152,6 +173,29 @@ class LoginViewController: UIViewController {
     }
 
 
+    
+    func loadFromFirestore() {
+        
+        self.listener =  query?.addSnapshotListener { (documents, error) in
+            guard let snapshot = documents else {
+                print("Error fetching documents results: \(error!)")
+                return
+            }
+            
+            let results = snapshot.documents.map { (document) -> Ticket in
+                print(document.data(), "docData")
+                print(document, "doc")
+                if let ticket = Ticket(dictionary: document.data()) {
+                    return ticket
+                } else {
+                    fatalError("Unable to initialize type \(Ticket.self) with dictionary \(document.data())")
+                }
+            }
+            
+            self.documents = snapshot.documents
+            print(self.user)
+        }
+    }
     
     // MARK: - Navigation
     

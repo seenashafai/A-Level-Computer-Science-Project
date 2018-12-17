@@ -9,17 +9,23 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import FirebaseFirestore
+import CoreLocation
+import MapKit
 
 class ShowDetailViewController: UIViewController {
 
     @IBOutlet weak var venueLabel: UILabel!
     @IBOutlet weak var datesLabel: UILabel!
     @IBOutlet weak var directorLabel: UILabel!
+    @IBOutlet weak var descriptionTextView: UITextView!
     var show: Show?
     var showFuncs = showFunctions()
     
     
+    
     //MARK: - Properties
+    var db: Firestore!
     var isUserSignedIn: Bool = false
     var user = FirebaseUser()
     
@@ -68,12 +74,14 @@ class ShowDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = showTitle
-        
+       
         let convertedDate = showFuncs.getDateFromEpoch(timeInterval: TimeInterval((show?.date.seconds)!))
         
         venueLabel.text = show?.venue
-        directorLabel.text = "anyDirector"
+        directorLabel.text = show?.director
         datesLabel.text = convertedDate
+        descriptionTextView.text = show?.description
+        
 
         // Do any additional setup after loading the view.
     }

@@ -16,6 +16,7 @@ struct User {
     let firstName: String
     let lastName: String
     let emailAddress: String
+    let house: String
     let admin: Int
     
     var dictionary: [String: Any] {
@@ -23,6 +24,7 @@ struct User {
             "firstName": firstName,
             "lastName": lastName,
             "emailAddress": emailAddress,
+            "house": house,
             "admin": admin
         ]
     }
@@ -33,10 +35,11 @@ extension User {
         guard let firstName = dictionary["firstName"] as? String,
         let lastName = dictionary["lastName"] as? String,
         let emailAddress = dictionary["emailAddress"] as? String,
+        let house = dictionary["house"] as? String,
         let admin = dictionary["admin"] as? Int
         
             else {return nil}
-        self.init(firstName: firstName, lastName: lastName, emailAddress: emailAddress, admin: admin)
+        self.init(firstName: firstName, lastName: lastName, emailAddress: emailAddress, house: house, admin: admin)
      }
 }
 
@@ -100,6 +103,8 @@ class FirebaseUser
             }
         }
     }
+    
+
 
     
 }
