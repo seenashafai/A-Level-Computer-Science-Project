@@ -75,18 +75,6 @@ class ShowDetailViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.title = showTitle
        
-        db = Firestore.firestore()
-        
-        let showDetailsRef = db.collection("shows").document(showTitle)
-        showDetailsRef.getDocument {(documentSnapshot, error) in
-            if let document = documentSnapshot {
-                print(document.data(), "doc")
-                let show = Show(dictionary: document.data()!)
-                print(show, "showDict")
-
-            }
-        }
-        
         let convertedDate = showFuncs.getDateFromEpoch(timeInterval: TimeInterval((show?.date.seconds)!))
         
         venueLabel.text = show?.venue
