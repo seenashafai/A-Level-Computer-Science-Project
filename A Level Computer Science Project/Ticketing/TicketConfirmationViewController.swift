@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 import PKHUD
+import LocalAuthentication
 
 class TicketConfirmationViewController: UIViewController {
 
@@ -18,6 +19,7 @@ class TicketConfirmationViewController: UIViewController {
     var listener: ListenerRegistration!
     var transaction = [Transaction]()
     var user = FirebaseUser()
+    let auth = Validation()
     
     @IBOutlet weak var showLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -27,37 +29,69 @@ class TicketConfirmationViewController: UIViewController {
     @IBOutlet weak var houseLabel: UILabel!
     
     @IBAction func finishAction(_ sender: Any) {
-        HUD.show(HUDContentType.systemActivity)
-        
-        let email = user.getCurrentUserEmail()
-        let userTicketRef = db.collection("users").document(email).collection("tickets").document("show")
-        userTicketRef.setData([
-            "show": showLabel.text!,
-            "seats": seatsLabel.text!,
-            "tickets": ticketsLabel.text!,
-            "date": dateLabel.text!
-        ]) { err in
-            if err != nil {
-                print("errorino", err?.localizedDescription as Any)
-                HUD.flash(HUDContentType.error)
-            } else
-            {
-                self.db.collection("transactions").document("currentTransaction").delete()
-                    { err in
-                        if let err = err {
-                            print("Error removing document: \(err)")
-                        } else {
-                            print("Document successfully removed!")
-                        }
+        if auth.authenticateUser(reason: "Use your fingerprint to validate your booking") == true
+        {
+                HUD.show(HUDContentType.systemActivity)
+            
+            let email = user.getCurrentUserEmail()
+            let userTicketRef = db.collection("users").document(email).collection("tickets").document("show")
+            userTicketRef.setData([
+                "show": showLabel.text!,
+                "seats": seatsLabel.text!,
+                "tickets": ticketsLabel.text!,
+                "date": dateLabel.text!
+            ]) { err in
+                if err != nil {
+                    print("errorino", err?.localizedDescription as Any)
+                    HUD.flash(HUDContentType.error)
+                } else
+                {
+                    self.db.collection("transactions").document("currentTransaction").delete()
+                        { err in
+                            if let err = err {
+                                print("Error removing document: \(err)")
+                            } else {
+                                print("Document successfully removed!")
+                            }
+                    }
+                    HUD.flash(HUDContentType.success, delay: 0.5)
+                    let  vc =  self.navigationController?.viewControllers[2]
+                    self.navigationController?.popToViewController(vc!, animated: true)
+                    print("success/dome")
+                    }
                 }
-                HUD.flash(HUDContentType.success, delay: 0.5)
-                let  vc =  self.navigationController?.viewControllers[2]
-                self.navigationController?.popToViewController(vc!, animated: true)
-                print("success/dome")
             }
         }
-    }
     
+    func authenticateUser() -> Bool
+    {
+        let context: LAContext = LAContext()
+        var auth: Bool = false
+
+        if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil)
+        {
+            context.evaluatePolicy(LAPolicy.deviceOwnerAuthentication, localizedReason: "Use your fingerprint to validate your booking", reply: { (success, error) in
+                if success
+                {
+                    print("successful biometric auth")
+                    auth = true
+                }
+                else
+                {
+                    print("unsuccessful biometric auth")
+                    auth = false
+                }
+            })
+        }
+        else {
+            print("bio auth not supported")
+        }
+        if auth == true
+        {
+            return true
+        }
+        else { return false }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

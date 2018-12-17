@@ -20,6 +20,7 @@
 		04819CEF21B55EBB001E6471 /* TheatreMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04819CEE21B55EBB001E6471 /* TheatreMapViewController.swift */; };
 		04819CF121B58592001E6471 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04819CF021B58592001E6471 /* MapKit.framework */; };
 		04876EFD21C5C09600E07836 /* MoreDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04876EFC21C5C09600E07836 /* MoreDetailsViewController.swift */; };
+		04876EFF21C7D32300E07836 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04876EFE21C7D32300E07836 /* LocalAuthentication.framework */; };
 		04904DEE209790C70043C97A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04904DED209790C70043C97A /* AppDelegate.swift */; };
 		04904DF3209790C70043C97A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04904DF1209790C70043C97A /* Main.storyboard */; };
 		04904DF5209790C80043C97A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04904DF4209790C80043C97A /* Assets.xcassets */; };
@@ -81,6 +82,7 @@
 		04819CEE21B55EBB001E6471 /* TheatreMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheatreMapViewController.swift; sourceTree = "<group>"; };
 		04819CF021B58592001E6471 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		04876EFC21C5C09600E07836 /* MoreDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreDetailsViewController.swift; sourceTree = "<group>"; };
+		04876EFE21C7D32300E07836 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		04904DEA209790C70043C97A /* A Level Computer Science Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "A Level Computer Science Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04904DED209790C70043C97A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04904DF2209790C70043C97A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04876EFF21C7D32300E07836 /* LocalAuthentication.framework in Frameworks */,
 				04360C2F217E364500AE8C5C /* PassKit.framework in Frameworks */,
 				04819CF121B58592001E6471 /* MapKit.framework in Frameworks */,
 				C6BCE0ECA2BEB20F7B02B62D /* Pods_A_Level_Computer_Science_Project.framework in Frameworks */,
@@ -157,6 +160,7 @@
 		02E514B4C1E34FCD2454B726 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04876EFE21C7D32300E07836 /* LocalAuthentication.framework */,
 				04819CF021B58592001E6471 /* MapKit.framework */,
 				04360C2E217E364500AE8C5C /* PassKit.framework */,
 				9524BA26A7BC9710475318F5 /* Pods_A_Level_Computer_Science_Project.framework */,

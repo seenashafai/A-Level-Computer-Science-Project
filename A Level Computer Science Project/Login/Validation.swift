@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import LocalAuthentication
 
 class Validation {
     
@@ -36,6 +37,39 @@ class Validation {
             return false
         }
     }
+    
+    func authenticateUser(reason: String) -> Bool
+    {
+        let context: LAContext = LAContext()
+        var auth: Bool = false
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
+        {
+            context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason, reply: { (success, error) in
+                if success
+                {
+                    print("successful biometric auth")
+                    auth = true
+                }
+                else
+                {
+                    print("unsuccessful biometric auth")
+                    auth = false
+                }
+            })
+        }
+        else {
+            print("bio auth not supported")
+        }
+        if auth == true
+        {
+            print("authTrue")
+            return true
+            
+        }
+        else { print("ohno"); return false }
+    }
+    
     
 }
 
