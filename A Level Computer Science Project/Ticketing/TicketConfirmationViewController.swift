@@ -34,7 +34,7 @@ class TicketConfirmationViewController: UIViewController {
                 HUD.show(HUDContentType.systemActivity)
             
             let email = user.getCurrentUserEmail()
-            let userTicketRef = db.collection("users").document(email).collection("tickets").document("show")
+            let userTicketRef = db.collection("users").document(email).collection("tickets").document(showLabel.text!)
             userTicketRef.setData([
                 "show": showLabel.text!,
                 "seats": seatsLabel.text!,
@@ -61,37 +61,11 @@ class TicketConfirmationViewController: UIViewController {
                     }
                 }
             }
-        }
-    
-    func authenticateUser() -> Bool
-    {
-        let context: LAContext = LAContext()
-        var auth: Bool = false
-
-        if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil)
+        else
         {
-            context.evaluatePolicy(LAPolicy.deviceOwnerAuthentication, localizedReason: "Use your fingerprint to validate your booking", reply: { (success, error) in
-                if success
-                {
-                    print("successful biometric auth")
-                    auth = true
-                }
-                else
-                {
-                    print("unsuccessful biometric auth")
-                    auth = false
-                }
-            })
+            print("gtfo")
         }
-        else {
-            print("bio auth not supported")
         }
-        if auth == true
-        {
-            return true
-        }
-        else { return false }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

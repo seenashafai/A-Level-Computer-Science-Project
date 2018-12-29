@@ -20,6 +20,11 @@ enum Venues: String {
 struct Show: Comparable
 
 {
+    static func == (lhs: Show, rhs: Show) -> Bool {
+        return lhs.date.seconds == rhs.date.seconds
+
+    }
+    
     
     //Conforming to comparable protocol
     static func < (lhs: Show, rhs: Show) -> Bool {

@@ -41,15 +41,21 @@ class Validation {
     func authenticateUser(reason: String) -> Bool
     {
         let context: LAContext = LAContext()
-        var auth: Bool = false
-        
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
+        var auth: Bool?
+        let group = DispatchGroup()
+        group.enter()
+
+        if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil)
         {
-            context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason, reply: { (success, error) in
+            context.evaluatePolicy(LAPolicy.deviceOwnerAuthentication, localizedReason: reason, reply: { (success, error) in
                 if success
                 {
                     print("successful biometric auth")
-                    auth = true
+                    DispatchQueue.global(qos: .default).async {
+                        auth = true
+                        group.leave()
+                    }
+                    
                 }
                 else
                 {
@@ -61,6 +67,7 @@ class Validation {
         else {
             print("bio auth not supported")
         }
+        group.wait()
         if auth == true
         {
             print("authTrue")

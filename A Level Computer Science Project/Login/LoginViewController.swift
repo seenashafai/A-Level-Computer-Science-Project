@@ -216,7 +216,7 @@ class LoginViewController: UIViewController {
         if segue.identifier == "toShowList"
         {
             var destVC = segue.destination as! ShowListTableViewController
-            destVC.userIsAdmin = isAdmin
+            //destVC.userIsAdmin = isAdmin
             print(isAdmin, "isAdmin")
             
         }

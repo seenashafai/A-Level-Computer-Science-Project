@@ -12,6 +12,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import CoreLocation
 import MapKit
+import DataCompression
 
 class ShowDetailViewController: UIViewController {
 
@@ -19,6 +20,12 @@ class ShowDetailViewController: UIViewController {
     @IBOutlet weak var datesLabel: UILabel!
     @IBOutlet weak var directorLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
+    
+    @IBOutlet weak var venueTextField: UITextField!
+    @IBOutlet weak var datesTextField: UITextField!
+    @IBOutlet weak var directorTextField: UITextField!
+    
+    
     var show: Show?
     var showFuncs = showFunctions()
     
@@ -27,6 +34,8 @@ class ShowDetailViewController: UIViewController {
     //MARK: - Properties
     var db: Firestore!
     var isUserSignedIn: Bool = false
+    var editable: Bool = false
+
     var user = FirebaseUser()
     
     //MARK: - IB Links
@@ -73,17 +82,60 @@ class ShowDetailViewController: UIViewController {
     //MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        db = Firestore.firestore()
+
+        venueTextField.isHidden = true
+        datesTextField.isHidden = true
+        directorTextField.isHidden = true
+        
+        if editable == true
+        {
+            navigationItem.rightBarButtonItem?.title = "Save"
+            venueLabel.isHidden = true
+            directorLabel.isHidden = true
+            datesLabel.isHidden = true
+            descriptionTextView.isEditable = true
+            
+            
+            venueTextField.text = show?.venue
+            datesTextField.text = ""
+            directorTextField.text = show?.director
+            
+            venueTextField.isHidden = false
+            datesTextField.isHidden = false
+            directorTextField.isHidden = false
+
+        }
         navigationItem.title = showTitle
        
-        let convertedDate = showFuncs.getDateFromEpoch(timeInterval: TimeInterval((show?.date.seconds)!))
+        let convertedDate = showFuncs.getDateFromEpoch(timeInterval: TimeInterval((show?.date.seconds) ?? 0))
+
         
         venueLabel.text = show?.venue
         directorLabel.text = show?.director
         datesLabel.text = convertedDate
         descriptionTextView.text = show?.description
         
-
+        
+        
         // Do any additional setup after loading the view.
+    }
+    
+    func decompressDescription() -> String
+    {
+        var deflatedString = show?.description
+        print(deflatedString, "defStr")
+        var data = deflatedString as! Data
+        print(data)
+        
+        let str = String(data: deflatedString as! Data, encoding: .utf8)
+        print(str, "str")
+        let strData = NSData(base64Encoded: data, options: .ignoreUnknownCharacters)
+        print(strData, "strData")
+        let strStr = String(data: strData as! Data, encoding: .utf8)
+        print(strStr, "strstr")
+  
+        return strStr!
     }
 
     // MARK: - Navigation

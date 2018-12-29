@@ -18,7 +18,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     //MARK: - Variables
     var dateSortIndex = 0
     var nameSortIndex = 0
-    var userIsAdmin: Bool?
+    var userIsAdmin = false
     
     //MARK: - Initialise Firebase Properties
     var documents: [DocumentSnapshot] = []
@@ -26,7 +26,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     var dbShows = [Show]()
     var db: Firestore!
     var showFuncs = showFunctions()
-    
+    var showForSegue: Show?
     
     //MARK: - Search bar Properties
     var filteredShows = [Show]()
@@ -133,17 +133,31 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         return configuration
     }
     
-    @available(iOS 11.0, *)
+    @available(iOS 11.0, *) //Checking software version
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
-            print("Delete Action Tapped")
+        let editAction = UIContextualAction(style: .destructive, title: "Edit") { (action, view, handler) in //Configure completion handler and define action to be carried out
+            //Actions...
+            print("Edit Action Tapped")
         }
-        deleteAction.backgroundColor = .red
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
-        return configuration
+        editAction.backgroundColor = .red //Assign action bg colour
+        
+        let configuration: UISwipeActionsConfiguration! //Create configuration variable to be used within the selection statements
+        if userIsAdmin == true
+        {
+            configuration = UISwipeActionsConfiguration(actions: [editAction]) //Assign configuration with previously defined edit action
+        }
+        else
+        {
+            configuration = UISwipeActionsConfiguration(actions: []) //Assign empty array to Swipe Action configuration
+            //If the user is not an admin, no action is sent to the tableview cell, and therefore no edit options should be visible
+        }
+        return configuration //Return configuration bundle
     }
     
+    
+    //            self.showForSegue = self.dbShows[indexPath.row]
+   // self.performSegue(withIdentifier: "toEditDetailsView", sender: nil)
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(90)
@@ -351,6 +365,14 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
             let show = dbShows[indexPath!.row]
             destinationVC.showTitle = show.name
             destinationVC.show = show
+            
+        }
+        if segue.identifier == "toEditDetailsView"
+        {
+            let destinationVC = segue.destination as! ShowDetailViewController
+            destinationVC.editable = true
+            destinationVC.show = showForSegue
+            destinationVC.showTitle = showForSegue?.name ?? "name"
             
         }
     }
