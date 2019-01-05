@@ -10,6 +10,7 @@ import Foundation
 
 struct Transaction {
 
+    var transactionID: Int = 0
     var date: String = ""
     var email: String = ""
     var house: String = ""
@@ -19,6 +20,7 @@ struct Transaction {
     
     var dictionary: [String: Any] {
         return [
+            "transactionID": transactionID,
             "date": date,
             "email": email,
             "house": house,
@@ -32,13 +34,14 @@ struct Transaction {
 
 extension Transaction {
     init?(dictionary: [String: Any]) {
-        guard let date = dictionary["date"] as? String,
+        guard let transactionID = dictionary["transactionID"] as? Int,
+            let date = dictionary["date"] as? String,
             let email = dictionary["email"] as? String,
             let house = dictionary["house"] as? String,
             let seats = dictionary["seats"] as? [Int],
             let show = dictionary["show"] as? String,
             let tickets = dictionary["tickets"] as? Int
             else {return nil}
-        self.init(date: date, email: email, house: house, seats: seats, show: show, tickets: tickets)
+        self.init(transactionID: transactionID, date: date, email: email, house: house, seats: seats, show: show, tickets: tickets)
     }
 }

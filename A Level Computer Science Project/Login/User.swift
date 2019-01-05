@@ -30,6 +30,10 @@ struct User {
     }
 }
 
+struct Active {
+    static var currentUser: [String: Any]?
+}
+
 extension User {
     init?(dictionary: [String: Any]) {
         guard let firstName = dictionary["firstName"] as? String,
@@ -79,7 +83,27 @@ class FirebaseUser
         }
         return userDisplayName
     }
-            
+    
+    
+    func getCurrentUserDictionary(db: Firestore) -> [String: Any]
+    {
+        let email = getCurrentUserEmail()
+        var userDict: [String: Any]?
+
+        let userRef = db.collection("users").document(email)
+        userRef.getDocument {(documentSnapshot, error) in
+            if let error = error
+            {
+                print(error.localizedDescription, "error")
+                return
+            }
+            if let document = documentSnapshot {
+                userDict = document.data()!
+            }
+        }
+        return userDict!
+    }
+    
     func isUserEmailVerified() -> Bool
     {
         if Auth.auth().currentUser?.isEmailVerified == true

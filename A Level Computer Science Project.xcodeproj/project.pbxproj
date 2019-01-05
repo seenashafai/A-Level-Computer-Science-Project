@@ -12,11 +12,9 @@
 		040ABC922097934B00F07B6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 040ABC8F2097934B00F07B6A /* GoogleService-Info.plist */; };
 		04360C2D2177DA5100AE8C5C /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04360C2C2177DA5100AE8C5C /* Ticket.swift */; };
 		04360C2F217E364500AE8C5C /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04360C2E217E364500AE8C5C /* PassKit.framework */; };
-		04480B64217E391600975ED6 /* TicketSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04480B63217E391600975ED6 /* TicketSummaryViewController.swift */; };
 		045D5ADA21AFF5C5001BA669 /* MVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D5AD921AFF5C5001BA669 /* MVC.swift */; };
 		046F38B92180C7880026EA16 /* Admin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046F38B82180C7880026EA16 /* Admin.storyboard */; };
 		046F38BE2180C83E0026EA16 /* InitialAdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */; };
-		047479F221B722D80085934A /* UserTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047479F121B722D80085934A /* UserTicket.swift */; };
 		04819CEF21B55EBB001E6471 /* TheatreMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04819CEE21B55EBB001E6471 /* TheatreMapViewController.swift */; };
 		04819CF121B58592001E6471 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04819CF021B58592001E6471 /* MapKit.framework */; };
 		04876EFD21C5C09600E07836 /* MoreDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04876EFC21C5C09600E07836 /* MoreDetailsViewController.swift */; };
@@ -74,11 +72,9 @@
 		04360C2B21775B5800AE8C5C /* A Level Computer Science Project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "A Level Computer Science Project.entitlements"; sourceTree = "<group>"; };
 		04360C2C2177DA5100AE8C5C /* Ticket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
 		04360C2E217E364500AE8C5C /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
-		04480B63217E391600975ED6 /* TicketSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketSummaryViewController.swift; sourceTree = "<group>"; };
 		045D5AD921AFF5C5001BA669 /* MVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVC.swift; sourceTree = "<group>"; };
 		046F38B82180C7880026EA16 /* Admin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Admin.storyboard; sourceTree = "<group>"; };
 		046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialAdminViewController.swift; sourceTree = "<group>"; };
-		047479F121B722D80085934A /* UserTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTicket.swift; sourceTree = "<group>"; };
 		04819CEE21B55EBB001E6471 /* TheatreMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheatreMapViewController.swift; sourceTree = "<group>"; };
 		04819CF021B58592001E6471 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		04876EFC21C5C09600E07836 /* MoreDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreDetailsViewController.swift; sourceTree = "<group>"; };
@@ -256,10 +252,8 @@
 			children = (
 				049CD70321754C5700DD5429 /* TicketPortalViewController.swift */,
 				37FFAFAB21944337003F6DD3 /* SecondarySeatSelectionViewController.swift */,
-				04480B63217E391600975ED6 /* TicketSummaryViewController.swift */,
 				04F7126A21AC818C00E958D6 /* TicketConfirmationViewController.swift */,
 				04360C2C2177DA5100AE8C5C /* Ticket.swift */,
-				047479F121B722D80085934A /* UserTicket.swift */,
 				04F7126C21AC81DF00E958D6 /* Transaction.swift */,
 				375B6A6221935CEC0005E4B7 /* Seat.swift */,
 			);
@@ -486,6 +480,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-A Level Computer Science Project/Pods-A Level Computer Science Project-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/DataCompression/DataCompression.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
@@ -505,6 +500,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DataCompression.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
@@ -609,7 +605,6 @@
 				37F0E7C0214FD21B00D9E335 /* ShowDetailViewController.swift in Sources */,
 				BD4C2C1B218B57740059BBB4 /* AdminShowListTableViewController.swift in Sources */,
 				04876EFD21C5C09600E07836 /* MoreDetailsViewController.swift in Sources */,
-				047479F221B722D80085934A /* UserTicket.swift in Sources */,
 				04F7126B21AC818C00E958D6 /* TicketConfirmationViewController.swift in Sources */,
 				BD90ACCD21652154003C831A /* Alerts.swift in Sources */,
 				BD4C2C1D218C635A0059BBB4 /* AddShowViewController.swift in Sources */,
@@ -621,7 +616,6 @@
 				3772778F21590566007532A0 /* ShowListTableViewCell.swift in Sources */,
 				04360C2D2177DA5100AE8C5C /* Ticket.swift in Sources */,
 				BD90ACCF21676737003C831A /* Show.swift in Sources */,
-				04480B64217E391600975ED6 /* TicketSummaryViewController.swift in Sources */,
 				37FFAFAC21944337003F6DD3 /* SecondarySeatSelectionViewController.swift in Sources */,
 				37F0E7BE214FD20000D9E335 /* ShowListTableViewController.swift in Sources */,
 				BD89FD7E2163ECF10050D379 /* Validation.swift in Sources */,

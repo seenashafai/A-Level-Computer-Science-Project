@@ -20,7 +20,6 @@ class LoginViewController: UIViewController {
     var documents: [DocumentSnapshot] = []
     var listener: ListenerRegistration!
     var isAdmin: Bool?
-    var global = Global()
     
 
     
@@ -57,15 +56,6 @@ class LoginViewController: UIViewController {
                 let userAdminRef = self.db.collection("users").document(email!)
                 userAdminRef.getDocument(completion: { (document, error) in
                     if let document = document, document.exists {
-                        let userDict = User(dictionary: document.data()!)
-                        print(document.data(), "docData")
-                        if userDict == nil
-                        {
-                            print(error, error?.localizedDescription, "error")
-                        }
-                        print(document.data()!["admin"], "admin")
-                        print(userDict, "userDict")
-                        print(userDict?.admin, "adminFromDict")
                         print(document.data()!["admin"] as! Int, "asInt")
                         if document.data()!["admin"] as? Bool == true {
                             self.isAdmin = true
@@ -75,6 +65,7 @@ class LoginViewController: UIViewController {
                         }
                     }
                 })
+                
                 self.performSegue(withIdentifier: "toShowList", sender: self)
             }
         }

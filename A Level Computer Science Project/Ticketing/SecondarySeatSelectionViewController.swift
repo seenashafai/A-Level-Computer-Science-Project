@@ -30,6 +30,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     var showName: String!
     var seatsArray: [Int]?
     var date: String!
+    var transactionID: Int?
 
     @IBOutlet weak var remainingSeatsLabel: UILabel!
     @IBOutlet weak var totalSeatsLabel: UILabel!
@@ -70,6 +71,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
         print(house, "currentUserHouse")
         var transactionRef = db.collection("transactions").document("currentTransaction")
         transactionRef.setData([
+            "transactionID": transactionID,
             "email": user.getCurrentUserEmail(),
             "show": showName,
             "tickets": allocatedSeats,
@@ -78,6 +80,22 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
             "house": house
         ])
     }
+    
+    func getTransactionID()
+    {
+        let transactionRef = db.collection("properties").document("transactions")
+        transactionRef.getDocument {(documentSnapshot, error) in
+            if let error = error
+            {
+                print(error.localizedDescription, "transaction retrieval error")
+                return
+            }
+            if let document = documentSnapshot {
+                self.transactionID = document.data()!["runningTotal"] as! Int
+                }
+            }
+
+        }
     
     func viewForCoordinate(x: Int, y: Int, size: CGSize) -> UIView {
         let centerX = Int(venueView.frame.size.width / CGFloat(venueWidth)) * x
@@ -144,6 +162,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
+        getTransactionID()
         self.query = baseQuery()
         confirmBarButtonOutlet.isEnabled = false
         venueView.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
