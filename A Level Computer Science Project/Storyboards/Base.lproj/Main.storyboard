@@ -21,7 +21,6 @@
         <!--Login View Controller-->
         <scene sceneID="kOO-Ra-mik">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8mv-3H-7nb" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="welcomeViewController" id="LKt-Z4-zY7" customClass="LoginViewController" customModule="A_Level_Computer_Science_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ERX-Tl-dXA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
@@ -231,6 +230,7 @@
                         <outletCollection property="textFields" destination="cFz-GG-ZAi" collectionClass="NSMutableArray" id="95U-CW-3eI"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8mv-3H-7nb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-727.20000000000005" y="198.76847290640396"/>
         </scene>
@@ -1481,6 +1481,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="wSG-f1-QhU" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RFb-SA-Z7b">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
