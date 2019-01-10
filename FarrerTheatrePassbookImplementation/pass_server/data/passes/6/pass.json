@@ -1,41 +1,62 @@
 {
-  "passTypeIdentifier": "---",
+  "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
   "formatVersion": 1,
-  "organizationName": "CodeKollektiv",
-  "serialNumber": "---",
-  "teamIdentifier": "---",
-  "webServiceURL": "---",
-  "authenticationToken": "---",
-  "description": "Balance Card for CodeKollektiv",
+  "organizationName": "Farrer Theatre",
+  "serialNumber": "f4210bb4059a852149603beafe460fa8",
+  "teamIdentifier": "AZQME83VC4",
+  "webServiceURL": "http://rogue01.local:5757/",
+  "authenticationToken": "5116affdbbdf8b115d178ffe147703a7",
+  "description": "Play Ticket",
   "foregroundColor": "#FFFFFF",
-  "backgroundColor": "#631313",
-  "logoText": "CodeKollektiv",
+  "backgroundColor": "#FF6161",
+  "logoText": "Farrer Theatre",
   "locations": [
     {
-      "latitude": 52.497181,
-      "longitude": 13.384972
+      "longitude": 51.412027,
+      "latitude": -0.658112
+    },
+    {
+      "longitude": 51.494633,
+      "latitude": -0.610453
     }
   ],
   "barcode": {
     "messageEncoding": "utf-8",
     "format": "PKBarcodeFormatQR",
-    "message": "---"
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"f4210bb4059a852149603beafe460fa8\",\"authentication_token\":\"5116affdbbdf8b115d178ffe147703a7\"}"
   },
-  "storeCard": {
+  "eventTicket": {
+    "headerFields": [
+      {
+        "key": "fullName",
+        "label": "seenas@btinternet.com",
+        "value": "Seena Shafai"
+      }
+    ],
     "primaryFields": [
       {
-        "key": "balance",
-        "label": "i say balance",
-        "value": 0.0,
-        "currencyCode": "EUR",
-        "changeMessage": "Balance updated to %@."
+        "key": "showTitle",
+        "label": "Production",
+        "value": "TestShow5"
       }
     ],
     "secondaryFields": [
       {
-        "key": "fullName",
-        "label": "Name",
-        "value": "---"
+        "key": "date",
+        "label": "Date",
+        "value": "Thursday 4th December"
+      }
+    ],
+    "auxiliaryFields": [
+      {
+        "key": "seatRef",
+        "label": "Seat Reference",
+        "value": "[60]"
+      },
+      {
+        "label": "venue",
+        "key": "VENUE",
+        "value": "Empty Space"
       }
     ]
   }

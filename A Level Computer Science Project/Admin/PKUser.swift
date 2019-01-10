@@ -14,6 +14,9 @@ struct PKUser: Codable {
     let name: String
     let email: String
     let seatRef: String
+    let show: String
+    let date: String
+    let venue: String
     let created_at: String
     let updated_at: String
     
@@ -24,8 +27,12 @@ struct PKUser: Codable {
             "name": name as AnyObject,
             "email": email as AnyObject,
             "seatRef": seatRef as AnyObject,
+            "show": show as AnyObject,
+            "date": date as AnyObject,
+            "venue": venue as AnyObject,
             "created_at": created_at as AnyObject,
             "updated_at": updated_at as AnyObject
+            
             
         ]
     }
@@ -38,12 +45,15 @@ extension PKUser {
             let name = dictionary["name"] as? String,
             let email = dictionary["email"] as? String,
             let seatRef = dictionary["seatRef"] as? String,
+            let date = dictionary["date"] as? String,
+            let show = dictionary["show"] as? String,
+            let venue = dictionary["venue"] as? String,
             let created_at = dictionary["created_at"] as? String,
             let updated_at = dictionary["updated_at"] as? String
             
             else {return nil}
         
-        self.init(id: id, name: name, email: email, seatRef: seatRef, created_at: created_at, updated_at: updated_at)
+        self.init(id: id, name: name, email: email, seatRef: seatRef, show: show, date: date, venue: venue, created_at: created_at, updated_at: updated_at)
     }
     
 }

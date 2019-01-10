@@ -53,4 +53,10 @@ class Alerts {
         return addedToWalletInfo
     }
     
+    func userAlreadyHasTicket() -> UIAlertController
+    {
+        let userAlreadyHasTicket = UIAlertController(title: "Information", message: "You already have a ticket for this event. You may only request one batch of tickets per event", preferredStyle: .alert)
+        userAlreadyHasTicket.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        return userAlreadyHasTicket
+    }
 }

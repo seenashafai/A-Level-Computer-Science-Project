@@ -2,10 +2,10 @@
   "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
   "formatVersion": 1,
   "organizationName": "Farrer Theatre",
-  "serialNumber": "78d0af723bb36bfabec3ead4d844f0c7",
+  "serialNumber": "dd01218dccaff5d4e6ab2807ab349a78",
   "teamIdentifier": "AZQME83VC4",
-  "webServiceURL": "http://Rogue01.local:4567/",
-  "authenticationToken": "672af03dcde6b59290a89d785ce0466c",
+  "webServiceURL": "http://rogue01.local:5757/",
+  "authenticationToken": "536683ffe5c43b738f00d1cf24fcf01c",
   "description": "Play Ticket",
   "foregroundColor": "#FFFFFF",
   "backgroundColor": "#FF6161",
@@ -23,40 +23,40 @@
   "barcode": {
     "messageEncoding": "utf-8",
     "format": "PKBarcodeFormatQR",
-    "message": "{\"pass_type_id\":\"pass.com.codekollektiv.balance\",\"serial_number\":\"78d0af723bb36bfabec3ead4d844f0c7\",\"authentication_token\":\"672af03dcde6b59290a89d785ce0466c\"}"
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"dd01218dccaff5d4e6ab2807ab349a78\",\"authentication_token\":\"536683ffe5c43b738f00d1cf24fcf01c\"}"
   },
   "eventTicket": {
     "headerFields": [
       {
         "key": "fullName",
-        "label": "Big@jeff.com",
-        "value": "Big Jeff"
+        "label": "seenas@btinternet.com",
+        "value": "Seena Shafai"
       }
     ],
     "primaryFields": [
       {
         "key": "showTitle",
         "label": "Production",
-        "value": "DNA"
+        "value": "TestShow5"
       }
     ],
     "secondaryFields": [
       {
         "key": "date",
         "label": "Date",
-        "value": "Tuesday 7th December"
+        "value": "Thursday 4th December"
       }
     ],
     "auxiliaryFields": [
       {
         "key": "seatRef",
         "label": "Seat Reference",
-        "value": null
+        "value": "[40]"
       },
       {
         "label": "venue",
         "key": "VENUE",
-        "value": "Farrer Theatre"
+        "value": "Empty Space"
       }
     ]
   }

@@ -74,7 +74,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     //MARK: - Firebase Query methods
 
  fileprivate func baseQuery() -> Query{
-        return db.collection("shows").document(ticketShowTitle).collection("1")
+        return db.collection("shows").document(ticketShowTitle).collection("1").whereField("availableTickets", isGreaterThanOrEqualTo: 0)
     }
     fileprivate var query: Query? {
         didSet {

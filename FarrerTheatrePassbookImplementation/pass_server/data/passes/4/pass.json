@@ -1,41 +1,62 @@
 {
   "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
   "formatVersion": 1,
-  "organizationName": "CodeKollektiv",
-  "serialNumber": "b492c6787de7ac0bd1aeaab126626a70",
+  "organizationName": "Farrer Theatre",
+  "serialNumber": "2e74e74d9c1b3a2e967a69ed080a44ba",
   "teamIdentifier": "AZQME83VC4",
-  "webServiceURL": "http://Rogue01.local:4567/",
-  "authenticationToken": "2aed1b2617960875b81ed1df39a11f3d",
-  "description": "Balance Card for CodeKollektiv",
+  "webServiceURL": "http://rogue01.local:5757/",
+  "authenticationToken": "43b183d24afa039e56d5642b104c52c2",
+  "description": "Play Ticket",
   "foregroundColor": "#FFFFFF",
-  "backgroundColor": "#631313",
-  "logoText": "CodeKollektiv",
+  "backgroundColor": "#FF6161",
+  "logoText": "Farrer Theatre",
   "locations": [
     {
-      "latitude": 52.497181,
-      "longitude": 13.384972
+      "longitude": 51.412027,
+      "latitude": -0.658112
+    },
+    {
+      "longitude": 51.494633,
+      "latitude": -0.610453
     }
   ],
   "barcode": {
     "messageEncoding": "utf-8",
     "format": "PKBarcodeFormatQR",
-    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"b492c6787de7ac0bd1aeaab126626a70\",\"authentication_token\":\"2aed1b2617960875b81ed1df39a11f3d\"}"
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"2e74e74d9c1b3a2e967a69ed080a44ba\",\"authentication_token\":\"43b183d24afa039e56d5642b104c52c2\"}"
   },
-  "storeCard": {
+  "eventTicket": {
+    "headerFields": [
+      {
+        "key": "fullName",
+        "label": "seenas@btinternet.com",
+        "value": "Seena Shafai"
+      }
+    ],
     "primaryFields": [
       {
-        "key": "balance",
-        "label": "Balance",
-        "value": 72.0,
-        "currencyCode": "EUR",
-        "changeMessage": "Balance updated to %@."
+        "key": "showTitle",
+        "label": "Production",
+        "value": "TestShow5"
       }
     ],
     "secondaryFields": [
       {
-        "key": "fullName",
-        "label": "Name",
-        "value": "O lawd"
+        "key": "date",
+        "label": "Date",
+        "value": "Friday 5th December"
+      }
+    ],
+    "auxiliaryFields": [
+      {
+        "key": "seatRef",
+        "label": "Seat Reference",
+        "value": "[7]"
+      },
+      {
+        "label": "venue",
+        "key": "VENUE",
+        "value": "Empty Space"
       }
     ]
   }

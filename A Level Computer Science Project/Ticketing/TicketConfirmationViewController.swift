@@ -28,9 +28,11 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     var global = Global()
     var firstName: String?
     var lastName: String?
+    var house: String?
+    var block: String?
     var venue: String?
     var currentTransaction: Int?
-    let APIEndpoint = "http://192.168.1.25:6789/users"
+    let APIEndpoint = "http://ftpkdist.serveo.net/users"
 
     
     @IBOutlet weak var showLabel: UILabel!
@@ -52,7 +54,8 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
                 "show": showLabel.text!,
                 "seats": seatsLabel.text!,
                 "tickets": ticketsLabel.text!,
-                "date": dateLabel.text!
+                "date": dateLabel.text!,
+                "attendance": false
             ]) { err in
                 if err != nil {
                     print("errorino", err?.localizedDescription as Any)
@@ -114,6 +117,29 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
         super.viewDidLoad()
         db = Firestore.firestore()
         self.query = baseQuery()
+        self.listener =  query?.addSnapshotListener { (documents, error) in
+            guard let snapshot = documents else {
+                print("Error fetching documents results: \(error!)")
+                return
+            }
+            
+            let results = snapshot.documents.map { (document) -> Transaction in
+                if let transaction = Transaction(dictionary: document.data()) {
+                    return transaction
+                } else {
+                    print(document.data().debugDescription, "docDebugDesc")
+                }
+                return self.transaction[0]
+            }
+            
+            self.transaction = results
+            self.documents = snapshot.documents
+        }
+        
+        delayWithSeconds(0.2)
+        {
+            self.readTransaction()
+        }
 
 
         // Do any additional setup after loading the view.
@@ -132,6 +158,8 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
             if let document = documentSnapshot {
                 self.firstName = document.data()!["firstName"] as! String
                 self.lastName = document.data()!["lastName"] as! String
+                self.block = document.data()!["block"] as! String
+                self.house = document.data()!["house"] as! String
             }
         }
         print(firstName, "data")
@@ -153,6 +181,23 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
             }
         }
 
+    }
+    
+    func loadStatistics()
+    {
+        let show = showLabel.text!
+        let showRef = db.collection("shows").document(show)
+        showRef.getDocument {(documentSnapshot, error) in
+            if let error = error
+            {
+                print(error.localizedDescription, "venueError")
+                return
+            }
+            if let document = documentSnapshot {
+                print(document.data()!["venue"], "venue")
+                self.venue = document.data()!["venue"] as! String
+            }
+        }
     }
     
     func getTransactionID() -> Int
@@ -193,7 +238,7 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     func downloadTicket2()
     {
         var uid = currentTransaction
-        let url : NSURL! = NSURL(string: "http://192.168.1.25:6789/users/\(uid!)/pass.pkpass")
+        let url : NSURL! = NSURL(string: "http://ftpkdist.serveo.net/users/\(uid!)/pass.pkpass")
         let request: NSURLRequest = NSURLRequest(url:
             url as URL)
         print(request.url, "urel")
@@ -219,13 +264,10 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
                     let pkvc = PKAddPassesViewController(pass: pass!)
                     pkvc!.delegate = self
                     self.present(pkvc!, animated: true, completion: {() -> Void in
-                        
-                        var message = MDCSnackbarMessage()
-                        message.text = "Ticket added to Wallet app. Please be prepared to show this ticket at the door"
-                        MDCSnackbarManager.show(message)
-                        self.navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: true)
+                        print("presented pkvc")
+                        })
+                    print("done")
 
-                    })
                 }
             }
         })
@@ -243,6 +285,19 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
         }
     }
     
+    func addPassesViewControllerDidFinish(_ controller: PKAddPassesViewController) {
+        
+        controller.dismiss(animated: true, completion: nil)
+
+        
+            let passAddedToWalletInfo = UIAlertController(title: "Information", message: "Ticket added to Wallet app. Please be prepared to show this ticket at the door", preferredStyle: .alert)
+            passAddedToWalletInfo.addAction(UIAlertAction(title: "OK", style: .default, handler:
+                {action in
+                    self.navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: true)
+            }))
+        self.present(passAddedToWalletInfo, animated: true)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.listener.remove()
@@ -251,43 +306,22 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.listener =  query?.addSnapshotListener { (documents, error) in
-            guard let snapshot = documents else {
-                print("Error fetching documents results: \(error!)")
-                return
-            }
-            
-            let results = snapshot.documents.map { (document) -> Transaction in
-                if let transaction = Transaction(dictionary: document.data()) {
-                    return transaction
-                } else {
-                    print(document.data().debugDescription, "docDebugDesc")
-                }
-                return self.transaction[0]
-            }
-            
-            self.transaction = results
-            self.documents = snapshot.documents
-        }
-        
-        delayWithSeconds(0.2)
-        {
-            self.readTransaction()
-        }
-        
+
     }
     
     func readTransaction()
     {
-        if transaction[0].transactionID != nil {
+        do{
             currentTransaction = transaction[0].transactionID
+            house = transaction[0].block
             showLabel.text = transaction[0].show
             dateLabel.text = transaction[0].date
             ticketsLabel.text = String(transaction[0].tickets)
             seatsLabel.text = transaction[0].seats.description
             houseLabel.text = transaction[0].house
             emailLabel.text = transaction[0].email
+        } catch {
+            print("ha")
         }
         
     }

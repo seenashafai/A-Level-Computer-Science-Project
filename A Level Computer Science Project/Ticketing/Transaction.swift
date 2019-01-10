@@ -17,6 +17,7 @@ struct Transaction {
     var seats: [Int] = []
     var show: String = ""
     var tickets: Int = 0
+    var block: String = ""
     
     var dictionary: [String: Any] {
         return [
@@ -26,6 +27,7 @@ struct Transaction {
             "house": house,
             "seats": seats,
             "show": show,
+            "block": block,
             "tickets": tickets
         ]
     }
@@ -40,8 +42,9 @@ extension Transaction {
             let house = dictionary["house"] as? String,
             let seats = dictionary["seats"] as? [Int],
             let show = dictionary["show"] as? String,
-            let tickets = dictionary["tickets"] as? Int
+            let tickets = dictionary["tickets"] as? Int,
+            let block = dictionary["block"] as? String
             else {return nil}
-        self.init(transactionID: transactionID, date: date, email: email, house: house, seats: seats, show: show, tickets: tickets)
+        self.init(transactionID: transactionID, date: date, email: email, house: house, seats: seats, show: show, tickets: tickets, block: block)
     }
 }

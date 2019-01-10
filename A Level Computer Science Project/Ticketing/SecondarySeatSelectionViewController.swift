@@ -31,6 +31,8 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     var seatsArray: [Int]?
     var date: String!
     var transactionID: Int?
+    var house: String?
+    var block: String?
 
     @IBOutlet weak var remainingSeatsLabel: UILabel!
     @IBOutlet weak var totalSeatsLabel: UILabel!
@@ -63,10 +65,11 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
             {
                 print("success/dome")
                 self.performSegue(withIdentifier: "toFinalConfirmation", sender: nil)
-
             }
         }
-        let house = currentUser["house"]
+        house = currentUser["house"] as! String
+        block = currentUser["block"] as! String
+        
         print(currentUser.debugDescription, "debug")
         print(house, "currentUserHouse")
         var transactionRef = db.collection("transactions").document("currentTransaction")
@@ -77,9 +80,12 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
             "tickets": allocatedSeats,
             "seats": picked,
             "date": date,
-            "house": house
+            "house": house,
+            "block": block
         ])
     }
+
+
     
     func getTransactionID()
     {
@@ -178,7 +184,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     //MARK: - Firebase Query methods
     
     fileprivate func baseQuery() -> Query{
-        return db.collection("shows").document(showName).collection(String(dateIndex))
+        return db.collection("shows").document(showName).collection(String(dateIndex)).whereField("availableTickets", isGreaterThanOrEqualTo: 0)
     }
     fileprivate var query: Query? {
         didSet {

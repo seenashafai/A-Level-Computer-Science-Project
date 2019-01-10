@@ -22,6 +22,8 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     var user = FirebaseUser()
     var houseInitialsArray = [String]()
     var houseSelected: String?
+    var blocksArray = [String]()
+    var blockSelected: String?
     
     //MARK: - IB Links
     
@@ -71,6 +73,7 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             "lastName": lastNameTextField.text!,
             "emailAddress": emailTextField.text!,
             "house": houseSelected,
+            "block": blockSelected,
             "admin": false
             
         ]) { err in
@@ -84,6 +87,7 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     @IBOutlet weak var housePickerView: UIPickerView!
+    @IBOutlet weak var blockPickerView: UIPickerView!
     
     //MARK: - UIPickerViewDelegate
     
@@ -96,6 +100,10 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         {
             return houseInitialsArray.count
         }
+        if pickerView == blockPickerView
+        {
+            return blocksArray.count
+        }
         return 0
     }
     
@@ -103,6 +111,10 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         if pickerView == housePickerView
         {
             return houseInitialsArray[row]
+        }
+        if pickerView == blockPickerView
+        {
+            return blocksArray[row]
         }
         return ""
     }
@@ -112,6 +124,11 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         {
             houseSelected = houseInitialsArray[row]
             print(houseSelected)
+        }
+        if pickerView == blockPickerView
+        {
+            blockSelected = blocksArray[row]
+            print(blockSelected)
         }
     }
     

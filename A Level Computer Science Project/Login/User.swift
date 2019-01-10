@@ -17,6 +17,7 @@ struct User {
     let lastName: String
     let emailAddress: String
     let house: String
+    let block: String
     let admin: Int
     
     var dictionary: [String: Any] {
@@ -25,6 +26,7 @@ struct User {
             "lastName": lastName,
             "emailAddress": emailAddress,
             "house": house,
+            "block": block,
             "admin": admin
         ]
     }
@@ -40,10 +42,11 @@ extension User {
         let lastName = dictionary["lastName"] as? String,
         let emailAddress = dictionary["emailAddress"] as? String,
         let house = dictionary["house"] as? String,
+        let block = dictionary["block"] as? String,
         let admin = dictionary["admin"] as? Int
         
             else {return nil}
-        self.init(firstName: firstName, lastName: lastName, emailAddress: emailAddress, house: house, admin: admin)
+        self.init(firstName: firstName, lastName: lastName, emailAddress: emailAddress, house: house, block: block, admin: admin)
      }
 }
 
@@ -82,26 +85,6 @@ class FirebaseUser
             userDisplayName = ""
         }
         return userDisplayName
-    }
-    
-    
-    func getCurrentUserDictionary(db: Firestore) -> [String: Any]
-    {
-        let email = getCurrentUserEmail()
-        var userDict: [String: Any]?
-
-        let userRef = db.collection("users").document(email)
-        userRef.getDocument {(documentSnapshot, error) in
-            if let error = error
-            {
-                print(error.localizedDescription, "error")
-                return
-            }
-            if let document = documentSnapshot {
-                userDict = document.data()!
-            }
-        }
-        return userDict!
     }
     
     func isUserEmailVerified() -> Bool

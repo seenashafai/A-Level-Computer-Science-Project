@@ -35,6 +35,7 @@ class ShowDetailViewController: UIViewController {
     var db: Firestore!
     var isUserSignedIn: Bool = false
     var editable: Bool = false
+    let alerts = Alerts()
 
     var user = FirebaseUser()
     
@@ -119,6 +120,22 @@ class ShowDetailViewController: UIViewController {
         
         
         // Do any additional setup after loading the view.
+    }
+    
+    func doesDocumentExist()
+    {
+        let showName = show?.name
+        let userEmail = user.getCurrentUserEmail()
+        let userTicketRef = db.collection("users").document(userEmail).collection("tickets").document(showName!)
+        userTicketRef.getDocument { (document, error ) in
+            if let document = document {
+                if document.exists {
+                    self.alerts.userAlreadyHasTicket()
+                } else {
+                    print("first time ticket for this event")
+                }
+            }
+        }
     }
     
     func decompressDescription() -> String

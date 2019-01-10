@@ -12,7 +12,7 @@ class QRDetailsViewController: UIViewController {
 
     //MARK: - Properties
     var passVar: String = ""
-    let APIEndpoint = "http://10.3.74.33:6789"
+    let APIEndpoint = "http://ftpkdist.serveo.net"
     var barcodeMethods = Barcode()
     
     func decodeJSONString()

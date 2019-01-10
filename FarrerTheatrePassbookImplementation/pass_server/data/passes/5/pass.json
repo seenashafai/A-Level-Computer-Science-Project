@@ -1,41 +1,62 @@
 {
   "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
   "formatVersion": 1,
-  "organizationName": "CodeKollektiv",
-  "serialNumber": "e611a8248c79cc004a2c4be9b5600584",
+  "organizationName": "Farrer Theatre",
+  "serialNumber": "b6668207f471ef40c5779358702325f3",
   "teamIdentifier": "AZQME83VC4",
-  "webServiceURL": "http://Rogue01.local:4567/",
-  "authenticationToken": "9874d8efc9d0899462112fa271617776",
-  "description": "Balance Card for CodeKollektiv",
+  "webServiceURL": "http://rogue01.local:5757/",
+  "authenticationToken": "3f5fa0254bfefae8245716ad23d86b76",
+  "description": "Play Ticket",
   "foregroundColor": "#FFFFFF",
-  "backgroundColor": "#631313",
-  "logoText": "CodeKollektiv",
+  "backgroundColor": "#FF6161",
+  "logoText": "Farrer Theatre",
   "locations": [
     {
-      "latitude": 52.497181,
-      "longitude": 13.384972
+      "longitude": 51.412027,
+      "latitude": -0.658112
+    },
+    {
+      "longitude": 51.494633,
+      "latitude": -0.610453
     }
   ],
   "barcode": {
     "messageEncoding": "utf-8",
     "format": "PKBarcodeFormatQR",
-    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"e611a8248c79cc004a2c4be9b5600584\",\"authentication_token\":\"9874d8efc9d0899462112fa271617776\"}"
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"b6668207f471ef40c5779358702325f3\",\"authentication_token\":\"3f5fa0254bfefae8245716ad23d86b76\"}"
   },
-  "storeCard": {
+  "eventTicket": {
+    "headerFields": [
+      {
+        "key": "fullName",
+        "label": "seenas@btinternet.com",
+        "value": "Seena Shafai"
+      }
+    ],
     "primaryFields": [
       {
-        "key": "balance",
-        "label": "Balance",
-        "value": 0.0,
-        "currencyCode": "EUR",
-        "changeMessage": "Balance updated to %@."
+        "key": "showTitle",
+        "label": "Production",
+        "value": "TestShow5"
       }
     ],
     "secondaryFields": [
       {
-        "key": "fullName",
-        "label": "Name",
-        "value": "Holy Cow"
+        "key": "date",
+        "label": "Date",
+        "value": "Thursday 4th December"
+      }
+    ],
+    "auxiliaryFields": [
+      {
+        "key": "seatRef",
+        "label": "Seat Reference",
+        "value": "[41]"
+      },
+      {
+        "label": "venue",
+        "key": "VENUE",
+        "value": "Empty Space"
       }
     ]
   }
