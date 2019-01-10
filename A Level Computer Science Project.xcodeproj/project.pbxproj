@@ -12,6 +12,7 @@
 		040ABC922097934B00F07B6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 040ABC8F2097934B00F07B6A /* GoogleService-Info.plist */; };
 		04360C2D2177DA5100AE8C5C /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04360C2C2177DA5100AE8C5C /* Ticket.swift */; };
 		04360C2F217E364500AE8C5C /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04360C2E217E364500AE8C5C /* PassKit.framework */; };
+		04568D2521E7907D0055E142 /* TicketsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04568D2421E7907D0055E142 /* TicketsTableViewController.swift */; };
 		045D5ADA21AFF5C5001BA669 /* MVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D5AD921AFF5C5001BA669 /* MVC.swift */; };
 		046F38B92180C7880026EA16 /* Admin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046F38B82180C7880026EA16 /* Admin.storyboard */; };
 		046F38BE2180C83E0026EA16 /* InitialAdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */; };
@@ -34,7 +35,6 @@
 		04F7126B21AC818C00E958D6 /* TicketConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7126A21AC818C00E958D6 /* TicketConfirmationViewController.swift */; };
 		04F7126D21AC81DF00E958D6 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7126C21AC81DF00E958D6 /* Transaction.swift */; };
 		04FB57FC215C208500673B7D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB57FB215C208500673B7D /* SignUpViewController.swift */; };
-		375B6A6321935CEC0005E4B7 /* Seat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375B6A6221935CEC0005E4B7 /* Seat.swift */; };
 		3772778F21590566007532A0 /* ShowListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3772778E21590566007532A0 /* ShowListTableViewCell.swift */; };
 		37F0E7BC214FD1E400D9E335 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F0E7BB214FD1E400D9E335 /* LoginViewController.swift */; };
 		37F0E7BE214FD20000D9E335 /* ShowListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F0E7BD214FD20000D9E335 /* ShowListTableViewController.swift */; };
@@ -72,6 +72,7 @@
 		04360C2B21775B5800AE8C5C /* A Level Computer Science Project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "A Level Computer Science Project.entitlements"; sourceTree = "<group>"; };
 		04360C2C2177DA5100AE8C5C /* Ticket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
 		04360C2E217E364500AE8C5C /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
+		04568D2421E7907D0055E142 /* TicketsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketsTableViewController.swift; sourceTree = "<group>"; };
 		045D5AD921AFF5C5001BA669 /* MVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVC.swift; sourceTree = "<group>"; };
 		046F38B82180C7880026EA16 /* Admin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Admin.storyboard; sourceTree = "<group>"; };
 		046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialAdminViewController.swift; sourceTree = "<group>"; };
@@ -100,7 +101,6 @@
 		04F7126A21AC818C00E958D6 /* TicketConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketConfirmationViewController.swift; sourceTree = "<group>"; };
 		04F7126C21AC81DF00E958D6 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		04FB57FB215C208500673B7D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		375B6A6221935CEC0005E4B7 /* Seat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seat.swift; sourceTree = "<group>"; };
 		3772778E21590566007532A0 /* ShowListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListTableViewCell.swift; sourceTree = "<group>"; };
 		37F0E7BB214FD1E400D9E335 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		37F0E7BD214FD20000D9E335 /* ShowListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListTableViewController.swift; sourceTree = "<group>"; };
@@ -251,11 +251,11 @@
 			isa = PBXGroup;
 			children = (
 				049CD70321754C5700DD5429 /* TicketPortalViewController.swift */,
+				04568D2421E7907D0055E142 /* TicketsTableViewController.swift */,
 				37FFAFAB21944337003F6DD3 /* SecondarySeatSelectionViewController.swift */,
 				04F7126A21AC818C00E958D6 /* TicketConfirmationViewController.swift */,
 				04360C2C2177DA5100AE8C5C /* Ticket.swift */,
 				04F7126C21AC81DF00E958D6 /* Transaction.swift */,
-				375B6A6221935CEC0005E4B7 /* Seat.swift */,
 			);
 			path = Ticketing;
 			sourceTree = "<group>";
@@ -601,10 +601,10 @@
 				04C450802181D545009ECD30 /* PKUser.swift in Sources */,
 				04819CEF21B55EBB001E6471 /* TheatreMapViewController.swift in Sources */,
 				04F7126D21AC81DF00E958D6 /* Transaction.swift in Sources */,
-				375B6A6321935CEC0005E4B7 /* Seat.swift in Sources */,
 				04FB57FC215C208500673B7D /* SignUpViewController.swift in Sources */,
 				04C450882181F33A009ECD30 /* PKBarcode.swift in Sources */,
 				37F0E7C0214FD21B00D9E335 /* ShowDetailViewController.swift in Sources */,
+				04568D2521E7907D0055E142 /* TicketsTableViewController.swift in Sources */,
 				BD4C2C1B218B57740059BBB4 /* AdminShowListTableViewController.swift in Sources */,
 				04876EFD21C5C09600E07836 /* MoreDetailsViewController.swift in Sources */,
 				04F7126B21AC818C00E958D6 /* TicketConfirmationViewController.swift in Sources */,
