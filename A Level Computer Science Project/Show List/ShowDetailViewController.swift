@@ -12,6 +12,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import CoreLocation
 import MapKit
+import DataCompression
 
 class ShowDetailViewController: UIViewController {
 
@@ -19,18 +20,29 @@ class ShowDetailViewController: UIViewController {
     @IBOutlet weak var datesLabel: UILabel!
     @IBOutlet weak var directorLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
+
     var show: Show?
     var showFuncs = showFunctions()
+
     
     
     
     //MARK: - Properties
     var db: Firestore!
     var isUserSignedIn: Bool = false
+    var editable: Bool = false
+    let alerts = Alerts()
+    var docExists: Bool?
+
     var user = FirebaseUser()
     
     //MARK: - IB Links
     @IBAction func toTicketPortal(_ sender: Any) {
+        print("docExistss", docExists)
+        if docExists == true
+        {
+            self.present(alerts.userAlreadyHasTicket(), animated: true)
+        }
         if user.isUserSignedIn() == false
         {
             print("NS")
@@ -65,6 +77,9 @@ class ShowDetailViewController: UIViewController {
             }))
             self.present(userEmailNotVerified, animated: true)
         }
+        else { performSegue(withIdentifier: "toTicketPortal", sender: nil)
+        }
+        
     }
     
     
@@ -73,17 +88,57 @@ class ShowDetailViewController: UIViewController {
     //MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        db = Firestore.firestore()
+        doesDocumentExist()
+
         navigationItem.title = showTitle
        
-        let convertedDate = showFuncs.getDateFromEpoch(timeInterval: TimeInterval((show?.date.seconds)!))
+        let convertedDate = showFuncs.getDateFromEpoch(timeInterval: TimeInterval((show?.date.seconds) ?? 0))
+
         
         venueLabel.text = show?.venue
         directorLabel.text = show?.director
         datesLabel.text = convertedDate
         descriptionTextView.text = show?.description
         
-
+        
+        
         // Do any additional setup after loading the view.
+    }
+    
+    func doesDocumentExist()
+    {
+        let showName = show?.name
+        let userEmail = user.getCurrentUserEmail()
+        let userTicketRef = db.collection("users").document(userEmail).collection("tickets").document(showName!)
+        userTicketRef.getDocument { (document, error ) in
+            if let document = document {
+                if document.exists {
+                    self.docExists = true
+                    print("docExists")
+                } else {
+                    self.docExists = false
+                    print("first time ticket for this event")
+                }
+            }
+        }
+    }
+    
+    func decompressDescription() -> String
+    {
+        var deflatedString = show?.description
+        print(deflatedString, "defStr")
+        var data = deflatedString as! Data
+        print(data)
+        
+        let str = String(data: deflatedString as! Data, encoding: .utf8)
+        print(str, "str")
+        let strData = NSData(base64Encoded: data, options: .ignoreUnknownCharacters)
+        print(strData, "strData")
+        let strStr = String(data: strData as! Data, encoding: .utf8)
+        print(strStr, "strstr")
+  
+        return strStr!
     }
 
     // MARK: - Navigation
@@ -107,6 +162,11 @@ class ShowDetailViewController: UIViewController {
                 else
                 {
                     return true
+                }
+                if docExists == true
+                {
+                    print("doc already exists")
+                    return false
                 }
             }
         }

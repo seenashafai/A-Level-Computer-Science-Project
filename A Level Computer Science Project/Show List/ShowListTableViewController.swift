@@ -18,7 +18,9 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     //MARK: - Variables
     var dateSortIndex = 0
     var nameSortIndex = 0
-    var userIsAdmin: Bool?
+    var userIsAdmin = true
+    var swipeIndex: IndexPath?
+    var global = Global()
     
     //MARK: - Initialise Firebase Properties
     var documents: [DocumentSnapshot] = []
@@ -26,7 +28,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     var dbShows = [Show]()
     var db: Firestore!
     var showFuncs = showFunctions()
-    
+    var showForSegue: Show?
     
     //MARK: - Search bar Properties
     var filteredShows = [Show]()
@@ -133,17 +135,37 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         return configuration
     }
     
-    @available(iOS 11.0, *)
+    @available(iOS 11.0, *) //Checking software version
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
-            print("Delete Action Tapped")
+        let editAction = UIContextualAction(style: .destructive, title: "Edit") { (action, view, handler) in //Configure completion handler and define action to be carried out
+            
+            //Actions...
+            self.swipeIndex = indexPath //Set var swipeIndex to index path of Swipe Action
+
+            //Transition to 'Edit Show' view
+            self.performSegue(withIdentifier: "toEditView", sender: nil)
+            print("Edit Action Tapped")
         }
-        deleteAction.backgroundColor = .red
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
-        return configuration
+        
+        editAction.backgroundColor = .red //Assign action bg colour
+        
+        let configuration: UISwipeActionsConfiguration! //Create configuration variable to be used within the selection statements
+        if userIsAdmin == true
+        {
+            configuration = UISwipeActionsConfiguration(actions: [editAction]) //Assign configuration with previously defined edit action
+        }
+        else
+        {
+            configuration = UISwipeActionsConfiguration(actions: []) //Assign empty array to Swipe Action configuration
+            //If the user is not an admin, no action is sent to the tableview cell, and therefore no edit options should be visible
+        }
+        return configuration //Return configuration bundle
     }
     
+    
+    //            self.showForSegue = self.dbShows[indexPath.row]
+   // self.performSegue(withIdentifier: "toEditDetailsView", sender: nil)
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(90)
@@ -230,7 +252,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(global.globalUser?.debugDescription, "debugDesc")
         print(userIsAdmin, "admin")
 
         self.dateSortIndex = 0
@@ -343,7 +365,28 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
+    //Prepare for segue method: called when segue requested
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "toEditView" //Compare identifiers
+        {
+            //Define destination view controller
+            let destinationVC = segue.destination as! AddShowViewController
+            destinationVC.edit = true //Assign edit value in next view
+           
+            //Cross-reference Swipe Action index of show with index of array of shows
+            let show = dbShows[swipeIndex!.row]
+            
+            //Assign show variables to edit view
+            destinationVC.show = show
+        }
+        
+        if segue.identifier == "toAddShow" //Compare identifiers
+        {
+            let destinationVC = segue.destination as! AddShowViewController
+            destinationVC.edit = false
+        }
         if segue.identifier == "toDetailsView"
         {
             let destinationVC = segue.destination as! ShowDetailViewController
@@ -355,6 +398,8 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
 }
+
+
 
 extension ShowListTableViewController: UISearchResultsUpdating {
     //MARK: - UISearchResultsUpdatingDelegate

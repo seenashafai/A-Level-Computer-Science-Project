@@ -242,6 +242,7 @@ class PassServer < Sinatra::Base
   # Create new user
   post "/users" do
     add_user_with_params(params[:user])
+    puts params[:user]
     redirect "/users"
   end
 
@@ -253,7 +254,7 @@ class PassServer < Sinatra::Base
 
   get "/users/:user_id" do
     user = self.users.where(:id => params[:user_id]).first
-    if request.accept.include? "application/json"
+    if request.content_type == "application/json"
       content_type 'application/json', :charset => 'utf-8'
       user.to_json
     else
@@ -308,14 +309,15 @@ class PassServer < Sinatra::Base
   private
 
   def add_user(email, name, seatRef)
-    p = { :email => email, :name => name, :seatRef => seatRef }
+    p = { :email => email, :name => name, :show => show, :venue => venue, :seatRef => seatRef, :date => date }
     add_user_with_params(p)
   end
 
   def add_user_with_params(p)
     now = DateTime.now
-    p[:created_at] = now
-    p[:updated_at] = now
+    puts now, "jeff"
+    #p[:created_at] = now
+    #p[:updated_at] = now
     new_user_id = self.users.insert(p)
 
     # Also create a pass for the new user
@@ -450,8 +452,12 @@ class PassServer < Sinatra::Base
     pass_json["webServiceURL"] = "http://#{settings.hostname}:#{settings.port}/"
     pass_json["barcode"]["message"] = barcode_string_for_pass(pass)
     pass_json["eventTicket"]["auxiliaryFields"][0]["value"] = user[:seatRef]
+    pass_json["eventTicket"]["auxiliaryFields"][1]["value"] = user[:venue]
+    pass_json["eventTicket"]["secondaryFields"][0]["value"] = user[:date]
     pass_json["eventTicket"]["headerFields"][0]["label"] = user[:email]
     pass_json["eventTicket"]["headerFields"][0]["value"] = user[:name]
+    pass_json["eventTicket"]["primaryFields"][0]["value"] = user[:show]
+
 
     # Write out the updated JSON
     File.open(json_file_path, "w") do |f|

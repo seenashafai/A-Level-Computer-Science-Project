@@ -10,6 +10,6 @@ import Foundation
 
 class Global {
 
-    var globalUser: User?
+    var globalUser: [String: Any]?
 
 }

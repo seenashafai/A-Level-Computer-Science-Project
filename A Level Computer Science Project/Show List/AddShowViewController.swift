@@ -20,6 +20,7 @@ class AddShowViewController: UIViewController, UIImagePickerControllerDelegate, 
     var imagePicker: UIImagePickerController = UIImagePickerController()
     let storage = Storage.storage()
     let showFunc = showFunctions()
+    var edit: Bool?
 
     //MARK: - Image Picker Methods
     @IBOutlet var imageView: UIImageView!
@@ -38,7 +39,14 @@ class AddShowViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     //Submitting form
     @IBAction func confirmAction(_ sender: Any) {
-        self.performSegue(withIdentifier: "toMoreDetails", sender: self)
+        if edit == true
+        {
+            self.performSegue(withIdentifier: "toMoreEdit", sender: nil)
+        }
+        else
+        {
+            self.performSegue(withIdentifier: "toMoreDetails", sender: self)
+        }
     }
     
     //MARK: - IB Links
@@ -52,10 +60,20 @@ class AddShowViewController: UIViewController, UIImagePickerControllerDelegate, 
     //MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        if edit == true //Selection to determine whether view is in edit or add mode.
+        {
+            navigationItem.title = "Edit Show - \(show?.name ?? "")" //Set navigation bar title at top of view
+            showNameTextField.text = show?.name //Set 'show name' textfield to name of show to edit
+            initialiseVenueForEditing()
+            initialiseCategoryForEditing()
+            initialiseDatePickerForEditing()
+        }
+        
         db = Firestore.firestore()
         datePickerView.setValue(UIColor.white, forKeyPath: "textColor")
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerController.SourceType.savedPhotosAlbum
+        
         // Do any additional setup after loading the view.
     }
     
@@ -78,11 +96,56 @@ class AddShowViewController: UIViewController, UIImagePickerControllerDelegate, 
         return showDataDict
     }
     
+    func initialiseVenueForEditing()
+    {
+        switch show?.venue {
+        case "Farrer Theatre":
+            venueSegmentedControl.selectedSegmentIndex = 0
+        case "Caccia Studio":
+            venueSegmentedControl.selectedSegmentIndex = 1
+        case "Empty Space":
+            venueSegmentedControl.selectedSegmentIndex = 2
+        case .none:
+            fatalError("No venue currently set for selected show")
+        case .some(_): //Default - if there are no matching cases
+            fatalError("No matching cases for switch variable \(String(describing: show?.venue))")
+        }
+    }
+    
+    func initialiseCategoryForEditing()
+    {
+        switch show?.category {
+        case "House":
+            categorySegmentedControl.selectedSegmentIndex = 0
+        case "School":
+            categorySegmentedControl.selectedSegmentIndex = 1
+        case "Independent":
+            categorySegmentedControl.selectedSegmentIndex = 2
+        case .none: //Where no value is present
+            fatalError("No category currently set for selected show")
+        case .some(_): //Default- if there are no matching cases
+            fatalError("No matching cases for switch variable \(String(describing: show?.category))")
+        }
+    }
+    
+    func initialiseDatePickerForEditing()
+    {
+        datePickerView.setDate((show?.date.dateValue())!, animated: true)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toMoreEdit"
+        {
+            let destVC = segue.destination as! MoreDetailsViewController
+            destVC.showDataDict = setVariables()
+            destVC.show = show
+            destVC.edit = edit
+        }
         if segue.identifier == "toMoreDetails"
         {
             let destVC = segue.destination as! MoreDetailsViewController
             destVC.showDataDict = setVariables()
+            destVC.edit = edit
         }
     }
 

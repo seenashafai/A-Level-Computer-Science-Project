@@ -10,7 +10,9 @@ import UIKit
 import AVFoundation
 import MaterialComponents.MaterialSnackbar
 import PKHUD
-
+import Firebase
+import FirebaseFirestore
+import Alamofire.Swift
 
 class QRScannerViewController: UIViewController {
 
@@ -19,14 +21,16 @@ class QRScannerViewController: UIViewController {
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var globalMessage = ""
     var barcodeMethods = Barcode()
-    let APIEndpoint = "http://192.168.1.11:6789"
+    let APIEndpoint = "http://ftpkdist.serveo.net"
     var returnedUser: PKUser?
+    var db: Firestore!
 
     
     //MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        db = Firestore.firestore()
+
         // Get the back-facing camera for capturing videos
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .back)
         
@@ -85,21 +89,33 @@ class QRScannerViewController: UIViewController {
         {
             return
         }
-        
+        var user: PKUser?
+        var show: String?
+        var email: String?
+        var seats: String?
+        var name: String?
         //JSON Decoding
         let barcode = barcodeMethods.decodeJSONString(JSONString: decodedMessage)
-        
-        barcodeMethods.sendJSONRequest(withMethod: "GET", APIEndpoint: APIEndpoint, path: "/user_for_pass/\(String(describing: barcode!.pass_type_id))/\(String(describing: barcode!.serial_number))/\(String(describing: barcode!.authentication_token))", formFields: nil) { user, error in
-            guard user != nil else {
-                print(error, "error")
-                return
+        let endpoint = APIEndpoint + "/user_for_pass/\(String(describing: barcode!.pass_type_id))/\(String(describing: barcode!.serial_number))/\(String(describing: barcode!.authentication_token))"
+        Alamofire.request(endpoint, method: HTTPMethod.get, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
+            print(response)
+            if let data = response.result.value as? [String: Any]
+            {
+                //user = PKUser(dictionary: data as! [String : AnyObject])
+                email = data["email"] as! String
+                show = data["show"] as! String
+                seats = data["seatRef"] as! String
+                name = data["name"] as! String
             }
-            print(user, "user")
-            self.returnedUser = user
+        
+            
             
             //Flash a success message from PKHud
-            HUD.flash(.success)
+            //HUD.flash(.success)
             
+            self.userAttended(email: email!, show: show!)
+            self.presentSnackbar(seat: seats!, name: name!)
+            /*
             //Present snackbar with QR Code data
             let message = MDCSnackbarMessage()
             let action = MDCSnackbarMessageAction()
@@ -111,11 +127,38 @@ class QRScannerViewController: UIViewController {
             message.action = action
             message.text = "Name: \(self.returnedUser!.name), Seat: \(self.returnedUser!.email)"
             MDCSnackbarManager.show(message)
+ */
         }
         
-        print(returnedUser?.email, "email")
+
+    }
+    func userAttended(email: String, show: String)
+    {
+        let ticketRef = db.collection("users").document(email).collection("tickets").document(show)
+        ticketRef.updateData([
+            "attendance": true
+            ])
+    }
+    
+    func load()
+    {
+        HUD.show(.systemActivity)
     }
 
+    func presentSnackbar(seat: String, name: String)
+    {
+        let message = MDCSnackbarMessage()
+        let action = MDCSnackbarMessageAction()
+        let actionHandler = {() in
+            self.performSegue(withIdentifier: "toQRDetails", sender: nil)
+        }
+        action.handler = actionHandler
+        action.title = "More"
+        message.action = action
+        message.text = "Name: \(name), Seat(s): \(seat)"
+        MDCSnackbarManager.show(message)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toQRDetails"
         {
@@ -152,6 +195,7 @@ extension QRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
             if metadataObj.stringValue != nil
             {
                 print("QR Code detected")
+               // HUD.show(.systemActivity)
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
                 self.captureSession.stopRunning()
                 decodedMessage = metadataObj.stringValue!

@@ -17,6 +17,7 @@ struct User {
     let lastName: String
     let emailAddress: String
     let house: String
+    let block: String
     let admin: Int
     
     var dictionary: [String: Any] {
@@ -25,9 +26,14 @@ struct User {
             "lastName": lastName,
             "emailAddress": emailAddress,
             "house": house,
+            "block": block,
             "admin": admin
         ]
     }
+}
+
+struct Active {
+    static var currentUser: [String: Any]?
 }
 
 extension User {
@@ -36,10 +42,11 @@ extension User {
         let lastName = dictionary["lastName"] as? String,
         let emailAddress = dictionary["emailAddress"] as? String,
         let house = dictionary["house"] as? String,
+        let block = dictionary["block"] as? String,
         let admin = dictionary["admin"] as? Int
         
             else {return nil}
-        self.init(firstName: firstName, lastName: lastName, emailAddress: emailAddress, house: house, admin: admin)
+        self.init(firstName: firstName, lastName: lastName, emailAddress: emailAddress, house: house, block: block, admin: admin)
      }
 }
 
@@ -79,7 +86,7 @@ class FirebaseUser
         }
         return userDisplayName
     }
-            
+    
     func isUserEmailVerified() -> Bool
     {
         if Auth.auth().currentUser?.isEmailVerified == true

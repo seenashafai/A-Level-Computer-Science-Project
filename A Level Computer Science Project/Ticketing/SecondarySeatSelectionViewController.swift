@@ -23,6 +23,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     var listener: ListenerRegistration!
     var ticket = [Ticket]()
     var currentUser: [String: Any] = [:]
+    var transactionDict: [String: Any] = [:]
 
     var allocatedSeats: Int?
     var remainingSeats: Int?
@@ -30,6 +31,9 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     var showName: String!
     var seatsArray: [Int]?
     var date: String!
+    var transactionID: Int?
+    var house: String?
+    var block: String?
 
     @IBOutlet weak var remainingSeatsLabel: UILabel!
     @IBOutlet weak var totalSeatsLabel: UILabel!
@@ -62,22 +66,69 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
             {
                 print("success/dome")
                 self.performSegue(withIdentifier: "toFinalConfirmation", sender: nil)
-
             }
         }
-        let house = currentUser["house"]
-        print(currentUser.debugDescription, "debug")
-        print(house, "currentUserHouse")
-        var transactionRef = db.collection("transactions").document("currentTransaction")
-        transactionRef.setData([
+        
+        
+        house = currentUser["house"] as! String
+        block = currentUser["block"] as! String
+        
+
+        
+        transactionDict = [
+            "transactionID": transactionID,
             "email": user.getCurrentUserEmail(),
             "show": showName,
             "tickets": allocatedSeats,
             "seats": picked,
             "date": date,
-            "house": house
-        ])
+            "house": house,
+            "block": block
+        ]
+        
+        let userStatsRef = db.collection("shows").document(showName).collection(String(dateIndex)).document("userStats")
+
+        let currentHouse = house!
+        let currentBlock = block!
+        var currentBlockStat: Int = 0
+        var currentHouseStat: Int = 0
+        userStatsRef.getDocument {(documentSnapshot, error) in
+            if let document = documentSnapshot {
+                print(document.data(), "document")
+                currentHouseStat = document.data()![currentHouse] as! Int
+                currentBlockStat = document.data()![currentBlock] as! Int
+                
+                userStatsRef.updateData([
+                    self.house: currentHouseStat + 1,
+                    self.block: currentBlockStat + 1
+                    ])
+                
+            }
+        }
+        
+        print(currentUser.debugDescription, "debug")
+        print(house, "currentUserHouse")
+        var transactionRef = db.collection("transactions").document("currentTransaction")
+        transactionRef.setData(transactionDict)
     }
+
+
+    
+    func getTransactionID()
+    {
+        let transactionRef = db.collection("properties").document("transactions")
+        transactionRef.getDocument {(documentSnapshot, error) in
+            if let error = error
+            {
+                print(error.localizedDescription, "transaction retrieval error")
+                return
+            }
+            if let document = documentSnapshot {
+                self.transactionID = document.data()!["runningTotal"] as! Int
+                }
+            }
+
+        }
     
     func viewForCoordinate(x: Int, y: Int, size: CGSize) -> UIView {
         let centerX = Int(venueView.frame.size.width / CGFloat(venueWidth)) * x
@@ -144,6 +195,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
+        getTransactionID()
         self.query = baseQuery()
         confirmBarButtonOutlet.isEnabled = false
         venueView.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
@@ -159,7 +211,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     //MARK: - Firebase Query methods
     
     fileprivate func baseQuery() -> Query{
-        return db.collection("shows").document(showName).collection(String(dateIndex))
+        return db.collection("shows").document(showName).collection(String(dateIndex)).whereField("availableTickets", isGreaterThanOrEqualTo: 0)
     }
     fileprivate var query: Query? {
         didSet {

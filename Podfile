@@ -15,6 +15,10 @@ target 'A Level Computer Science Project' do
 	pod 'IQKeyboardManagerSwift'
 	pod 'MaterialComponents/Snackbar'
     pod 'PKHUD', '~> 5.0'
+    pod 'DataCompression'
+	pod 'Alamofire', '~> 4.8.0'
+	pod 'Cosmos', '~>18.0'
+	pod 'Charts'
 
 
   target 'A Level Computer Science ProjectTests' do
