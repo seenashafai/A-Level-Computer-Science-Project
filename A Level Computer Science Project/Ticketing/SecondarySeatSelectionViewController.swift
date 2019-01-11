@@ -23,6 +23,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     var listener: ListenerRegistration!
     var ticket = [Ticket]()
     var currentUser: [String: Any] = [:]
+    var transactionDict: [String: Any] = [:]
 
     var allocatedSeats: Int?
     var remainingSeats: Int?
@@ -67,13 +68,14 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
                 self.performSegue(withIdentifier: "toFinalConfirmation", sender: nil)
             }
         }
+        
+        
         house = currentUser["house"] as! String
         block = currentUser["block"] as! String
         
-        print(currentUser.debugDescription, "debug")
-        print(house, "currentUserHouse")
-        var transactionRef = db.collection("transactions").document("currentTransaction")
-        transactionRef.setData([
+
+        
+        transactionDict = [
             "transactionID": transactionID,
             "email": user.getCurrentUserEmail(),
             "show": showName,
@@ -82,7 +84,32 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
             "date": date,
             "house": house,
             "block": block
-        ])
+        ]
+        
+        let userStatsRef = db.collection("shows").document(showName).collection(String(dateIndex)).document("userStats")
+
+        let currentHouse = house!
+        let currentBlock = block!
+        var currentBlockStat: Int = 0
+        var currentHouseStat: Int = 0
+        userStatsRef.getDocument {(documentSnapshot, error) in
+            if let document = documentSnapshot {
+                print(document.data(), "document")
+                currentHouseStat = document.data()![currentHouse] as! Int
+                currentBlockStat = document.data()![currentBlock] as! Int
+                
+                userStatsRef.updateData([
+                    self.house: currentHouseStat + 1,
+                    self.block: currentBlockStat + 1
+                    ])
+                
+            }
+        }
+        
+        print(currentUser.debugDescription, "debug")
+        print(house, "currentUserHouse")
+        var transactionRef = db.collection("transactions").document("currentTransaction")
+        transactionRef.setData(transactionDict)
     }
 
 

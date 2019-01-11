@@ -20,14 +20,10 @@ class ShowDetailViewController: UIViewController {
     @IBOutlet weak var datesLabel: UILabel!
     @IBOutlet weak var directorLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
-    
-    @IBOutlet weak var venueTextField: UITextField!
-    @IBOutlet weak var datesTextField: UITextField!
-    @IBOutlet weak var directorTextField: UITextField!
-    
-    
+
     var show: Show?
     var showFuncs = showFunctions()
+
     
     
     
@@ -36,11 +32,17 @@ class ShowDetailViewController: UIViewController {
     var isUserSignedIn: Bool = false
     var editable: Bool = false
     let alerts = Alerts()
+    var docExists: Bool?
 
     var user = FirebaseUser()
     
     //MARK: - IB Links
     @IBAction func toTicketPortal(_ sender: Any) {
+        print("docExistss", docExists)
+        if docExists == true
+        {
+            self.present(alerts.userAlreadyHasTicket(), animated: true)
+        }
         if user.isUserSignedIn() == false
         {
             print("NS")
@@ -75,6 +77,9 @@ class ShowDetailViewController: UIViewController {
             }))
             self.present(userEmailNotVerified, animated: true)
         }
+        else { performSegue(withIdentifier: "toTicketPortal", sender: nil)
+        }
+        
     }
     
     
@@ -84,29 +89,8 @@ class ShowDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
+        doesDocumentExist()
 
-        venueTextField.isHidden = true
-        datesTextField.isHidden = true
-        directorTextField.isHidden = true
-        
-        if editable == true
-        {
-            navigationItem.rightBarButtonItem?.title = "Save"
-            venueLabel.isHidden = true
-            directorLabel.isHidden = true
-            datesLabel.isHidden = true
-            descriptionTextView.isEditable = true
-            
-            
-            venueTextField.text = show?.venue
-            datesTextField.text = ""
-            directorTextField.text = show?.director
-            
-            venueTextField.isHidden = false
-            datesTextField.isHidden = false
-            directorTextField.isHidden = false
-
-        }
         navigationItem.title = showTitle
        
         let convertedDate = showFuncs.getDateFromEpoch(timeInterval: TimeInterval((show?.date.seconds) ?? 0))
@@ -130,8 +114,10 @@ class ShowDetailViewController: UIViewController {
         userTicketRef.getDocument { (document, error ) in
             if let document = document {
                 if document.exists {
-                    self.alerts.userAlreadyHasTicket()
+                    self.docExists = true
+                    print("docExists")
                 } else {
+                    self.docExists = false
                     print("first time ticket for this event")
                 }
             }
@@ -176,6 +162,11 @@ class ShowDetailViewController: UIViewController {
                 else
                 {
                     return true
+                }
+                if docExists == true
+                {
+                    print("doc already exists")
+                    return false
                 }
             }
         }

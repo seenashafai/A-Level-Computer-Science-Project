@@ -44,13 +44,14 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     
     @IBAction func finishAction(_ sender: Any) {
         guard auth.authenticateUser(reason: "Use your fingerprint to validate your booking") == true else {print("gtfo"); return}
-            HUD.show(HUDContentType.systemActivity)
+            //HUD.show(HUDContentType.systemActivity)
 
             let email = self.user.getCurrentUserEmail()
             loadUser()
             loadVenue()
             let userTicketRef = db.collection("users").document(email).collection("tickets").document(showLabel.text!)
             userTicketRef.setData([
+                "ticketID": currentTransaction,
                 "show": showLabel.text!,
                 "seats": seatsLabel.text!,
                 "tickets": ticketsLabel.text!,
@@ -70,7 +71,7 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
                                 print("Document successfully removed!")
                             }
                     }
-                    HUD.flash(HUDContentType.success, delay: 0.5)
+                   // HUD.flash(HUDContentType.success, delay: 0.5)
                     self.delayWithSeconds(0.2)
                     {
                         let formName = "\(self.firstName!) \(self.lastName!)"
@@ -313,7 +314,8 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     {
         do{
             currentTransaction = transaction[0].transactionID
-            house = transaction[0].block
+            house = transaction[0].house
+            block = transaction[0].block
             showLabel.text = transaction[0].show
             dateLabel.text = transaction[0].date
             ticketsLabel.text = String(transaction[0].tickets)
