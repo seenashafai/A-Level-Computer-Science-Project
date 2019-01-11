@@ -1,0 +1,63 @@
+{
+  "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
+  "formatVersion": 1,
+  "organizationName": "Farrer Theatre",
+  "serialNumber": "e5e3091fe35b77f9f00de80ebb41799d",
+  "teamIdentifier": "AZQME83VC4",
+  "webServiceURL": "http://rogue01.local:6789/",
+  "authenticationToken": "09aa6e8319df4a333c0a71d9742bc587",
+  "description": "Play Ticket",
+  "foregroundColor": "#FFFFFF",
+  "backgroundColor": "#FF6161",
+  "logoText": "Farrer Theatre",
+  "locations": [
+    {
+      "longitude": 51.412027,
+      "latitude": -0.658112
+    },
+    {
+      "longitude": 51.494633,
+      "latitude": -0.610453
+    }
+  ],
+  "barcode": {
+    "messageEncoding": "utf-8",
+    "format": "PKBarcodeFormatQR",
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"e5e3091fe35b77f9f00de80ebb41799d\",\"authentication_token\":\"09aa6e8319df4a333c0a71d9742bc587\"}"
+  },
+  "eventTicket": {
+    "headerFields": [
+      {
+        "key": "fullName",
+        "label": "test@big.com",
+        "value": "BigTest"
+      }
+    ],
+    "primaryFields": [
+      {
+        "key": "showTitle",
+        "label": "Production",
+        "value": "Epic Show"
+      }
+    ],
+    "secondaryFields": [
+      {
+        "key": "date",
+        "label": "Date",
+        "value": "Tuesday 7th December"
+      }
+    ],
+    "auxiliaryFields": [
+      {
+        "key": "seatRef",
+        "label": "Seat Reference",
+        "value": "2B"
+      },
+      {
+        "label": "venue",
+        "key": "VENUE",
+        "value": "Cool Venue"
+      }
+    ]
+  }
+}

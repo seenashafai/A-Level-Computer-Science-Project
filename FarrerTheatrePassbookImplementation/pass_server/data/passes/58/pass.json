@@ -1,0 +1,63 @@
+{
+  "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
+  "formatVersion": 1,
+  "organizationName": "Farrer Theatre",
+  "serialNumber": "dd12eba95a131b471885cada0842fc45",
+  "teamIdentifier": "AZQME83VC4",
+  "webServiceURL": "http://rogue01.local:6789/",
+  "authenticationToken": "418ff4be1f10a8eadc87ab52d6ef663d",
+  "description": "Play Ticket",
+  "foregroundColor": "#FFFFFF",
+  "backgroundColor": "#FF6161",
+  "logoText": "Farrer Theatre",
+  "locations": [
+    {
+      "longitude": 51.412027,
+      "latitude": -0.658112
+    },
+    {
+      "longitude": 51.494633,
+      "latitude": -0.610453
+    }
+  ],
+  "barcode": {
+    "messageEncoding": "utf-8",
+    "format": "PKBarcodeFormatQR",
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"dd12eba95a131b471885cada0842fc45\",\"authentication_token\":\"418ff4be1f10a8eadc87ab52d6ef663d\"}"
+  },
+  "eventTicket": {
+    "headerFields": [
+      {
+        "key": "fullName",
+        "label": "seenas@btinternet.com",
+        "value": "Seena Shafai"
+      }
+    ],
+    "primaryFields": [
+      {
+        "key": "showTitle",
+        "label": "Production",
+        "value": "TestShow5"
+      }
+    ],
+    "secondaryFields": [
+      {
+        "key": "date",
+        "label": "Date",
+        "value": "Friday 5th December"
+      }
+    ],
+    "auxiliaryFields": [
+      {
+        "key": "seatRef",
+        "label": "Seat Reference",
+        "value": "[6]"
+      },
+      {
+        "label": "venue",
+        "key": "VENUE",
+        "value": "Empty Space"
+      }
+    ]
+  }
+}

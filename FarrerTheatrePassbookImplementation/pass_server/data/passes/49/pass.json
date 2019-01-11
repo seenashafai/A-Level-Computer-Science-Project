@@ -1,0 +1,63 @@
+{
+  "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
+  "formatVersion": 1,
+  "organizationName": "Farrer Theatre",
+  "serialNumber": "5d8cf6de19a0bfb532f7fa77b63ae881",
+  "teamIdentifier": "AZQME83VC4",
+  "webServiceURL": "http://rogue01.local:6789/",
+  "authenticationToken": "b1c37b0931b740bb155e5af927e483e6",
+  "description": "Play Ticket",
+  "foregroundColor": "#FFFFFF",
+  "backgroundColor": "#FF6161",
+  "logoText": "Farrer Theatre",
+  "locations": [
+    {
+      "longitude": 51.412027,
+      "latitude": -0.658112
+    },
+    {
+      "longitude": 51.494633,
+      "latitude": -0.610453
+    }
+  ],
+  "barcode": {
+    "messageEncoding": "utf-8",
+    "format": "PKBarcodeFormatQR",
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"5d8cf6de19a0bfb532f7fa77b63ae881\",\"authentication_token\":\"b1c37b0931b740bb155e5af927e483e6\"}"
+  },
+  "eventTicket": {
+    "headerFields": [
+      {
+        "key": "fullName",
+        "label": "seenas@btinternet.com",
+        "value": "Seena Shafai"
+      }
+    ],
+    "primaryFields": [
+      {
+        "key": "showTitle",
+        "label": "Production",
+        "value": "DNA"
+      }
+    ],
+    "secondaryFields": [
+      {
+        "key": "date",
+        "label": "Date",
+        "value": "Tuesday 7th December"
+      }
+    ],
+    "auxiliaryFields": [
+      {
+        "key": "seatRef",
+        "label": "Seat Reference",
+        "value": "[23]"
+      },
+      {
+        "label": "venue",
+        "key": "VENUE",
+        "value": "Farrer Theatre"
+      }
+    ]
+  }
+}
