@@ -12,6 +12,7 @@ struct UserTicket {
     
     var attendance: Bool = false
     var ticketID: Int = 0
+    var dateIndex: Int = 0
     var date: String = ""
     var seats: String = ""
     var show: String = ""
@@ -20,6 +21,7 @@ struct UserTicket {
     var dictionary: [String: Any] {
         return [
             "ticketID": ticketID,
+            "dateIndex": dateIndex,
             "attendance": attendance,
             "date": date,
             "seats": seats,
@@ -33,6 +35,7 @@ struct UserTicket {
 extension UserTicket {
     init?(dictionary: [String: Any]) {
         guard let attendance = dictionary["attendance"] as? Bool,
+            let dateIndex = dictionary["dateIndex"] as? Int,
             let date = dictionary["date"] as? String,
             let ticketID = dictionary["ticketID"] as? Int,
             let seats = dictionary["seats"] as? String,
@@ -40,6 +43,6 @@ extension UserTicket {
             let tickets = dictionary["tickets"] as? String
             else {return nil}
         
-        self.init(attendance: attendance, ticketID: ticketID, date: date, seats: seats, show: show, tickets: tickets)
+        self.init(attendance: attendance, ticketID: ticketID, dateIndex: dateIndex, date: date, seats: seats, show: show, tickets: tickets)
     }
 }

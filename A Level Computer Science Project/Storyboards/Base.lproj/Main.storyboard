@@ -828,6 +828,9 @@
                                             <segment title="Third"/>
                                             <segment title="Total"/>
                                         </segments>
+                                        <connections>
+                                            <action selector="dateSegmentedViewAction:" destination="h7N-ii-Co8" eventType="valueChanged" id="TkN-WO-ONg"/>
+                                        </connections>
                                     </segmentedControl>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Block Split" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b6W-GX-knL">
                                         <rect key="frame" x="18" y="357" width="101" height="27"/>
@@ -879,12 +882,13 @@
                         <viewLayoutGuide key="safeArea" id="lLc-6Q-X6p"/>
                     </view>
                     <connections>
+                        <outlet property="dateSegmentedView" destination="kHF-cu-BCN" id="K92-fY-nHp"/>
                         <outlet property="pieChartView" destination="ghw-ur-3ua" id="Lpr-yf-MYc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XbY-aX-Bi7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2925.5999999999999" y="-506.1576354679803"/>
+            <point key="canvasLocation" x="2927" y="1012"/>
         </scene>
         <!--Theatre Map View Controller-->
         <scene sceneID="Rwc-NZ-9oa">
@@ -1370,6 +1374,23 @@
                                             <action selector="addPassAction:" destination="9mT-d9-iK7" eventType="touchUpInside" id="CoI-E1-GnL"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ol2-Z8-JMc">
+                                        <rect key="frame" x="18" y="569" width="275" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="1" green="0.71263597089999997" blue="0.87885878969999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Review">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="reviewAction:" destination="9mT-d9-iK7" eventType="touchUpInside" id="wpK-Rs-yyc"/>
+                                            <segue destination="bgO-fS-eCe" kind="show" identifier="toReviewView" id="l6c-OG-vX7"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1434,6 +1455,7 @@
                         <outlet property="addPassButton" destination="Hh0-6X-B9s" id="rcJ-1p-6HD"/>
                         <outlet property="attendanceTextLabel" destination="1Oe-0Z-o2p" id="L00-3h-7Z6"/>
                         <outlet property="dateTextLabel" destination="Ns8-gU-IgQ" id="B2e-OY-0bh"/>
+                        <outlet property="reviewOutlet" destination="Ol2-Z8-JMc" id="kRH-OU-han"/>
                         <outlet property="seatsTextLabel" destination="VFC-4x-OaC" id="s0X-Wq-rPq"/>
                         <outlet property="showTextLabel" destination="WwC-SV-899" id="f54-mp-wEj"/>
                         <outlet property="ticketsTextLabel" destination="5aU-I2-tj7" id="wYd-bn-lqZ"/>
@@ -1442,6 +1464,106 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9uR-Bk-1H2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2020" y="-506.1576354679803"/>
+        </scene>
+        <!--Review-->
+        <scene sceneID="QkB-9g-l5w">
+            <objects>
+                <viewController id="bgO-fS-eCe" customClass="ReviewViewController" customModule="A_Level_Computer_Science_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gf8-yj-bQg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="wallpaper" translatesAutoresizingMaskIntoConstraints="NO" id="lbz-c4-igJ">
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dSU-x5-Zhg" customClass="CosmosView" customModule="Cosmos">
+                                <rect key="frame" x="55" y="189" width="265" height="49"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="265" id="VeK-3e-gbM"/>
+                                    <constraint firstAttribute="height" constant="49" id="vV1-qZ-iuS"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="totalStars">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="starSize">
+                                        <real key="value" value="49"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="fillMode">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jHu-tv-f4G">
+                                <rect key="frame" x="67" y="374" width="240" height="309"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="8UX-hS-mKx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="bgO-fS-eCe" id="ru7-dd-i0d"/>
+                                </connections>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Star Rating" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JoU-tY-xtQ">
+                                <rect key="frame" x="107" y="122" width="161" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="59" id="LRd-OO-dVu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="28"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review (Optional)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TdJ-R9-uo6">
+                                <rect key="frame" x="78" y="307" width="219" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="59" id="UVT-XT-YZa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="28"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jHu-tv-f4G" firstAttribute="centerX" secondItem="lbz-c4-igJ" secondAttribute="centerX" id="CCX-nf-ld9"/>
+                            <constraint firstItem="9sH-Ym-m8M" firstAttribute="trailing" secondItem="jHu-tv-f4G" secondAttribute="trailing" constant="68" id="MpV-5W-qO6"/>
+                            <constraint firstItem="jHu-tv-f4G" firstAttribute="leading" secondItem="9sH-Ym-m8M" secondAttribute="leading" constant="67" id="Om5-a6-WIB"/>
+                            <constraint firstItem="TdJ-R9-uo6" firstAttribute="top" secondItem="dSU-x5-Zhg" secondAttribute="bottom" constant="69" id="ROZ-Yq-XUs"/>
+                            <constraint firstItem="lbz-c4-igJ" firstAttribute="top" secondItem="9sH-Ym-m8M" secondAttribute="top" id="SZl-Ov-k2i"/>
+                            <constraint firstItem="JoU-tY-xtQ" firstAttribute="centerX" secondItem="TdJ-R9-uo6" secondAttribute="centerX" id="Wt2-s2-Mat"/>
+                            <constraint firstItem="JoU-tY-xtQ" firstAttribute="top" secondItem="9sH-Ym-m8M" secondAttribute="top" constant="34" id="X3n-so-MlR"/>
+                            <constraint firstItem="JoU-tY-xtQ" firstAttribute="centerX" secondItem="dSU-x5-Zhg" secondAttribute="centerX" id="YrA-Gp-Sbh"/>
+                            <constraint firstItem="9sH-Ym-m8M" firstAttribute="bottom" secondItem="jHu-tv-f4G" secondAttribute="bottom" constant="95" id="Zjv-hL-Cm8"/>
+                            <constraint firstItem="dSU-x5-Zhg" firstAttribute="top" secondItem="JoU-tY-xtQ" secondAttribute="bottom" constant="8" symbolic="YES" id="ax5-f7-X7c"/>
+                            <constraint firstItem="JoU-tY-xtQ" firstAttribute="centerX" secondItem="gf8-yj-bQg" secondAttribute="centerX" id="kdJ-FZ-LpI"/>
+                            <constraint firstItem="jHu-tv-f4G" firstAttribute="top" secondItem="TdJ-R9-uo6" secondAttribute="bottom" constant="8" symbolic="YES" id="lkz-bu-1Re"/>
+                            <constraint firstItem="lbz-c4-igJ" firstAttribute="bottom" secondItem="9sH-Ym-m8M" secondAttribute="bottom" id="pEE-Tp-khX"/>
+                            <constraint firstItem="JoU-tY-xtQ" firstAttribute="leading" secondItem="9sH-Ym-m8M" secondAttribute="leading" constant="107" id="vOR-Ld-YfN"/>
+                            <constraint firstItem="lbz-c4-igJ" firstAttribute="leading" secondItem="gf8-yj-bQg" secondAttribute="leading" id="w8w-bz-h4x"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="9sH-Ym-m8M"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Review" id="iXC-Rx-GlV">
+                        <barButtonItem key="rightBarButtonItem" title="Submit" id="2Ji-CB-PGb">
+                            <connections>
+                                <action selector="submitAction:" destination="bgO-fS-eCe" id="8Ee-hM-Pr8"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cosmosView" destination="dSU-x5-Zhg" id="GBy-pT-rRM"/>
+                        <outlet property="reviewTextView" destination="jHu-tv-f4G" id="nj7-05-L2V"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NaZ-d3-2Vg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2925.5999999999999" y="-506.1576354679803"/>
         </scene>
         <!--Show List-->
         <scene sceneID="zhU-P1-Qef">

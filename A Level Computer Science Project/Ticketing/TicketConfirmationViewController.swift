@@ -31,6 +31,7 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     var house: String?
     var block: String?
     var venue: String?
+    var dateIndex: Int?
     var currentTransaction: Int?
     let APIEndpoint = "http://ftpkdist.serveo.net/users"
 
@@ -52,6 +53,7 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
             let userTicketRef = db.collection("users").document(email).collection("tickets").document(showLabel.text!)
             userTicketRef.setData([
                 "ticketID": currentTransaction,
+                "dateIndex": dateIndex,
                 "show": showLabel.text!,
                 "seats": seatsLabel.text!,
                 "tickets": ticketsLabel.text!,
@@ -322,6 +324,7 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
             seatsLabel.text = transaction[0].seats.description
             houseLabel.text = transaction[0].house
             emailLabel.text = transaction[0].email
+            
         } catch {
             print("ha")
         }

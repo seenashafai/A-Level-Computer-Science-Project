@@ -36,6 +36,9 @@ class TicketDetailsViewController: UIViewController, PKAddPassesViewControllerDe
         downloadTicket2()
     }
     
+    @IBAction func reviewAction(_ sender: Any) {
+    }
+    @IBOutlet weak var reviewOutlet: UIButton!
     var user = FirebaseUser()
 
     
@@ -70,6 +73,7 @@ class TicketDetailsViewController: UIViewController, PKAddPassesViewControllerDe
             attendanceTextLabel.text = "True"
         } else {
             attendanceTextLabel.text = "False"
+            reviewOutlet.isUserInteractionEnabled = false
         }
         // Do any additional setup after loading the view.
     }
@@ -112,16 +116,15 @@ class TicketDetailsViewController: UIViewController, PKAddPassesViewControllerDe
         })
         task.resume()
     }
-    
-    
-    /*
+
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "toReviewView"
+        {
+            let destinationVC = segue.destination as! ReviewViewController
+            destinationVC.ticket = ticket
+        }
     }
-    */
 
 }

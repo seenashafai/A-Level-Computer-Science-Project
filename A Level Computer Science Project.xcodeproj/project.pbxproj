@@ -16,6 +16,8 @@
 		0453CDB321E7A4F3002DF163 /* TicketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453CDB221E7A4F3002DF163 /* TicketTableViewCell.swift */; };
 		0453CDB721E7A7C4002DF163 /* TicketDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453CDB621E7A7C4002DF163 /* TicketDetailsViewController.swift */; };
 		0453CDB921E7E8BB002DF163 /* ShowStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453CDB821E7E8BB002DF163 /* ShowStatsViewController.swift */; };
+		0453CDBB21E8FB92002DF163 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453CDBA21E8FB92002DF163 /* ReviewViewController.swift */; };
+		0453CDBD21E8FBF2002DF163 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453CDBC21E8FBF2002DF163 /* Review.swift */; };
 		04568D2521E7907D0055E142 /* TicketsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04568D2421E7907D0055E142 /* TicketsTableViewController.swift */; };
 		045D5ADA21AFF5C5001BA669 /* MVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D5AD921AFF5C5001BA669 /* MVC.swift */; };
 		046F38B92180C7880026EA16 /* Admin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046F38B82180C7880026EA16 /* Admin.storyboard */; };
@@ -80,6 +82,8 @@
 		0453CDB221E7A4F3002DF163 /* TicketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketTableViewCell.swift; sourceTree = "<group>"; };
 		0453CDB621E7A7C4002DF163 /* TicketDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketDetailsViewController.swift; sourceTree = "<group>"; };
 		0453CDB821E7E8BB002DF163 /* ShowStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowStatsViewController.swift; sourceTree = "<group>"; };
+		0453CDBA21E8FB92002DF163 /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
+		0453CDBC21E8FBF2002DF163 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		04568D2421E7907D0055E142 /* TicketsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketsTableViewController.swift; sourceTree = "<group>"; };
 		045D5AD921AFF5C5001BA669 /* MVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVC.swift; sourceTree = "<group>"; };
 		046F38B82180C7880026EA16 /* Admin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Admin.storyboard; sourceTree = "<group>"; };
@@ -187,8 +191,10 @@
 			isa = PBXGroup;
 			children = (
 				04568D2421E7907D0055E142 /* TicketsTableViewController.swift */,
+				0453CDBA21E8FB92002DF163 /* ReviewViewController.swift */,
 				0453CDB621E7A7C4002DF163 /* TicketDetailsViewController.swift */,
 				0453CDB021E799E1002DF163 /* UserTicket.swift */,
+				0453CDBC21E8FBF2002DF163 /* Review.swift */,
 			);
 			path = "Ticket List";
 			sourceTree = "<group>";
@@ -651,9 +657,11 @@
 				3772778F21590566007532A0 /* ShowListTableViewCell.swift in Sources */,
 				04360C2D2177DA5100AE8C5C /* Ticket.swift in Sources */,
 				BD90ACCF21676737003C831A /* Show.swift in Sources */,
+				0453CDBD21E8FBF2002DF163 /* Review.swift in Sources */,
 				0453CDB721E7A7C4002DF163 /* TicketDetailsViewController.swift in Sources */,
 				37FFAFAC21944337003F6DD3 /* SecondarySeatSelectionViewController.swift in Sources */,
 				37F0E7BE214FD20000D9E335 /* ShowListTableViewController.swift in Sources */,
+				0453CDBB21E8FB92002DF163 /* ReviewViewController.swift in Sources */,
 				BD89FD7E2163ECF10050D379 /* Validation.swift in Sources */,
 				049CD706217624C500DD5429 /* User.swift in Sources */,
 			);

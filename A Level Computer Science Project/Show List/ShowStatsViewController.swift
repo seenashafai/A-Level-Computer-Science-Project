@@ -15,7 +15,12 @@ import Charts
 class ShowStatsViewController: UIViewController {
 
     @IBOutlet weak var pieChartView: PieChartView!
+
+    @IBOutlet weak var dateSegmentedView: UISegmentedControl!
     
+    @IBAction func dateSegmentedViewAction(_ sender: Any) {
+        refreshData()
+    }
     //MARK: - Properties
     var db: Firestore!
     var blockDict: [String: Any] = [:]
@@ -25,20 +30,11 @@ class ShowStatsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
-        retrieveRawData(show: "AntigoneEditTest", dateIndex: "1")
-        delayWithSeconds(1) {
-            let blockDataB = PieChartDataEntry(value: self.blockDict["B"] as! Double, label: "B")
-            let blockDataC = PieChartDataEntry(value: self.blockDict["C"] as! Double, label: "C")
-            let blockDataD = PieChartDataEntry(value: self.blockDict["D"] as! Double, label: "D")
-            let blockDataE = PieChartDataEntry(value: self.blockDict["E"] as! Double, label: "E")
-            let blockDataF = PieChartDataEntry(value: self.blockDict["F"] as! Double, label: "F")
-
-            self.blockDataEntries = [blockDataB, blockDataC, blockDataD, blockDataE, blockDataF]
-            self.updateChart()
-        // Do any additional setup after loading the view.
-        }
+        print(dateSegmentedView.selectedSegmentIndex, "selectedIndex")
+        refreshData()
         
     }
+    
     
 
     func updateChart()
@@ -49,6 +45,22 @@ class ShowStatsViewController: UIViewController {
         chartDataSet.colors = colours
         
         pieChartView.data = chartData
+    }
+    
+    func refreshData()
+    {
+        retrieveRawData(show: "AntigoneEditTest", dateIndex: String(dateSegmentedView!.selectedSegmentIndex + 1))
+        delayWithSeconds(1) {
+            let blockDataB = PieChartDataEntry(value: self.blockDict["B"] as! Double, label: "B")
+            let blockDataC = PieChartDataEntry(value: self.blockDict["C"] as! Double, label: "C")
+            let blockDataD = PieChartDataEntry(value: self.blockDict["D"] as! Double, label: "D")
+            let blockDataE = PieChartDataEntry(value: self.blockDict["E"] as! Double, label: "E")
+            let blockDataF = PieChartDataEntry(value: self.blockDict["F"] as! Double, label: "F")
+            
+            self.blockDataEntries = [blockDataB, blockDataC, blockDataD, blockDataE, blockDataF]
+            self.updateChart()
+            // Do any additional setup after loading the view.
+        }
     }
     
     func retrieveRawData(show: String, dateIndex: String)
