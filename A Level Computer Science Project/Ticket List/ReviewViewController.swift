@@ -8,6 +8,7 @@
 
 import UIKit
 import Cosmos
+import PKHUD
 import Firebase
 import FirebaseFirestore
 
@@ -20,19 +21,28 @@ class ReviewViewController: UIViewController, UITextViewDelegate {
     //MARK - Properties
     var db: Firestore!
     var ticket: UserTicket?
-    
+    var alerts = Alerts()
+    var user = FirebaseUser()
     
     @IBAction func submitAction(_ sender: Any) {
+        
         let review = reviewTextView.text
         print(reviewTextView.text, "reviewText")
         let starRating = cosmosView.rating
         let strDateIndex = String(ticket!.dateIndex)
-        let ratingsRef = db.collection("shows").document((ticket?.show)!).collection(strDateIndex).document("reviews")
+        let ratingsRef = db.collection("shows").document((ticket?.show)!).collection(strDateIndex).document("reviews").collection(user.getCurrentUserEmail()).document("review")
         ratingsRef.setData([
             "review": review,
             "starRating": starRating
             ])
+        let submittedReviewAlert = UIAlertController(title: "Information", message: "Review successfully submitted. Thanks for your contribution", preferredStyle: .alert)
+        submittedReviewAlert.addAction(UIAlertAction(title: "OK", style: .default, handler:
+            {   action in //Begin action methods...
+                print("doing")
+                self.navigationController?.popViewController(animated: true)
+        }))
         
+        present(submittedReviewAlert, animated: true)
     }
     
     override func viewDidLoad() {
@@ -45,6 +55,9 @@ class ReviewViewController: UIViewController, UITextViewDelegate {
     }
     
 
+    func UI(_ block: @escaping ()->Void) {
+        DispatchQueue.main.async(execute: block)
+    }
     /*
     // MARK: - Navigation
 

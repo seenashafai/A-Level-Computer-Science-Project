@@ -21,6 +21,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     var userIsAdmin = true
     var swipeIndex: IndexPath?
     var global = Global()
+    var blockHouseStatsDict: [String: Any] = [:]
     
     //MARK: - Initialise Firebase Properties
     var documents: [DocumentSnapshot] = []
@@ -86,7 +87,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
             print("Reset Show Back-end")
             HUD.flash(HUDContentType.systemActivity, delay: 1.5)
             let seatsArray = self.arrayGen()
-            for i in 1..<4
+            for i in 1..<5
             {
                 let ticketAvailabilityRef = self.db.collection("shows").document(self.dbShows[indexPath.row].name).collection(String(i)).document("statistics")
                 print(seatsArray, "seats")
@@ -103,17 +104,20 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
                         print("success")
                     }
                 }
+                let userStatsRef = self.db.collection("shows").document(self.dbShows[indexPath.row].name).collection(String(i)).document("userStats")
+                userStatsRef.setData(self.blockHouseStatsDict)
             }
+            
             let showDetailsRef = self.db.collection("shows").document(self.dbShows[indexPath.row].name)
             print(seatsArray, "seats")
             showDetailsRef.setData([
-                "Category": "", // generate new seating chart
+                "Category": "School",
                 "Date": self.showFuncs.convertDate(date: NSDate.init(timeIntervalSince1970: 0)),
                 "availableTickets": 0,
                 "director": "",
                 "description": "",
                 "name": self.dbShows[indexPath.row].name,
-                "venue": "",
+                "venue": "Empty Space",
                 "house": ""
             ])  { err in
                 if err != nil {
@@ -197,6 +201,16 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.reloadData()
     }
     
+    func getHouseBlockStats()
+    {
+        let propertiesRef = db.collection("properties").document("blockHouseStats")
+        propertiesRef.getDocument {(documentSnapshot, error) in
+            if let document = documentSnapshot {
+                self.blockHouseStatsDict = document.data()!
+            }
+        }
+    }
+    
     //MARK: - Admin Settings
     @objc func adminSettingsTapped()
     {
@@ -252,11 +266,12 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setFirebaseSettings()
+
         print(global.globalUser?.debugDescription, "debugDesc")
         print(userIsAdmin, "admin")
-
+        getHouseBlockStats()
         self.dateSortIndex = 0
-        setFirebaseSettings()
         self.query = baseQuery()
         self.tableView.delegate = self
         self.tableView.dataSource = self

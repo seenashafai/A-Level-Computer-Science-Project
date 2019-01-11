@@ -180,6 +180,11 @@ class ShowDetailViewController: UIViewController {
             print(showTitle, "showtitle")
             destinationVC.ticketShowTitle = showTitle
         }
+        if segue.identifier == "toStatsView"
+        {
+            let destinationVC = segue.destination as! ShowStatsViewController
+            destinationVC.show = show
+        }
     }
   
 }

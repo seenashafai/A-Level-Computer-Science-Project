@@ -29,6 +29,7 @@ class TicketDetailsViewController: UIViewController, PKAddPassesViewControllerDe
     var isUserSignedIn: Bool = false
     var editable: Bool = false
     let alerts = Alerts()
+    var docExists: Bool?
     
     @IBOutlet weak var addPassButton: UIButton!
     @IBAction func addPassAction(_ sender: Any) {
@@ -56,14 +57,30 @@ class TicketDetailsViewController: UIViewController, PKAddPassesViewControllerDe
             }))
         deleteAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil)) //Add a 'no' button with no actions
         self.present(deleteAlert, animated: true) //Present the alert to the user along with the two action buttons
-        
-        
-        
+    }
+    
+    func doesReviewExist()
+    {
+        let dateIndex = ticket!.dateIndex
+        var strDateIndex = String(dateIndex)
+       let ratingsRef = db.collection("shows").document((ticket?.show)!).collection(strDateIndex).document("reviews").collection(user.getCurrentUserEmail()).document("review")
+        ratingsRef.getDocument { (document, error ) in
+            if let document = document {
+                if document.exists {
+                    self.docExists = true
+                    print("docExists")
+                } else {
+                    self.docExists = false
+                    print("first time review")
+                }
+            }
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
+        doesReviewExist()
         showTextLabel.text = ticket?.show
         dateTextLabel.text = ticket?.date
         ticketsTextLabel.text = ticket?.tickets
@@ -117,7 +134,26 @@ class TicketDetailsViewController: UIViewController, PKAddPassesViewControllerDe
         task.resume()
     }
 
+    func presentExistingReviewAlert()
+    {
+        let existingReviewAlert = UIAlertController(title: "Error", message: "You have already written a review for this show. You may only write one review per show, per night.", preferredStyle: .alert) //Define alert and error message title and description
+        existingReviewAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))//Add action to yes/no button
+        self.present(existingReviewAlert, animated: true) //Present the alert to the user along with the two action buttons
+    }
+    
     // MARK: - Navigation
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "toReviewView"
+        {
+            if docExists == true
+            {
+                presentExistingReviewAlert()
+                return false
+            }
+        }
+        return true
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toReviewView"

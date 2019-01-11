@@ -59,4 +59,11 @@ class Alerts {
         userAlreadyHasTicket.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         return userAlreadyHasTicket
     }
+    
+    func submittedReview() -> UIAlertController
+    {
+        let submittedReviewAlert = UIAlertController(title: "Information", message: "Review successfully submitted. Thanks for your contribution", preferredStyle: .alert)
+        submittedReviewAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        return submittedReviewAlert
+    }
 }

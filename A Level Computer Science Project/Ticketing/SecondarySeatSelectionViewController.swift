@@ -86,6 +86,9 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
             "block": block
         ]
         
+        pushToFirestore(dateIndex: String(dateIndex))
+        pushToFirestore(dateIndex: "4")
+        /*
         let userStatsRef = db.collection("shows").document(showName).collection(String(dateIndex)).document("userStats")
 
         let currentHouse = house!
@@ -106,13 +109,54 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
             }
         }
         
+        let totalStatsRef = db.collection("shows").document(showName).collection("4").document("userStats")
+        
+        let currentHouse = house!
+        let currentBlock = block!
+        var currentBlockStat: Int = 0
+        var currentHouseStat: Int = 0
+        userStatsRef.getDocument {(documentSnapshot, error) in
+            if let document = documentSnapshot {
+                print(document.data(), "document")
+                currentHouseStat = document.data()![currentHouse] as! Int
+                currentBlockStat = document.data()![currentBlock] as! Int
+                
+                userStatsRef.updateData([
+                    self.house: currentHouseStat + 1,
+                    self.block: currentBlockStat + 1
+                    ])
+                
+            }
+        }
+        */
+        
         print(currentUser.debugDescription, "debug")
         print(house, "currentUserHouse")
         var transactionRef = db.collection("transactions").document("currentTransaction")
         transactionRef.setData(transactionDict)
     }
 
-
+    func pushToFirestore(dateIndex: String)
+    {
+        let userStatsRef = db.collection("shows").document(showName).collection(String(dateIndex)).document("userStats")
+        
+        let currentHouse = house!
+        let currentBlock = block!
+        var currentBlockStat: Int = 0
+        var currentHouseStat: Int = 0
+        userStatsRef.getDocument {(documentSnapshot, error) in
+            if let document = documentSnapshot {
+                print(document.data(), "document")
+                currentHouseStat = document.data()![currentHouse] as! Int
+                currentBlockStat = document.data()![currentBlock] as! Int
+                
+                userStatsRef.updateData([
+                    self.house: currentHouseStat + 1,
+                    self.block: currentBlockStat + 1
+                    ])
+            }
+        }
+    }
     
     func getTransactionID()
     {

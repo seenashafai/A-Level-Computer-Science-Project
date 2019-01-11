@@ -23,6 +23,7 @@ class ShowStatsViewController: UIViewController {
     }
     //MARK: - Properties
     var db: Firestore!
+    var show: Show?
     var blockDict: [String: Any] = [:]
     var blockDataEntries = [PieChartDataEntry]()
 
@@ -49,7 +50,9 @@ class ShowStatsViewController: UIViewController {
     
     func refreshData()
     {
-        retrieveRawData(show: "AntigoneEditTest", dateIndex: String(dateSegmentedView!.selectedSegmentIndex + 1))
+        let name = show?.name
+        print(name, "showName")
+        retrieveRawData(show: (show?.name)!, dateIndex: String(dateSegmentedView!.selectedSegmentIndex + 1))
         delayWithSeconds(1) {
             let blockDataB = PieChartDataEntry(value: self.blockDict["B"] as! Double, label: "B")
             let blockDataC = PieChartDataEntry(value: self.blockDict["C"] as! Double, label: "C")
