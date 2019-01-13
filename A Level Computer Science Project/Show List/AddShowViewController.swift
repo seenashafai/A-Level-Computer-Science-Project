@@ -82,6 +82,7 @@ class AddShowViewController: UIViewController, UIImagePickerControllerDelegate, 
         let date = showFunc.convertDate(date: datePickerView!.date as NSDate)
         let venue = showFunc.setData(index: venueSegmentedControl.selectedSegmentIndex, var1: "Farrer Theatre", var2: "Caccia Studio", var3: "Empty Space")
         let name = showNameTextField.text
+        print(name, "showName")
         let director = "anyDirector"
         let category = showFunc.setData(index: categorySegmentedControl.selectedSegmentIndex, var1: "House", var2: "School", var3: "Independent")
         let availableTickets = showFunc.setAvailableSeats(venue: venue as? String)

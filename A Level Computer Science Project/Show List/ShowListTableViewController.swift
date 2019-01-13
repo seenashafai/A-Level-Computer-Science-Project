@@ -21,7 +21,9 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     var userIsAdmin = true
     var swipeIndex: IndexPath?
     var global = Global()
-    var blockHouseStatsDict: [String: Any] = [:]
+    var blockStatsDict: [String: Any] = [:]
+    var houseStatsDict: [String: Any] = [:]
+
     
     //MARK: - Initialise Firebase Properties
     var documents: [DocumentSnapshot] = []
@@ -85,7 +87,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
             resetShowAlert.addAction(UIAlertAction(title: "Reset", style: .destructive, handler: { action in
             
             print("Reset Show Back-end")
-            HUD.flash(HUDContentType.systemActivity, delay: 1.5)
+            //HUD.flash(HUDContentType.systemActivity, delay: 1.5)
             let seatsArray = self.arrayGen()
             for i in 1..<5
             {
@@ -104,8 +106,16 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
                         print("success")
                     }
                 }
-                let userStatsRef = self.db.collection("shows").document(self.dbShows[indexPath.row].name).collection(String(i)).document("userStats")
-                userStatsRef.setData(self.blockHouseStatsDict)
+                let blockStatsRef = self.db.collection("shows").document(self.dbShows[indexPath.row].name).collection(String(i)).document("blockStats")
+                blockStatsRef.setData(self.blockStatsDict)
+                let houseStatsRef = self.db.collection("shows").document(self.dbShows[indexPath.row].name).collection(String(i)).document("houseStats")
+                houseStatsRef.setData(self.houseStatsDict)
+                let propertiesRef = self.db.collection("properties").document("houseStats")
+                propertiesRef.setData(self.houseStatsDict)
+                
+                
+
+
             }
             
             let showDetailsRef = self.db.collection("shows").document(self.dbShows[indexPath.row].name)
@@ -127,7 +137,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
                     print("success")
                 }
             }
-            HUD.flash(HUDContentType.success)
+           // HUD.flash(HUDContentType.success)
             tableView.reloadRows(at: [indexPath], with: .none)
             }))
             resetShowAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -203,10 +213,17 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     func getHouseBlockStats()
     {
-        let propertiesRef = db.collection("properties").document("blockHouseStats")
-        propertiesRef.getDocument {(documentSnapshot, error) in
+        let houseStatsRef = db.collection("properties").document("houseStats")
+        houseStatsRef.getDocument {(documentSnapshot, error) in
             if let document = documentSnapshot {
-                self.blockHouseStatsDict = document.data()!
+                self.houseStatsDict = document.data()!
+            }
+        }
+        
+        let blockStatsRef = db.collection("properties").document("blockStats")
+        blockStatsRef.getDocument {(documentSnapshot, error) in
+            if let document = documentSnapshot {
+                self.blockStatsDict = document.data()!
             }
         }
     }

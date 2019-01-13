@@ -31,19 +31,21 @@ class MoreDetailsViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBAction func finishAction(_ sender: Any) {
         compareAlgorithms()
         let name = showDataDict!["name"] as! String
+        print(name, "showNameagain")
         let director = directorTextField.text
         let description = descriptionTextView.text
         showDataDict?["director"] = director as Any
         showDataDict?["description"] = description as Any
         showDataDict?["house"] = houseSelected ?? ""
+        print(showDataDict?.description, "showDataDesc")
         let originalName = show?.name
+        print(edit, "isEdit")
         if edit == true
         {
             let modificationAlert = UIAlertController(title: "Warning", message: "Any changes you make cannot be undone past this point. Would you like to continue? ", preferredStyle: .alert) //Define alert and error message title and description
             modificationAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: //Add action to yes/no buttons
                 {action in //Begin action methods...
                     let showRef = self.db.collection("shows").document(name)//Define database location of new show
-                    let oldShowRef = self.db.collection("shows").document(originalName!) //Define old database location of show
                     showRef.setData(self.showDataDict!) { error in  //Define database location with new show dictionary
                         //Begin completion handler...
                         if error != nil { //If an error is present
@@ -51,6 +53,7 @@ class MoreDetailsViewController: UIViewController, UIPickerViewDelegate, UIPicke
                         } else
                         {
                             print("success - no error given") //Trace statement to show that there was no error
+                            let oldShowRef = self.db.collection("shows").document(originalName!) //Define old database location of show
                             oldShowRef.delete() //Delete the old show reference
                         }
                     }

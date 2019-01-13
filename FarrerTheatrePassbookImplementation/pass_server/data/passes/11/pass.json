@@ -2,10 +2,10 @@
   "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
   "formatVersion": 1,
   "organizationName": "Farrer Theatre",
-  "serialNumber": "f3cfdfb9f1a19b0819930ef1311486f5",
+  "serialNumber": "e69ba96d37a6b332a8f16ea582a4d06b",
   "teamIdentifier": "AZQME83VC4",
-  "webServiceURL": "http://Rogue01.local:4567/",
-  "authenticationToken": "694a44b1673f65a251747c03d18dcf7f",
+  "webServiceURL": "http://rogue01.local:5757/",
+  "authenticationToken": "91ff312b071ffc119f63bd9fb06ad7d0",
   "description": "Play Ticket",
   "foregroundColor": "#FFFFFF",
   "backgroundColor": "#FF6161",
@@ -23,40 +23,40 @@
   "barcode": {
     "messageEncoding": "utf-8",
     "format": "PKBarcodeFormatQR",
-    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"f3cfdfb9f1a19b0819930ef1311486f5\",\"authentication_token\":\"694a44b1673f65a251747c03d18dcf7f\"}"
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"e69ba96d37a6b332a8f16ea582a4d06b\",\"authentication_token\":\"91ff312b071ffc119f63bd9fb06ad7d0\"}"
   },
   "eventTicket": {
     "headerFields": [
       {
         "key": "fullName",
-        "label": "jeff@rino.com",
-        "value": "Jefferino"
+        "label": "seenas@btinternet.com",
+        "value": "Seena Shafai"
       }
     ],
     "primaryFields": [
       {
         "key": "showTitle",
         "label": "Production",
-        "value": "DNA"
+        "value": "Float"
       }
     ],
     "secondaryFields": [
       {
         "key": "date",
         "label": "Date",
-        "value": "Tuesday 7th December"
+        "value": "Thursday 4th December"
       }
     ],
     "auxiliaryFields": [
       {
         "key": "seatRef",
         "label": "Seat Reference",
-        "value": "A14"
+        "value": "[5]"
       },
       {
         "label": "venue",
         "key": "VENUE",
-        "value": "Farrer Theatre"
+        "value": "Empty Space"
       }
     ]
   }

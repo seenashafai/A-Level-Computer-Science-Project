@@ -82,8 +82,9 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
                         let formShow = self.showLabel.text!
                         let formVenue = self.venue!
                         let formDate = self.dateLabel.text!
+                        let formDateIndex = String(self.dateIndex!)
                         
-                        let formFields: [String: String] = ["user[name]":formName, "user[email]":formEmail, "user[seatRef]":formSeatRef, "user[show]": formShow, "user[venue]": formVenue, "user[date]": formDate]
+                        let formFields: [String: String] = ["user[name]":formName, "user[email]":formEmail, "user[seatRef]":formSeatRef, "user[show]": formShow, "user[venue]": formVenue, "user[date]": formDate, "user[dateIndex]": formDateIndex]
                         
                         Alamofire.request(self.APIEndpoint, method: HTTPMethod.post, parameters: formFields, encoding: URLEncoding()).responseString { response  in
                             print(response.request?.httpBody)
@@ -103,10 +104,7 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
 
                    
                     
-                    let transactionIDRef = self.db.collection("properties").document("transactions")
-                    transactionIDRef.updateData([
-                        "runningTotal": self.transaction[0].transactionID + 1
-                        ])
+                   
 
                     self.presentActionSheet()
                     let  vc =  self.navigationController?.viewControllers[2]
@@ -270,11 +268,13 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
                         print("presented pkvc")
                         })
                     print("done")
-
+                    self.updateCurrentTransaction()
                 }
             }
         })
         task.resume()
+        
+       
     }
     
     fileprivate func baseQuery() -> Query{
@@ -288,6 +288,13 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
         }
     }
     
+    func updateCurrentTransaction()
+    {
+        let transactionIDRef = self.db.collection("properties").document("transactions")
+        transactionIDRef.updateData([
+            "runningTotal": self.currentTransaction! + 1
+            ])
+    }
     func addPassesViewControllerDidFinish(_ controller: PKAddPassesViewController) {
         
         controller.dismiss(animated: true, completion: nil)

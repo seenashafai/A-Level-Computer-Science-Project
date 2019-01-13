@@ -2,10 +2,10 @@
   "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
   "formatVersion": 1,
   "organizationName": "Farrer Theatre",
-  "serialNumber": "a4333f50bead0f9522c06e01039422af",
+  "serialNumber": "eb6938e4bd86718601bd3d521fc45fa3",
   "teamIdentifier": "AZQME83VC4",
-  "webServiceURL": "http://rogue01.local:6789/",
-  "authenticationToken": "f28f27c98fc51a97d207e87ad3867bac",
+  "webServiceURL": "http://rogue01.local:5757/",
+  "authenticationToken": "525628cc82dbef7e6dfa3773b7a22c07",
   "description": "Play Ticket",
   "foregroundColor": "#FFFFFF",
   "backgroundColor": "#FF6161",
@@ -23,7 +23,7 @@
   "barcode": {
     "messageEncoding": "utf-8",
     "format": "PKBarcodeFormatQR",
-    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"a4333f50bead0f9522c06e01039422af\",\"authentication_token\":\"f28f27c98fc51a97d207e87ad3867bac\"}"
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"eb6938e4bd86718601bd3d521fc45fa3\",\"authentication_token\":\"525628cc82dbef7e6dfa3773b7a22c07\"}"
   },
   "eventTicket": {
     "headerFields": [
@@ -37,7 +37,7 @@
       {
         "key": "showTitle",
         "label": "Production",
-        "value": "TestShow5"
+        "value": "Antigone"
       }
     ],
     "secondaryFields": [
@@ -51,7 +51,7 @@
       {
         "key": "seatRef",
         "label": "Seat Reference",
-        "value": "[44]"
+        "value": "[6]"
       },
       {
         "label": "venue",

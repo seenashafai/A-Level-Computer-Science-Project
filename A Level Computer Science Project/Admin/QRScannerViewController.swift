@@ -24,6 +24,9 @@ class QRScannerViewController: UIViewController {
     let APIEndpoint = "http://ftpkdist.serveo.net"
     var returnedUser: PKUser?
     var db: Firestore!
+    var show: String?
+    var dateIndex: String?
+
 
     
     //MARK: - View Lifecycle
@@ -90,7 +93,6 @@ class QRScannerViewController: UIViewController {
             return
         }
         var user: PKUser?
-        var show: String?
         var email: String?
         var seats: String?
         var name: String?
@@ -103,9 +105,11 @@ class QRScannerViewController: UIViewController {
             {
                 //user = PKUser(dictionary: data as! [String : AnyObject])
                 email = data["email"] as! String
-                show = data["show"] as! String
+                self.show = data["show"] as! String
                 seats = data["seatRef"] as! String
                 name = data["name"] as! String
+                self.dateIndex = data["dateIndex"] as! String
+                
             }
         
             
@@ -113,7 +117,7 @@ class QRScannerViewController: UIViewController {
             //Flash a success message from PKHud
             //HUD.flash(.success)
             
-            self.userAttended(email: email!, show: show!)
+            self.userAttended(email: email!, show: self.show!)
             self.presentSnackbar(seat: seats!, name: name!)
             /*
             //Present snackbar with QR Code data
@@ -138,6 +142,17 @@ class QRScannerViewController: UIViewController {
         ticketRef.updateData([
             "attendance": true
             ])
+        var attendees: Int!
+        let strDateIndex = String(dateIndex!)
+        let statsRef = db.collection("shows").document(show).collection(strDateIndex).document("statistics")
+        statsRef.getDocument {(documentSnapshot, error) in
+            if let document = documentSnapshot {
+                attendees = document["attendees"] as? Int ?? 0
+                statsRef.updateData([
+                    "attendees": attendees + 1
+                    ])
+            }
+        }
     }
     
     func load()

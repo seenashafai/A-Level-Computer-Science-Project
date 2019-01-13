@@ -35,6 +35,10 @@ class ReviewViewController: UIViewController, UITextViewDelegate {
             "review": review,
             "starRating": starRating
             ])
+        let totalRatingsRef = db.collection("shows").document((ticket?.show)!).collection(strDateIndex).document("reviews")
+        totalRatingsRef.setData([
+            "starRating": starRating
+            ])
         let submittedReviewAlert = UIAlertController(title: "Information", message: "Review successfully submitted. Thanks for your contribution", preferredStyle: .alert)
         submittedReviewAlert.addAction(UIAlertAction(title: "OK", style: .default, handler:
             {   action in //Begin action methods...
@@ -43,6 +47,7 @@ class ReviewViewController: UIViewController, UITextViewDelegate {
         }))
         
         present(submittedReviewAlert, animated: true)
+        
     }
     
     override func viewDidLoad() {

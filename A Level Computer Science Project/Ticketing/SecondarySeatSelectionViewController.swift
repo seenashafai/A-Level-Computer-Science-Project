@@ -138,21 +138,32 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
 
     func pushToFirestore(dateIndex: String)
     {
-        let userStatsRef = db.collection("shows").document(showName).collection(String(dateIndex)).document("userStats")
+        let blockStatsRef = db.collection("shows").document(showName).collection(String(dateIndex)).document("blockStats")
         
-        let currentHouse = house!
         let currentBlock = block!
         var currentBlockStat: Int = 0
+        blockStatsRef.getDocument {(documentSnapshot, error) in
+            if let document = documentSnapshot {
+                print(document.data(), "document")
+                currentBlockStat = document.data()![currentBlock] as! Int
+                
+                blockStatsRef.updateData([
+                    self.block: currentBlockStat + 1
+                    ])
+            }
+        }
+        
+        let houseStatsRef = db.collection("shows").document(showName).collection(String(dateIndex)).document("houseStats")
+        
+        let currentHouse = house!
         var currentHouseStat: Int = 0
-        userStatsRef.getDocument {(documentSnapshot, error) in
+        houseStatsRef.getDocument {(documentSnapshot, error) in
             if let document = documentSnapshot {
                 print(document.data(), "document")
                 currentHouseStat = document.data()![currentHouse] as! Int
-                currentBlockStat = document.data()![currentBlock] as! Int
                 
-                userStatsRef.updateData([
+                houseStatsRef.updateData([
                     self.house: currentHouseStat + 1,
-                    self.block: currentBlockStat + 1
                     ])
             }
         }
