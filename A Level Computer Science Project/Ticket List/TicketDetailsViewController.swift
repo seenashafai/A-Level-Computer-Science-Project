@@ -149,7 +149,8 @@ class TicketDetailsViewController: UIViewController, PKAddPassesViewControllerDe
             if docExists == true
             {
                 presentExistingReviewAlert()
-                return false
+                return true
+                
             }
         }
         return true
