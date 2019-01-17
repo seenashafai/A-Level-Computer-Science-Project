@@ -23,6 +23,7 @@ class ReviewsTableViewController: UITableViewController {
     var showFuncs = showFunctions()
     var user = FirebaseUser()
     var show: Show?
+    var alerts = Alerts()
     
     //MARK: - Firebase Queries
     
@@ -108,13 +109,18 @@ class ReviewsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let popUpVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popup") as! PopUpViewController
-        self.addChild(popUpVC)
-        popUpVC.view.frame = self.view.frame
         let review: Review
         review = dbReviews[indexPath.row]
-        popUpVC.textView.text = review.description
-        self.view.addSubview(popUpVC.view)
-        popUpVC.didMove(toParent: self)
+        if review.description != "" {
+            let popUpVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popup") as! PopUpViewController
+            self.addChild(popUpVC)
+            popUpVC.view.frame = self.view.frame
+        
+            popUpVC.textView.text = review.description
+            self.view.addSubview(popUpVC.view)
+            popUpVC.didMove(toParent: self)
+        } else {
+            self.present(alerts.noReviewDescription(), animated: true)
+        }
     }
 }
