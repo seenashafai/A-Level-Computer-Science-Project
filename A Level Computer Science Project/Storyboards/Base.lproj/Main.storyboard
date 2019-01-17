@@ -894,7 +894,7 @@
                     <navigationItem key="navigationItem" title="Statistics" id="4SH-PA-VX3">
                         <barButtonItem key="rightBarButtonItem" title="Reviews" id="GXe-0b-WYd">
                             <connections>
-                                <segue destination="8jb-pP-BGc" kind="show" id="gna-Ox-H84"/>
+                                <segue destination="8jb-pP-BGc" kind="show" identifier="toReviewsView" id="gna-Ox-H84"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
