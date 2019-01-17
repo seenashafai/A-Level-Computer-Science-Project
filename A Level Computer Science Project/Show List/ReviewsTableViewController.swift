@@ -106,4 +106,15 @@ class ReviewsTableViewController: UITableViewController {
         cell.cosmosView.rating = Double(review.starRating)
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let popUpVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popup") as! PopUpViewController
+        self.addChild(popUpVC)
+        popUpVC.view.frame = self.view.frame
+        let review: Review
+        review = dbReviews[indexPath.row]
+        popUpVC.textView.text = review.description
+        self.view.addSubview(popUpVC.view)
+        popUpVC.didMove(toParent: self)
+    }
 }

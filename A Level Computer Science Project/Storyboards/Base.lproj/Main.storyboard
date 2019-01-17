@@ -965,6 +965,71 @@
             </objects>
             <point key="canvasLocation" x="3925.5999999999999" y="1014.5320197044335"/>
         </scene>
+        <!--Pop Up View Controller-->
+        <scene sceneID="64D-Rn-tvn">
+            <objects>
+                <viewController storyboardIdentifier="popup" id="Nat-zv-f1k" customClass="PopUpViewController" customModule="A_Level_Computer_Science_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="84b-BG-Iko">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YWl-8k-tlp">
+                                <rect key="frame" x="38" y="189" width="299" height="370"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VTs-sJ-6KK">
+                                        <rect key="frame" x="21" y="27" width="257" height="261"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Agb-Im-HXr">
+                                        <rect key="frame" x="21" y="316" width="257" height="30"/>
+                                        <color key="backgroundColor" red="0.8656093929662545" green="1" blue="0.79229450643277421" alpha="0.89577930497925307" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Dismiss">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="dismissPopUpAction:" destination="Nat-zv-f1k" eventType="touchUpInside" id="GNS-Lt-p1A"/>
+                                            <action selector="signInButton:" destination="LKt-Z4-zY7" eventType="touchUpInside" id="mFa-i4-dy4"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.9263966911" green="0.68042440140000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="VTs-sJ-6KK" firstAttribute="leading" secondItem="Agb-Im-HXr" secondAttribute="leading" id="Eow-ct-1Hi"/>
+                                    <constraint firstItem="VTs-sJ-6KK" firstAttribute="top" secondItem="YWl-8k-tlp" secondAttribute="top" constant="27" id="IV0-mQ-Glz"/>
+                                    <constraint firstAttribute="bottom" secondItem="Agb-Im-HXr" secondAttribute="bottom" constant="24" id="IqR-zm-ReZ"/>
+                                    <constraint firstItem="Agb-Im-HXr" firstAttribute="top" secondItem="VTs-sJ-6KK" secondAttribute="bottom" constant="28" id="KFD-eI-lZZ"/>
+                                    <constraint firstItem="VTs-sJ-6KK" firstAttribute="centerX" secondItem="YWl-8k-tlp" secondAttribute="centerX" id="Lrb-dX-GGK"/>
+                                    <constraint firstItem="VTs-sJ-6KK" firstAttribute="leading" secondItem="YWl-8k-tlp" secondAttribute="leading" constant="21" id="eT9-u5-SBC"/>
+                                    <constraint firstItem="VTs-sJ-6KK" firstAttribute="trailing" secondItem="Agb-Im-HXr" secondAttribute="trailing" id="uqK-RH-C8D"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="YWl-8k-tlp" firstAttribute="top" secondItem="19J-aE-AiL" secondAttribute="top" constant="145" id="4oM-ri-xk1"/>
+                            <constraint firstItem="YWl-8k-tlp" firstAttribute="centerX" secondItem="84b-BG-Iko" secondAttribute="centerX" id="KOq-mU-fFZ"/>
+                            <constraint firstItem="19J-aE-AiL" firstAttribute="bottom" secondItem="YWl-8k-tlp" secondAttribute="bottom" constant="219" id="PrE-dn-a3V"/>
+                            <constraint firstItem="YWl-8k-tlp" firstAttribute="leading" secondItem="19J-aE-AiL" secondAttribute="leading" constant="38" id="k8R-6O-evk"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="19J-aE-AiL"/>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="VTs-sJ-6KK" id="6GP-lR-7ca"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LQq-pw-jBU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4816.8000000000002" y="1016.7487684729065"/>
+        </scene>
         <!--Theatre Map View Controller-->
         <scene sceneID="Rwc-NZ-9oa">
             <objects>

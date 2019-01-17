@@ -24,6 +24,7 @@
 		045D5ADA21AFF5C5001BA669 /* MVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D5AD921AFF5C5001BA669 /* MVC.swift */; };
 		046F38B92180C7880026EA16 /* Admin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046F38B82180C7880026EA16 /* Admin.storyboard */; };
 		046F38BE2180C83E0026EA16 /* InitialAdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */; };
+		0481240A21F13AC4004CDE29 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481240921F13AC4004CDE29 /* PopUpViewController.swift */; };
 		04819CEF21B55EBB001E6471 /* TheatreMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04819CEE21B55EBB001E6471 /* TheatreMapViewController.swift */; };
 		04819CF121B58592001E6471 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04819CF021B58592001E6471 /* MapKit.framework */; };
 		04876EFD21C5C09600E07836 /* MoreDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04876EFC21C5C09600E07836 /* MoreDetailsViewController.swift */; };
@@ -92,6 +93,7 @@
 		045D5AD921AFF5C5001BA669 /* MVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVC.swift; sourceTree = "<group>"; };
 		046F38B82180C7880026EA16 /* Admin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Admin.storyboard; sourceTree = "<group>"; };
 		046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialAdminViewController.swift; sourceTree = "<group>"; };
+		0481240921F13AC4004CDE29 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		04819CEE21B55EBB001E6471 /* TheatreMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheatreMapViewController.swift; sourceTree = "<group>"; };
 		04819CF021B58592001E6471 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		04876EFC21C5C09600E07836 /* MoreDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreDetailsViewController.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				04360C2B21775B5800AE8C5C /* A Level Computer Science Project.entitlements */,
 				04904DED209790C70043C97A /* AppDelegate.swift */,
 				045D5AD921AFF5C5001BA669 /* MVC.swift */,
+				0481240921F13AC4004CDE29 /* PopUpViewController.swift */,
 				0453CDB421E7A507002DF163 /* Table View Cells */,
 				046F38BA2180C7F30026EA16 /* Storyboards */,
 				04FB57FA215C206600673B7D /* Login */,
@@ -668,6 +671,7 @@
 				0453CDB721E7A7C4002DF163 /* TicketDetailsViewController.swift in Sources */,
 				37FFAFAC21944337003F6DD3 /* SecondarySeatSelectionViewController.swift in Sources */,
 				37F0E7BE214FD20000D9E335 /* ShowListTableViewController.swift in Sources */,
+				0481240A21F13AC4004CDE29 /* PopUpViewController.swift in Sources */,
 				0453CDBB21E8FB92002DF163 /* ReviewViewController.swift in Sources */,
 				0432B46421EF964900E38876 /* ReviewTableViewCell.swift in Sources */,
 				BD89FD7E2163ECF10050D379 /* Validation.swift in Sources */,
