@@ -10,7 +10,7 @@ import Foundation
 
 struct Review
 {
-    var starRating: Int = 0
+    var starRating: Double = 0.0
     var description: String = ""
     var email: String = ""
     
@@ -25,7 +25,7 @@ struct Review
 
 extension Review {
     init?(dictionary: [String: Any]) {
-        guard let starRating = dictionary["starRating"] as? Int,
+        guard let starRating = dictionary["starRating"] as? Double,
             let description = dictionary["description"] as? String,
             let email = dictionary["email"] as? String
 

@@ -94,13 +94,16 @@ class ReviewsTableViewController: UITableViewController {
         return dbReviews.count
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(100)
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ReviewTableViewCell
         let review: Review
         review = dbReviews[indexPath.row]
-        cell.cellNameLabel.text = String(review.starRating)
-        
+        cell.cellNameLabel.text = String(review.email)
+        cell.cosmosView.rating = Double(review.starRating)
         return cell
     }
 }
