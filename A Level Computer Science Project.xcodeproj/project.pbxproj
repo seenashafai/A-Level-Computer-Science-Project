@@ -10,6 +10,8 @@
 		040ABC902097934B00F07B6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 040ABC8F2097934B00F07B6A /* GoogleService-Info.plist */; };
 		040ABC912097934B00F07B6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 040ABC8F2097934B00F07B6A /* GoogleService-Info.plist */; };
 		040ABC922097934B00F07B6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 040ABC8F2097934B00F07B6A /* GoogleService-Info.plist */; };
+		0432B46221EF8D4600E38876 /* ReviewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0432B46121EF8D4600E38876 /* ReviewsTableViewController.swift */; };
+		0432B46421EF964900E38876 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0432B46321EF964900E38876 /* ReviewTableViewCell.swift */; };
 		04360C2D2177DA5100AE8C5C /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04360C2C2177DA5100AE8C5C /* Ticket.swift */; };
 		04360C2F217E364500AE8C5C /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04360C2E217E364500AE8C5C /* PassKit.framework */; };
 		0453CDB121E799E1002DF163 /* UserTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453CDB021E799E1002DF163 /* UserTicket.swift */; };
@@ -75,6 +77,8 @@
 
 /* Begin PBXFileReference section */
 		040ABC8F2097934B00F07B6A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0432B46121EF8D4600E38876 /* ReviewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewController.swift; sourceTree = "<group>"; };
+		0432B46321EF964900E38876 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		04360C2B21775B5800AE8C5C /* A Level Computer Science Project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "A Level Computer Science Project.entitlements"; sourceTree = "<group>"; };
 		04360C2C2177DA5100AE8C5C /* Ticket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
 		04360C2E217E364500AE8C5C /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
@@ -183,6 +187,7 @@
 			children = (
 				0453CDB221E7A4F3002DF163 /* TicketTableViewCell.swift */,
 				3772778E21590566007532A0 /* ShowListTableViewCell.swift */,
+				0432B46321EF964900E38876 /* ReviewTableViewCell.swift */,
 			);
 			path = "Table View Cells";
 			sourceTree = "<group>";
@@ -311,6 +316,7 @@
 			children = (
 				37F0E7BD214FD20000D9E335 /* ShowListTableViewController.swift */,
 				0453CDB821E7E8BB002DF163 /* ShowStatsViewController.swift */,
+				0432B46121EF8D4600E38876 /* ReviewsTableViewController.swift */,
 				BD4C2C1C218C635A0059BBB4 /* AddShowViewController.swift */,
 				04876EFC21C5C09600E07836 /* MoreDetailsViewController.swift */,
 				37F0E7BF214FD21B00D9E335 /* ShowDetailViewController.swift */,
@@ -647,6 +653,7 @@
 				04876EFD21C5C09600E07836 /* MoreDetailsViewController.swift in Sources */,
 				04F7126B21AC818C00E958D6 /* TicketConfirmationViewController.swift in Sources */,
 				BD90ACCD21652154003C831A /* Alerts.swift in Sources */,
+				0432B46221EF8D4600E38876 /* ReviewsTableViewController.swift in Sources */,
 				BD4C2C1D218C635A0059BBB4 /* AddShowViewController.swift in Sources */,
 				37F0E7BC214FD1E400D9E335 /* LoginViewController.swift in Sources */,
 				046F38BE2180C83E0026EA16 /* InitialAdminViewController.swift in Sources */,
@@ -662,6 +669,7 @@
 				37FFAFAC21944337003F6DD3 /* SecondarySeatSelectionViewController.swift in Sources */,
 				37F0E7BE214FD20000D9E335 /* ShowListTableViewController.swift in Sources */,
 				0453CDBB21E8FB92002DF163 /* ReviewViewController.swift in Sources */,
+				0432B46421EF964900E38876 /* ReviewTableViewCell.swift in Sources */,
 				BD89FD7E2163ECF10050D379 /* Validation.swift in Sources */,
 				049CD706217624C500DD5429 /* User.swift in Sources */,
 			);

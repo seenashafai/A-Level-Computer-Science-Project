@@ -2,10 +2,10 @@
   "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
   "formatVersion": 1,
   "organizationName": "Farrer Theatre",
-  "serialNumber": "cf4edbacc46ac47457d79cf61f54d4c0",
+  "serialNumber": "58f9a7e1344a595db73c5ca18fcd6a8b",
   "teamIdentifier": "AZQME83VC4",
-  "webServiceURL": "http://rogue01.local:6789/",
-  "authenticationToken": "ecd0b2a76764fa86c099daf7c9dbf03d",
+  "webServiceURL": "http://rogue01.local:5757/",
+  "authenticationToken": "80531799ae61bcaed827d4a257e338ba",
   "description": "Play Ticket",
   "foregroundColor": "#FFFFFF",
   "backgroundColor": "#FF6161",
@@ -23,7 +23,7 @@
   "barcode": {
     "messageEncoding": "utf-8",
     "format": "PKBarcodeFormatQR",
-    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"cf4edbacc46ac47457d79cf61f54d4c0\",\"authentication_token\":\"ecd0b2a76764fa86c099daf7c9dbf03d\"}"
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"58f9a7e1344a595db73c5ca18fcd6a8b\",\"authentication_token\":\"80531799ae61bcaed827d4a257e338ba\"}"
   },
   "eventTicket": {
     "headerFields": [
@@ -37,7 +37,7 @@
       {
         "key": "showTitle",
         "label": "Production",
-        "value": "TestShow5"
+        "value": "Big Chungus"
       }
     ],
     "secondaryFields": [
@@ -51,12 +51,12 @@
       {
         "key": "seatRef",
         "label": "Seat Reference",
-        "value": "[66]"
+        "value": "[1]"
       },
       {
         "label": "venue",
         "key": "VENUE",
-        "value": "Empty Space"
+        "value": "Farrer Theatre"
       }
     ]
   }

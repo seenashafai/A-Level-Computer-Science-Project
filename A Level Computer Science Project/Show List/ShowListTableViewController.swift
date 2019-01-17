@@ -110,12 +110,6 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
                 blockStatsRef.setData(self.blockStatsDict)
                 let houseStatsRef = self.db.collection("shows").document(self.dbShows[indexPath.row].name).collection(String(i)).document("houseStats")
                 houseStatsRef.setData(self.houseStatsDict)
-                let propertiesRef = self.db.collection("properties").document("houseStats")
-                propertiesRef.setData(self.houseStatsDict)
-                
-                
-
-
             }
             
             let showDetailsRef = self.db.collection("shows").document(self.dbShows[indexPath.row].name)

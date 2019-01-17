@@ -747,7 +747,7 @@
             </objects>
             <point key="canvasLocation" x="2020" y="198.76847290640396"/>
         </scene>
-        <!--Show Stats View Controller-->
+        <!--Statistics-->
         <scene sceneID="vUa-UC-2vh">
             <objects>
                 <viewController id="h7N-ii-Co8" customClass="ShowStatsViewController" customModule="A_Level_Computer_Science_Project" customModuleProvider="target" sceneMemberID="viewController">
@@ -891,6 +891,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="lLc-6Q-X6p"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Statistics" id="4SH-PA-VX3">
+                        <barButtonItem key="rightBarButtonItem" title="Reviews" id="GXe-0b-WYd">
+                            <connections>
+                                <segue destination="8jb-pP-BGc" kind="show" id="gna-Ox-H84"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="attendeesLabel" destination="Arc-qq-3nD" id="2ML-h1-lSy"/>
                         <outlet property="cosmosView" destination="g00-FY-Kkt" id="ieX-Ge-FQk"/>
@@ -906,6 +913,53 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XbY-aX-Bi7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2927" y="1012"/>
+        </scene>
+        <!--Reviews Table View Controller-->
+        <scene sceneID="wOH-5V-NQm">
+            <objects>
+                <tableViewController id="8jb-pP-BGc" customClass="ReviewsTableViewController" customModule="A_Level_Computer_Science_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ZJI-80-VyC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="76" id="oSt-Lz-mdq" customClass="ReviewTableViewCell" customModule="A_Level_Computer_Science_Project" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="76"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oSt-Lz-mdq" id="qRo-r1-LCR">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="75.666666666666671"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Saq-Op-T3d">
+                                            <rect key="frame" x="53" y="27" width="87" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cQk-iW-282">
+                                            <rect key="frame" x="53" y="27" width="87" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="cellNameLabel" destination="cQk-iW-282" id="lgp-A4-s6y"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="8jb-pP-BGc" id="jzJ-uk-TuE"/>
+                            <outlet property="delegate" destination="8jb-pP-BGc" id="7ph-WS-Y9V"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3v0-OI-nln" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3925.5999999999999" y="1014.5320197044335"/>
         </scene>
         <!--Theatre Map View Controller-->
         <scene sceneID="Rwc-NZ-9oa">

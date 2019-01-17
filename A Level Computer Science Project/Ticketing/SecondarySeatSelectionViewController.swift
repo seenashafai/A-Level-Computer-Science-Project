@@ -139,7 +139,6 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     func pushToFirestore(dateIndex: String)
     {
         let blockStatsRef = db.collection("shows").document(showName).collection(String(dateIndex)).document("blockStats")
-        
         let currentBlock = block!
         var currentBlockStat: Int = 0
         blockStatsRef.getDocument {(documentSnapshot, error) in
@@ -154,7 +153,6 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
         }
         
         let houseStatsRef = db.collection("shows").document(showName).collection(String(dateIndex)).document("houseStats")
-        
         let currentHouse = house!
         var currentHouseStat: Int = 0
         houseStatsRef.getDocument {(documentSnapshot, error) in
@@ -165,6 +163,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
                 houseStatsRef.updateData([
                     self.house: currentHouseStat + 1,
                     ])
+
             }
         }
     }

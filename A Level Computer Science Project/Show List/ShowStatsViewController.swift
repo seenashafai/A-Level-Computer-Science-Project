@@ -31,7 +31,7 @@ class ShowStatsViewController: UIViewController {
     
     
     @IBAction func dateSegmentedViewAction(_ sender: Any) {
-        refreshData()
+        retrieveRawData(show: (show?.name)!, dateIndex: String(dateSegmentedView!.selectedSegmentIndex + 1))
     }
     //MARK: - Properties
     var db: Firestore!
@@ -46,9 +46,9 @@ class ShowStatsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
+        retrieveRawData(show: (show?.name)!, dateIndex: String(dateSegmentedView!.selectedSegmentIndex + 1))
         print(dateSegmentedView.selectedSegmentIndex, "selectedIndex")
         cosmosView.isUserInteractionEnabled = false
-        refreshData()
         
     }
     
@@ -56,6 +56,13 @@ class ShowStatsViewController: UIViewController {
 
     func updateChart()
     {
+        let blockDataB = PieChartDataEntry(value: self.blockDict["B"] as! Double, label: "B")
+        let blockDataC = PieChartDataEntry(value: self.blockDict["C"] as! Double, label: "C")
+        let blockDataD = PieChartDataEntry(value: self.blockDict["D"] as! Double, label: "D")
+        let blockDataE = PieChartDataEntry(value: self.blockDict["E"] as! Double, label: "E")
+        let blockDataF = PieChartDataEntry(value: self.blockDict["F"] as! Double, label: "F")
+        self.blockDataEntries = [blockDataB, blockDataC, blockDataD, blockDataE, blockDataF]
+        
         let chartDataSet = PieChartDataSet(values: blockDataEntries, label: nil)
         let chartData = PieChartData(dataSet: chartDataSet)
         let colours = [UIColor.blue, UIColor.red, UIColor.green, UIColor.orange, UIColor.gray]
@@ -64,68 +71,62 @@ class ShowStatsViewController: UIViewController {
         pieChartView.data = chartData
     }
     
-    func refreshData()
+    func updateStarRating()
     {
-        let name = show?.name
-        print(name, "showName")
-        retrieveRawData(show: (show?.name)!, dateIndex: String(dateSegmentedView!.selectedSegmentIndex + 1))
-        delayWithSeconds(1) {
-            let blockDataB = PieChartDataEntry(value: self.blockDict["B"] as! Double, label: "B")
-            let blockDataC = PieChartDataEntry(value: self.blockDict["C"] as! Double, label: "C")
-            let blockDataD = PieChartDataEntry(value: self.blockDict["D"] as! Double, label: "D")
-            let blockDataE = PieChartDataEntry(value: self.blockDict["E"] as! Double, label: "E")
-            let blockDataF = PieChartDataEntry(value: self.blockDict["F"] as! Double, label: "F")
-            self.blockDataEntries = [blockDataB, blockDataC, blockDataD, blockDataE, blockDataF]
-            self.updateChart()
-            
-            let count = self.starRatingsArray.count
-            var totalStars: Double = 0
-            
-            for star in self.starRatingsArray {
-                totalStars += star
-            }
-            let avgStarRating = totalStars/Double(count)
-            self.cosmosView.rating = Double(avgStarRating)
-            
-            let ticketHolders = Float(self.statsDict["numberOfTicketHolders"] as! Int)
-            self.ticketHoldersLabel.text = String(ticketHolders)
-            let unclaimedTickets = self.statsDict["availableTickets"] as! Int
-            self.unclaimedTicketsLabel.text = String(unclaimedTickets)
-            let attendees = Float(self.statsDict["attendees"] as! Int)
-            self.attendeesLabel.text = String(attendees)
-            self.missingLabel.text = String(ticketHolders - attendees)
-            let pctTurnout = (attendees/ticketHolders * 100)
-            self.pctTurnoutLabel.text = (String(pctTurnout) + "%")
-            
-            
-            let sortedHouseDict = self.houseDict.sorted(by: {$0.value < $1.value} )
-            var top5HouseArray: [String] = [""]
-            for i in 0..<6
+        let count = self.starRatingsArray.count
+        var totalStars: Double = 0
+        print(self.starRatingsArray, "sta")
+        for star in self.starRatingsArray {
+            totalStars += star
+        }
+        let avgStarRating = totalStars/Double(count)
+        print(avgStarRating, "asr")
+        self.cosmosView.rating = Double(avgStarRating)
+    }
+    
+    func updateAttributeLabels()
+    {
+        let ticketHolders = (self.statsDict["numberOfTicketHolders"] as! Int)
+        self.ticketHoldersLabel.text = String(ticketHolders)
+        let unclaimedTickets = self.statsDict["availableTickets"] as! Int
+        self.unclaimedTicketsLabel.text = String(unclaimedTickets)
+        let attendees = (self.statsDict["attendees"] as! Int)
+        self.attendeesLabel.text = String(attendees)
+        self.missingLabel.text = String(ticketHolders - attendees)
+        let pctTurnout = (Float(attendees)/Float(ticketHolders) * 100)
+        self.pctTurnoutLabel.text = (String(pctTurnout) + "%")
+    }
+    
+    func updateHouseList()
+    {
+        let sortedHouseDict = self.houseDict.sorted(by: {$0.value > $1.value} )
+        print(sortedHouseDict, "sorted")
+        var top5HouseArray: [String] = []
+        for i in 0..<5
+        {
+            if sortedHouseDict[i].value > 0
             {
                 top5HouseArray.append(sortedHouseDict[i].key)
             }
-            self.topHousesLabel.text = top5HouseArray.description
         }
+        print(top5HouseArray)
+        self.topHousesLabel.text = top5HouseArray.description
     }
+
     
     func retrieveRawData(show: String, dateIndex: String)
     {
+        blockDict.removeAll()
+        houseDict.removeAll()
+        starRatingsArray.removeAll()
+        
        // var blockStatsDict: [String: Any] = [:]
         let blockStatsRef = db.collection("shows").document(show).collection(dateIndex).document("blockStats")
+        print(dateIndex, "dI")
         blockStatsRef.getDocument {(documentSnapshot, error) in
             if let document = documentSnapshot {
-                let b = document.data()!["B"]
-                let c = document.data()!["C"]
-                let d = document.data()!["D"]
-                let e = document.data()!["E"]
-                let f = document.data()!["F"]
-                self.blockDict = [
-                    "B": b as Any,
-                    "C": c as Any,
-                    "D": d as Any,
-                    "E": e as Any,
-                    "F": f as Any
-                ]
+                self.blockDict = document.data()!
+                self.updateChart()
             }
         }
         
@@ -133,13 +134,16 @@ class ShowStatsViewController: UIViewController {
         houseStatsRef.getDocument {(documentSnapshot, error) in
             if let document = documentSnapshot {
                 self.houseDict = document.data()! as! [String : Int]
+                self.updateHouseList()
             }
         }
         
         let totalRatingsRef = db.collection("shows").document(show).collection(dateIndex).document("reviews")
         totalRatingsRef.getDocument {(documentSnapshot, error) in
             if let document = documentSnapshot {
-                self.starRatingsArray = document["starRatingsArray"] as? Array ?? [0]
+                print(document, "soc")
+                self.starRatingsArray = (document["starRating"] as? Array ?? [0.0])
+                self.updateStarRating()
             }
         }
         
@@ -147,14 +151,19 @@ class ShowStatsViewController: UIViewController {
         statsRef.getDocument {(documentSnapshot, error) in
             if let document = documentSnapshot {
                 self.statsDict = document.data()!
+                self.updateAttributeLabels()
             }
         }
     }
 
-    func delayWithSeconds(_ seconds: Double, completion: @escaping () -> ()) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-            completion()
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toReviewsView"
+        {
+            let destinationVC = segue.destination as! ReviewsTableViewController
+            destinationVC.show = show
         }
     }
+    
+    
 
 }

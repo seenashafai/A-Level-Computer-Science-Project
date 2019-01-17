@@ -2,10 +2,10 @@
   "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
   "formatVersion": 1,
   "organizationName": "Farrer Theatre",
-  "serialNumber": "92bf194a81b1856eea2007a1e1666fc9",
+  "serialNumber": "02a22e20fe77b2cdc94da1ea96851e51",
   "teamIdentifier": "AZQME83VC4",
-  "webServiceURL": "http://rogue01.local:6789/",
-  "authenticationToken": "a2394d0c6edc2b708da3043526e76c2d",
+  "webServiceURL": "http://rogue01.local:5757/",
+  "authenticationToken": "daa35eb8715c7af575ffc54bb8d49f0b",
   "description": "Play Ticket",
   "foregroundColor": "#FFFFFF",
   "backgroundColor": "#FF6161",
@@ -23,7 +23,7 @@
   "barcode": {
     "messageEncoding": "utf-8",
     "format": "PKBarcodeFormatQR",
-    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"92bf194a81b1856eea2007a1e1666fc9\",\"authentication_token\":\"a2394d0c6edc2b708da3043526e76c2d\"}"
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"02a22e20fe77b2cdc94da1ea96851e51\",\"authentication_token\":\"daa35eb8715c7af575ffc54bb8d49f0b\"}"
   },
   "eventTicket": {
     "headerFields": [
@@ -37,7 +37,7 @@
       {
         "key": "showTitle",
         "label": "Production",
-        "value": "TestShow5"
+        "value": "Test Show"
       }
     ],
     "secondaryFields": [
@@ -51,12 +51,12 @@
       {
         "key": "seatRef",
         "label": "Seat Reference",
-        "value": "[49]"
+        "value": "[6]"
       },
       {
         "label": "venue",
         "key": "VENUE",
-        "value": "Empty Space"
+        "value": "Caccia Studio"
       }
     ]
   }

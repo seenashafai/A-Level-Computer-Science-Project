@@ -20,6 +20,9 @@ class MoreDetailsViewController: UIViewController, UIPickerViewDelegate, UIPicke
     var houseSelected: String?
     var edit: Bool?
     var show: Show?
+    
+    var blockDict: [String: Any] = [:]
+    var houseDict: [String: Any] = [:]
 
 
     @IBOutlet weak var housePickerView: UIPickerView!
@@ -31,15 +34,12 @@ class MoreDetailsViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBAction func finishAction(_ sender: Any) {
         compareAlgorithms()
         let name = showDataDict!["name"] as! String
-        print(name, "showNameagain")
         let director = directorTextField.text
         let description = descriptionTextView.text
         showDataDict?["director"] = director as Any
         showDataDict?["description"] = description as Any
         showDataDict?["house"] = houseSelected ?? ""
-        print(showDataDict?.description, "showDataDesc")
         let originalName = show?.name
-        print(edit, "isEdit")
         if edit == true
         {
             let modificationAlert = UIAlertController(title: "Warning", message: "Any changes you make cannot be undone past this point. Would you like to continue? ", preferredStyle: .alert) //Define alert and error message title and description
@@ -68,11 +68,12 @@ class MoreDetailsViewController: UIViewController, UIPickerViewDelegate, UIPicke
             let showRef = db.collection("shows").document(name)
             showRef.setData(showDataDict!)
             let seatsArray = self.arrayGen()
-            for i in 1..<4
+            for i in 1..<5
             {
                 let ticketAvailabilityRef = self.db.collection("shows").document(name).collection(String(i)).document("statistics")
                 print(seatsArray, "seats")
                 ticketAvailabilityRef.setData([
+                    "attendees": 0,
                     "availableSeats": seatsArray, // generate new seating chart
                     "availableTickets": 100,
                     "numberOfTicketHolders": 0,
@@ -85,8 +86,33 @@ class MoreDetailsViewController: UIViewController, UIPickerViewDelegate, UIPicke
                         print("success")
                     }
                 }
+                let reviewsArray = [Double]()
+                let blockStatsRef = self.db.collection("shows").document(name).collection(String(i)).document("blockStats")
+                let houseStatsRef = self.db.collection("shows").document(name).collection(String(i)).document("houseStats")
+                let reviewsRef = self.db.collection("shows").document(name).collection(String(i)).document("reviews")
+                reviewsRef.setData(["ratingsArray": FieldValue.arrayUnion(reviewsArray)])
+                blockStatsRef.setData(self.blockDict)
+                houseStatsRef.setData(self.houseDict)
+
             }
             navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: true)
+        }
+    }
+    
+    func retrieveFromFirestore()
+    {
+        let blockStatsRef = db.collection("properties").document("blockStats")
+        blockStatsRef.getDocument {(documentSnapshot, error) in
+            if let document = documentSnapshot {
+                self.blockDict = document.data()!
+            }
+        }
+        
+        let houseStatsRef = db.collection("properties").document("houseStats")
+        houseStatsRef.getDocument {(documentSnapshot, error) in
+            if let document = documentSnapshot {
+                self.houseDict = document.data()! as! [String : Int]
+            }
         }
     }
     
@@ -170,14 +196,15 @@ class MoreDetailsViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        db = Firestore.firestore()
+
         if edit == true
         {
             directorTextField.text = show?.director
             descriptionTextView.text = show?.description
         }
         print(showDataDict, "showDataDict")
-        
-        db = Firestore.firestore()
+        retrieveFromFirestore()
 
         let houseArrayRef = db.collection("properties").document("houses")
         houseArrayRef.getDocument {(documentSnapshot, error) in
