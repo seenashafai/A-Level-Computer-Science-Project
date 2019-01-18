@@ -25,6 +25,8 @@
 		046F38B92180C7880026EA16 /* Admin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046F38B82180C7880026EA16 /* Admin.storyboard */; };
 		046F38BE2180C83E0026EA16 /* InitialAdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */; };
 		0481240A21F13AC4004CDE29 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481240921F13AC4004CDE29 /* PopUpViewController.swift */; };
+		0481240C21F1465B004CDE29 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481240B21F1465B004CDE29 /* UserTableViewCell.swift */; };
+		0481240E21F1D510004CDE29 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481240D21F1D510004CDE29 /* UsersTableViewController.swift */; };
 		04819CEF21B55EBB001E6471 /* TheatreMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04819CEE21B55EBB001E6471 /* TheatreMapViewController.swift */; };
 		04819CF121B58592001E6471 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04819CF021B58592001E6471 /* MapKit.framework */; };
 		04876EFD21C5C09600E07836 /* MoreDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04876EFC21C5C09600E07836 /* MoreDetailsViewController.swift */; };
@@ -94,6 +96,8 @@
 		046F38B82180C7880026EA16 /* Admin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Admin.storyboard; sourceTree = "<group>"; };
 		046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialAdminViewController.swift; sourceTree = "<group>"; };
 		0481240921F13AC4004CDE29 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
+		0481240B21F1465B004CDE29 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		0481240D21F1D510004CDE29 /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		04819CEE21B55EBB001E6471 /* TheatreMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheatreMapViewController.swift; sourceTree = "<group>"; };
 		04819CF021B58592001E6471 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		04876EFC21C5C09600E07836 /* MoreDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreDetailsViewController.swift; sourceTree = "<group>"; };
@@ -188,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				0453CDB221E7A4F3002DF163 /* TicketTableViewCell.swift */,
+				0481240B21F1465B004CDE29 /* UserTableViewCell.swift */,
 				3772778E21590566007532A0 /* ShowListTableViewCell.swift */,
 				0432B46321EF964900E38876 /* ReviewTableViewCell.swift */,
 			);
@@ -221,6 +226,7 @@
 				046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */,
 				04F5848B218112D1007E0AAD /* QRScannerViewController.swift */,
 				BD4C2C1A218B57740059BBB4 /* AdminShowListTableViewController.swift */,
+				0481240D21F1D510004CDE29 /* UsersTableViewController.swift */,
 				04C4507B2181CDCD009ECD30 /* QRDetailsViewController.swift */,
 				04C4507F2181D545009ECD30 /* PKUser.swift */,
 				04C450872181F33A009ECD30 /* PKBarcode.swift */,
@@ -641,6 +647,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0481240E21F1D510004CDE29 /* UsersTableViewController.swift in Sources */,
 				045D5ADA21AFF5C5001BA669 /* MVC.swift in Sources */,
 				0453CDB921E7E8BB002DF163 /* ShowStatsViewController.swift in Sources */,
 				04C4507C2181CDCD009ECD30 /* QRDetailsViewController.swift in Sources */,
@@ -669,6 +676,7 @@
 				BD90ACCF21676737003C831A /* Show.swift in Sources */,
 				0453CDBD21E8FBF2002DF163 /* Review.swift in Sources */,
 				0453CDB721E7A7C4002DF163 /* TicketDetailsViewController.swift in Sources */,
+				0481240C21F1465B004CDE29 /* UserTableViewCell.swift in Sources */,
 				37FFAFAC21944337003F6DD3 /* SecondarySeatSelectionViewController.swift in Sources */,
 				37F0E7BE214FD20000D9E335 /* ShowListTableViewController.swift in Sources */,
 				0481240A21F13AC4004CDE29 /* PopUpViewController.swift in Sources */,

@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseFirestore
 import MaterialComponents.MaterialSnackbar
 
 class AdminShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {

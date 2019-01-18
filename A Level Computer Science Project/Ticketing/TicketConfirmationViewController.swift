@@ -26,15 +26,19 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     let barcode = Barcode()
     let alerts = Alerts()
     var global = Global()
+  
+    var dateIndex: Int?
+    var currentTransaction: Int?
+    let APIEndpoint = "http://ftpkdist.serveo.net/users"
+
+    //MARK: - User Properties
     var firstName: String?
     var lastName: String?
     var house: String?
     var block: String?
     var venue: String?
-    var dateIndex: Int?
-    var currentTransaction: Int?
-    let APIEndpoint = "http://ftpkdist.serveo.net/users"
-
+    var ticketsBooked: Int?
+    var showsBookedArray: [String]?
     
     @IBOutlet weak var showLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -70,7 +74,7 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
                             if let err = err {
                                 print("Error removing document: \(err)")
                             } else {
-                                print("Document successfully removed!")
+                                print("Transaction successfully solidified!")
                             }
                     }
                    // HUD.flash(HUDContentType.success, delay: 0.5)

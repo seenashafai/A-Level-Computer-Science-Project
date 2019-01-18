@@ -19,6 +19,8 @@ struct User {
     let house: String
     let block: String
     let admin: Int
+    let ticketsBooked: Int
+    let showsBookedArray: [String]
     
     var dictionary: [String: Any] {
         return [
@@ -27,13 +29,11 @@ struct User {
             "emailAddress": emailAddress,
             "house": house,
             "block": block,
-            "admin": admin
+            "admin": admin,
+            "ticketsBooked": ticketsBooked,
+            "showsBookedArray": showsBookedArray
         ]
     }
-}
-
-struct Active {
-    static var currentUser: [String: Any]?
 }
 
 extension User {
@@ -43,10 +43,13 @@ extension User {
         let emailAddress = dictionary["emailAddress"] as? String,
         let house = dictionary["house"] as? String,
         let block = dictionary["block"] as? String,
-        let admin = dictionary["admin"] as? Int
+        let admin = dictionary["admin"] as? Int,
+        let ticketsBooked = dictionary["ticketsBooked"] as? Int,
+        let showsBookedArray = dictionary["showsBookedArray"] as? [String]
+
         
             else {return nil}
-        self.init(firstName: firstName, lastName: lastName, emailAddress: emailAddress, house: house, block: block, admin: admin)
+        self.init(firstName: firstName, lastName: lastName, emailAddress: emailAddress, house: house, block: block, admin: admin, ticketsBooked: ticketsBooked, showsBookedArray: showsBookedArray)
      }
 }
 
