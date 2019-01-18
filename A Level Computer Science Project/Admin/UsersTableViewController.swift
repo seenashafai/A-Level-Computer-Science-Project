@@ -49,6 +49,10 @@ class UsersTableViewController: UITableViewController {
         return dbUsers.count
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(90)
+    }
+    
     //MARK: - TableView Delegate
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,10 +63,12 @@ class UsersTableViewController: UITableViewController {
         } else {
             user = dbUsers[indexPath.row]
         }
-        cell.cellNameLabel.text = String(user.firstName + user.lastName)
-
+        cell.cellNameLabel.text = String(user.firstName + " " + user.lastName)
+        cell.cellDescriptionLabel.text = String(user.house + ", " + user.block + " Block")
+        
         return cell
     }
+    
     
     //MARK: - Searchbar Delegate
     

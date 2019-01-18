@@ -12,6 +12,8 @@ class UserTableViewCell: UITableViewCell {
 
     @IBOutlet weak var cellNameLabel: UILabel!
     
+    @IBOutlet weak var cellDescriptionLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
