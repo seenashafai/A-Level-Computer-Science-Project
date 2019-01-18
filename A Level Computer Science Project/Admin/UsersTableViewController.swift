@@ -59,8 +59,8 @@ class UsersTableViewController: UITableViewController {
         } else {
             user = dbUsers[indexPath.row]
         }
-        //cell.cellNameLabel.text = user.firstName
-        
+        cell.cellNameLabel.text = String(user.firstName + user.lastName)
+
         return cell
     }
     
@@ -98,7 +98,7 @@ class UsersTableViewController: UITableViewController {
             self.sortByName()
         }))
         alert.addAction(UIAlertAction(title: "Sort by Plays Booked", style: .default, handler: {(UIAlertAction) in
-            print("rate")
+            //self.sortByPlaysBooked()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in }
         )
@@ -127,7 +127,7 @@ class UsersTableViewController: UITableViewController {
             MDCSnackbarManager.show(message)
         }
     }
-    
+    /*
     func sortByPlaysBooked()
     {
         let message = MDCSnackbarMessage()
@@ -147,12 +147,12 @@ class UsersTableViewController: UITableViewController {
             MDCSnackbarManager.show(message)
         }
     }
-
+*/
     func getUserShowStats()
     {
         let indexPath = self.tableView.indexPathForSelectedRow
         let user = dbUsers[indexPath!.row]
-        let userShowRef = db.collection("users").document(user.emailAddress).collection("tickets")
+        let userShowRef = db.collection("users").document(user.email).collection("tickets")
         userShowRef.getDocuments() {(querySnapshot, err) in
             if let err = err
             {
@@ -174,7 +174,6 @@ class UsersTableViewController: UITableViewController {
         super.viewDidLoad()
         db = Firestore.firestore()
         self.query = baseQuery()
-
         self.tableView.delegate = self
         self.tableView.dataSource = self
     }
@@ -206,6 +205,7 @@ class UsersTableViewController: UITableViewController {
                 if let user = User(dictionary: document.data()) {
                     return user
                 } else {
+                    print(document.data(), "docData")
                     fatalError("Unable to initialize type \(User.self) with dictionary \(document.data())")
                 }
             }

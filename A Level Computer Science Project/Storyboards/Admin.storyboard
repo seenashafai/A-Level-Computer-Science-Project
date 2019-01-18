@@ -35,7 +35,7 @@
             </objects>
             <point key="canvasLocation" x="1142" y="323"/>
         </scene>
-        <!--Users Table View Controller-->
+        <!--Item-->
         <scene sceneID="Udy-rL-0EK">
             <objects>
                 <tableViewController id="IlE-t9-cfB" customClass="UsersTableViewController" customModule="A_Level_Computer_Science_Project" customModuleProvider="target" sceneMemberID="viewController">
@@ -44,7 +44,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="65" id="PcE-wZ-LVE" customClass="UserTableViewCell" customModule="A_Level_Computer_Science_Project" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="65" id="PcE-wZ-LVE" customClass="UserTableViewCell" customModule="A_Level_Computer_Science_Project" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PcE-wZ-LVE" id="ii0-EP-uWa">
@@ -60,6 +60,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="cellNameLabel" destination="Ncp-ck-FPa" id="Lov-x2-9Ym"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -67,6 +70,7 @@
                             <outlet property="delegate" destination="IlE-t9-cfB" id="LAK-Du-LFZ"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" title="Item" id="Q2p-oO-e3i"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GM6-AZ-RXJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -121,7 +125,7 @@
                         <segue destination="TxH-V7-HEv" kind="relationship" relationship="viewControllers" id="Qqr-F3-ZYF"/>
                         <segue destination="26R-I3-tq4" kind="relationship" relationship="viewControllers" id="N1q-7A-gkJ"/>
                         <segue destination="axB-bT-9cG" kind="show" id="KUl-ZF-2Iq"/>
-                        <segue destination="IlE-t9-cfB" kind="show" id="zu0-gy-Lg6"/>
+                        <segue destination="IlE-t9-cfB" kind="relationship" relationship="viewControllers" id="0GR-qj-eUO"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NSP-2o-yUX" userLabel="First Responder" sceneMemberID="firstResponder"/>

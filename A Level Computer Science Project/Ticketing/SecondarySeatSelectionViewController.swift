@@ -294,6 +294,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
             
             let results = snapshot.documents.map { (document) -> Ticket in
                 if let ticket = Ticket(dictionary: document.data()) {
+                    print(document.data(), "docData")
                     return ticket
                 } else {
                     fatalError("Unable to initialize type \(Ticket.self) with dictionary \(document.data())")

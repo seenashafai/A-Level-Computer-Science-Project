@@ -75,6 +75,11 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
                                 print("Error removing document: \(err)")
                             } else {
                                 print("Transaction successfully solidified!")
+                                let userShowRef = self.db.collection("users").document(email)
+                                userShowRef.updateData([
+                                    "ticketsBooked": (self.ticketsBooked! + 1),
+                                    "showsBookedArray": FieldValue.arrayUnion([self.showLabel!.text])
+                                    ])
                             }
                     }
                    // HUD.flash(HUDContentType.success, delay: 0.5)
@@ -161,6 +166,7 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
                 return
             }
             if let document = documentSnapshot {
+                self.ticketsBooked = document.data()!["ticketsBooked"] as! Int
                 self.firstName = document.data()!["firstName"] as! String
                 self.lastName = document.data()!["lastName"] as! String
                 self.block = document.data()!["block"] as! String

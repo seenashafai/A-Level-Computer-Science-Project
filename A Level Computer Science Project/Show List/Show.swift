@@ -69,8 +69,6 @@ extension Show {
         
         self.init(name: name, category: category, date: date, availableTickets: availableTickets, venue: venue, description: description, director: director, house: house)
     }
-    
-    
 }
 
 

@@ -11,11 +11,16 @@ import Firebase
 import FirebaseAuth
 
 
-struct User {
+struct User: Comparable {
+    
+    static func < (lhs: User, rhs: User) -> Bool {
+        return lhs.ticketsBooked < rhs.ticketsBooked
+    }
+    
     
     let firstName: String
     let lastName: String
-    let emailAddress: String
+    let email: String
     let house: String
     let block: String
     let admin: Int
@@ -26,7 +31,7 @@ struct User {
         return [
             "firstName": firstName,
             "lastName": lastName,
-            "emailAddress": emailAddress,
+            "email": email,
             "house": house,
             "block": block,
             "admin": admin,
@@ -40,16 +45,16 @@ extension User {
     init?(dictionary: [String: Any]) {
         guard let firstName = dictionary["firstName"] as? String,
         let lastName = dictionary["lastName"] as? String,
-        let emailAddress = dictionary["emailAddress"] as? String,
+        let email = dictionary["email"] as? String,
         let house = dictionary["house"] as? String,
         let block = dictionary["block"] as? String,
         let admin = dictionary["admin"] as? Int,
         let ticketsBooked = dictionary["ticketsBooked"] as? Int,
         let showsBookedArray = dictionary["showsBookedArray"] as? [String]
 
-        
             else {return nil}
-        self.init(firstName: firstName, lastName: lastName, emailAddress: emailAddress, house: house, block: block, admin: admin, ticketsBooked: ticketsBooked, showsBookedArray: showsBookedArray)
+        
+        self.init(firstName: firstName, lastName: lastName, email: email, house: house, block: block, admin: admin, ticketsBooked: ticketsBooked, showsBookedArray: showsBookedArray)
      }
 }
 
