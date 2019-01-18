@@ -70,6 +70,19 @@ class UsersTableViewController: UITableViewController {
     }
     
     
+    //MARK: - setSearchBarSettings
+    private func setSearchBarSettings()
+    {
+        searchController.searchBar.scopeButtonTitles = ["All", "School", "House", "Independent"]
+        searchController.searchBar.delegate = self
+        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Shows"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+    }
+    
     //MARK: - Searchbar Delegate
     
     func searchBarIsEmpty() -> Bool {
@@ -133,7 +146,7 @@ class UsersTableViewController: UITableViewController {
             MDCSnackbarManager.show(message)
         }
     }
-    /*
+    
     func sortByPlaysBooked()
     {
         let message = MDCSnackbarMessage()
@@ -153,7 +166,7 @@ class UsersTableViewController: UITableViewController {
             MDCSnackbarManager.show(message)
         }
     }
-*/
+
     func getUserShowStats()
     {
         let indexPath = self.tableView.indexPathForSelectedRow
@@ -179,6 +192,7 @@ class UsersTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
+        setSearchBarSettings()
         self.query = baseQuery()
         self.tableView.delegate = self
         self.tableView.dataSource = self
