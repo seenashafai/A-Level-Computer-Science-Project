@@ -62,8 +62,8 @@ class TicketDetailsViewController: UIViewController, PKAddPassesViewControllerDe
     func doesReviewExist()
     {
         let dateIndex = ticket!.dateIndex
-        var strDateIndex = String(dateIndex)
-       let ratingsRef = db.collection("shows").document((ticket?.show)!).collection(strDateIndex).document("reviews").collection(user.getCurrentUserEmail()).document("review")
+        let strDateIndex = String(dateIndex)
+        let ratingsRef = db.collection("shows").document((ticket?.show)!).collection(strDateIndex).document("reviews").collection(user.getCurrentUserEmail()).document("review")
         ratingsRef.getDocument { (document, error ) in
             if let document = document {
                 if document.exists {
@@ -97,17 +97,14 @@ class TicketDetailsViewController: UIViewController, PKAddPassesViewControllerDe
     
     func downloadTicket2()
     {
-        var uid = ticket?.ticketID
+        let uid = ticket?.ticketID
         let url : NSURL! = NSURL(string: "http://ftpkdist.serveo.net/users/\(uid!)/pass.pkpass")
         let request: NSURLRequest = NSURLRequest(url:
             url as URL)
-        print(request.url, "urel")
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         
         let task : URLSessionDataTask = session.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) in
-            
-            var error: NSError?
             let pass = try? PKPass(data: data!)
             if error != nil {
                 DispatchQueue.main.async {

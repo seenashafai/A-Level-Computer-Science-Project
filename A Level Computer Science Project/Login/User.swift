@@ -17,6 +17,9 @@ struct User: Comparable {
         return lhs.ticketsBooked < rhs.ticketsBooked
     }
     
+    static func == (lhs: User, rhs: User) -> Bool {
+        return lhs.ticketsBooked == rhs.ticketsBooked
+    }
     
     let firstName: String
     let lastName: String
@@ -26,6 +29,7 @@ struct User: Comparable {
     let admin: Int
     let ticketsBooked: Int
     let showsBookedArray: [String]
+    let showAttendance: [String: Any]
     
     var dictionary: [String: Any] {
         return [
@@ -36,7 +40,8 @@ struct User: Comparable {
             "block": block,
             "admin": admin,
             "ticketsBooked": ticketsBooked,
-            "showsBookedArray": showsBookedArray
+            "showsBookedArray": showsBookedArray,
+            "showAttendance": showAttendance
         ]
     }
 }
@@ -50,11 +55,13 @@ extension User {
         let block = dictionary["block"] as? String,
         let admin = dictionary["admin"] as? Int,
         let ticketsBooked = dictionary["ticketsBooked"] as? Int,
-        let showsBookedArray = dictionary["showsBookedArray"] as? [String]
+        let showsBookedArray = dictionary["showsBookedArray"] as? [String],
+        let showAttendance = dictionary["showAttendance"] as? [String: Any]
+
 
             else {return nil}
         
-        self.init(firstName: firstName, lastName: lastName, email: email, house: house, block: block, admin: admin, ticketsBooked: ticketsBooked, showsBookedArray: showsBookedArray)
+        self.init(firstName: firstName, lastName: lastName, email: email, house: house, block: block, admin: admin, ticketsBooked: ticketsBooked, showsBookedArray: showsBookedArray, showAttendance: showAttendance)
      }
 }
 

@@ -39,6 +39,7 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     var venue: String?
     var ticketsBooked: Int?
     var showsBookedArray: [String]?
+    var showAttendanceDict: [String: Any] = [:]
     
     @IBOutlet weak var showLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -76,9 +77,12 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
                             } else {
                                 print("Transaction successfully solidified!")
                                 let userShowRef = self.db.collection("users").document(email)
+                                self.showAttendanceDict[(self.showLabel.text)!] = false
                                 userShowRef.updateData([
                                     "ticketsBooked": (self.ticketsBooked! + 1),
-                                    "showsBookedArray": FieldValue.arrayUnion([self.showLabel!.text])
+                                    "showsBookedArray": FieldValue.arrayUnion([self.showLabel!.text]),
+                                    "showAttendance": self.showAttendanceDict
+
                                     ])
                             }
                     }
@@ -171,9 +175,13 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
                 self.lastName = document.data()!["lastName"] as! String
                 self.block = document.data()!["block"] as! String
                 self.house = document.data()!["house"] as! String
+                self.showAttendanceDict = document.data()!["showAttendance"] as! [String: Any]
             }
         }
         print(firstName, "data")
+        
+        
+        
     }
     
     func loadVenue()

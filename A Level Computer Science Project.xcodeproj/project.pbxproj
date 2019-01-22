@@ -42,6 +42,7 @@
 		04C4507C2181CDCD009ECD30 /* QRDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C4507B2181CDCD009ECD30 /* QRDetailsViewController.swift */; };
 		04C450802181D545009ECD30 /* PKUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C4507F2181D545009ECD30 /* PKUser.swift */; };
 		04C450882181F33A009ECD30 /* PKBarcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C450872181F33A009ECD30 /* PKBarcode.swift */; };
+		04F4106B21F73F5F000F8BCE /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4106A21F73F5F000F8BCE /* UserDetailsViewController.swift */; };
 		04F5848C218112D1007E0AAD /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F5848B218112D1007E0AAD /* QRScannerViewController.swift */; };
 		04F7126B21AC818C00E958D6 /* TicketConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7126A21AC818C00E958D6 /* TicketConfirmationViewController.swift */; };
 		04F7126D21AC81DF00E958D6 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7126C21AC81DF00E958D6 /* Transaction.swift */; };
@@ -119,6 +120,7 @@
 		04C4507B2181CDCD009ECD30 /* QRDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRDetailsViewController.swift; sourceTree = "<group>"; };
 		04C4507F2181D545009ECD30 /* PKUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKUser.swift; sourceTree = "<group>"; };
 		04C450872181F33A009ECD30 /* PKBarcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKBarcode.swift; sourceTree = "<group>"; };
+		04F4106A21F73F5F000F8BCE /* UserDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
 		04F5848B218112D1007E0AAD /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		04F7126A21AC818C00E958D6 /* TicketConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketConfirmationViewController.swift; sourceTree = "<group>"; };
 		04F7126C21AC81DF00E958D6 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */,
 				04F5848B218112D1007E0AAD /* QRScannerViewController.swift */,
 				BD4C2C1A218B57740059BBB4 /* AdminShowListTableViewController.swift */,
+				04F4106A21F73F5F000F8BCE /* UserDetailsViewController.swift */,
 				0481240D21F1D510004CDE29 /* UsersTableViewController.swift */,
 				04C4507B2181CDCD009ECD30 /* QRDetailsViewController.swift */,
 				04C4507F2181D545009ECD30 /* PKUser.swift */,
@@ -679,6 +682,7 @@
 				0481240C21F1465B004CDE29 /* UserTableViewCell.swift in Sources */,
 				37FFAFAC21944337003F6DD3 /* SecondarySeatSelectionViewController.swift in Sources */,
 				37F0E7BE214FD20000D9E335 /* ShowListTableViewController.swift in Sources */,
+				04F4106B21F73F5F000F8BCE /* UserDetailsViewController.swift in Sources */,
 				0481240A21F13AC4004CDE29 /* PopUpViewController.swift in Sources */,
 				0453CDBB21E8FB92002DF163 /* ReviewViewController.swift in Sources */,
 				0432B46421EF964900E38876 /* ReviewTableViewCell.swift in Sources */,
