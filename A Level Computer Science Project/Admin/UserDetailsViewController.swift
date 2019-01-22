@@ -20,7 +20,6 @@ class UserDetailsViewController: UIViewController {
     @IBOutlet weak var houseLabel: UILabel!
     @IBOutlet weak var ticketLabel: UILabel!
     @IBOutlet weak var attendanceLabel: UILabel!
-    @IBOutlet weak var showsLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +30,5 @@ class UserDetailsViewController: UIViewController {
         houseLabel.text = user?.house
         ticketLabel.text = String((user?.ticketsBooked)!)
         attendanceLabel.text = user?.showAttendance.description
-        showsLabel.text = user?.showsBookedArray.description
     }
 }

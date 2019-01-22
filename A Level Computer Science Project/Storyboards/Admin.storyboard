@@ -292,6 +292,20 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="VALUE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XZd-JC-iiI">
+                                        <rect key="frame" x="189" y="315" width="114" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SOI-Na-bje">
+                                        <rect key="frame" x="117" y="377" width="46" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <segue destination="x45-Zu-WKi" kind="show" id="wUd-jj-tgz"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -305,6 +319,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="attendanceLabel" destination="XZd-JC-iiI" id="rj6-37-PaE"/>
                         <outlet property="blockLabel" destination="YKu-Y2-0tr" id="2CO-XT-B2M"/>
                         <outlet property="emailLabel" destination="upB-SP-gzz" id="6tV-Zr-Hcg"/>
                         <outlet property="houseLabel" destination="1CB-eD-TOt" id="dCF-Rn-yFk"/>
@@ -315,6 +330,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KFF-XH-EpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3205.5999999999999" y="221.67487684729065"/>
+        </scene>
+        <!--Data Table View Controller-->
+        <scene sceneID="OI4-eH-1L0">
+            <objects>
+                <viewController id="x45-Zu-WKi" customClass="DataTableViewController" customModule="A_Level_Computer_Science_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rzZ-Y8-bLi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="oFH-YK-6Rm"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XNt-hh-iQx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3969" y="220"/>
         </scene>
     </scenes>
     <resources>
