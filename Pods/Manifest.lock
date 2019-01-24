@@ -160,7 +160,7 @@ PODS:
   - nanopb/encode (0.3.901)
   - PKHUD (5.2.1)
   - Protobuf (3.6.1)
-  - SwiftDataTables (0.6.31)
+  - SpreadsheetView (0.8.4)
 
 DEPENDENCIES:
   - Alamofire (~> 4.8.0)
@@ -175,7 +175,7 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift
   - MaterialComponents/Snackbar
   - PKHUD (~> 5.0)
-  - SwiftDataTables
+  - SpreadsheetView (~> 0.8)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -206,7 +206,7 @@ SPEC REPOS:
     - nanopb
     - PKHUD
     - Protobuf
-    - SwiftDataTables
+    - SpreadsheetView
 
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
@@ -236,8 +236,8 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   PKHUD: 4e6162c4c39ac367c6934e9855c6b4762ee16256
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
-  SwiftDataTables: 3b38580f5638b6eb80f5a0eafba0e9ebe99294cb
+  SpreadsheetView: 17c55b6dc82099993cc2ceb818248d19f3220998
 
-PODFILE CHECKSUM: 54f4641a890123f1d694b2773a3ae84a9c1aa63c
+PODFILE CHECKSUM: 7f5b76291a22c400143b6de94d6d979291835a34
 
 COCOAPODS: 1.5.3

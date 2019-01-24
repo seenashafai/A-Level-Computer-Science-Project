@@ -31,4 +31,12 @@ class UserDetailsViewController: UIViewController {
         ticketLabel.text = String((user?.ticketsBooked)!)
         attendanceLabel.text = user?.showAttendance.description
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toDataTable"
+        {
+            let destinationVC = segue.destination as! DataTableViewController
+            destinationVC.user = user
+        }
+    }
 }
