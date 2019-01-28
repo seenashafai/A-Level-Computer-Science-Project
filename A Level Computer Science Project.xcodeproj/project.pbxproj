@@ -24,6 +24,9 @@
 		045D5ADA21AFF5C5001BA669 /* MVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D5AD921AFF5C5001BA669 /* MVC.swift */; };
 		046F38B92180C7880026EA16 /* Admin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046F38B82180C7880026EA16 /* Admin.storyboard */; };
 		046F38BE2180C83E0026EA16 /* InitialAdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */; };
+		0481240A21F13AC4004CDE29 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481240921F13AC4004CDE29 /* PopUpViewController.swift */; };
+		0481240C21F1465B004CDE29 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481240B21F1465B004CDE29 /* UserTableViewCell.swift */; };
+		0481240E21F1D510004CDE29 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481240D21F1D510004CDE29 /* UsersTableViewController.swift */; };
 		04819CEF21B55EBB001E6471 /* TheatreMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04819CEE21B55EBB001E6471 /* TheatreMapViewController.swift */; };
 		04819CF121B58592001E6471 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04819CF021B58592001E6471 /* MapKit.framework */; };
 		04876EFD21C5C09600E07836 /* MoreDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04876EFC21C5C09600E07836 /* MoreDetailsViewController.swift */; };
@@ -39,6 +42,9 @@
 		04C4507C2181CDCD009ECD30 /* QRDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C4507B2181CDCD009ECD30 /* QRDetailsViewController.swift */; };
 		04C450802181D545009ECD30 /* PKUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C4507F2181D545009ECD30 /* PKUser.swift */; };
 		04C450882181F33A009ECD30 /* PKBarcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C450872181F33A009ECD30 /* PKBarcode.swift */; };
+		04F4106B21F73F5F000F8BCE /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4106A21F73F5F000F8BCE /* UserDetailsViewController.swift */; };
+		04F4106D21F74E13000F8BCE /* DataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4106C21F74E13000F8BCE /* DataTableViewController.swift */; };
+		04F4106F21F74F74000F8BCE /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4106E21F74F74000F8BCE /* Data.swift */; };
 		04F5848C218112D1007E0AAD /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F5848B218112D1007E0AAD /* QRScannerViewController.swift */; };
 		04F7126B21AC818C00E958D6 /* TicketConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7126A21AC818C00E958D6 /* TicketConfirmationViewController.swift */; };
 		04F7126D21AC81DF00E958D6 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7126C21AC81DF00E958D6 /* Transaction.swift */; };
@@ -92,6 +98,9 @@
 		045D5AD921AFF5C5001BA669 /* MVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVC.swift; sourceTree = "<group>"; };
 		046F38B82180C7880026EA16 /* Admin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Admin.storyboard; sourceTree = "<group>"; };
 		046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialAdminViewController.swift; sourceTree = "<group>"; };
+		0481240921F13AC4004CDE29 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
+		0481240B21F1465B004CDE29 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		0481240D21F1D510004CDE29 /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		04819CEE21B55EBB001E6471 /* TheatreMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheatreMapViewController.swift; sourceTree = "<group>"; };
 		04819CF021B58592001E6471 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		04876EFC21C5C09600E07836 /* MoreDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreDetailsViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +122,9 @@
 		04C4507B2181CDCD009ECD30 /* QRDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRDetailsViewController.swift; sourceTree = "<group>"; };
 		04C4507F2181D545009ECD30 /* PKUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKUser.swift; sourceTree = "<group>"; };
 		04C450872181F33A009ECD30 /* PKBarcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKBarcode.swift; sourceTree = "<group>"; };
+		04F4106A21F73F5F000F8BCE /* UserDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
+		04F4106C21F74E13000F8BCE /* DataTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableViewController.swift; sourceTree = "<group>"; };
+		04F4106E21F74F74000F8BCE /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		04F5848B218112D1007E0AAD /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		04F7126A21AC818C00E958D6 /* TicketConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketConfirmationViewController.swift; sourceTree = "<group>"; };
 		04F7126C21AC81DF00E958D6 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
@@ -186,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				0453CDB221E7A4F3002DF163 /* TicketTableViewCell.swift */,
+				0481240B21F1465B004CDE29 /* UserTableViewCell.swift */,
 				3772778E21590566007532A0 /* ShowListTableViewCell.swift */,
 				0432B46321EF964900E38876 /* ReviewTableViewCell.swift */,
 			);
@@ -219,9 +232,13 @@
 				046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */,
 				04F5848B218112D1007E0AAD /* QRScannerViewController.swift */,
 				BD4C2C1A218B57740059BBB4 /* AdminShowListTableViewController.swift */,
+				04F4106A21F73F5F000F8BCE /* UserDetailsViewController.swift */,
+				0481240D21F1D510004CDE29 /* UsersTableViewController.swift */,
 				04C4507B2181CDCD009ECD30 /* QRDetailsViewController.swift */,
 				04C4507F2181D545009ECD30 /* PKUser.swift */,
 				04C450872181F33A009ECD30 /* PKBarcode.swift */,
+				04F4106C21F74E13000F8BCE /* DataTableViewController.swift */,
+				04F4106E21F74F74000F8BCE /* Data.swift */,
 			);
 			path = Admin;
 			sourceTree = "<group>";
@@ -254,6 +271,7 @@
 				04360C2B21775B5800AE8C5C /* A Level Computer Science Project.entitlements */,
 				04904DED209790C70043C97A /* AppDelegate.swift */,
 				045D5AD921AFF5C5001BA669 /* MVC.swift */,
+				0481240921F13AC4004CDE29 /* PopUpViewController.swift */,
 				0453CDB421E7A507002DF163 /* Table View Cells */,
 				046F38BA2180C7F30026EA16 /* Storyboards */,
 				04FB57FA215C206600673B7D /* Login */,
@@ -533,6 +551,7 @@
 				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
 				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SpreadsheetView/SpreadsheetView.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -555,6 +574,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SpreadsheetView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -638,6 +658,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0481240E21F1D510004CDE29 /* UsersTableViewController.swift in Sources */,
 				045D5ADA21AFF5C5001BA669 /* MVC.swift in Sources */,
 				0453CDB921E7E8BB002DF163 /* ShowStatsViewController.swift in Sources */,
 				04C4507C2181CDCD009ECD30 /* QRDetailsViewController.swift in Sources */,
@@ -662,12 +683,17 @@
 				0453CDB121E799E1002DF163 /* UserTicket.swift in Sources */,
 				04904DEE209790C70043C97A /* AppDelegate.swift in Sources */,
 				3772778F21590566007532A0 /* ShowListTableViewCell.swift in Sources */,
+				04F4106D21F74E13000F8BCE /* DataTableViewController.swift in Sources */,
 				04360C2D2177DA5100AE8C5C /* Ticket.swift in Sources */,
 				BD90ACCF21676737003C831A /* Show.swift in Sources */,
 				0453CDBD21E8FBF2002DF163 /* Review.swift in Sources */,
 				0453CDB721E7A7C4002DF163 /* TicketDetailsViewController.swift in Sources */,
+				0481240C21F1465B004CDE29 /* UserTableViewCell.swift in Sources */,
+				04F4106F21F74F74000F8BCE /* Data.swift in Sources */,
 				37FFAFAC21944337003F6DD3 /* SecondarySeatSelectionViewController.swift in Sources */,
 				37F0E7BE214FD20000D9E335 /* ShowListTableViewController.swift in Sources */,
+				04F4106B21F73F5F000F8BCE /* UserDetailsViewController.swift in Sources */,
+				0481240A21F13AC4004CDE29 /* PopUpViewController.swift in Sources */,
 				0453CDBB21E8FB92002DF163 /* ReviewViewController.swift in Sources */,
 				0432B46421EF964900E38876 /* ReviewTableViewCell.swift in Sources */,
 				BD89FD7E2163ECF10050D379 /* Validation.swift in Sources */,

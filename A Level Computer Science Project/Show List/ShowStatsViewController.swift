@@ -42,7 +42,6 @@ class ShowStatsViewController: UIViewController {
     var statsDict: [String: Any] = [:]
     var houseDict: [String: Int] = [:]
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
@@ -52,8 +51,6 @@ class ShowStatsViewController: UIViewController {
         
     }
     
-    
-
     func updateChart()
     {
         let blockDataB = PieChartDataEntry(value: self.blockDict["B"] as! Double, label: "B")
@@ -142,7 +139,7 @@ class ShowStatsViewController: UIViewController {
         totalRatingsRef.getDocument {(documentSnapshot, error) in
             if let document = documentSnapshot {
                 print(document, "soc")
-                self.starRatingsArray = (document["starRating"] as? Array ?? [0.0])
+                self.starRatingsArray = (document["ratingsArray"] as? Array ?? [0.0])
                 self.updateStarRating()
             }
         }

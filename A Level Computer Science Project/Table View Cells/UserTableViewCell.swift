@@ -1,18 +1,18 @@
 //
-//  ReviewTableViewCell.swift
+//  UserTableViewCell.swift
 //  A Level Computer Science Project
 //
-//  Created by Seena Shafai on 16/01/2019.
+//  Created by Seena Shafai on 17/01/2019.
 //  Copyright © 2019 Seena Shafai. All rights reserved.
 //
 
 import UIKit
-import Cosmos
 
-class ReviewTableViewCell: UITableViewCell {
+class UserTableViewCell: UITableViewCell {
 
     @IBOutlet weak var cellNameLabel: UILabel!
-    @IBOutlet weak var cosmosView: CosmosView!
+    
+    @IBOutlet weak var cellDescriptionLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

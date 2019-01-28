@@ -26,15 +26,20 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     let barcode = Barcode()
     let alerts = Alerts()
     var global = Global()
+  
+    var dateIndex: Int?
+    var currentTransaction: Int?
+    let APIEndpoint = "http://ftpkdist.serveo.net/users"
+
+    //MARK: - User Properties
     var firstName: String?
     var lastName: String?
     var house: String?
     var block: String?
     var venue: String?
-    var dateIndex: Int?
-    var currentTransaction: Int?
-    let APIEndpoint = "http://ftpkdist.serveo.net/users"
-
+    var ticketsBooked: Int?
+    var showsBookedArray: [String]?
+    var showAttendanceDict: [String: Any] = [:]
     
     @IBOutlet weak var showLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -70,7 +75,15 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
                             if let err = err {
                                 print("Error removing document: \(err)")
                             } else {
-                                print("Document successfully removed!")
+                                print("Transaction successfully solidified!")
+                                let userShowRef = self.db.collection("users").document(email)
+                                self.showAttendanceDict[(self.showLabel.text)!] = false
+                                userShowRef.updateData([
+                                    "ticketsBooked": (self.ticketsBooked! + 1),
+                                    "showsBookedArray": FieldValue.arrayUnion([self.showLabel!.text]),
+                                    "showAttendance": self.showAttendanceDict
+
+                                    ])
                             }
                     }
                    // HUD.flash(HUDContentType.success, delay: 0.5)
@@ -157,13 +170,18 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
                 return
             }
             if let document = documentSnapshot {
+                self.ticketsBooked = document.data()!["ticketsBooked"] as! Int
                 self.firstName = document.data()!["firstName"] as! String
                 self.lastName = document.data()!["lastName"] as! String
                 self.block = document.data()!["block"] as! String
                 self.house = document.data()!["house"] as! String
+                self.showAttendanceDict = document.data()!["showAttendance"] as! [String: Any]
             }
         }
         print(firstName, "data")
+        
+        
+        
     }
     
     func loadVenue()

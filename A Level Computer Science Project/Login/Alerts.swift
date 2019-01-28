@@ -66,4 +66,11 @@ class Alerts {
         submittedReviewAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         return submittedReviewAlert
     }
+    
+    func noReviewDescription() -> UIAlertController
+    {
+        let noReviewDescriptionAlert = UIAlertController(title: "Error", message: "There is no description associated with this review.", preferredStyle: .alert)
+        noReviewDescriptionAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        return noReviewDescriptionAlert
+    }
 }

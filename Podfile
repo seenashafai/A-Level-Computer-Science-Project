@@ -19,7 +19,7 @@ target 'A Level Computer Science Project' do
 	pod 'Alamofire', '~> 4.8.0'
 	pod 'Cosmos', '~>18.0'
 	pod 'Charts'
-
+	pod 'SpreadsheetView', '~> 0.8'
 
   target 'A Level Computer Science ProjectTests' do
     inherit! :search_paths

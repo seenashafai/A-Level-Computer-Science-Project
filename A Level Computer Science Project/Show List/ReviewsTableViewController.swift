@@ -23,11 +23,13 @@ class ReviewsTableViewController: UITableViewController {
     var showFuncs = showFunctions()
     var user = FirebaseUser()
     var show: Show?
+    var alerts = Alerts()
     
     //MARK: - Firebase Queries
     
     fileprivate func baseQuery() -> Query{
         let email = user.getCurrentUserEmail()
+        print(show!.name, "showName")
         return db.collection("shows").document(show!.name).collection("1").document("reviews").collection("userReviews")
     }
  
@@ -58,9 +60,12 @@ class ReviewsTableViewController: UITableViewController {
             
             
             let results = snapshot.documents.map { (document) -> Review in
-                if let ticket = Review(dictionary: document.data()) {
-                    return ticket
+                if let review = Review(dictionary: document.data()) {
+                    print(document.data(), "docData")
+                    print(review, "reviewDict")
+                    return review
                 } else {
+                    print(document.data(), "docData")
                     fatalError("Unable to initialize type \(Review.self) with dictionary \(document.data())")
                 }
             }
@@ -78,17 +83,10 @@ class ReviewsTableViewController: UITableViewController {
         self.query = baseQuery()
         self.tableView.delegate = self
         self.tableView.dataSource = self
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
@@ -97,60 +95,32 @@ class ReviewsTableViewController: UITableViewController {
         return dbReviews.count
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(100)
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ReviewTableViewCell
         let review: Review
         review = dbReviews[indexPath.row]
-        cell.cellNameLabel.text = String(review.starRating)
-        
+        cell.cellNameLabel.text = String(review.email)
+        cell.cosmosView.rating = Double(review.starRating)
         return cell
     }
-
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let review: Review
+        review = dbReviews[indexPath.row]
+        if review.description != "" {
+            let popUpVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popup") as! PopUpViewController
+            self.addChild(popUpVC)
+            popUpVC.view.frame = self.view.frame
+        
+            popUpVC.textView.text = review.description
+            self.view.addSubview(popUpVC.view)
+            popUpVC.didMove(toParent: self)
+        } else {
+            self.present(alerts.noReviewDescription(), animated: true)
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
