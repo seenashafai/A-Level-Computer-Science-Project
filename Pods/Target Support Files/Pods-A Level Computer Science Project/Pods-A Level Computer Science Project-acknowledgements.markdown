@@ -24,7 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-## BoringSSL
+## BoringSSL-GRPC
 
 BoringSSL is a fork of OpenSSL. As such, large parts of it fall under OpenSSL
 licensing. Files that are completely new have a Google copyright and an ISC
@@ -716,11 +716,11 @@ THE SOFTWARE.
 
 ## Firebase
 
-Copyright 2018 Google
+Copyright 2019 Google
 
 ## FirebaseAnalytics
 
-Copyright 2018 Google
+Copyright 2019 Google
 
 ## FirebaseAuth
 
@@ -1754,7 +1754,7 @@ Copyright 2018 Google
 
 ## FirebaseInstanceID
 
-Copyright 2018 Google
+Copyright 2019 Google
 
 ## FirebaseStorage
 
@@ -2170,7 +2170,7 @@ Copyright 2018 Google
 
 ## GoogleAppMeasurement
 
-Copyright 2018 Google
+Copyright 2019 Google
 
 ## GoogleUtilities
 
@@ -3081,11 +3081,9 @@ standalone and requires a support library to be linked with it.  This
 support library is itself covered by the above license.
 
 
-## SpreadsheetView
+## SwiftDataTables
 
-MIT License
-
-Copyright (c) 2017 Kishikawa Katsumi
+Copyright (c) 2017 pavankataria <kataria.pavan@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -3094,16 +3092,16 @@ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
 
 
 ## gRPC-C++

@@ -346,7 +346,7 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
             showLabel.text = transaction[0].show
             dateLabel.text = transaction[0].date
             ticketsLabel.text = String(transaction[0].tickets)
-            seatsLabel.text = transaction[0].seats.description
+            seatsLabel.text = transaction[0].seats.toPrint
             houseLabel.text = transaction[0].house
             emailLabel.text = transaction[0].email
             
@@ -373,3 +373,19 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     */
 
 }
+
+extension Array {
+    var toPrint: String  {
+        var str = ""
+        
+        for element in self {
+            if self.count == 1 {
+                str = "\(element)"
+            } else {
+                str += "\(element), "
+            }
+        }
+        return str
+    }
+}
+

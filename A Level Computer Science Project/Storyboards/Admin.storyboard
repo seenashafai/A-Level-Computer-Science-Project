@@ -289,7 +289,7 @@
                                         <rect key="frame" x="117" y="377" width="46" height="30"/>
                                         <state key="normal" title="Button"/>
                                         <connections>
-                                            <segue destination="x45-Zu-WKi" kind="show" identifier="toDataTable" id="wUd-jj-tgz"/>
+                                            <segue destination="x45-Zu-WKi" kind="show" identifier="toDataTable" id="NT9-gZ-8ca"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -385,7 +385,32 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XNt-hh-iQx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3969" y="220"/>
+            <point key="canvasLocation" x="3958" y="630"/>
+        </scene>
+        <!--Spreadsheet View Controller-->
+        <scene sceneID="Bb8-4E-Orq">
+            <objects>
+                <viewController id="DrX-j6-bmR" customClass="SpreadsheetViewController" customModule="A_Level_Computer_Science_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="N22-u4-TwS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hm2-sY-bWZ" customClass="SpreadsheetView" customModule="SpreadsheetView">
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="ukI-hl-VJZ"/>
+                    </view>
+                    <connections>
+                        <outlet property="spreadsheetView" destination="hm2-sY-bWZ" id="zBm-96-Kdn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BJv-a0-gHs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4837.6000000000004" y="209.85221674876848"/>
         </scene>
     </scenes>
     <resources>

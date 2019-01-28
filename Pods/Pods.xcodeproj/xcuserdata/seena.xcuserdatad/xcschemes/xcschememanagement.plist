@@ -9,7 +9,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>BoringSSL.xcscheme</key>
+		<key>BoringSSL-GRPC.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -40,11 +40,6 @@
 			<false/>
 		</dict>
 		<key>FirebaseDatabase.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>FirebaseFirestore-gRPCCertificates-Firestore.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -119,7 +114,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>SpreadsheetView.xcscheme</key>
+		<key>SwiftDataTables.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>gRPC-C++-gRPCCertificates.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
