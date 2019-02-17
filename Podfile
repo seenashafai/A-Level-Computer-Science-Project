@@ -14,12 +14,12 @@ target 'A Level Computer Science Project' do
 	pod 'Firebase/Storage'
 	pod 'IQKeyboardManagerSwift'
 	pod 'MaterialComponents/Snackbar'
-    	pod 'PKHUD', '~> 5.0'
-    	pod 'DataCompression'
+    pod 'PKHUD', '~> 5.0'
+    pod 'DataCompression'
 	pod 'Alamofire', '~> 4.8.0'
 	pod 'Cosmos', '~>18.0'
 	pod 'Charts'
-    	pod 'SwiftDataTables'
+    pod 'SwiftDataTables'
 
   target 'A Level Computer Science ProjectTests' do
     inherit! :search_paths
