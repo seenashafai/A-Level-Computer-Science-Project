@@ -11,95 +11,39 @@ import UIKit
 class ShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var showArray = ["Othello", "Macbeth", "Twelfth Night", "Romeo & Juliet"]
-    
+
+    //MARK: - Interface Outlets
+    @IBOutlet weak var tableView: UITableView!
+
+    //MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
-    
-    
-    @IBOutlet weak var tableView: UITableView!
-    
+    // MARK: - TableView Delegate
 
-    // MARK: - Table view data source
-
-    
     func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 1 //Number of sections in TableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return showArray.count
+        return showArray.count //Number of rows, from number of elements in array
     }
     
+    //MARK: - TableView Data Source
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //Define custom cell with a reusable identifier so it can be repeated across the tableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ShowListTableViewCell
+        //Above: assigning custom cell type 'ShowListTableViewCell' to the cell definition
         
-        cell.cellNameLabel.text = showArray[indexPath.row]
-        cell.cellDescriptionLabel.text = "December 3rd - 5th"
-        cell.cellImageView.image = nil
+        cell.cellNameLabel.text = showArray[indexPath.row] //Define show name, from show array and cell c=index
+        cell.cellDescriptionLabel.text = "December 3rd - 5th" //Define date text
+        cell.cellImageView.image = nil //Define image location
         
         return cell
     }
-    
-    
-    
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
