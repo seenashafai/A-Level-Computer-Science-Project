@@ -10,48 +10,43 @@ import UIKit
 
 class ShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    //MARK: - Variables
-    
-    var showArray = ["Othello", "Macbeth", "Twelfth Night", "Romeo & Juliet"]
-    var showDateArray = ["23rd-25th December", "6th-8th January", "15th-17th January", "1st-3rd Feburary"]
-    var filteredShows = [Show]()
-    
     //MARK: - Properties
     var shows = [Show]()
+    //SearchController setup
     let searchController = UISearchController(searchResultsController: nil)
+    var filteredShows = [Show]() //Array to hold shows being searched
     
     //MARK: - IB Links
-    
-    @IBOutlet weak var tableView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
-    
-    // MARK: - TableView Delegate
+    @IBOutlet weak var tableView: UITableView!
 
+    // MARK: - TableView Delegate
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 1 //Number of sections
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering()
+        if isFiltering() //If filtering is active (i.e. searchBar is in use)
         {
-            return filteredShows.count
+            return filteredShows.count //Number of rows = number of shows in filtered array
         }
-        
-        return shows.count
+        return shows.count //Number of rows per section
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //Define custom cell with a reusable identifier so it can be repeated across the TableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ShowListTableViewCell
-        let show: Show
-        if isFiltering() {
-            show = filteredShows[indexPath.row]
+        //Above: assigning custom cell type to 'ShowListTableViewCell' to the cell definition
+        let show: Show //Define emtpy Show object
+        if isFiltering() //Check if filtering is active (i.e. searchBar is in use)
+        {
+            show = filteredShows[indexPath.row] //Retrieve show object from filtered show array with cell index
         } else {
-            show = shows[indexPath.row]
+            show = shows[indexPath.row]//Retrieve show object from full show array with cell index
         }
-        cell.cellNameLabel.text = show.name
-        cell.cellDescriptionLabel.text = show.date
-        cell.cellImageView.image = UIImage(named: show.name + ".jpg")
+        cell.cellNameLabel.text = show.name //Assign show name property to the cell name label
+        cell.cellDescriptionLabel.text = show.date //Assign show dat property to cell description label
+        cell.cellImageView.image = UIImage(named: show.name + ".jpg") //Define image name as the show name + 'jpg'
         
         return cell
     }
@@ -60,10 +55,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         return CGFloat(90)
     }
     
-    //MARK: - UISearchBarDelegate
-    
     //MARK: - Private instance methods
-    
     func searchBarIsEmpty() -> Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
@@ -73,99 +65,70 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
     }
     
-    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        filteredShows = shows.filter({( show : Show) -> Bool in
-            let doesCategoryMatch = (scope == "All") || (show.category == scope + " Play")
+    func filterContentForSearchText(_ searchText: String, scope: String) {
+        filteredShows = shows.filter({( show : Show) -> Bool in //Closure: Begin filtering
+            print("Filtering executed") //TRACE
+            //Define cateory matching filter
+            let categoryMatch = (scope == "All") || (show.category == scope + " Play")
             
-            if searchBarIsEmpty() {
-                return doesCategoryMatch
+            //Validation for empty search bar
+            if searchText == "" {
+                print("search text empty") //TRACE
+                return categoryMatch
             } else {
-                return doesCategoryMatch && show.name.lowercased().contains(searchText.lowercased())
+                //Return show name if the category matches the scope selectors & contains search text
+                print("Category matches and filter succeeded") //TRACE
+                return categoryMatch && show.name.lowercased().contains(searchText.lowercased())
             }
         })
+        //Refresh table for changes to show
+        print("tableView refreshed") //TRACE
         tableView.reloadData()
+        print(filteredShows, "filteredShows array")
     }
     
     
     //MARK: - View Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Set TableView delegate & data source
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        searchController.searchBar.scopeButtonTitles = ["All", "School", "House", "Independent"]
-        searchController.searchBar.delegate = self
+        //SearchController Config
         
+        //Set Scope button titles
+        searchController.searchBar.scopeButtonTitles = ["All", "School", "House", "Independent"]
+        //Set delegates
+        searchController.searchBar.delegate = self
         searchController.searchResultsUpdater = self
+        
+        //Interface variables
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Shows"
-        navigationItem.searchController = searchController
         definesPresentationContext = true
+        
+        //Manually add search bar to navigation bar
+        navigationItem.searchController = searchController
         
         shows = [
             Show(name: "Othello", category: "School Play", date: "23rd-25th December"),
-            Show(name: "Macbeth", category: "School Play", date: "6th-8th January"),
-            Show(name: "Twelfth Night", category: "School Play", date: "15th-17th January"),
+            Show(name: "Macbeth", category: "House Play", date: "6th-8th January"),
+            Show(name: "Twelfth Night", category: "Independent Play", date: "15th-17th January"),
             Show(name: "Romeo & Juliet", category: "School Play", date: "1st-3rd February")
         ]
     }
-
-    
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension ShowListTableViewController: UISearchResultsUpdating {
     //MARK: - UISearchResultsUpdatingDelegate
     func updateSearchResults(for searchController: UISearchController) {
+        print("Text entered into search bar")
         let searchBar = searchController.searchBar
+        //Define scope from searchBar attributes
         let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+        //Filter content as a result of search input changing
         filterContentForSearchText(searchController.searchBar.text!, scope: scope)
     }
 }
@@ -173,6 +136,8 @@ extension ShowListTableViewController: UISearchResultsUpdating {
 extension ShowListTableViewController: UISearchBarDelegate {
     //MARK: - UISearchBar Delegate
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        //Filter content as a result of scope button changing index
+        print("Scope button changed")
         filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
     }
 }
