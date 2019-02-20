@@ -46,6 +46,7 @@ struct User: Comparable {
     }
 }
 
+
 extension User {
     init?(dictionary: [String: Any]) {
         guard let firstName = dictionary["firstName"] as? String,

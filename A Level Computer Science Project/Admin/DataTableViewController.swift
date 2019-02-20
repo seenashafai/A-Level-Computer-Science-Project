@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseFirestore
+import SwiftDataTables
 
 
 class DataTableViewController: UIViewController {
@@ -66,9 +67,16 @@ class DataTableViewController: UIViewController {
             let showRef = db.collection("users").document((user?.email)!).collection("tickets").document((user?.showsBookedArray[i])!)
             showRef.getDocument { (document, error ) in
                 if let document = document {
-                    for (_, value) in document.data()! {
+                    let dict = document.data()!
+                    for i in dict {
                         
-                        showData.append("\(value)")
+                        showData.append(dict["show"]!)
+                        showData.append(dict["date"]!)
+                        showData.append(self.convertBool(value: dict["attendance"]! as! Int))
+                        showData.append(dict["seats"]!)
+                        showData.append(dict["tickets"]!)
+                        showData.append(dict["ticketID"]!)
+
                     }
                     print(showData, "showDataItem")
                     print(self.showDataArray, "before")
@@ -96,6 +104,18 @@ class DataTableViewController: UIViewController {
         print(showData, "s2")
 
     }
+    
+    func convertBool(value: Int) -> String
+    {
+        switch value {
+        case 0:
+            return "False"
+        case 1:
+            return "True"
+        default:
+            return "n/a"
+        }
+    }
 }
 
 extension DataTableViewController {
@@ -105,9 +125,9 @@ extension DataTableViewController {
             "Date",
             "Attendance",
             "Seats",
-            "TicketID",
-            "dateIndex",
-            "Tickets"
+            "Tickets",
+            "TicketID"
+
         ]
     }
     
