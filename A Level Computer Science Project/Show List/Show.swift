@@ -7,30 +7,33 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 struct Show {
     let name: String
     let category: String
-   // let date: String
+    let date: Timestamp
     
+    //Provide dictionary framework for class
     var dictionary: [String: Any] {
         return [
-           // "Date": date,
             "name": name,
-            "Category": category
+            "Category": category,
+            "Date": Timestamp()
         ]
     }
 }
 
 extension Show {
+    //Initialise class dictionary
     init?(dictionary: [String : Any]) {
         guard let name = dictionary["name"] as? String,
-        let category = dictionary["Category"] as? String
+        let category = dictionary["Category"] as? String,
+        let date = dictionary["Date"] as? Timestamp
             else {return nil}
         
-        self.init(name: name, category: category)
+        self.init(name: name, category: category, date: date)
     }
-    
 }
 
 

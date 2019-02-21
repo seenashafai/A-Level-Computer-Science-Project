@@ -12,18 +12,21 @@ import FirebaseFirestore
 class ShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     //MARK: - Variables
-    
+    /*
     var showArray = ["Othello", "Macbeth", "Twelfth Night", "Romeo & Juliet"]
     var showDateArray = ["23rd-25th December", "6th-8th January", "15th-17th January", "1st-3rd Feburary"]
     var avgDateArray = ["24 Dec 2017", "7 Jan 2018", "16 Jan 2018", "2 Feb 2018"]
     var convertedDateArray: [Date] = []
+ */
     var dbShowArray = [Any]()
 
     
-    //MARK: - FirebaseT2
-    var documents: [DocumentSnapshot] = []
+    //MARK: - Firebase Variables
+    //var documents: [DocumentSnapshot] = []
     var listener: ListenerRegistration!
+    
     var dbShows = [Show]()
+    
 
 
     var db: Firestore!
@@ -65,7 +68,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
             show = dbShows[indexPath.row]
         }
         cell.cellNameLabel.text = show.name
-        cell.cellDescriptionLabel.text = String(show.category)
+        cell.cellDescriptionLabel.text = String(show.date.dateValue().description)
         cell.cellImageView.image = UIImage(named: show.name + ".jpg")
         
         return cell
@@ -75,10 +78,8 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         return CGFloat(90)
     }
     
-    //MARK: - UISearchBarDelegate
     
     //MARK: - Private instance methods
-    
     func searchBarIsEmpty() -> Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
@@ -88,7 +89,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
     }
     
-    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+    func filterContentForSearchText(_ searchText: String, scope: String) {
         filteredShows = dbShows.filter({( show : Show) -> Bool in
             let doesCategoryMatch = (scope == "All") || (show.category == scope)
             
@@ -101,27 +102,14 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.reloadData()
     }
     
-    fileprivate func baseQuery() -> Query{
-        return db.collection("shows").limit(to: 50)
-    }
-    fileprivate var query: Query? {
-        didSet {
-            if let listener = listener{
-                listener.remove()
-            }
-        }
-    }
-    
     //MARK: - View Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let settings = FirestoreSettings()
         db = Firestore.firestore()
-        db.settings = settings
+        let settings = FirestoreSettings()
         settings.areTimestampsInSnapshotsEnabled = true
-        self.query = baseQuery()
+        db.settings = settings
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -136,36 +124,36 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         definesPresentationContext = true
     }
 
+    //View dismissed
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        //Remove listener
         self.listener.remove()
     }
     
+    //View instantiated
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.listener =  query?.addSnapshotListener { (documents, error) in
-            guard let snapshot = documents else {
-                print("Error fetching documents results: \(error!)")
+        //Attach listener to view
+        self.listener =  db.collection("shows").addSnapshotListener { (documents, error) in //Begin closure
+            guard let snapshot = documents else { //Validate snapshot
+                print("Error fetching documents results: \(error!)") //Provide Firestore error message
                 return
             }
             
-            let results = snapshot.documents.map { (document) -> Show in
-                if let show = Show(dictionary: document.data()) {
-                    print(show, "showDict")
-                    print(Show.self, document.data())
+            //Assign array to store QuerySnapshot mapping results
+            let results = snapshot.documents.map { (document) -> Show in //CLOSURE
+                //Validation
+                if let show = Show(dictionary: document.data()) { //Instantiate show object from DB dictionary
                     return show
                 } else {
+                    //Return error message, details of raw data and Show class to find discrepencies
                     fatalError("Unable to initialize type \(Show.self) with dictionary \(document.data())")
                 }
             }
-            
-            self.dbShows = results
-            self.documents = snapshot.documents
-            print(self.dbShows, "dbshows")
-            print(documents, "docs")
-            self.tableView.reloadData()
-
+            self.dbShows = results //Set show database to newly populated 'results' array
+            self.tableView.reloadData() //Refresh table
         }
     }
 
@@ -173,13 +161,13 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Sort by Date", style: .default, handler: {(UIAlertAction) in
-            self.sort()
+            //self.sort()
         }))
         alert.addAction(UIAlertAction(title: "Sort by Alphabetical Order", style: .default, handler: {(UIAlertAction) in
-            self.sort()
+            //self.sort()
         }))
         alert.addAction(UIAlertAction(title: "Sort by Rating", style: .default, handler: {(UIAlertAction) in
-            self.sort()
+            //self.sort()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in }
         )
@@ -189,58 +177,6 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         })
         
     }
-    /*
-    func pullFromFirestore()
-    {
-        db.collection("shows").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
-                    var dict = document.data()
-                    self.dbShowArray.append(dict)
-                    print(self.dbShowArray, "showArray")
-                }
-            }
-        }
-
-    }
- */
-    
-    func sort()
-    {
-     convertDates()
-    }
-
-    func convertDates()
-    {
-        var dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MM, yyyy"
-        for d in avgDateArray
-        {
-            let date = dateFormatter.date(from: d)
-            if let date = date {
-                convertedDateArray.append(date)
-            }
-        }
-        print("converted date", convertedDateArray)
-        var sortedDateArray: [Date] = []
-        sortedDateArray = convertedDateArray.sorted(by: { $0.compare($1) == .orderedAscending})
-        print(sortedDateArray)
-        tableView.reloadData()
-    }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension ShowListTableViewController: UISearchResultsUpdating {
