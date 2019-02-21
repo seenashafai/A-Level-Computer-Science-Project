@@ -26,6 +26,7 @@ class DataTableViewController: UIViewController {
         
         super.viewDidLoad()
         db = Firestore.firestore()
+        print(user.debugDescription, "USERDEBUG")
         getData()
         self.navigationController?.navigationBar.isTranslucent = false
         self.title = "Show History"
