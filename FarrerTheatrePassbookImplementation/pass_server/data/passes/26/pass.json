@@ -2,10 +2,10 @@
   "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
   "formatVersion": 1,
   "organizationName": "Farrer Theatre",
-  "serialNumber": "14b8b831c80747247a7809c8cdca54de",
+  "serialNumber": "f438b42af644bc8f116e2ef24a1bdeb2",
   "teamIdentifier": "AZQME83VC4",
-  "webServiceURL": "http://rogue01.local:6789/",
-  "authenticationToken": "4f22e07272c85f4ad721a1768c7d3a43",
+  "webServiceURL": "http://rogue01.local:5757/",
+  "authenticationToken": "9bf130fe8f2952fbb38fe4b2564589ff",
   "description": "Play Ticket",
   "foregroundColor": "#FFFFFF",
   "backgroundColor": "#FF6161",
@@ -23,13 +23,13 @@
   "barcode": {
     "messageEncoding": "utf-8",
     "format": "PKBarcodeFormatQR",
-    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"14b8b831c80747247a7809c8cdca54de\",\"authentication_token\":\"4f22e07272c85f4ad721a1768c7d3a43\"}"
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"f438b42af644bc8f116e2ef24a1bdeb2\",\"authentication_token\":\"9bf130fe8f2952fbb38fe4b2564589ff\"}"
   },
   "eventTicket": {
     "headerFields": [
       {
         "key": "fullName",
-        "label": "seenas@btinternet.com",
+        "label": "seena@shafai.com",
         "value": "Seena Shafai"
       }
     ],
@@ -37,21 +37,21 @@
       {
         "key": "showTitle",
         "label": "Production",
-        "value": "TestShow5"
+        "value": "King Lear"
       }
     ],
     "secondaryFields": [
       {
         "key": "date",
         "label": "Date",
-        "value": "Thursday 4th December"
+        "value": "12/09/15"
       }
     ],
     "auxiliaryFields": [
       {
         "key": "seatRef",
         "label": "Seat Reference",
-        "value": "[53]"
+        "value": "3"
       },
       {
         "label": "venue",

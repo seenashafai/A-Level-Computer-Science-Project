@@ -18,10 +18,9 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     var user = FirebaseUser()
     var dateSelected: String = ""
     var dateIndex: Int = 0
-    var documents: [DocumentSnapshot] = []
     var listener: ListenerRegistration!
     var show = [Show]()
-    var ticket = [Ticket]()
+    var ticket: Ticket?
     var currentUser: [String: Any] = [:]
     
     
@@ -44,18 +43,25 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     
     @IBAction func submitButtonPressed(_ sender: Any)
     {
-        let numberOfTickets = Int(ticketNumberTextField.text!)
-        let date = dateSelected
-        print(date, "date")
-        let seatsArray = arrayGen()
+        arrayGen()
+        let numberOfTickets = Int(ticketNumberTextField.text!) //Number of tickets requested
+        print(numberOfTickets!, "requested Tickets") //Output number of tickets requested
+        let updatedTicketNumber = (ticket?.availableTickets)! - numberOfTickets! //Number of tickets remaining
+        let userEmail = Auth.auth().currentUser!.email
+        var ticketHoldersArray = ticket?.ticketHolders
+        print(updatedTicketNumber, "remaining Tickets") //Output remaining ticket number
+        //Check if either validation returned false
+        if isTicketRequestValid2(requestedTickets: numberOfTickets!, availableTickets: (ticket?.availableTickets)!) == false || isUserValid(user: userEmail!, ticketHolders: ticketHoldersArray!) == false
+        {
+            print("Validation failed")
+            return //Exit function
+        }
+        //Else...
+        ticketHoldersArray?.append(userEmail!) //Add user's email to ticket holders array
         let ticketAvailabilityRef = db.collection("shows").document(ticketShowTitle).collection(String(dateIndex)).document("statistics")
-        print(ticket)
-        print(seatsArray, "seats")
-        print(user.getCurrentUserEmail(), "currentUserEmail")
-        print("availableTickets", ticket[0].availableTickets)
         ticketAvailabilityRef.updateData([
-            "availableTickets": ticket[0].availableTickets - numberOfTickets!,
-            "ticketHolders": FieldValue.arrayUnion([user.getCurrentUserEmail()])
+            "availableTickets": updatedTicketNumber,
+            "ticketHolders": ticketHoldersArray
         ])  { err in
             if err != nil {
                 print("error", err?.localizedDescription)
@@ -65,14 +71,44 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
                 self.performSegue(withIdentifier: "toSeatSelection", sender: nil)
             }
         }
-        print("bobby")
+
+    }
+    
+    func isUserValid(user: String, ticketHolders: [String]) -> Bool
+    {
+        for i in 0..<(ticketHolders.count) //Loop through the ticket holders array
+        {
+            if user == ticketHolders[i] //Checks for a match between the user and ticketholders
+            {
+                //Match found
+                print("User is already a ticket holder")
+                return false
+            }
+        }
+        //No match found
+        print("User validation succeeded")
+        //Return true if user does not return a match (i.e. not already a ticket holder)
+        return true
+
+    }
+    
+    func isTicketRequestValid2(requestedTickets: Int, availableTickets: Int) -> Bool
+    {
+
+        if requestedTickets > availableTickets { //Check that the user hasn't selected more tickets than are available
+            //Output number of tickets requested, and number available for debugging
+            print("User requested \(requestedTickets), but only \(availableTickets) remain")
+            return false
+            }
+        print("ticket validation succeeded")
+        return true //Default case
 
     }
     
     //MARK: - Firebase Query methods
 
  fileprivate func baseQuery() -> Query{
-        return db.collection("shows").document(ticketShowTitle).collection("1").whereField("availableTickets", isGreaterThanOrEqualTo: 0)
+        return db.collection("shows").document(ticketShowTitle).collection("1")
     }
     fileprivate var query: Query? {
         didSet {
@@ -100,28 +136,19 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == datePickerView
-        {
-            return dateArray.count
-        }
-        return 0
+        return dateArray.count
+
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == datePickerView
-        {
-            return dateArray[row]
-        }
-        return ""
+        return dateArray[row]
+
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == datePickerView
-        {
+        if pickerView == datePickerView {
             dateSelected = dateArray[row]
             dateIndex = pickerView.selectedRow(inComponent: 0)
-            print(dateIndex, "index")
-            print(dateSelected)
         }
     }
     
@@ -183,9 +210,8 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
                 }
             }
             
-            self.ticket = results
-            self.documents = snapshot.documents
-            print(self.ticket)
+            self.ticket = results[0]
+            print(self.ticket as Any)
          }
         }
 
@@ -195,6 +221,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
             let destinationVC = segue.destination as! SecondarySeatSelectionViewController
             destinationVC.allocatedSeats = Int(ticketNumberTextField.text!)
             destinationVC.showName = ticketShowTitle
+            print(dateSelected, "ds1")
             destinationVC.date = dateSelected
             destinationVC.dateIndex = dateIndex
             destinationVC.currentUser = currentUser
@@ -203,10 +230,4 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     }
     
 }
-
-
-/*
- let houseArrayRef = db.collection("properties").document("houses")
- houseArrayRef.setData(["houseInitialsArray": ["Please select a house...","ABH", "AMM", "ASR", "AW", "BJH", "Coll", "DWG", "EJNR", "HWTA", "JCAJ", "JD", "JDM", "JDN", "JMG", "JMO\'B", "JRBS", "MGHM", "NA", "NCWS", "NPTL", "PAH", "PEPW", "PGW", "RDO-C", "SPH"]])
- */
 

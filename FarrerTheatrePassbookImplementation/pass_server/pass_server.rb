@@ -225,12 +225,14 @@ class PassServer < Sinatra::Base
   end
 
   # List of users
-  get "/users" do
-    ordered_users = self.users.order(:name).all
+  get "/users" do #Initiate /users endpoint
+    ordered_users = self.users.order(:name).all #Get list of users from database, ordered by name
+    #Handle JSON request (for application interaction only)
     if request.accept.include? 'application/json'
       content_type 'application/json', :charset => 'utf-8'
       ordered_users.to_json
-    else
+    else #If accessed by website
+      #Format template for showing users in the HTML file
       erb :'users/index.html', :locals => { :users => ordered_users }
     end
   end
@@ -240,10 +242,9 @@ class PassServer < Sinatra::Base
   end
 
   # Create new user
-  post "/users" do
-    add_user_with_params(params[:user])
-    puts params[:user]
-    redirect "/users"
+  post "/users" do #Executes when a new user is created
+    add_user_with_params(params[:user]) #Intialise user with details from form
+    redirect "/users" #Redirect back to the main table
   end
 
 #  get "/users/:user_id" do
@@ -254,7 +255,7 @@ class PassServer < Sinatra::Base
 
   get "/users/:user_id" do
     user = self.users.where(:id => params[:user_id]).first
-    if request.content_type == "application/json"
+    if request.accept.include? "application/json"
       content_type 'application/json', :charset => 'utf-8'
       user.to_json
     else
@@ -309,18 +310,17 @@ class PassServer < Sinatra::Base
   private
 
   def add_user(email, name, seatRef)
-    p = { :email => email, :name => name, :show => show, :venue => venue, :seatRef => seatRef, :date => date }
+    p = { :email => email, :name => name, :show => show, :venue => venue, :seatRef => seatRef, :date => date}
     add_user_with_params(p)
   end
 
-  def add_user_with_params(p)
-    now = DateTime.now
-    puts now, "jeff"
-    #p[:created_at] = now
-    #p[:updated_at] = now
-    new_user_id = self.users.insert(p)
+  def add_user_with_params(p) #Adds the date added/updated to the dictionary of ticket parameters
+    now = DateTime.now #Define now as current time
+    p[:created_at] = now #Set time created as current Time
+    p[:updated_at] = now #Set time updated as current Time
+    new_user_id = self.users.insert(p) #Initialise new user with the dictionary
 
-    # Also create a pass for the new user
+    #create a pass for the new user
     add_pass_for_user(new_user_id)
 
     return new_user_id
@@ -345,15 +345,20 @@ class PassServer < Sinatra::Base
     self.users.where(:id => user_id).delete
   end
 
+  #Use parameters to create ticket
   def add_pass_for_user(user_id)
-    serial_number = new_serial_number
-    auth_token = new_authentication_token
+    serial_number = new_serial_number #generate empty serial number variable
+    auth_token = new_authentication_token #generate empty authentication token variable
+    #Pass these variables onto a new function which combines them into a pass
     add_pass(serial_number, auth_token, settings.pass_type_identifier, user_id)
   end
 
+  #Create pass with all variables combined
   def add_pass(serial_number, authentication_token, pass_type_id, user_id)
     now = DateTime.now
-    self.passes.insert(:serial_number => serial_number, :authentication_token => authentication_token, :pass_type_id => pass_type_id, :user_id => user_id, :created_at => now, :updated_at => now)
+    #insert attributes into the pass
+    self.passes.insert(:serial_number => serial_number, :authentication_token => authentication_token,
+      :pass_type_id => pass_type_id, :user_id => user_id, :created_at => now, :updated_at => now)
   end
 
   def add_device_registration(device_id, push_token, pass_type_identifier, serial_number)
@@ -420,14 +425,15 @@ class PassServer < Sinatra::Base
   end
 
   def deliver_pass(serial_number, pass_type_identifier)
-    # Load pass data from database
+    # Identify pass in database using the serial number and pass type identifier
     pass = self.passes.where(:serial_number => serial_number, :pass_type_id => pass_type_identifier).first
-    pass_id = pass[:id]
-    user_id = pass[:user_id]
-    user = self.users.where(:id => user_id).first
+    pass_id = pass[:id] #Define pass_id
+    user_id = pass[:user_id] #Define user_id
+    user = self.users.where(:id => user_id).first #Retrieve user from user_id primary key
 
-    # Configure folder paths
+    #Configure folder paths
     passes_folder_path = File.dirname(File.expand_path(__FILE__)) + "/data/passes"
+    #Locate pass template
     template_folder_path = passes_folder_path + "/template"
     target_folder_path = passes_folder_path + "/#{pass_id}"
 
@@ -441,22 +447,25 @@ class PassServer < Sinatra::Base
     puts "[ ok ] Creating pass data from template."
     FileUtils.cp_r template_folder_path + "/.", target_folder_path
 
-    # Modify the pass json
-    puts "[ ok ] Updating pass data."
-    json_file_path = target_folder_path + "/pass.json"
-    pass_json = JSON.parse(File.read(json_file_path))
+    # Assign variables from user's database entry into the pass template
+    puts "[ ok ] Updating pass data." #Console trace output
+    json_file_path = target_folder_path + "/pass.json"  #Locate JSON file
+    pass_json = JSON.parse(File.read(json_file_path)) #Open JSON file
+    #Insert variables into pass.json file
     pass_json["passTypeIdentifier"] = settings.pass_type_identifier
     pass_json["teamIdentifier"] = settings.team_identifier
     pass_json["serialNumber"] = pass[:serial_number]
     pass_json["authenticationToken"] = pass[:authentication_token]
     pass_json["webServiceURL"] = "http://#{settings.hostname}:#{settings.port}/"
     pass_json["barcode"]["message"] = barcode_string_for_pass(pass)
-    pass_json["eventTicket"]["auxiliaryFields"][0]["value"] = user[:seatRef]
-    pass_json["eventTicket"]["auxiliaryFields"][1]["value"] = user[:venue]
+    pass_json["eventTicket"]["auxiliaryFields"][0]["value"] = user[:seatRef] #seat number
+    pass_json["eventTicket"]["auxiliaryFields"][1]["value"] = user[:venue] #second auxiliary field
     pass_json["eventTicket"]["secondaryFields"][0]["value"] = user[:date]
     pass_json["eventTicket"]["headerFields"][0]["label"] = user[:email]
     pass_json["eventTicket"]["headerFields"][0]["value"] = user[:name]
-    pass_json["eventTicket"]["primaryFields"][0]["value"] = user[:show]
+    pass_json["eventTicket"]["primaryFields"][0]["value"] = user[:show] #show name
+
+
 
 
     # Write out the updated JSON
@@ -501,13 +510,14 @@ class PassServer < Sinatra::Base
     puts "APNS connection closed."
   end
 
+  #Create QR code for ticket
   def barcode_string_for_pass(pass)
-    barcode_string = {
+    barcode_string = { #Create dictionary of unique identifiers of each individual ticket
       "pass_type_id" => pass[:pass_type_id],
       "serial_number" => pass[:serial_number],
       "authentication_token" => pass[:authentication_token]
     }
-    barcode_string.to_json
+    barcode_string.to_json #Convert the dictionary to a JSON string for QR code representation
   end
 
   def new_serial_number

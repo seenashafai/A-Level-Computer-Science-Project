@@ -17,6 +17,14 @@ import PassKit
 
 class TicketConfirmationViewController: UIViewController, PKAddPassesViewControllerDelegate {
 
+    
+    
+    //API Variables:
+    let APIEndpoint = "http://localhost:6789/users"
+    var UID: Int?
+
+    
+    
     var db: Firestore!
     var documents: [DocumentSnapshot] = []
     var listener: ListenerRegistration!
@@ -25,11 +33,9 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     let auth = Validation()
     let barcode = Barcode()
     let alerts = Alerts()
-    var global = Global()
   
     var dateIndex: Int?
     var currentTransaction: Int?
-    let APIEndpoint = "http://ftpkdist.serveo.net/users"
 
     //MARK: - User Properties
     var firstName: String?
@@ -41,6 +47,14 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     var showsBookedArray: [String]?
     var showAttendanceDict: [String: Any] = [:]
     
+    
+    var show: String?
+    var date: String?
+    var tickets: String?
+    var seats: String?
+    var email: String?
+    
+    
     @IBOutlet weak var showLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var ticketsLabel: UILabel!
@@ -49,80 +63,41 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     @IBOutlet weak var houseLabel: UILabel!
     
     @IBAction func finishAction(_ sender: Any) {
-        guard auth.authenticateUser(reason: "Use your fingerprint to validate your booking") == true else {print("gtfo"); return}
+       // guard auth.authenticateUser(reason: "Use your fingerprint to validate your booking") == true else {print("gtfo"); return}
             //HUD.show(HUDContentType.systemActivity)
 
-            let email = self.user.getCurrentUserEmail()
-            loadUser()
-            loadVenue()
-            let userTicketRef = db.collection("users").document(email).collection("tickets").document(showLabel.text!)
+            loadUser() //Load user details
+            loadVenue() //Load venue details
+        
+            //Define location for data to be uploaded
+            let userTicketRef = db.collection("users").document(email!).collection("tickets").document(show!)
+            //Set data...
+        
+            //Set data at the defined location
             userTicketRef.setData([
-                "ticketID": currentTransaction,
-                "dateIndex": dateIndex,
-                "show": showLabel.text!,
-                "seats": seatsLabel.text!,
-                "tickets": ticketsLabel.text!,
-                "date": dateLabel.text!,
+                "ticketID": UID!,
+                "show": show!,
+                "seats": seats!,
+                "tickets": tickets!,
+                "date": date!,
                 "attendance": false
-            ]) { err in
-                if err != nil {
-                    print("errorino", err?.localizedDescription as Any)
-                    HUD.flash(HUDContentType.error)
-                } else
+                //Handle errors...
+            ]) { err in //Define error variable
+                //Validate error
+                if err != nil { //If the error is not empty
+                    print(err?.localizedDescription as Any) //Output the error
+                } else //No error returned
                 {
-                    self.db.collection("transactions").document("currentTransaction").delete()
-                        { err in
-                            if let err = err {
-                                print("Error removing document: \(err)")
-                            } else {
-                                print("Transaction successfully solidified!")
-                                let userShowRef = self.db.collection("users").document(email)
-                                self.showAttendanceDict[(self.showLabel.text)!] = false
-                                userShowRef.updateData([
-                                    "ticketsBooked": (self.ticketsBooked! + 1),
-                                    "showsBookedArray": FieldValue.arrayUnion([self.showLabel!.text]),
-                                    "showAttendance": self.showAttendanceDict
-
-                                    ])
-                            }
+                    //Wait .2 seconds to allow the database to finish loading the user and venue information
+                    self.delayWithSeconds(0.2) {
+                        self.initialiseForm() //Send the form details to the Ruby back-end
                     }
-                   // HUD.flash(HUDContentType.success, delay: 0.5)
-                    self.delayWithSeconds(0.2)
-                    {
-                        let formName = "\(self.firstName!) \(self.lastName!)"
-                        let formEmail = email
-                        let formSeatRef = self.seatsLabel.text!
-                        let formShow = self.showLabel.text!
-                        let formVenue = self.venue!
-                        let formDate = self.dateLabel.text!
-                        let formDateIndex = String(self.dateIndex!)
-                        
-                        let formFields: [String: String] = ["user[name]":formName, "user[email]":formEmail, "user[seatRef]":formSeatRef, "user[show]": formShow, "user[venue]": formVenue, "user[date]": formDate, "user[dateIndex]": formDateIndex]
-                        
-                        Alamofire.request(self.APIEndpoint, method: HTTPMethod.post, parameters: formFields, encoding: URLEncoding()).responseString { response  in
-                            print(response.request?.httpBody)
-                            print(response.request?.httpBody.debugDescription)
-                            print(response.request, "POSTRequest")
-                            
-                            print(response.debugDescription)
-                            print(response.result)
-                            print(response.result.value, "val")
-                            
-                        }
+                    self.downloadTicket()
+                    //Transition user back to the home page of the play
+                    self.delayWithSeconds(3) {
+                        let  vc =  self.navigationController?.viewControllers[2]
+                        self.navigationController?.popToViewController(vc!, animated: true)
                     }
-                    
-                    
-                    
-                    //self.barcode.sendJSONRequestWithoutCompletionHandler(withMethod: "POST", APIEndpoint: self.APIEndpoint, path: "/users/", formFields: formFields)
-
-                   
-                    
-                   
-
-                    self.presentActionSheet()
-                    let  vc =  self.navigationController?.viewControllers[2]
-                    self.navigationController?.popToViewController(vc!, animated: true)
-                    print("success/dome")
                     }
                 }
             }
@@ -130,134 +105,145 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
-        self.query = baseQuery()
-        self.listener =  query?.addSnapshotListener { (documents, error) in
-            guard let snapshot = documents else {
-                print("Error fetching documents results: \(error!)")
-                return
-            }
-            
-            let results = snapshot.documents.map { (document) -> Transaction in
-                if let transaction = Transaction(dictionary: document.data()) {
-                    return transaction
-                } else {
-                    print(document.data().debugDescription, "docDebugDesc")
-                }
-                return self.transaction[0]
-            }
-            
-            self.transaction = results
-            self.documents = snapshot.documents
-        }
-        
-        delayWithSeconds(0.2)
-        {
-            self.readTransaction()
-        }
+        getUID() //Load current UID
 
+        //Assign labels as variables passed from previous view
+        showLabel.text = show
+        dateLabel.text = date
+        ticketsLabel.text = tickets
+        seatsLabel.text = seats
+        emailLabel.text = email
 
         // Do any additional setup after loading the view.
     }
     
-    func loadUser()
+    func loadUser() //Load user's details from Firestore database
     {
-        let email = emailLabel.text
-        let userRef = db.collection("users").document(email!)
-        userRef.getDocument {(documentSnapshot, error) in
-            if let error = error
+        //Define location of user details (query)
+        print(email!, "email")
+        
+        let userReference = db.collection("users").document((Auth.auth().currentUser?.email)!)
+        //Begin query- retrieve document snapshot from database
+        userReference.getDocument {(documentSnapshot, error) in
+            if let error = error //Validate that there is no error
             {
-                print(error.localizedDescription, "userRrror")
-                return
+                print(error.localizedDescription) //Output error
+                return //Exit function
             }
-            if let document = documentSnapshot {
-                self.ticketsBooked = document.data()!["ticketsBooked"] as! Int
-                self.firstName = document.data()!["firstName"] as! String
-                self.lastName = document.data()!["lastName"] as! String
-                self.block = document.data()!["block"] as! String
-                self.house = document.data()!["house"] as! String
-                self.showAttendanceDict = document.data()!["showAttendance"] as! [String: Any]
+            //Handle results:
+            if let document = documentSnapshot { //Valiate that document snapshot exists
+                let dictionary = document.data()! //Define dictionary from API returned document
+                self.firstName = dictionary["firstName"] as? String //Extract first name from dictionary
+                self.lastName = dictionary["lastName"] as? String //Extract last name from dictionary
             }
         }
-        print(firstName, "data")
-        
-        
-        
     }
     
-    func loadVenue()
+    func loadVenue() //Load venue details from Firestore database
     {
-        let show = showLabel.text!
-        let showRef = db.collection("shows").document(show)
+        //Define location of show details (query)
+        let showRef = db.collection("shows").document(show!)
+        //Begin query - retrieve document snapshot from database
         showRef.getDocument {(documentSnapshot, error) in
-            if let error = error
+            if let error = error //Validate that there is no error
             {
+                //Handle error if returned
                 print(error.localizedDescription, "venueError")
-                return
+                return //Exit function
             }
+            //Validate that results have been returned
             if let document = documentSnapshot {
-                print(document.data()!["venue"], "venue")
-                self.venue = document.data()!["venue"] as! String
-            }
-        }
-
-    }
-    
-    func loadStatistics()
-    {
-        let show = showLabel.text!
-        let showRef = db.collection("shows").document(show)
-        showRef.getDocument {(documentSnapshot, error) in
-            if let error = error
-            {
-                print(error.localizedDescription, "venueError")
-                return
-            }
-            if let document = documentSnapshot {
-                print(document.data()!["venue"], "venue")
-                self.venue = document.data()!["venue"] as! String
+                //Handle results if returned
+                let dictionary = document.data()!
+                self.venue = dictionary["venue"] as? String
             }
         }
     }
     
-    func getTransactionID() -> Int
+    func getUID() //Get UID of next user
     {
-        var currentTransactionID: Int = 0
+        //Define database location for query
         let transactionRef = db.collection("properties").document("transactions")
+        //Query database location
         transactionRef.getDocument {(documentSnapshot, error) in
+            //Handle error
             if let error = error
             {
-                print(error.localizedDescription, "transaction retrieval error")
-                return
+                //Error returned
+                print(error.localizedDescription) //Output error message
+                return //Exit function
             }
+            //Validate response
             if let document = documentSnapshot {
-                print(document.data()!["runningTotal"], "runningTotal")
-                currentTransactionID = document.data()!["runningTotal"] as! Int
+                //Assign response to variable
+                self.UID = document.data()!["runningTotal"] as? Int
             }
         }
-        return currentTransactionID
+    }
+
+    func updateUID() //Update UID for next user
+    {
+        //Define query location
+        let transactionRef = db.collection("properties").document("transactions")
+        transactionRef.updateData([ //Update data at query location
+            "runningTotal": self.UID! + 1 //Increment UID by 1
+            ])
     }
     
-    func presentActionSheet()
+    
+    func initialiseForm()
     {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Download Ticket Now", style: .default, handler: {(UIAlertAction) in
-            self.downloadTicket2()
-        }))
-        alert.addAction(UIAlertAction(title: "Recieve Ticket via Email", style: .default, handler: {(UIAlertAction) in
-            //self.emailTicket()
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in }
-        )
-        self.present(alert, animated: true, completion: {
-            print("completion")
-        })
-    }
+        let formName = "\(String(describing: self.firstName!)) \(String(describing:self.lastName!))"
+        let formEmail = email!
+        let formSeatRef = self.seatsLabel.text!
+        let formShow = self.showLabel.text!
+        let formVenue = self.venue ?? "Empty Space"
+        let formDate = self.dateLabel.text!
         
+        let formFields: [String: String] = ["user[name]":formName, "user[email]":formEmail, "user[seatRef]":formSeatRef, "user[show]": formShow, "user[venue]": formVenue, "user[date]": formDate]
+        
+        //Define request method as POST
+        let POST: HTTPMethod = HTTPMethod.post
+        //API Request function, taking the endpoint and method as parameters
+        Alamofire.request(self.APIEndpoint, method: POST, parameters: formFields, encoding: URLEncoding()).responseString { response  in //Closure (No action needed)
+        }
+    }
+    
+    func downloadTicket()
+    {
+        let ticketEndpoint = APIEndpoint+"/\(UID!)/pass.pkpass"
+        var GET = HTTPMethod.get
+
+        Alamofire.request(ticketEndpoint, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+            .responseJSON { response in
+                var error: NSError?
+                let pass = try? PKPass(data: response.data!)
+                if error != nil {
+                    DispatchQueue.main.async {
+                        self.present(self.alerts.localizedErrorAlertController(message: (error?.localizedDescription)!), animated: true)
+                    }
+                }
+                else {
+                    let passLibrary = PKPassLibrary()
+                    if passLibrary.containsPass(pass!) {
+                        DispatchQueue.main.async {
+                            self.present(self.alerts.alreadyInWalletInfo(), animated: true)
+                        }
+                    } else {
+                        let pkvc = PKAddPassesViewController(pass: pass!)
+                        pkvc!.delegate = self
+                        self.present(pkvc!, animated: true, completion: {() -> Void in
+                            print("presented pkvc")
+                        })
+                        print("done")
+                    }
+                }
+            }
+        }
     
     func downloadTicket2()
     {
-        var uid = currentTransaction
-        let url : NSURL! = NSURL(string: "http://ftpkdist.serveo.net/users/\(uid!)/pass.pkpass")
+        let url : NSURL! = NSURL(string: "\(APIEndpoint)/users/\(UID!)/pass.pkpass")
         let request: NSURLRequest = NSURLRequest(url:
             url as URL)
         print(request.url, "urel")
@@ -286,7 +272,6 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
                         print("presented pkvc")
                         })
                     print("done")
-                    self.updateCurrentTransaction()
                 }
             }
         })
@@ -294,25 +279,7 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
         
        
     }
-    
-    fileprivate func baseQuery() -> Query{
-        return db.collection("transactions")
-    }
-    fileprivate var query: Query? {
-        didSet {
-            if let listener = listener{
-                listener.remove()
-            }
-        }
-    }
-    
-    func updateCurrentTransaction()
-    {
-        let transactionIDRef = self.db.collection("properties").document("transactions")
-        transactionIDRef.updateData([
-            "runningTotal": self.currentTransaction! + 1
-            ])
-    }
+
     func addPassesViewControllerDidFinish(_ controller: PKAddPassesViewController) {
         
         controller.dismiss(animated: true, completion: nil)
@@ -325,36 +292,7 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
             }))
         self.present(passAddedToWalletInfo, animated: true)
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.listener.remove()
-        print("listener removed")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
 
-    }
-    
-    func readTransaction()
-    {
-        do{
-            currentTransaction = transaction[0].transactionID
-            house = transaction[0].house
-            block = transaction[0].block
-            showLabel.text = transaction[0].show
-            dateLabel.text = transaction[0].date
-            ticketsLabel.text = String(transaction[0].tickets)
-            seatsLabel.text = transaction[0].seats.toPrint
-            houseLabel.text = transaction[0].house
-            emailLabel.text = transaction[0].email
-            
-        } catch {
-            print("ha")
-        }
-        
-    }
     
     func delayWithSeconds(_ seconds: Double, completion: @escaping () -> ()) {
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {

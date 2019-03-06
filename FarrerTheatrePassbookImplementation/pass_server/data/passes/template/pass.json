@@ -37,14 +37,14 @@
       {
         "key" : "showTitle",
         "label" : "Production",
-        "value" : "DNA"
+        "value" : "---"
       }
     ],
     "secondaryFields": [
       {
         "key" : "date",
         "label" : "Date",
-        "value" : "Tuesday 7th December"
+        "value" : "---"
       }
     ],
     "auxiliaryFields": [
@@ -56,7 +56,7 @@
       {
         "label" : "venue",
         "key" : "VENUE",
-        "value" : "Farrer Theatre"
+        "value" : "---"
       }
     ]
   }

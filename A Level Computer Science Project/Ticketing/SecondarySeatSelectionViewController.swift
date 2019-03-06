@@ -57,7 +57,6 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
         statsRef.updateData([
             "availableSeats": compareSeats(),
             "availableTickets": ticket[0].availableTickets,
-            "numberOfTicketHolders": ticket[0].numberOfTicketHolders,
             "ticketHolders": FieldValue.arrayUnion([user.getCurrentUserEmail()])
         ])  { err in
             if err != nil {
@@ -86,50 +85,9 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
             "block": block
         ]
         
-        pushToFirestore(dateIndex: String(dateIndex))
-        pushToFirestore(dateIndex: "4")
-        /*
-        let userStatsRef = db.collection("shows").document(showName).collection(String(dateIndex)).document("userStats")
+       // pushToFirestore(dateIndex: String(dateIndex))
+        //pushToFirestore(dateIndex: "4")
 
-        let currentHouse = house!
-        let currentBlock = block!
-        var currentBlockStat: Int = 0
-        var currentHouseStat: Int = 0
-        userStatsRef.getDocument {(documentSnapshot, error) in
-            if let document = documentSnapshot {
-                print(document.data(), "document")
-                currentHouseStat = document.data()![currentHouse] as! Int
-                currentBlockStat = document.data()![currentBlock] as! Int
-                
-                userStatsRef.updateData([
-                    self.house: currentHouseStat + 1,
-                    self.block: currentBlockStat + 1
-                    ])
-                
-            }
-        }
-        
-        let totalStatsRef = db.collection("shows").document(showName).collection("4").document("userStats")
-        
-        let currentHouse = house!
-        let currentBlock = block!
-        var currentBlockStat: Int = 0
-        var currentHouseStat: Int = 0
-        userStatsRef.getDocument {(documentSnapshot, error) in
-            if let document = documentSnapshot {
-                print(document.data(), "document")
-                currentHouseStat = document.data()![currentHouse] as! Int
-                currentBlockStat = document.data()![currentBlock] as! Int
-                
-                userStatsRef.updateData([
-                    self.house: currentHouseStat + 1,
-                    self.block: currentBlockStat + 1
-                    ])
-                
-            }
-        }
-        */
-        
         print(currentUser.debugDescription, "debug")
         print(house, "currentUserHouse")
         var transactionRef = db.collection("transactions").document("currentTransaction")
@@ -418,6 +376,13 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
         {
             let destinationVC = segue.destination as! TicketConfirmationViewController
             destinationVC.dateIndex = dateIndex
+            destinationVC.show = showName
+            destinationVC.date = date
+            destinationVC.seats = picked.description
+            destinationVC.email = user.getCurrentUserEmail()
+            destinationVC.tickets = String(allocatedSeats!)
+            
+            
         }
     }
  

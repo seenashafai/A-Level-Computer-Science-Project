@@ -2,10 +2,10 @@
   "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
   "formatVersion": 1,
   "organizationName": "Farrer Theatre",
-  "serialNumber": "770adf2613d45e7618daad8ffbc7404b",
+  "serialNumber": "dc224c0c3c68c2e8f1722e1daaa2a8cb",
   "teamIdentifier": "AZQME83VC4",
-  "webServiceURL": "http://rogue01.local:6789/",
-  "authenticationToken": "19be5c9607b83de73e8f8af7258c137a",
+  "webServiceURL": "http://rogue01.local:5757/",
+  "authenticationToken": "f4202b03a54f0b36509c15eaef461128",
   "description": "Play Ticket",
   "foregroundColor": "#FFFFFF",
   "backgroundColor": "#FF6161",
@@ -23,7 +23,7 @@
   "barcode": {
     "messageEncoding": "utf-8",
     "format": "PKBarcodeFormatQR",
-    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"770adf2613d45e7618daad8ffbc7404b\",\"authentication_token\":\"19be5c9607b83de73e8f8af7258c137a\"}"
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"dc224c0c3c68c2e8f1722e1daaa2a8cb\",\"authentication_token\":\"f4202b03a54f0b36509c15eaef461128\"}"
   },
   "eventTicket": {
     "headerFields": [
@@ -37,21 +37,21 @@
       {
         "key": "showTitle",
         "label": "Production",
-        "value": "TestShow5"
+        "value": "King Lear"
       }
     ],
     "secondaryFields": [
       {
         "key": "date",
         "label": "Date",
-        "value": "Friday 5th December"
+        "value": "Friday"
       }
     ],
     "auxiliaryFields": [
       {
         "key": "seatRef",
         "label": "Seat Reference",
-        "value": "[8]"
+        "value": "[36, 37, 39, 40, 38]"
       },
       {
         "label": "venue",
