@@ -22,7 +22,6 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     var user = FirebaseUser()
     var houseInitialsArray = [String]()
     var houseSelected: String?
-    var blocksArray = [String]()
     var blockSelected: String?
     
     //MARK: - IB Links
@@ -37,11 +36,12 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     
+
     //Sign-up button action
     @IBAction func signUpButton(_ sender: Any)
     {
+        HUD.flash(.systemActivity)
         guard housePickerView.selectedRow(inComponent: 0) != 0 else {self.present(alerts.invalidHouseErrorAlertController(), animated: true); return}
-        HUD.show(HUDContentType.systemActivity)
         signUpValidation()
     }
     
@@ -67,18 +67,18 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         }
         user.sendUserValidationEmail()
         
-        //var _: DocumentReference? = nil
+        //Collect user information into a dictionary and set the data to the 'users' node
         db.collection("users").document(emailTextField.text!).setData([
             "firstName": firstNameTextField.text!,
             "lastName": lastNameTextField.text!,
             "emailAddress": emailTextField.text!,
-            "house": houseSelected,
-            "block": blockSelected,
+            "house": houseSelected!,
+            "block": blockSelected!,
             "admin": false
-            
-        ]) { err in
-            if err != nil {
-                print("error", err?.localizedDescription)
+            //Error handling
+        ]) { err in //Initiated by the server
+            if err != nil { //Executes if the server returns an error
+                print("error", err?.localizedDescription as Any)
             } else
             {
                 print("success")
@@ -87,7 +87,10 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     @IBOutlet weak var housePickerView: UIPickerView!
+    
+    //Block picker view connection
     @IBOutlet weak var blockPickerView: UIPickerView!
+    let blocksArray = ["B", "C", "D", "E", "F"] //Block pickerview data
     
     //MARK: - UIPickerViewDelegate
     
@@ -96,15 +99,17 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == housePickerView
+        if pickerView == housePickerView //House picker view
         {
+            //Return number of houses
             return houseInitialsArray.count
         }
-        if pickerView == blockPickerView
+        if pickerView == blockPickerView //Block picker view
         {
+            //Return number of blocks
             return blocksArray.count
         }
-        return 0
+        return 0 //Default- shouldn't execute
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -122,13 +127,9 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == housePickerView
         {
+            //Define selected house as the selected row in the picker
             houseSelected = houseInitialsArray[row]
-            print(houseSelected)
-        }
-        if pickerView == blockPickerView
-        {
-            blockSelected = blocksArray[row]
-            print(blockSelected)
+            print(houseSelected!) //Output selected house
         }
     }
     

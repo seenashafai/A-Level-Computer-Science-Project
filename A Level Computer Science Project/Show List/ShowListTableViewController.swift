@@ -18,11 +18,12 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     //MARK: - Variables
     var dateSortIndex = 0
     var nameSortIndex = 0
-    var userIsAdmin = true
+    var userIsAdmin: Bool?
     var swipeIndex: IndexPath?
     var global = Global()
     var blockStatsDict: [String: Any] = [:]
     var houseStatsDict: [String: Any] = [:]
+    var currentUser: [String: Any] = [:]
 
     
     //MARK: - Initialise Firebase Properties
@@ -225,7 +226,6 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     //MARK: - Admin Settings
     @objc func adminSettingsTapped()
     {
-        print("epic admin time")
         performSegue(withIdentifier: "toAddShow", sender: nil)
     }
     
@@ -280,13 +280,13 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         setFirebaseSettings()
 
         print(global.globalUser?.debugDescription, "debugDesc")
-        print(userIsAdmin, "admin")
         getHouseBlockStats()
         self.dateSortIndex = 0
         self.query = baseQuery()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         setSearchBarSettings()
+        pullUserInformation()
         if userIsAdmin == true
         {
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(adminSettingsTapped))
@@ -324,6 +324,18 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
             self.documents = snapshot.documents
             self.tableView.reloadData()
 
+        }
+    }
+    
+    //Retrieve dictionary of user information
+    func pullUserInformation() {
+        let userEmail = Auth.auth().currentUser?.email //Get user email
+        let userRef = db.collection("users").document(userEmail!) //Create reference for user's location in db
+        userRef.getDocument {(documentSnapshot, error) in //Retrieve data from database reference
+            if let document = documentSnapshot { //Validate data to make sure it is not nil
+                self.currentUser = (document.data() ?? nil)! //Assign data as local dictionary
+                self.userIsAdmin = self.currentUser["admin"] as! Bool
+            }
         }
     }
 

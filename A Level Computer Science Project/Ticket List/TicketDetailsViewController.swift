@@ -11,9 +11,15 @@ import Firebase
 import FirebaseAuth
 import FirebaseFirestore
 import PassKit
+import Alamofire
 
 class TicketDetailsViewController: UIViewController, PKAddPassesViewControllerDelegate {
 
+    //MARK: - Properties
+    var ticket: UserTicket?
+    
+    let APIEndpoint = "https://ftpkdist.serveo.net"
+    
     //MARK: - IBOutlets
     @IBOutlet weak var showTextLabel: UILabel!
     @IBOutlet weak var dateTextLabel: UILabel!
@@ -21,8 +27,7 @@ class TicketDetailsViewController: UIViewController, PKAddPassesViewControllerDe
     @IBOutlet weak var seatsTextLabel: UILabel!
     @IBOutlet weak var attendanceTextLabel: UILabel!
     
-    //MARK: - Properties
-    var ticket: UserTicket?
+    
     var showName: String?
     var showFuncs = showFunctions()
     var db: Firestore!
@@ -34,7 +39,7 @@ class TicketDetailsViewController: UIViewController, PKAddPassesViewControllerDe
     @IBOutlet weak var addPassButton: UIButton!
     @IBAction func addPassAction(_ sender: Any) {
         print("pressed")
-        downloadTicket2()
+        downloadTicket()
     }
     
     @IBAction func reviewAction(_ sender: Any) {
@@ -79,56 +84,53 @@ class TicketDetailsViewController: UIViewController, PKAddPassesViewControllerDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        db = Firestore.firestore()
-        doesReviewExist()
         showTextLabel.text = ticket?.show
-        dateTextLabel.text = ticket?.date
+        
+        
+        let suffix = showFuncs.suffixFromTimestamp(timestamp: ticket!.date!) //Retrieve suffix for date
+        let date = showFuncs.timestampDateConverter(timestamp: ticket!.date!, format: "MMMM d") //Get date without year
+        let year = showFuncs.timestampDateConverter(timestamp: ticket!.date!, format: " YYYY") //Get year
+        //Secondary text label to display date
+        dateTextLabel.text = date + suffix + year
         ticketsTextLabel.text = ticket?.tickets
         seatsTextLabel.text = ticket?.seats
-        if ticket?.attendance == true
+        if ticket?.attendance == false
         {
-            attendanceTextLabel.text = "True"
-        } else {
             attendanceTextLabel.text = "False"
-            reviewOutlet.isUserInteractionEnabled = false
+            reviewOutlet.isUserInteractionEnabled = false //Disable user interaction
+
+        } else {
+            attendanceTextLabel.text = "True"
         }
         // Do any additional setup after loading the view.
     }
     
-    func downloadTicket2()
+    func downloadTicket()
     {
-        let uid = ticket?.ticketID
-        let url : NSURL! = NSURL(string: "http://ftpkdist.serveo.net/users/\(uid!)/pass.pkpass")
-        let request: NSURLRequest = NSURLRequest(url:
-            url as URL)
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
+        //Define URL for HTTP GET request with UID + pass suffix
+        let ticketEndpoint = APIEndpoint+"/users/\((ticket!.ticketID))/pass.pkpass"
+        print(ticket!.ticketID, "tId")
         
-        let task : URLSessionDataTask = session.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) in
-            let pass = try? PKPass(data: data!)
-            if error != nil {
-                DispatchQueue.main.async {
-                    self.present(self.alerts.localizedErrorAlertController(message: (error?.localizedDescription)!), animated: true)
-                }
-            }
-            else {
-                let passLibrary = PKPassLibrary()
-                if passLibrary.containsPass(pass!) {
-                    DispatchQueue.main.async {
-                        self.present(self.alerts.alreadyInWalletInfo(), animated: true)
-                    }
-                } else {
-                    let pkvc = PKAddPassesViewController(pass: pass!)
-                    pkvc!.delegate = self
+        //Send request, with 'GET' method, default encoding and no form fields...
+        
+        Alamofire.request(ticketEndpoint, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+            .responseJSON { response in //Open closure to handle errors and results
+                print(response.request?.description)
+                //Error Handling & Converting JSON data to pass
+                
+                let pass = try? PKPass(data: response.data!)
+                if let ticket = pass{
+                    //Results handling...
+                    let pkvc = PKAddPassesViewController(pass: ticket) //Create temporary view to present downloaded pass
+                    pkvc!.delegate = self //Set delegate to current class
+                    //Present temporary view to user
                     self.present(pkvc!, animated: true, completion: {() -> Void in
-                        print("presented pkvc")
+                        print("presented pkvc") //Trace output, executes once the temporary view has completed its animation
                     })
-                    print("done")
-                    
+                } else {
+                    print("server issues")
                 }
-            }
-        })
-        task.resume()
+        }
     }
 
     func presentExistingReviewAlert()

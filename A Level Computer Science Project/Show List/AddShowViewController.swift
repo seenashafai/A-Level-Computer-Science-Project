@@ -7,23 +7,34 @@
 //
 
 import UIKit
-import Firebase
 import FirebaseFirestore
 import FirebaseStorage
-import PKHUD
+
+
 
 class AddShowViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    //MARK: - IB Links
+    @IBOutlet var showNameTextField: UITextField!
+    @IBOutlet var categorySegmentedControl: UISegmentedControl!
+    @IBOutlet var venueSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var datePickerView: UIDatePicker!
+    @IBOutlet var imageView: UIImageView!
+
+    
+
+    
+    
+    
     
     //MARK: - Properties
     var db: Firestore!
     var show: Show?
     var imagePicker: UIImagePickerController = UIImagePickerController()
     let storage = Storage.storage()
-    let showFunc = showFunctions()
     var edit: Bool?
 
     //MARK: - Image Picker Methods
-    @IBOutlet var imageView: UIImageView!
     @IBAction func pickImageAction(_ sender: Any) {
         self.present(imagePicker, animated: true, completion: nil)
     }
@@ -49,12 +60,7 @@ class AddShowViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
-    //MARK: - IB Links
-    @IBOutlet var showNameTextField: UITextField!
-    @IBOutlet var categorySegmentedControl: UISegmentedControl!
-    @IBOutlet var venueSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var datePickerView: UIDatePicker!
-
+    
     
     
     //MARK: - View Lifecycle
@@ -79,20 +85,25 @@ class AddShowViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func setVariables() -> [String: Any]
     {
-        let date = showFunc.convertDate(date: datePickerView!.date as NSDate)
+        
+        //Class instances
+        let showFunc = showFunctions()
+        
+        let name = showNameTextField.text //Define show name
+        //Define show category and venue using the switch-case statement in the showFunctions class
         let venue = showFunc.setData(index: venueSegmentedControl.selectedSegmentIndex, var1: "Farrer Theatre", var2: "Caccia Studio", var3: "Empty Space")
-        let name = showNameTextField.text
-        print(name, "showName")
-        let director = "anyDirector"
         let category = showFunc.setData(index: categorySegmentedControl.selectedSegmentIndex, var1: "House", var2: "School", var3: "Independent")
+        //Get available tickets
         let availableTickets = showFunc.setAvailableSeats(venue: venue as? String)
+        let date = datePickerView.date //Get date from date picker
+        
+        //Combine values into a dictionary
         let showDataDict: [String: Any] = [
             "name": name as Any,
             "venue": venue as Any,
             "availableTickets": availableTickets as Any,
             "Category": category as Any,
             "Date": date as Any,
-            "director": director as Any
         ]
         return showDataDict
     }
@@ -135,30 +146,12 @@ class AddShowViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toMoreEdit"
+        if segue.identifier == "toMoreDetails" //Identify incoming segue
         {
+            //Instantiate the succeeding class
             let destVC = segue.destination as! MoreDetailsViewController
+            //Initialise the data dictionary in the new class
             destVC.showDataDict = setVariables()
-            destVC.show = show
-            destVC.edit = edit
-        }
-        if segue.identifier == "toMoreDetails"
-        {
-            let destVC = segue.destination as! MoreDetailsViewController
-            destVC.showDataDict = setVariables()
-            destVC.edit = edit
         }
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

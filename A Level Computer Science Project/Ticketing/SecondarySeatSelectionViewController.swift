@@ -67,13 +67,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
                 self.performSegue(withIdentifier: "toFinalConfirmation", sender: nil)
             }
         }
-        
-        
-        house = currentUser["house"] as! String
-        block = currentUser["block"] as! String
-        
 
-        
         transactionDict = [
             "transactionID": transactionID,
             "email": user.getCurrentUserEmail(),
@@ -85,8 +79,9 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
             "block": block
         ]
         
-       // pushToFirestore(dateIndex: String(dateIndex))
-        //pushToFirestore(dateIndex: "4")
+        //Push statistics to database
+        pushToFirestore(dateIndex: String(dateIndex)) //Specified date index
+        pushToFirestore(dateIndex: "4") //Total dateIndex
 
         print(currentUser.debugDescription, "debug")
         print(house, "currentUserHouse")
@@ -96,51 +91,37 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
 
     func pushToFirestore(dateIndex: String)
     {
-        let blockStatsRef = db.collection("shows").document(showName).collection(String(dateIndex)).document("blockStats")
-        let currentBlock = block!
-        var currentBlockStat: Int = 0
-        blockStatsRef.getDocument {(documentSnapshot, error) in
-            if let document = documentSnapshot {
-                print(document.data(), "document")
-                currentBlockStat = document.data()![currentBlock] as! Int
+        //Input date index and create database reference for block statistics
+        let blockStatsRef = db.collection("shows").document(showName).collection(dateIndex).document("blockStats")
+        let currentBlock = currentUser["block"] as! String //Retrieve user's block from dictionary
+        var currentBlockStat: Int? //Initialise empty block statistic to be filled by database
+        blockStatsRef.getDocument {(documentSnapshot, error) in //Retrieve database dictionary of all blocks
+            if let document = documentSnapshot { //Validate pulled dictionary to ensure it is not empty
+                currentBlockStat = document.data()![currentBlock] as? Int //Pull block statistic from dictionary and assign it locally
                 
+                //Increment block stat
                 blockStatsRef.updateData([
-                    self.block: currentBlockStat + 1
+                    currentBlock: currentBlockStat! + 1
                     ])
             }
         }
-        
-        let houseStatsRef = db.collection("shows").document(showName).collection(String(dateIndex)).document("houseStats")
-        let currentHouse = house!
-        var currentHouseStat: Int = 0
-        houseStatsRef.getDocument {(documentSnapshot, error) in
-            if let document = documentSnapshot {
-                print(document.data(), "document")
-                currentHouseStat = document.data()![currentHouse] as! Int
+        //Input date index and create database reference for house statistics
+        let houseStatsRef = db.collection("shows").document(showName).collection(dateIndex).document("houseStats")
+        let currentHouse = currentUser["house"] as! String//Retrieve user's house from dictionary
+        var currentHouseStat: Int? //Initialise empty house statistic to be filled from database
+        houseStatsRef.getDocument {(documentSnapshot, error) in //Retrieve database dictionary of all houses
+            if let document = documentSnapshot { //Validate pulled dictionary to ensure it is not empty
+                currentHouseStat = document.data()![currentHouse] as? Int //Pull house statistic from dictionary and assign it locally
                 
+                //Upload incremented house stat
                 houseStatsRef.updateData([
-                    self.house: currentHouseStat + 1,
+                    currentHouse: currentHouseStat! + 1,
                     ])
-
             }
         }
     }
     
-    func getTransactionID()
-    {
-        let transactionRef = db.collection("properties").document("transactions")
-        transactionRef.getDocument {(documentSnapshot, error) in
-            if let error = error
-            {
-                print(error.localizedDescription, "transaction retrieval error")
-                return
-            }
-            if let document = documentSnapshot {
-                self.transactionID = document.data()!["runningTotal"] as! Int
-                }
-            }
 
-        }
     
     func viewForCoordinate(x: Int, y: Int, size: CGSize) -> UIView {
         let centerX = Int(venueView.frame.size.width / CGFloat(venueWidth)) * x
@@ -206,29 +187,27 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        db = Firestore.firestore()
-        getTransactionID()
-        self.query = baseQuery()
+        db = Firestore.firestore() //Initialise database in class
+        pullUserInformation() //Retrieve information from database
+        
         confirmBarButtonOutlet.isEnabled = false
         venueView.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
         generateSeats()
         totalSeatsLabel.text = allocatedSeats?.description
         remainingSeats = allocatedSeats
         remainingSeatsLabel.text = allocatedSeats?.description
-        
-       
     }
     
     
     //MARK: - Firebase Query methods
     
-    fileprivate func baseQuery() -> Query{
-        return db.collection("shows").document(showName).collection(String(dateIndex)).whereField("availableTickets", isGreaterThanOrEqualTo: 0)
-    }
-    fileprivate var query: Query? {
-        didSet {
-            if let listener = listener{
-                listener.remove()
+    //Retrieve dictionary of user information
+    func pullUserInformation() {
+        let userEmail = user.getCurrentUserEmail() //Get user email
+        let userRef = db.collection("users").document(userEmail) //Create reference for user's location in db
+        userRef.getDocument {(documentSnapshot, error) in //Retrieve data from database reference
+            if let document = documentSnapshot { //Validate data to make sure it is not nil
+                self.currentUser = (document.data() ?? nil)! //Assign data as local dictionary
             }
         }
     }
@@ -243,8 +222,8 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
         super.viewWillAppear(animated)
         
         
-        
-        self.listener =  query?.addSnapshotListener { (documents, error) in
+        let query = db.collection("shows").document(showName).collection(String(dateIndex)).whereField("availableTickets", isGreaterThanOrEqualTo: 0)
+        self.listener =  query.addSnapshotListener { (documents, error) in
             guard let snapshot = documents else {
                 print("Error fetching documents results: \(error!)")
                 return

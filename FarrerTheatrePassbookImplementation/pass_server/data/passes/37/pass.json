@@ -2,10 +2,10 @@
   "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
   "formatVersion": 1,
   "organizationName": "Farrer Theatre",
-  "serialNumber": "d14f583945b35da6d209c0399658bbe8",
+  "serialNumber": "22d45531f85faae838eecfe964c01cbc",
   "teamIdentifier": "AZQME83VC4",
-  "webServiceURL": "http://rogue01.local:6789/",
-  "authenticationToken": "beab69c5c0683f617cf91a9d6c9f9640",
+  "webServiceURL": "http://rogue01.local:5757/",
+  "authenticationToken": "11a1f8b4599ec9f4d59493fdcd93584a",
   "description": "Play Ticket",
   "foregroundColor": "#FFFFFF",
   "backgroundColor": "#FF6161",
@@ -23,7 +23,7 @@
   "barcode": {
     "messageEncoding": "utf-8",
     "format": "PKBarcodeFormatQR",
-    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"d14f583945b35da6d209c0399658bbe8\",\"authentication_token\":\"beab69c5c0683f617cf91a9d6c9f9640\"}"
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"22d45531f85faae838eecfe964c01cbc\",\"authentication_token\":\"11a1f8b4599ec9f4d59493fdcd93584a\"}"
   },
   "eventTicket": {
     "headerFields": [
@@ -37,26 +37,26 @@
       {
         "key": "showTitle",
         "label": "Production",
-        "value": "TestShow5"
+        "value": "Richard III"
       }
     ],
     "secondaryFields": [
       {
         "key": "date",
         "label": "Date",
-        "value": "Thursday 4th December"
+        "value": "9 May, 2019 + th"
       }
     ],
     "auxiliaryFields": [
       {
         "key": "seatRef",
         "label": "Seat Reference",
-        "value": "[95]"
+        "value": "[94, 93, 92, 91, 80]"
       },
       {
         "label": "venue",
         "key": "VENUE",
-        "value": "Empty Space"
+        "value": "Caccia Studio"
       }
     ]
   }

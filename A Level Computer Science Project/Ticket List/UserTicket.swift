@@ -7,18 +7,20 @@
 //
 
 import Foundation
+import Firebase
 
 struct UserTicket {
     
+    //Define variables
     var attendance: Bool = false
     var ticketID: Int = 0
-    var date: String = ""
+    var date: Timestamp?
     var seats: String = ""
     var show: String = ""
     var tickets: String = ""
-    var dateIndex: String = ""
+    var dateIndex: Int = 0 //1: Thursday, 2: Friday, 3: Saturday
     
-    //Initialise dictionary method
+    //Initialise dictionary method...
     var dictionary: [String: Any] {
         return [
             "ticketID": ticketID,
@@ -37,12 +39,12 @@ extension UserTicket { //Extension to the dictionary method to initialise it fro
     init?(dictionary: [String: Any]) {
         //Assign database values into a dictionary
         guard let attendance = dictionary["attendance"] as? Bool,
-            let date = dictionary["date"] as? String,
+            let date = dictionary["date"] as? Timestamp,
             let ticketID = dictionary["ticketID"] as? Int,
             let seats = dictionary["seats"] as? String,
             let show = dictionary["show"] as? String,
             let tickets = dictionary["tickets"] as? String,
-            let dateIndex = dictionary["dateIndex"] as? String
+            let dateIndex = dictionary["dateIndex"] as? Int
 
             else {return nil}
         

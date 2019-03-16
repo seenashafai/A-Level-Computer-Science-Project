@@ -22,7 +22,6 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     var listener: ListenerRegistration!
     var show = [Show]()
     var ticket = [Ticket]()
-    var currentUser: [String: Any] = [:]
     
     
     //MARK: - IB Links
@@ -140,15 +139,6 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         db = Firestore.firestore()
         self.query = baseQuery()
 
-        let userEmail = Auth.auth().currentUser?.email
-        let userRef = db.collection("users").document(userEmail!)
-        userRef.getDocument {(documentSnapshot, error) in
-            if let document = documentSnapshot {
-                self.currentUser = (document.data() ?? nil)!
-                print(self.currentUser["house"], "housetime")
-                
-            }
-        }
         
         ticketNumberTextField.text = String(1)
         ticketNumberStepper.maximumValue = 5
@@ -197,7 +187,6 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
             destinationVC.showName = ticketShowTitle
             destinationVC.date = dateSelected
             destinationVC.dateIndex = dateIndex
-            destinationVC.currentUser = currentUser
             
         }
     }

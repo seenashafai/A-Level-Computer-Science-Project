@@ -14,7 +14,7 @@ struct Review
     var description: String = ""
     var email: String = ""
     
-    var dictionary: [String: Any] {
+    var dictionary: [String: Any] { //Define dictionary conversion method
         return [
             "starRating": starRating,
             "description": description,
@@ -23,14 +23,15 @@ struct Review
     }
 }
 
-extension Review {
-    init?(dictionary: [String: Any]) {
+extension Review { //Extend class functionality with dictionary filler
+    init?(dictionary: [String: Any]) { //Initialise database
         guard let starRating = dictionary["starRating"] as? Double,
             let description = dictionary["description"] as? String,
             let email = dictionary["email"] as? String
 
             else {return nil}
         
+        //Initialise method and extension variables
         self.init(starRating: starRating, description: description, email: email)
     }
 }

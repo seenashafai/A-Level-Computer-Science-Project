@@ -14,117 +14,32 @@ import DataCompression
 
 class MoreDetailsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
+    
+    
+    //MARK: - Properties
     var db: Firestore!
     var showDataDict: [String: Any]?
-    var houseInitialsArray: [String]?
+    var houseInitialsArray = ["ABH", "AMM", "ASR", "AW", "BJH", "Coll", "DWG", "EJNR", "HWTA", "JCAJ", "JMG", "JD", "JDM", "JMO'B", "JRBS", "MGHM", "NA", "NCWS", "NTPL", "PAH", "PEPW", "PGW", "RDO-C"]
     var houseSelected: String?
-    var edit: Bool?
-    var show: Show?
     
-    var blockDict: [String: Any] = [:]
-    var houseDict: [String: Any] = [:]
 
-
+    //MARK: - Interface Objects
     @IBOutlet weak var housePickerView: UIPickerView!
     @IBOutlet weak var directorTextField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     
-    
-    
-    @IBAction func finishAction(_ sender: Any) {
-        compareAlgorithms()
-        let name = showDataDict!["name"] as! String
-        let director = directorTextField.text
-        let description = descriptionTextView.text
-        showDataDict?["director"] = director as Any
-        showDataDict?["description"] = description as Any
-        showDataDict?["house"] = houseSelected ?? ""
-        let originalName = show?.name
-        if edit == true
-        {
-            let modificationAlert = UIAlertController(title: "Warning", message: "Any changes you make cannot be undone past this point. Would you like to continue? ", preferredStyle: .alert) //Define alert and error message title and description
-            modificationAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: //Add action to yes/no buttons
-                {action in //Begin action methods...
-                    let showRef = self.db.collection("shows").document(name)//Define database location of new show
-                    showRef.setData(self.showDataDict!) { error in  //Define database location with new show dictionary
-                        //Begin completion handler...
-                        if error != nil { //If an error is present
-                            print("error found", error?.localizedDescription as Any) //Print the error description
-                        } else
-                        {
-                            print("success - no error given") //Trace statement to show that there was no error
-                            let oldShowRef = self.db.collection("shows").document(originalName!) //Define old database location of show
-                            oldShowRef.delete() //Delete the old show reference
-                        }
-                    }
-                    self.navigationController?.popViewController(animated: true) //Navigate the user back to the show table
-            }))
-            modificationAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil)) //Add a 'no' button with no actions
-            self.present(modificationAlert, animated: true) //Present the alert to the user along with the two action buttons
-        }
-        else
-        {
-            
-            let showRef = db.collection("shows").document(name)
-            showRef.setData(showDataDict!)
-            let seatsArray = self.arrayGen()
-            for i in 1..<5
-            {
-                let ticketAvailabilityRef = self.db.collection("shows").document(name).collection(String(i)).document("statistics")
-                print(seatsArray, "seats")
-                ticketAvailabilityRef.setData([
-                    "attendees": 0,
-                    "availableSeats": seatsArray, // generate new seating chart
-                    "availableTickets": 100,
-                    "numberOfTicketHolders": 0,
-                    "ticketHolders": FieldValue.arrayUnion([])
-                ])  { err in
-                    if err != nil {
-                        print("error", err?.localizedDescription)
-                    } else
-                    {
-                        print("success")
-                    }
-                }
-                let reviewsArray = [Double]()
-                let blockStatsRef = self.db.collection("shows").document(name).collection(String(i)).document("blockStats")
-                let houseStatsRef = self.db.collection("shows").document(name).collection(String(i)).document("houseStats")
-                let reviewsRef = self.db.collection("shows").document(name).collection(String(i)).document("reviews")
-                reviewsRef.setData(["ratingsArray": FieldValue.arrayUnion(reviewsArray)])
-                blockStatsRef.setData(self.blockDict)
-                houseStatsRef.setData(self.houseDict)
-
-            }
-            navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: true)
-        }
-    }
-    
-    func retrieveFromFirestore()
+    //MARK: - Interface actions
+    @IBAction func finishAction(_ sender: Any)
     {
-        let blockStatsRef = db.collection("properties").document("blockStats")
-        blockStatsRef.getDocument {(documentSnapshot, error) in
-            if let document = documentSnapshot {
-                self.blockDict = document.data()!
-            }
-        }
+        //Add new data to dictionary
+        showDataDict!["director"] = directorTextField.text
+        showDataDict!["description"] = descriptionTextView.text
+        showDataDict!["house"] = houseSelected ?? ""
         
-        let houseStatsRef = db.collection("properties").document("houseStats")
-        houseStatsRef.getDocument {(documentSnapshot, error) in
-            if let document = documentSnapshot {
-                self.houseDict = document.data()! as! [String : Int]
-            }
-        }
-    }
-    
-    func arrayGen() -> [Int]
-    {
-        var seatsArray = [Int]()
-        for i in 0..<100
-        {
-            seatsArray.append(i)
-        }
-        print(seatsArray)
-        return seatsArray
+        //Push to database
+        let name = showDataDict!["name"] as! String//Get show name
+        let showRef = db.collection("shows").document(name) //Create show reference
+        showRef.setData(showDataDict!) //Add data to show node in database
     }
     
     func compressDescription() -> Any
@@ -152,102 +67,39 @@ class MoreDetailsViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
     }
     
-    //MARK: - UIPickerViewDelegate
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == housePickerView
-        {
-            return houseInitialsArray?.count ?? 0
-        }
-        return 0
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == housePickerView
-        {
-            return houseInitialsArray?[row]
-        }
-        return ""
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == housePickerView
-        {
-            houseSelected = houseInitialsArray?[row]
-            print(houseSelected)
-        }
-    }
-    
-    func initialiseHousePickerForEditing()
+    //MARK: - UIPickerViewDelegate + Datasource
+    func numberOfComponents(in pickerView: UIPickerView) -> Int
     {
-        for house in houseInitialsArray!
-        {
-            if show?.house == house
-            {
-                let houseIndex = houseInitialsArray?.firstIndex(of: house)
-                housePickerView.selectRow(houseIndex!, inComponent: 0, animated: false)
-            }
-        }
+        return 1 //Number of components/sections
     }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
+    {
+        return houseInitialsArray.count //Number of rows
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
+    {
+        return houseInitialsArray[row] //Title for each row
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    {
+        houseSelected = houseInitialsArray[row] //Get selected row
+    }
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        db = Firestore.firestore()
-
-        if edit == true
-        {
-            directorTextField.text = show?.director
-            descriptionTextView.text = show?.description
-        }
-        print(showDataDict, "showDataDict")
-        retrieveFromFirestore()
-
-        let houseArrayRef = db.collection("properties").document("houses")
-        houseArrayRef.getDocument {(documentSnapshot, error) in
-            if let document = documentSnapshot {
-                self.houseInitialsArray = document["houseInitialsArray"] as? Array ?? [""]
-                print(self.houseInitialsArray)
-            }
-            self.housePickerView.reloadAllComponents()
-            self.initialiseHousePickerForEditing()
-
-        }
-        
+        db = Firestore.firestore() //Initialise database
+        //Check if category is not House
         if showDataDict?["Category"] as! String != "House"
         {
+            //Disable user interaction if not a house play
             housePickerView.isUserInteractionEnabled = false
         }
-        print(showDataDict, "transferred")
-        housePickerView.setValue(UIColor.white, forKeyPath: "textColor")
+    }
 
-
-        // Do any additional setup after loading the view.
-    }
-    
-    func delayWithSeconds(_ seconds: Double, completion: @escaping () -> ()) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-            completion()
-        }
-    }
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-/*
-    func firebase()
-    {
-     
-    }
- */
 }
+

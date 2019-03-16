@@ -11,27 +11,17 @@ import Firebase
 import FirebaseAuth
 
 
-struct User: Comparable {
-    
-    static func < (lhs: User, rhs: User) -> Bool {
-        return lhs.ticketsBooked < rhs.ticketsBooked
-    }
-    
-    static func == (lhs: User, rhs: User) -> Bool {
-        return lhs.ticketsBooked == rhs.ticketsBooked
-    }
+struct User {
     
     let firstName: String
     let lastName: String
     let email: String
     let house: String
     let block: String
-    let admin: Int
-    let ticketsBooked: Int
-    let showsBookedArray: [String]
+    let admin: Int //Bool: True = 1, False = 0
     let showAttendance: [String: Any]
     
-    var dictionary: [String: Any] {
+    var dictionary: [String: Any] { //Implement dictionary method
         return [
             "firstName": firstName,
             "lastName": lastName,
@@ -39,15 +29,13 @@ struct User: Comparable {
             "house": house,
             "block": block,
             "admin": admin,
-            "ticketsBooked": ticketsBooked,
-            "showsBookedArray": showsBookedArray,
             "showAttendance": showAttendance
         ]
     }
 }
 
 
-extension User {
+extension User { //Extend class by initialising dictionary
     init?(dictionary: [String: Any]) {
         guard let firstName = dictionary["firstName"] as? String,
         let lastName = dictionary["lastName"] as? String,
@@ -55,14 +43,11 @@ extension User {
         let house = dictionary["house"] as? String,
         let block = dictionary["block"] as? String,
         let admin = dictionary["admin"] as? Int,
-        let ticketsBooked = dictionary["ticketsBooked"] as? Int,
-        let showsBookedArray = dictionary["showsBookedArray"] as? [String],
         let showAttendance = dictionary["showAttendance"] as? [String: Any]
-
 
             else {return nil}
         
-        self.init(firstName: firstName, lastName: lastName, email: email, house: house, block: block, admin: admin, ticketsBooked: ticketsBooked, showsBookedArray: showsBookedArray, showAttendance: showAttendance)
+        self.init(firstName: firstName, lastName: lastName, email: email, house: house, block: block, admin: admin, showAttendance: showAttendance)
      }
 }
 

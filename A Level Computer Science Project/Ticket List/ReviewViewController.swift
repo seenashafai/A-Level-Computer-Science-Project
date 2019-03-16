@@ -19,8 +19,11 @@ class ReviewViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var reviewTextView: UITextView!
     
     //MARK - Properties
+    var ticket: UserTicket? //Pre-loaded from previous class
     var db: Firestore!
-    var ticket: UserTicket?
+    
+    
+    
     var alerts = Alerts()
     var user = FirebaseUser()
     
@@ -28,27 +31,32 @@ class ReviewViewController: UIViewController, UITextViewDelegate {
     
     @IBAction func submitAction(_ sender: Any) {
         
-        let review = reviewTextView.text
-        print(reviewTextView.text, "reviewText")
-        let starRating = cosmosView.rating
-        let strDateIndex = String(ticket!.dateIndex)
-        let ratingsRef = db.collection("shows").document((ticket?.show)!).collection(strDateIndex).document("reviews").collection("userReviews").document(user.getCurrentUserEmail())
-        ratingsRef.setData([
-            "review": review,
-            "starRating": starRating,
-            "email": user.getCurrentUserEmail()
-            ])
-        ratingsArray?.append(starRating)
-        let totalRatingsRef = db.collection("shows").document((ticket?.show)!).collection(strDateIndex).document("reviews")
-        totalRatingsRef.setData(["ratingsArray": FieldValue.arrayUnion(ratingsArray!)])
-        let submittedReviewAlert = UIAlertController(title: "Information", message: "Review successfully submitted. Thanks for your contribution", preferredStyle: .alert)
-        submittedReviewAlert.addAction(UIAlertAction(title: "OK", style: .default, handler:
-            {   action in //Begin action methods...
-                print("doing")
-                self.navigationController?.popViewController(animated: true)
-        }))
+        //get Review data
+        let review = reviewTextView.text //Get description
+        let starRating: Double = cosmosView.rating //Get star rating
+        var dateIndex = String(ticket!.dateIndex) //Get date index and convert to String
         
-        present(submittedReviewAlert, animated: true)
+        let email = user.getCurrentUserEmail() //Get email of current user to use as node name
+        
+        //Upload details to database with email as node name: shows -> show name -> reviews -> userReviews -> email
+        let ratingsRef = db.collection("shows").document((ticket?.show)!).collection(dateIndex).document("reviews").collection("userReviews").document(email)
+       
+        //set data in query location
+        ratingsRef.setData([
+            "review": review!, //Add review
+            "starRating": starRating, //Add star rating
+            "email": email //Add email
+            ])
+        
+        //Create reference for the 4th date index (total show statistics and reviews)
+        let totalRef = db.collection("shows").document((ticket?.show)!).collection("4").document("reviews").collection("userReviews").document(email)
+        
+        //set data in query location
+        totalRef.setData([
+            "review": review!, //Add review
+            "starRating": starRating, //Add star rating
+            "email": email //Add email
+            ])
         
     }
     

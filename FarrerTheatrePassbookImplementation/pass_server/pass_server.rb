@@ -253,13 +253,14 @@ class PassServer < Sinatra::Base
 #      user.to_json
 #  end
 
+  #Retrieving user information endpoint
   get "/users/:user_id" do
     user = self.users.where(:id => params[:user_id]).first
-    if request.accept.include? "application/json"
+    if request.content_type == "application/json" #JSON 'content type' header used
       content_type 'application/json', :charset => 'utf-8'
-      user.to_json
-    else
-      erb :'users/show.html', :locals => { :user => user }
+      user.to_json #Convert to JSON
+    else #No headers applied
+      erb :'users/show.html', :locals => { :user => user } #Output as HTML
     end
   end
 
@@ -291,14 +292,15 @@ class PassServer < Sinatra::Base
   end
 
   # Retrieve the owner of the specified pass
-  # Used by the iOS app to match a pass's barcode to a user account
-  get "/user_for_pass/:pass_type_id/:serial_number/:authentication_token" do
-    pass = self.passes.where(:pass_type_id => params[:pass_type_id], :serial_number => params[:serial_number], :authentication_token => params[:authentication_token]).first
-    if pass
-      user_id = pass[:user_id]
-      redirect "/users/#{user_id}"
+  # Matches a pass's barcode to a user account in the database
+  get "/user_for_pass/:pass_type_id/:serial_number/:authentication_token" do #Endpoint requires pass type ID, serial number, auth token
+    pass = self.passes.where(:pass_type_id => params[:pass_type_id], :serial_number => params[:serial_number],
+      :authentication_token => params[:authentication_token]).first #Use attributes to locate pass in database
+    if pass #Validate pass exists
+      user_id = pass[:user_id] #Retrieve user id from pass table
+      redirect "/users/#{user_id}" #Redirect front-end to section containing user's details
     else
-      status 404
+      status 404 #If endpoint not found, return error code 404 (not nound)
     end
   end
 

@@ -19,17 +19,17 @@ class UserDetailsViewController: UIViewController {
     @IBOutlet weak var blockLabel: UILabel!
     @IBOutlet weak var houseLabel: UILabel!
     @IBOutlet weak var ticketLabel: UILabel!
-    @IBOutlet weak var attendanceLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let fullUserName = String((user?.firstName)! + (user?.lastName)!)
+        //Assign passed variables to labels
+        //Concatenate first and last names
+        let fullUserName = String((user?.firstName)! + " " + (user?.lastName)!)
         nameLabel.text = fullUserName
         emailLabel.text = user?.email
         blockLabel.text = user?.block
         houseLabel.text = user?.house
-        ticketLabel.text = String((user?.ticketsBooked)!)
-        attendanceLabel.text = user?.showAttendance.description
+        ticketLabel.text = String((user?.showAttendance.count)!)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
