@@ -56,9 +56,6 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
         print(user.getCurrentUserEmail(), "currentUserEmail")
         statsRef.updateData([
             "availableSeats": compareSeats(),
-            "availableTickets": ticket[0].availableTickets,
-            "numberOfTicketHolders": ticket[0].numberOfTicketHolders,
-            "ticketHolders": FieldValue.arrayUnion([user.getCurrentUserEmail()])
         ])  { err in
             if err != nil {
                 print("errorino", err?.localizedDescription)
@@ -194,25 +191,6 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
         return view
     }
     
-    func seatsTaken() -> [Int]
-    {
-        print(picked, "picked")
-        for seat in 0..<picked.count
-        {
-            for i in 0..<seatsArray!.count
-            {
-                print(seatsArray?[i], "seatspicked")
-                print(picked[seat], "pickedseat")
-                if picked[seat] == seatsArray?[i]
-                {
-                    seatsArray!.remove(at: seat)
-                    print("removed", seatsArray?[i])
-                }
-            }
-            print(seatsArray, "withRemoved")
-        }
-        return seatsArray!
-    }
     
     func compareSeats() -> [Int]
     {

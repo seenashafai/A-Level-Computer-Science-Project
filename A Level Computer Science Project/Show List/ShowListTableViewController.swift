@@ -1,17 +1,10 @@
-//
 //  ShowListTableViewController.swift
-//  A Level Computer Science Project
-//
-//  Created by Shafai, Seena (JRBS) on 17/09/2018.
 //  Copyright © 2018 Seena Shafai. All rights reserved.
-//
 
 import UIKit
 import Firebase
 import FirebaseFirestore
-import FirebaseStorage
 import MaterialComponents.MaterialSnackbar
-import PKHUD
 
 class ShowListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -20,18 +13,14 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     var nameSortIndex = 0
     var userIsAdmin = true
     var swipeIndex: IndexPath?
-    var global = Global()
     var blockStatsDict: [String: Any] = [:]
     var houseStatsDict: [String: Any] = [:]
-
     
     //MARK: - Initialise Firebase Properties
-    var documents: [DocumentSnapshot] = []
     var listener: ListenerRegistration!
     var dbShows = [Show]()
     var db: Firestore!
     var showFuncs = showFunctions()
-    var showForSegue: Show?
     
     //MARK: - Search bar Properties
     var filteredShows = [Show]()
@@ -51,16 +40,14 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering()
+        if isFiltering() //If filtering is active
         {
-            return filteredShows.count
+            return filteredShows.count //Number of rows = number of shows in filtered array
         }
-        return dbShows.count
+        return dbShows.count //Default: number of rows per section from full array
     }
     
-    
     //MARK: - TableView Delegate
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ShowListTableViewCell
         let show: Show
@@ -69,78 +56,20 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         } else {
             show = dbShows[indexPath.row]
         }
-        cell.cellNameLabel.text = show.name
-
-        let medDate = showFuncs.getDateFromEpoch(timeInterval: TimeInterval(show.date.seconds))
         
-        cell.cellDescriptionLabel.text = medDate
-        cell.cellImageView.image = UIImage(named: show.name + ".jpg")
+        //Timestamp-date conversion
+        let timestamp: Timestamp = show.date
+        let date: Date = timestamp.dateValue()
+        //DateFormatter
+        let dateFormatter = DateFormatter() //Initialise DateFormatter
+        dateFormatter.dateFormat = "d MMMM, YYYY" //e.g. 2rd February, 2019
+        let formattedDate = dateFormatter.string(from: date) //Format date using DateFormatter
+        
+        cell.cellNameLabel.text = show.name //Assign show name property to the cell name label
+        cell.cellDescriptionLabel.text = formattedDate //Assign cell description label to new formatted date
+        cell.cellImageView.image = UIImage(named: show.name + ".jpg") //Define image as the show name + 'jpg'
         
         return cell
-    }
-    
-    @available(iOS 11.0, *)
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
-    {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Reset") { (action, view, handler) in
-            let resetShowAlert = UIAlertController(title: "Warning", message: "You are about to reset the back-end data for the show, this action cannot be undone. Would you like to continue?", preferredStyle: .alert)
-            resetShowAlert.addAction(UIAlertAction(title: "Reset", style: .destructive, handler: { action in
-            
-            print("Reset Show Back-end")
-            //HUD.flash(HUDContentType.systemActivity, delay: 1.5)
-            let seatsArray = self.arrayGen()
-            for i in 1..<5
-            {
-                let ticketAvailabilityRef = self.db.collection("shows").document(self.dbShows[indexPath.row].name).collection(String(i)).document("statistics")
-                print(seatsArray, "seats")
-                ticketAvailabilityRef.setData([
-                    "availableSeats": seatsArray, // generate new seating chart
-                    "availableTickets": 100,
-                    "numberOfTicketHolders": 0,
-                    "ticketHolders": FieldValue.arrayUnion([])
-                ])  { err in
-                    if err != nil {
-                        print("error", err?.localizedDescription)
-                    } else
-                    {
-                        print("success")
-                    }
-                }
-                let blockStatsRef = self.db.collection("shows").document(self.dbShows[indexPath.row].name).collection(String(i)).document("blockStats")
-                blockStatsRef.setData(self.blockStatsDict)
-                let houseStatsRef = self.db.collection("shows").document(self.dbShows[indexPath.row].name).collection(String(i)).document("houseStats")
-                houseStatsRef.setData(self.houseStatsDict)
-            }
-            
-            let showDetailsRef = self.db.collection("shows").document(self.dbShows[indexPath.row].name)
-            print(seatsArray, "seats")
-            showDetailsRef.setData([
-                "Category": "School",
-                "Date": self.showFuncs.convertDate(date: NSDate.init(timeIntervalSince1970: 0)),
-                "availableTickets": 0,
-                "director": "",
-                "description": "",
-                "name": self.dbShows[indexPath.row].name,
-                "venue": "Empty Space",
-                "house": ""
-            ])  { err in
-                if err != nil {
-                    print("error", err?.localizedDescription)
-                } else
-                {
-                    print("success")
-                }
-            }
-           // HUD.flash(HUDContentType.success)
-            tableView.reloadRows(at: [indexPath], with: .none)
-            }))
-            resetShowAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            self.present(resetShowAlert, animated: true)
-
-        }
-        deleteAction.backgroundColor = .green
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
-        return configuration
     }
     
     @available(iOS 11.0, *) //Checking software version
@@ -170,38 +99,31 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         }
         return configuration //Return configuration bundle
     }
-    
-    
-    //            self.showForSegue = self.dbShows[indexPath.row]
-   // self.performSegue(withIdentifier: "toEditDetailsView", sender: nil)
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(90)
     }
     
     //MARK: - UISearchBar Methods
     
-    //Private instance methods
-    
-    func searchBarIsEmpty() -> Bool {
-        return searchController.searchBar.text?.isEmpty ?? true
-    }
-    
     func isFiltering() -> Bool {
         let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
-        return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
+        return searchController.isActive && (searchController.searchBar.text != "" || searchBarScopeIsFiltering)
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        filteredShows = dbShows.filter({( show : Show) -> Bool in
+        filteredShows = dbShows.filter({( show : Show) -> Bool in //Closure: Begin filtering
+            //Define category matching filter
             let doesCategoryMatch = (scope == "All") || (show.category == scope)
-            
-            if searchBarIsEmpty() {
+            //Validation for empty search bar
+            if searchText == "" {
                 return doesCategoryMatch
             } else {
+                //Return show name if the category matches the scope selectors & contains search text
                 return doesCategoryMatch && show.name.lowercased().contains(searchText.lowercased())
             }
         })
+        //Refresh table for changes to show
         tableView.reloadData()
     }
     
@@ -225,43 +147,26 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     //MARK: - Admin Settings
     @objc func adminSettingsTapped()
     {
-        print("epic admin time")
         performSegue(withIdentifier: "toAddShow", sender: nil)
     }
     
     //MARK: - setSearchBarSettings
     private func setSearchBarSettings()
     {
+        //Set scope button titles
         searchController.searchBar.scopeButtonTitles = ["All", "School", "House", "Independent"]
+        //Set delegates
         searchController.searchBar.delegate = self
-        
         searchController.searchResultsUpdater = self
+        
+        //Interface configuration
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Shows"
-        navigationItem.searchController = searchController
         definesPresentationContext = true
+        //Add physical search bar to navigation controller
+        navigationItem.searchController = searchController
     }
-    
-    //MARK: - Firebase Queries
-    fileprivate func baseQuery() -> Query{
-        return db.collection("shows").limit(to: 50)
-    }
-    fileprivate var query: Query? {
-        didSet {
-            if let listener = listener{
-                listener.remove()
-            }
-        }
-    }
-    
-    //MARK: - setFirebaseSettings
-    func setFirebaseSettings()
-    {
-        db = Firestore.firestore()
-    }
-    
 
-    
     func arrayGen() -> [Int]
     {
         var seatsArray = [Int]()
@@ -277,13 +182,10 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setFirebaseSettings()
+        db = Firestore.firestore()
 
-        print(global.globalUser?.debugDescription, "debugDesc")
-        print(userIsAdmin, "admin")
         getHouseBlockStats()
         self.dateSortIndex = 0
-        self.query = baseQuery()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         setSearchBarSettings()
@@ -299,31 +201,28 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.listener.remove()
-        print("listener removed")
+        self.listener.remove() //Remove database listener when view is dismissed
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.listener =  query?.addSnapshotListener { (documents, error) in
-            guard let snapshot = documents else {
-                print("Error fetching documents results: \(error!)")
+        //Attach listener to database query at shows node
+        self.listener =  db.collection("shows").addSnapshotListener { (documents, error) in
+            guard let snapshot = documents else { //Validate response
+                print("Error fetching documents results: \(error!)") //Output error if returned by API
                 return
             }
-            
-            let results = snapshot.documents.map { (document) -> Show in
-                if let show = Show(dictionary: document.data()) {
+            //Assign array to store QuerySnapshot mapping results
+            let results = snapshot.documents.map { (document) -> Show in //CLOSURE
+                if let show = Show(dictionary: document.data()) { //Instantiate object from DB dictionary
                     return show
-                } else {
+                } else { //Return error message with details of raw data and Show class to find discrepencies
                     fatalError("Unable to initialize type \(Show.self) with dictionary \(document.data())")
                 }
             }
-            
-            self.dbShows = results
-            self.documents = snapshot.documents
-            self.tableView.reloadData()
-
+            self.dbShows = results //Set show database to newly populated 'results' array
+            self.tableView.reloadData() //Refresh table
         }
     }
 
@@ -331,7 +230,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Sort by Date", style: .default, handler: {(UIAlertAction) in
-            self.sortByDate()
+            self.bubbleSort()
         }))
         alert.addAction(UIAlertAction(title: "Sort by Alphabetical Order", style: .default, handler: {(UIAlertAction) in
             self.sortByName()
@@ -347,51 +246,80 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         })
         
     }
-    
-    func sortByDate()
+
+    func bubbleSort()
     {
-        let message = MDCSnackbarMessage()        
+        let message = MDCSnackbarMessage() //Instantiate Snackbar object
         dateSortIndex = dateSortIndex + 1
-        if dateSortIndex % 2 != 0
-        {
-            dbShows = dbShows.sorted(by: { $0.date.seconds < $1.date.seconds })
-            self.tableView.reloadData()
-            message.text = "Displaying oldest shows first"
-            MDCSnackbarManager.show(message)
+        var dateArray = [Int]()//Initialise empty dateArray
+        for i in 0..<dbShows.count { //Loop through shows
+            dateArray.append(Int(dbShows[i].date.seconds)) //Add dates to dateArray
         }
-        else
-        {
-            dbShows = dbShows.sorted(by: { $0.date.seconds > $1.date.seconds })
-            self.tableView.reloadData()
-            message.text = "Displaying upcoming shows first"
-            MDCSnackbarManager.show(message)
+        
+        //Bubble Sort
+        for i in 0..<dateArray.count { //Initiate first loop through date array
+            for j in 1..<dateArray.count - i { //Initiate sub-loop through array
+                //Date Index Checking
+                if dateSortIndex % 2 == 0 { //Even Number ->
+                    if dateArray[j] > dateArray[j-1] {//Compare consecutive values
+                        let tmp = dateArray[j-1] //Swap: create temporary storage value
+                        dateArray[j-1] = dateArray[j] //Swap: assign lower value as higher
+                        dateArray[j] = tmp //Swap: assign higher value with temp value
+                        message.text = "Sorted by ascending order: Most distant first " //Define Snackbar text
+                        MDCSnackbarManager.show(message) //Show snackbar with text
+                    }
+                } else { //Odd Number ->
+                    if dateArray[j] < dateArray[j-1] {//Compare consecutive values
+                        let tmp = dateArray[j-1] //Swap: create temporary storage value
+                        dateArray[j-1] = dateArray[j] //Swap: assign lower value as higher
+                        dateArray[j] = tmp //Swap: assign higher value with temp value
+                        message.text = "Sorted by descending order: Most recent first" //Define Snackbar text
+                        MDCSnackbarManager.show(message) //Show snackbar with text
+                    }
+                }
+            }
         }
+        print(dateArray, "sorted") //Output sorted array
+        reassignLocations(array: dateArray)
+    }
+    //Re-sort shows
+    func reassignLocations(array: [Int]) //Take sorted date array as parameter
+    {
+        var sortedArray = [Show]() //Intialise empty array for sorting
+        for i in 0..<(array.count) { //Iterate through sorted date array
+            for j in 0..<(dbShows.count){ //Iterate through unsorted show array
+                if array[i] == dbShows[j].date.seconds { //Compare sorted and unsorted values
+                    sortedArray.append(dbShows[j]) //Append sorted values into array
+                }
+            }
+        }
+        dbShows = sortedArray //Populate show array with newly sorted shows
+        tableView.reloadData() //Refresh table
     }
     
     func sortByName()
     {
-        let message = MDCSnackbarMessage()
-        nameSortIndex = nameSortIndex + 1
-        if nameSortIndex % 2 == 0
+        let message = MDCSnackbarMessage() //Instantiate Snackbar object
+        nameSortIndex = nameSortIndex + 1 //Increment sort index
+        if nameSortIndex % 2 == 0 //Check remainder after division
         {
+            //Descending order
             dbShows = dbShows.sorted(by: { $0.name > $1.name })
-            self.tableView.reloadData()
-            message.text = "Displaying shows in reverse alphabetical order"
-            MDCSnackbarManager.show(message)
+            self.tableView.reloadData()//Refresh table
+            message.text = "Displaying shows in reverse alphabetical order" //Define snackbar text
+            MDCSnackbarManager.show(message) //Show snackbar with text
         }
         else
         {
+            //Ascending order
             dbShows = dbShows.sorted(by: { $0.name < $1.name })
-            self.tableView.reloadData()
-            message.text = "Displaying shows in alphabetical order"
-            MDCSnackbarManager.show(message)
+            self.tableView.reloadData() //Refresh table
+            message.text = "Displaying shows in alphabetical order" //Define snackbar text
+            MDCSnackbarManager.show(message) //Show snackbar with text
         }
     }
     
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    
     //Prepare for segue method: called when segue requested
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -415,9 +343,12 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         }
         if segue.identifier == "toDetailsView"
         {
+            //Define next view to which the Show object is to be transferred
             let destinationVC = segue.destination as! ShowDetailViewController
+            //Locate show object from show array
             let indexPath = self.tableView.indexPathForSelectedRow
             let show = dbShows[indexPath!.row]
+            //Assign show object to variable in the new view
             destinationVC.showTitle = show.name
             destinationVC.show = show
             
@@ -425,13 +356,13 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
 }
 
-
-
 extension ShowListTableViewController: UISearchResultsUpdating {
     //MARK: - UISearchResultsUpdatingDelegate
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
+        //Define scope from searchBar attributes
         let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+        //Filter content as a result of search input changing
         filterContentForSearchText(searchController.searchBar.text!, scope: scope)
     }
 }
@@ -439,12 +370,9 @@ extension ShowListTableViewController: UISearchResultsUpdating {
 extension ShowListTableViewController: UISearchBarDelegate {
     //MARK: - UISearchBar Delegate
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        //Filter content as a result of scope button changing index
         filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
     }
 }
 
-extension Array where Element == [String:String] {
-    func sorted(by key: String) -> [[String:String]] {
-        return sorted { $0[key] ?? "" < $1[key] ?? "" }
-    }
-}
+

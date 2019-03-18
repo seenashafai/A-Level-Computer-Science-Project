@@ -110,14 +110,6 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
                             
                         }
                     }
-                    
-                    
-                    
-                    //self.barcode.sendJSONRequestWithoutCompletionHandler(withMethod: "POST", APIEndpoint: self.APIEndpoint, path: "/users/", formFields: formFields)
-
-                   
-                    
-                   
 
                     self.presentActionSheet()
                     let  vc =  self.navigationController?.viewControllers[2]
@@ -179,9 +171,7 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
             }
         }
         print(firstName, "data")
-        
-        
-        
+
     }
     
     func loadVenue()
@@ -243,9 +233,7 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
         alert.addAction(UIAlertAction(title: "Download Ticket Now", style: .default, handler: {(UIAlertAction) in
             self.downloadTicket2()
         }))
-        alert.addAction(UIAlertAction(title: "Recieve Ticket via Email", style: .default, handler: {(UIAlertAction) in
-            //self.emailTicket()
-        }))
+
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in }
         )
         self.present(alert, animated: true, completion: {
@@ -339,7 +327,6 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     
     func readTransaction()
     {
-        do{
             currentTransaction = transaction[0].transactionID
             house = transaction[0].house
             block = transaction[0].block
@@ -349,10 +336,6 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
             seatsLabel.text = transaction[0].seats.toPrint
             houseLabel.text = transaction[0].house
             emailLabel.text = transaction[0].email
-            
-        } catch {
-            print("ha")
-        }
         
     }
     

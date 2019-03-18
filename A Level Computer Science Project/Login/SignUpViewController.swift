@@ -1,7 +1,5 @@
 //  SignUpViewController.swift
 //  A Level Computer Science Project
-//
-//  Created by Seena Shafai on 26/09/2018.
 //  Copyright © 2018 Seena Shafai. All rights reserved.
 
 import UIKit
@@ -79,8 +77,8 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             "firstName": firstNameTextField.text!,
             "lastName": lastNameTextField.text!,
             "emailAddress": emailTextField.text!,
-            "house": houseSelected,
-            "block": blockSelected,
+            "house": houseSelected!,
+            "block": blockSelected!,
             "admin": false
             //Error handling
         ]) { err in //Initialised by the API
@@ -93,6 +91,7 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         }
     }
     
+    //Picker view connections
     @IBOutlet weak var housePickerView: UIPickerView!
     @IBOutlet weak var blockPickerView: UIPickerView!
     
@@ -173,13 +172,15 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             else if validation.isValidEmail(emailStr: emailTextField.text!) == false
             {
                 print("Email Validation Error") //If not, output error
-                self.present(self.alerts.validationErrorAlertController(message: "Your email is not formatted correctly. Please ensure you have entered your email address correctly"), animated: true)
+                self.present(self.alerts.validationErrorAlertController(message: "Your email is not formatted correctly" +
+                    "Please ensure you have entered your email address correctly"), animated: true)
             }
             //Validate that the password meets the strength criteria
             else if validation.isValidPass(passStr: passwordTextField.text!) == false
             {
                 print("Password Validation Error") //If not, output error
-                self.present(self.alerts.validationErrorAlertController(message: "Your password is not acceptable. Please ensure you have fulfilfed the required criteria for a strong password"), animated: true)
+                self.present(self.alerts.validationErrorAlertController(message: "Your password is not acceptable. Please ensure you have fulfilfed" +
+                    "the required criteria for a strong password"), animated: true)
             }
             else
             {
@@ -187,16 +188,14 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             }
         }
     }
-    
-    
     //MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         //Open database session
         db = Firestore.firestore()
-        
         //Define list of houses
-        houseInitialsArray = ["Please select a house...","ABH", "AMM", "ASR", "AW", "BJH", "Coll", "DWG", "EJNR", "HWTA", "JCAJ", "JD", "JDM", "JDN", "JMG", "JMO\'B", "JRBS", "MGHM", "NA", "NCWS", "NPTL", "PAH", "PEPW", "PGW", "RDO-C", "SPH"]
+        houseInitialsArray = ["Please select a house...","ABH", "AMM", "ASR", "AW", "BJH", "Coll", "DWG", "EJNR", "HWTA", "JCAJ", "JD", "JDM",
+                              "JDN", "JMG", "JMO\'B", "JRBS", "MGHM", "NA", "NCWS", "NPTL", "PAH", "PEPW", "PGW", "RDO-C", "SPH"]
         //Define list of blocks
         blocksArray = ["B", "C", "D", "E", "F"]
     }
