@@ -15,13 +15,16 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
 
     @IBOutlet weak var venueView: UIView!
     
+    //MARK: - Classes
+    var user = FirebaseUser()
+    var db: Firestore!
+    var ticket = Ticker?
+
+
+    
     var mySubViews = [Int]()
     var selectedSeat: Int?
-    var db: Firestore!
-    var user = FirebaseUser()
-    var documents: [DocumentSnapshot] = []
     var listener: ListenerRegistration!
-    var ticket = [Ticket]()
     var currentUser: [String: Any] = [:]
     var transactionDict: [String: Any] = [:]
 
@@ -38,12 +41,13 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     @IBOutlet weak var remainingSeatsLabel: UILabel!
     @IBOutlet weak var totalSeatsLabel: UILabel!
     
+    //Initialise Seat structure
     struct Seat {
         let x: Int
         let y: Int
     }
     
-    var seats = [Seat]()
+    var seats = [Seat]() //Initialise array of Seat objects
     
     let venueWidth = 11
     let venueHeight = 11
@@ -51,18 +55,18 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     @IBOutlet weak var confirmBarButtonOutlet: UIBarButtonItem!
     @IBAction func confirmBarButtonAction(_ sender: Any) {
         
-        
+        //Define database location for seating chart
         let statsRef = db.collection("shows").document(showName).collection(String(dateIndex)).document("statistics")
-        print(user.getCurrentUserEmail(), "currentUserEmail")
-        statsRef.updateData([
+        statsRef.updateData([ //Update data in reference location
             "availableSeats": compareSeats(),
-        ])  { err in
-            if err != nil {
-                print("errorino", err?.localizedDescription)
-            } else
+        ])  { err in //CLOSURE: error handling
+            if err != nil { //If the error is not nil
+                print(err?.localizedDescription) //Output API error
+            } else //If error object is empty (i.e. there is no error)
             {
-                print("success/dome")
-                self.performSegue(withIdentifier: "toFinalConfirmation", sender: nil)
+                print("success") //Trace output
+                //Transition to next view
+                self.performSegue(withIdentifier: "toTicketSummary", sender: nil)
             }
         }
         
@@ -149,45 +153,51 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
         
         return view
     }
+
     
-    
-    func compareSeats() -> [Int]
+    func updateSeatsArray() -> [Int]
     {
-        
-        seatsArray = seatsArray!.filter { !picked.contains($0) }
-        print(seatsArray, "withNewRemoved")
-        return seatsArray!
+        var indicesToRemove = [Int]() //Initialise new array to hold indices being removed
+        for i in 0..<fullArray.count //Iterate through database array
+        {
+            for j in 0..<picked.count //Iterate through array of picked seats
+            {
+                indicesToRemove.append(i) //Add index of picked seat to new array
+                print(fullArray[i], "toRemove") //Output this value for debugging
+            }
+        }
+        var array = fullArray //Define new array instead of modifying the original array
+        var shiftIndex = 0 //Initialise shift index to counteract the shifting of the array items when removal occurs
+        for i in 0..<indicesToRemove.count //Iterate through the array of items which need removal
+        {
+            //Apply shift index to removal index to counteract the shifting of all items down as items are removed
+            array.remove(at: indicesToRemove[i - shiftIndex]) //Remove items using indices in removal array
+            shiftIndex = shiftIndex + 1 //Increment the shift index every time an item is removed
+        }
+        return array
     }
+    
     
     func generateSeats() {
+        let numberOfRows: Int = 10
         var width: Int = 10
-        var start: Int = 1
-        for j in 0..<10
+        var startPosition: Int = 10
+        for y in 0..<numberOfRows
         {
-            for i in 0..<width
+            for x in 0..<width
             {
-                seats.append(Seat(x: i + start, y: j + start))
+                seats.append(Seat(x: x + startPosition, y: y + 10))
             }
-            /*
-            if width < 20
-            {
-                width = width + 2
-            }
-            if start > 0
-            {
-                start = start - 1
-            }
-        */
+            startPosition = startPosition + 1
+            width = width + 2
         }
     }
-    
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
         getTransactionID()
-        self.query = baseQuery()
         confirmBarButtonOutlet.isEnabled = false
         venueView.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
         generateSeats()
@@ -197,20 +207,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
         
        
     }
-    
-    
-    //MARK: - Firebase Query methods
-    
-    fileprivate func baseQuery() -> Query{
-        return db.collection("shows").document(showName).collection(String(dateIndex)).whereField("availableTickets", isGreaterThanOrEqualTo: 0)
-    }
-    fileprivate var query: Query? {
-        didSet {
-            if let listener = listener{
-                listener.remove()
-            }
-        }
-    }
+
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -222,8 +219,8 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
         super.viewWillAppear(animated)
         
         
-        
-        self.listener =  query?.addSnapshotListener { (documents, error) in
+        let query = db.collection("shows").document(showName).collection(String(dateIndex))
+        self.listener =  query.addSnapshotListener { (documents, error) in
             guard let snapshot = documents else {
                 print("Error fetching documents results: \(error!)")
                 return
@@ -238,11 +235,9 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
                 }
             }
             
-            self.ticket = results
-            self.seatsArray = self.ticket[0].availableSeats
-            self.documents = snapshot.documents
-            print(self.ticket, "selfTicket")
-            print(self.seatsArray, "selfSeatsArray")
+            self.ticket = results[0]
+            self.seatsArray = self.ticket.availableSeats
+
         }
         
         delayWithSeconds(0.2)
@@ -306,38 +301,26 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     func seatSelected(seatRef: Int)
     {
         var seatView = venueView.viewWithTag(seatRef)
+        //Validation - if seat is already selected
         if seatView?.backgroundColor == UIColor.orange
-        {
+        {   //Set colour of seat back to green
             seatView?.backgroundColor = UIColor(hue: 100/360.0, saturation: 0.44, brightness: 0.33, alpha: 1)
-            confirmBarButtonOutlet.isEnabled = false
-            for i in 0..<picked.count
-            {
-                if picked[i] == selectedSeat
-                {
-                    picked.remove(at: i)
-                    remainingSeats = remainingSeats! + 1
-                    remainingSeatsLabel.text = remainingSeats?.description
-                }
-            }
-            print(picked)
+            let seatArrayIndex = picked.firstIndex(of: seatRef)
+            picked.remove(at: seatArrayIndex!)
+            remainingSeats = remainingSeats! + 1
+            remainingSeatsLabel.text = remainingSeats?.description
         }
-        else {
+        else { //If seat is not already selected
             if picked.count == allocatedSeats
             {
-                print("no")
+                //Already selected the maximum number of seats
                 confirmBarButtonOutlet.isEnabled = true
             }
-            else {
+            else { //If the user is able to select new seats
                 seatView?.backgroundColor = UIColor.orange //Set colour
                 picked.append(selectedSeat!) //Add seat number to array
                 remainingSeats = remainingSeats! - 1 //Reduce the number of seats allocated
                 remainingSeatsLabel.text = remainingSeats?.description //Output number of seats allocated remaining
-                if picked.count == allocatedSeats //If all seats allocated have been selected
-                {
-                    //Enable the user to continue to the next view
-                    confirmBarButtonOutlet.isEnabled = true
-                }
-
             }
         }
     }
