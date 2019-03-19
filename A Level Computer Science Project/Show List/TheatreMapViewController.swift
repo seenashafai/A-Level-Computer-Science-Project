@@ -1,10 +1,5 @@
-//
 //  TheatreMapViewController.swift
-//  A Level Computer Science Project
-//
-//  Created by Seena Shafai on 03/12/2018.
 //  Copyright © 2018 Seena Shafai. All rights reserved.
-//
 
 import UIKit
 import CoreLocation
@@ -116,16 +111,5 @@ class TheatreMapViewController: UIViewController, MKMapViewDelegate, CLLocationM
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         mapView.setUserTrackingMode(.followWithHeading, animated: true)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-
-    }
+}
 

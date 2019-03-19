@@ -1104,8 +1104,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LSn-9E-YQN">
-                                <rect key="frame" x="0.0" y="322" width="375" height="216"/>
+                            <pickerView tag="1" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LSn-9E-YQN">
+                                <rect key="frame" x="0.0" y="368" width="375" height="216"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="1vT-Fj-vmz" id="ygO-vu-LYq"/>
@@ -1121,6 +1121,15 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max: 5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J7c-Qf-jYx">
+                                <rect key="frame" x="67" y="336" width="241" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="eG7-hF-bco"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="13"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -1131,7 +1140,9 @@
                             <constraint firstItem="jcd-eA-WAp" firstAttribute="centerY" secondItem="aKU-TW-fX7" secondAttribute="centerY" id="EVM-7t-SYO"/>
                             <constraint firstItem="jcd-eA-WAp" firstAttribute="trailing" secondItem="v5h-5u-njy" secondAttribute="trailing" id="FFK-DQ-I28"/>
                             <constraint firstItem="55t-rg-abk" firstAttribute="leading" secondItem="LSn-9E-YQN" secondAttribute="leading" id="K7P-MS-OGW"/>
+                            <constraint firstItem="J7c-Qf-jYx" firstAttribute="top" secondItem="ndm-ZZ-iSE" secondAttribute="bottom" constant="8" symbolic="YES" id="LQ6-zC-9qh"/>
                             <constraint firstItem="Z3A-7V-pTS" firstAttribute="trailing" secondItem="ndm-ZZ-iSE" secondAttribute="trailing" id="N0C-83-Czg"/>
+                            <constraint firstItem="J7c-Qf-jYx" firstAttribute="centerX" secondItem="ndm-ZZ-iSE" secondAttribute="centerX" id="Rrr-OP-Dvj"/>
                             <constraint firstItem="Z3A-7V-pTS" firstAttribute="top" secondItem="EYO-ZP-WmT" secondAttribute="top" constant="35" id="V5j-Ck-gIK"/>
                             <constraint firstItem="EYO-ZP-WmT" firstAttribute="trailing" secondItem="aKU-TW-fX7" secondAttribute="trailing" constant="76" id="Vi5-wa-wHG"/>
                             <constraint firstItem="aKU-TW-fX7" firstAttribute="leading" secondItem="jcd-eA-WAp" secondAttribute="trailing" constant="8" symbolic="YES" id="WV4-hz-Au1"/>
@@ -1143,6 +1154,7 @@
                             <constraint firstItem="ndm-ZZ-iSE" firstAttribute="centerX" secondItem="LSn-9E-YQN" secondAttribute="centerX" id="e27-6O-1US"/>
                             <constraint firstItem="Z3A-7V-pTS" firstAttribute="leading" secondItem="ndm-ZZ-iSE" secondAttribute="leading" id="hCZ-VT-Yhc"/>
                             <constraint firstItem="55t-rg-abk" firstAttribute="bottom" secondItem="EYO-ZP-WmT" secondAttribute="bottom" id="ocS-ci-4OU"/>
+                            <constraint firstItem="J7c-Qf-jYx" firstAttribute="leading" secondItem="EYO-ZP-WmT" secondAttribute="leading" constant="67" id="t0V-iu-56N"/>
                             <constraint firstItem="LSn-9E-YQN" firstAttribute="top" secondItem="v5h-5u-njy" secondAttribute="bottom" constant="65" id="tKc-ad-zEF"/>
                             <constraint firstItem="Z3A-7V-pTS" firstAttribute="leading" secondItem="EYO-ZP-WmT" secondAttribute="leading" constant="107" id="u71-MF-lsq"/>
                             <constraint firstItem="ndm-ZZ-iSE" firstAttribute="top" secondItem="aKU-TW-fX7" secondAttribute="bottom" constant="52" id="yoq-cf-CQ9"/>
@@ -1157,6 +1169,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="beginningDateLabel" destination="J7c-Qf-jYx" id="foT-eR-MuQ"/>
                         <outlet property="datePickerView" destination="LSn-9E-YQN" id="ugJ-s3-FrU"/>
                         <outlet property="ticketNumberStepper" destination="v5h-5u-njy" id="ziU-25-HfN"/>
                         <outlet property="ticketNumberTextField" destination="jcd-eA-WAp" id="Inn-re-NRr"/>

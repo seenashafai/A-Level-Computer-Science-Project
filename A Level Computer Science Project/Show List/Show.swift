@@ -1,36 +1,11 @@
-//
 //  Show.swift
-//  A Level Computer Science Project
-//
-//  Created by Chronicle on 05/10/2018.
 //  Copyright © 2018 Seena Shafai. All rights reserved.
-//
 
 import Foundation
 import FirebaseFirestore
 
-enum Venues: String {
-    case Farrer = "Farrer Theatre"
-    case Caccia = "Caccia Studio"
-    case EmptySpace = "Empty Space"
-    case other
-    
-}
-
-struct Show: Comparable
-
+struct Show
 {
-    static func == (lhs: Show, rhs: Show) -> Bool {
-        return lhs.date.seconds == rhs.date.seconds
-
-    }
-    
-    
-    //Conforming to comparable protocol
-    static func < (lhs: Show, rhs: Show) -> Bool {
-        return lhs.date.seconds < rhs.date.seconds
-    }
-    
     let name: String
     let category: String
     let date: Timestamp
@@ -42,14 +17,14 @@ struct Show: Comparable
     
     var dictionary: [String: Any] {
         return [
-            "name": name,//
-            "Category": category,//
-            "Date": Timestamp(),//
-            "availableTickets": availableTickets,//
-            "venue": venue,//
-            "description": description,//
-            "director": director,//
-            "house": house//
+            "name": name,
+            "Category": category,
+            "Date": Timestamp(),
+            "availableTickets": availableTickets,
+            "venue": venue,
+            "description": description,
+            "director": director,
+            "house": house
         ]
     }
 }
@@ -128,7 +103,66 @@ class showFunctions {
         let timeStamp: NSDate = date
         return timeStamp
     }
+    
+    func timestampDateConverter(timestamp: Timestamp, format: String) -> String
+    {
+        let date: Date = timestamp.dateValue()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        let formattedDate = dateFormatter.string(from: date)
+        
+        return formattedDate
+    }
+    
+    func suffixFromTimestamp(timestamp: Timestamp) -> String
+    {
+        let calendar = Calendar.current
+        let date: Date = timestamp.dateValue()
+        let dayOfMonth = calendar.component(.day, from: date)
+        switch dayOfMonth {
+        case 1, 21, 31: return "st"
+        case 2, 22: return "nd"
+        case 3, 33: return "rd"
+        default: return "th"
+        }
+    }
+    
+    func suffixFromDate(date: Date) -> String
+    {
+        let calendar = Calendar.current
+        let dayOfMonth = calendar.component(.day, from: date)
+        switch dayOfMonth {
+        case 1, 21, 31: return "st"
+        case 2, 22: return "nd"
+        case 3, 33: return "rd"
+        default: return "th"
+        }
+    }
+    
+    //Increment date
+    func DateFromStart(date: Date, index: Int) -> Date
+    {
+        let modifier = index - 1 //Number of days to add on to start date
+        //Add modifier to start date
+        let modifiedDate = Calendar.current.date(byAdding: .day, value: modifier, to: date)
+        //Return modified date
+        return modifiedDate!
+    }
+    
+    //Format modified date
+    func formatDate(date: Date, format: String) -> String
+    {
+        //Initialise date formatter
+        let dateFormatter = DateFormatter()
+        //Assign given format to date
+        dateFormatter.dateFormat = format
+        //Format date using parameters
+        let formattedDate = dateFormatter.string(from: date)
+        return formattedDate //Return formatted date as string
+    }
 }
+
+
 
 
 

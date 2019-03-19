@@ -179,6 +179,7 @@ class ShowDetailViewController: UIViewController {
             let destinationVC = segue.destination as! TicketPortalViewController
             print(showTitle, "showtitle")
             destinationVC.ticketShowTitle = showTitle
+            destinationVC.show = show
         }
         if segue.identifier == "toStatsView"
         {

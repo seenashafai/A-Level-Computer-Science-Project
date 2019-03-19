@@ -14,6 +14,7 @@ import DataCompression
 
 class MoreDetailsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
+    //MARK: - Properties
     var db: Firestore!
     var showDataDict: [String: Any]?
     var houseInitialsArray: [String]?
@@ -21,18 +22,17 @@ class MoreDetailsViewController: UIViewController, UIPickerViewDelegate, UIPicke
     var edit: Bool?
     var show: Show?
     
+    //Global variables
     var blockDict: [String: Any] = [:]
     var houseDict: [String: Any] = [:]
 
-
+    //Connect UI to Class
     @IBOutlet weak var housePickerView: UIPickerView!
     @IBOutlet weak var directorTextField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
-    
-    
-    
+
+    //Finish button pressed
     @IBAction func finishAction(_ sender: Any) {
-        compareAlgorithms()
         let name = showDataDict!["name"] as! String
         let director = directorTextField.text
         let description = descriptionTextView.text
@@ -42,7 +42,8 @@ class MoreDetailsViewController: UIViewController, UIPickerViewDelegate, UIPicke
         let originalName = show?.name
         if edit == true
         {
-            let modificationAlert = UIAlertController(title: "Warning", message: "Any changes you make cannot be undone past this point. Would you like to continue? ", preferredStyle: .alert) //Define alert and error message title and description
+            //Define alert and error message title and description
+            let modificationAlert = UIAlertController(title: "Warning", message: "Any changes you make cannot be undone past this point. Would you like to continue? ", preferredStyle: .alert)
             modificationAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: //Add action to yes/no buttons
                 {action in //Begin action methods...
                     let showRef = self.db.collection("shows").document(name)//Define database location of new show
@@ -64,91 +65,8 @@ class MoreDetailsViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
         else
         {
-            
             let showRef = db.collection("shows").document(name)
             showRef.setData(showDataDict!)
-            let seatsArray = self.arrayGen()
-            for i in 1..<5
-            {
-                let ticketAvailabilityRef = self.db.collection("shows").document(name).collection(String(i)).document("statistics")
-                print(seatsArray, "seats")
-                ticketAvailabilityRef.setData([
-                    "attendees": 0,
-                    "availableSeats": seatsArray, // generate new seating chart
-                    "availableTickets": 100,
-                    "numberOfTicketHolders": 0,
-                    "ticketHolders": FieldValue.arrayUnion([])
-                ])  { err in
-                    if err != nil {
-                        print("error", err?.localizedDescription)
-                    } else
-                    {
-                        print("success")
-                    }
-                }
-                let reviewsArray = [Double]()
-                let blockStatsRef = self.db.collection("shows").document(name).collection(String(i)).document("blockStats")
-                let houseStatsRef = self.db.collection("shows").document(name).collection(String(i)).document("houseStats")
-                let reviewsRef = self.db.collection("shows").document(name).collection(String(i)).document("reviews")
-                reviewsRef.setData(["ratingsArray": FieldValue.arrayUnion(reviewsArray)])
-                blockStatsRef.setData(self.blockDict)
-                houseStatsRef.setData(self.houseDict)
-
-            }
-            navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: true)
-        }
-    }
-    
-    func retrieveFromFirestore()
-    {
-        let blockStatsRef = db.collection("properties").document("blockStats")
-        blockStatsRef.getDocument {(documentSnapshot, error) in
-            if let document = documentSnapshot {
-                self.blockDict = document.data()!
-            }
-        }
-        
-        let houseStatsRef = db.collection("properties").document("houseStats")
-        houseStatsRef.getDocument {(documentSnapshot, error) in
-            if let document = documentSnapshot {
-                self.houseDict = document.data()! as! [String : Int]
-            }
-        }
-    }
-    
-    func arrayGen() -> [Int]
-    {
-        var seatsArray = [Int]()
-        for i in 0..<100
-        {
-            seatsArray.append(i)
-        }
-        print(seatsArray)
-        return seatsArray
-    }
-    
-    func compressDescription() -> Any
-    {
-        let raw: Data! = String(descriptionTextView.text).data(using: .utf8) //Define raw input string
-        let compressedData = raw.compress(withAlgorithm: .zlib) //Compress using zlib algorithm
-
-        return compressedData as Any
-        
-    }
-    
-    func compareAlgorithms()
-    {
-        let raw: Data! = String("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.").data(using: .utf8)
-        
-        print("raw   =>   \(raw.count) bytes")
-        
-        for algorithm: Data.CompressionAlgorithm in [.zlib, .lzfse, .lz4, .lzma] //Set up compression loop
-        {   //Loop iterates through each compression algorithm and applies it to the string
-            let compressedStr: Data! = raw.compress(withAlgorithm: algorithm) //Compress string
-            //Ratio calculated by comparing the number of characters in the original string and the compressed string
-            let ratio = Double(raw.count) / Double(compressedStr.count) //Calculate compression ratio
-            print("\(algorithm)   =>   \(compressedStr.count) bytes, ratio: \(ratio)") //Output calculation
-            
         }
     }
     
@@ -178,7 +96,6 @@ class MoreDetailsViewController: UIViewController, UIPickerViewDelegate, UIPicke
         if pickerView == housePickerView
         {
             houseSelected = houseInitialsArray?[row]
-            print(houseSelected)
         }
     }
     
@@ -198,56 +115,24 @@ class MoreDetailsViewController: UIViewController, UIPickerViewDelegate, UIPicke
         super.viewDidLoad()
         db = Firestore.firestore()
 
+        //Set textfield placeholders if in editing state
         if edit == true
         {
             directorTextField.text = show?.director
             descriptionTextView.text = show?.description
         }
-        print(showDataDict, "showDataDict")
-        retrieveFromFirestore()
+        //Define array of possible houses
+        houseInitialsArray = ["Please select a house...","ABH", "AMM", "ASR", "AW", "BJH", "Coll", "DWG", "EJNR", "HWTA", "JCAJ", "JD", "JDM",
+                              "JDN", "JMG", "JMO\'B", "JRBS", "MGHM", "NA", "NCWS", "NPTL", "PAH", "PEPW", "PGW", "RDO-C", "SPH"]
+        self.housePickerView.reloadAllComponents() //Reload picker with new labels
+        self.initialiseHousePickerForEditing()
 
-        let houseArrayRef = db.collection("properties").document("houses")
-        houseArrayRef.getDocument {(documentSnapshot, error) in
-            if let document = documentSnapshot {
-                self.houseInitialsArray = document["houseInitialsArray"] as? Array ?? [""]
-                print(self.houseInitialsArray)
-            }
-            self.housePickerView.reloadAllComponents()
-            self.initialiseHousePickerForEditing()
-
-        }
-        
+        //Disable the picker unless a house play is being configured
         if showDataDict?["Category"] as! String != "House"
         {
             housePickerView.isUserInteractionEnabled = false
         }
-        print(showDataDict, "transferred")
+        //Change the text colour of the picker to white
         housePickerView.setValue(UIColor.white, forKeyPath: "textColor")
-
-
-        // Do any additional setup after loading the view.
     }
-    
-    func delayWithSeconds(_ seconds: Double, completion: @escaping () -> ()) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-            completion()
-        }
-    }
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-/*
-    func firebase()
-    {
-     
-    }
- */
 }

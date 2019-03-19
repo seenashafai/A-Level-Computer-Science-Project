@@ -334,11 +334,11 @@
 			children = (
 				37F0E7BD214FD20000D9E335 /* ShowListTableViewController.swift */,
 				BD4C2C1C218C635A0059BBB4 /* AddShowViewController.swift */,
+				04876EFC21C5C09600E07836 /* MoreDetailsViewController.swift */,
+				04819CEE21B55EBB001E6471 /* TheatreMapViewController.swift */,
 				0453CDB821E7E8BB002DF163 /* ShowStatsViewController.swift */,
 				0432B46121EF8D4600E38876 /* ReviewsTableViewController.swift */,
-				04876EFC21C5C09600E07836 /* MoreDetailsViewController.swift */,
 				37F0E7BF214FD21B00D9E335 /* ShowDetailViewController.swift */,
-				04819CEE21B55EBB001E6471 /* TheatreMapViewController.swift */,
 				BD90ACCE21676737003C831A /* Show.swift */,
 			);
 			path = "Show List";
