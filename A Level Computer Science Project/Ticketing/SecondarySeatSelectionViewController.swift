@@ -18,8 +18,9 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     //MARK: - Classes
     var user = FirebaseUser()
     var db: Firestore!
-    var ticket = Ticker?
+    var ticket: Ticket?
 
+    var fullArray: [Int]?
 
     
     var mySubViews = [Int]()
@@ -32,7 +33,6 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     var remainingSeats: Int?
     var dateIndex: Int!
     var showName: String!
-    var seatsArray: [Int]?
     var date: String!
     var transactionID: Int?
     var house: String?
@@ -58,7 +58,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
         //Define database location for seating chart
         let statsRef = db.collection("shows").document(showName).collection(String(dateIndex)).document("statistics")
         statsRef.updateData([ //Update data in reference location
-            "availableSeats": compareSeats(),
+            "availableSeats": updateSeatsArray(),
         ])  { err in //CLOSURE: error handling
             if err != nil { //If the error is not nil
                 print(err?.localizedDescription) //Output API error
@@ -73,60 +73,14 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
         
         house = currentUser["house"] as! String
         block = currentUser["block"] as! String
-        
 
-        
-        transactionDict = [
-            "transactionID": transactionID,
-            "email": user.getCurrentUserEmail(),
-            "show": showName,
-            "tickets": allocatedSeats,
-            "seats": picked,
-            "date": date,
-            "house": house,
-            "block": block
-        ]
-        
-        pushToFirestore(dateIndex: String(dateIndex))
-        pushToFirestore(dateIndex: "4")
-        
         print(currentUser.debugDescription, "debug")
         print(house, "currentUserHouse")
         var transactionRef = db.collection("transactions").document("currentTransaction")
         transactionRef.setData(transactionDict)
     }
 
-    func pushToFirestore(dateIndex: String)
-    {
-        let blockStatsRef = db.collection("shows").document(showName).collection(String(dateIndex)).document("blockStats")
-        let currentBlock = block!
-        var currentBlockStat: Int = 0
-        blockStatsRef.getDocument {(documentSnapshot, error) in
-            if let document = documentSnapshot {
-                print(document.data(), "document")
-                currentBlockStat = document.data()![currentBlock] as! Int
-                
-                blockStatsRef.updateData([
-                    self.block: currentBlockStat + 1
-                    ])
-            }
-        }
-        
-        let houseStatsRef = db.collection("shows").document(showName).collection(String(dateIndex)).document("houseStats")
-        let currentHouse = house!
-        var currentHouseStat: Int = 0
-        houseStatsRef.getDocument {(documentSnapshot, error) in
-            if let document = documentSnapshot {
-                print(document.data(), "document")
-                currentHouseStat = document.data()![currentHouse] as! Int
-                
-                houseStatsRef.updateData([
-                    self.house: currentHouseStat + 1,
-                    ])
-
-            }
-        }
-    }
+    
     
     func getTransactionID()
     {
@@ -158,15 +112,15 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     func updateSeatsArray() -> [Int]
     {
         var indicesToRemove = [Int]() //Initialise new array to hold indices being removed
-        for i in 0..<fullArray.count //Iterate through database array
+        for i in 0..<fullArray!.count //Iterate through database array
         {
             for j in 0..<picked.count //Iterate through array of picked seats
             {
                 indicesToRemove.append(i) //Add index of picked seat to new array
-                print(fullArray[i], "toRemove") //Output this value for debugging
+                print(fullArray![i], "toRemove") //Output this value for debugging
             }
         }
-        var array = fullArray //Define new array instead of modifying the original array
+        var array = fullArray! //Define new array instead of modifying the original array
         var shiftIndex = 0 //Initialise shift index to counteract the shifting of the array items when removal occurs
         for i in 0..<indicesToRemove.count //Iterate through the array of items which need removal
         {
@@ -236,7 +190,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
             }
             
             self.ticket = results[0]
-            self.seatsArray = self.ticket.availableSeats
+            self.fullArray = self.ticket!.availableSeats
 
         }
         
@@ -252,25 +206,22 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     func createVenue()
     {
         // draw the seats
-        var index = 1
-        for seat in seats
+        var index = 1 //Define index of each seat UPDATE: starts at 1 rather than 0
+        for seat in seats //Loop through each seat in the seats array
         {
+            //Define each seat position
             let seatView = viewForCoordinate(x: seat.x, y: seat.y, size: CGSize(width: 20, height: 20))
             seatView.layer.cornerRadius = 8
             seatView.tag = index
-            print(seatView.tag, "tag")
-            print(seatsArray, "seats")
-            guard seatsArray?.count != nil else {print("Seats not set up in Database"); return}
-            if (seatsArray?.contains(seatView.tag))!
-            {
-                seatView.backgroundColor = UIColor(hue: 100/360.0, saturation: 0.44, brightness: 0.33, alpha: 1)
-                print("el samo")
-                seatView.isUserInteractionEnabled = true
-            }
-            else
+            
+            if isSeatReserved(seat: seatView)
             {
                 seatView.backgroundColor = UIColor.gray
                 seatView.isUserInteractionEnabled = false
+            }
+            else
+            {
+                seatView.backgroundColor = UIColor(hue: 100/360.0, saturation: 0.44, brightness: 0.33, alpha: 1)
             }
             venueView.addSubview(seatView)
             index = index + 1
@@ -289,12 +240,26 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     
     
     @objc func getIndex(_ sender: UITapGestureRecognizer) {
-        selectedSeat = mySubViews[((sender.view?.tag)! - 1)]
-        print(selectedSeat)
-        seatSelected(seatRef: selectedSeat!)
+        selectedSeat = mySubViews[((sender.view?.tag)! - 1)] //Cross reference seat tag and GR tag
+        //Subtract 1 from the tag, as now the seats begin indexing at 1 rather than 0
+        print(selectedSeat) //Output selected seat for debugging
+        seatSelected(seatRef: selectedSeat!) //Pass selected seat reference to the seatSelected function
     }
-
-    
+    //Checks if seat is reserved, returns boolean
+    func isSeatReserved(seat: UIView) -> Bool //Take in seat from loop as parameter
+    {
+        //Iterate through seats pulled from database
+        for i in fullArray! {
+            //Check if seat is present in array
+            if seat.tag == fullArray![i]
+            {
+                return false //Seat is available
+            } else {
+                return true //Seat is reserved
+            }
+        }
+        return false //Default case
+    }
     
     var picked = [Int]()
     
@@ -334,10 +299,16 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toFinalConfirmation"
+        if segue.identifier == "toTicketSummary" //Identify next view
         {
-            let destinationVC = segue.destination as! TicketConfirmationViewController
-            destinationVC.dateIndex = dateIndex
+            //Instantiate succeeding class
+            let dest = segue.destination as! TicketConfirmationViewController
+            //Assign data to succeeding class
+            dest.date = date
+            dest.email = user.getCurrentUserEmail()
+            dest.seats = picked.description
+            dest.tickets = String(allocatedSeats!)
+            dest.show = showName
         }
     }
  
