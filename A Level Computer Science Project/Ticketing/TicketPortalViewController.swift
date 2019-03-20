@@ -25,7 +25,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     
     //Global Variables
     var dateSelected: String = ""
-    var dateIndex: Int = 0
+    var dateIndex: Int = 1
     var currentUser: [String: Any] = [:]
     
     
@@ -52,6 +52,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         let updatedTicketNumber = (ticket?.availableTickets)! - numberOfTickets! //Number of tickets remaining
         let userEmail = Auth.auth().currentUser!.email
         var ticketHoldersArray = ticket?.ticketHolders
+        print(ticket.debugDescription)
         //Check if either validation returned false
         if isTicketRequestValid2(requestedTickets: numberOfTickets!, availableTickets: (ticket?.availableTickets)!) == false || isUserValid(user: userEmail!, ticketHolders: ticketHoldersArray!) == false
         {
@@ -67,7 +68,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
             //Error Handling
         ])  { err in //CLOSURE: validation of error variable
             if err != nil { //If the error returned is not empty
-                print("error", err?.localizedDescription!) //Output error message
+                print("error", err?.localizedDescription) //Output error message
             } else //No error returned
             {
                 print("success") //Console output for testing
@@ -169,7 +170,9 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         super.viewWillAppear(animated)
         
         //Assign listener to get show details
-        let query =  db.collection("shows").document(ticketShowTitle).collection("1")
+        print(ticketShowTitle, "tS")
+        print(dateIndex, "Di")
+        let query =  db.collection("shows").document(ticketShowTitle).collection(String(dateIndex)).whereField("availableTickets", isGreaterThanOrEqualTo: 0)
         self.listener = query.addSnapshotListener { (documents, error) in
             //Handle any errors
             guard let snapshot = documents else { //If error returned
@@ -184,6 +187,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
                     fatalError("Unable to initialize type \(Ticket.self) with dictionary \(document.data())")
                 }
             }
+            print(results.debugDescription)
             self.ticket = results[0] //Assign ticket to variable
             print(self.ticket as Any) //Output ticket for tracing
         }
@@ -194,6 +198,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         {
             //Pass variables onto next class
             let destinationVC = segue.destination as! SecondarySeatSelectionViewController
+            destinationVC.ticket = ticket
             destinationVC.allocatedSeats = Int(ticketNumberTextField.text!)
             destinationVC.showName = ticketShowTitle
             destinationVC.date = dateSelected

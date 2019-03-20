@@ -1,34 +1,25 @@
-//
 //  TicketConfirmationViewController.swift
-//  A Level Computer Science Project
-//
-//  Created by Seena Shafai on 26/11/2018.
 //  Copyright © 2018 Seena Shafai. All rights reserved.
-//
 
 import UIKit
-import Firebase
+import FirebaseAuth
 import FirebaseFirestore
-import PKHUD
-import MaterialComponents.MDCSnackbarMessage
-import LocalAuthentication
 import Alamofire
 import PassKit
 
 class TicketConfirmationViewController: UIViewController, PKAddPassesViewControllerDelegate {
     
-    //API Variables:
-    let APIEndpoint = "http://localhost:6789/users"
+    //PassKit API Variables:
+    let APIEndpoint = "http://ftpkdist.serveo.net/users"
     var UID: Int?
     
     //Database Config
-    
     var db: Firestore!
     var listener: ListenerRegistration!
+    
+    //Class Instances
     var user = FirebaseUser()
     let auth = Validation()
-    let barcode = Barcode()
-    let alerts = Alerts()
     
     //MARK: - User Properties
     var firstName: String?
@@ -49,8 +40,7 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     @IBOutlet weak var ticketsLabel: UILabel!
     @IBOutlet weak var seatsLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var houseLabel: UILabel!
-    
+
     @IBAction func finishAction(_ sender: Any) {
         //Initiate bio auth
         guard auth.authenticateUser(reason: "Use your fingerprint to validate your booking") == true else
@@ -60,8 +50,7 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
             return
         }
         
-        loadUser() //Load user details
-        loadVenue() //Load venue details
+       
         
         //Define location for data to be uploaded
         let userTicketRef = db.collection("users").document(email!).collection("tickets").document(show!)
@@ -83,11 +72,9 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
             } else //No error returned
             {
                 self.initialiseForm() //Send the form details to the Ruby back-end
-                self.downloadTicket()
-                self.updateUID()
                 //Transition user back to the home page of the play
-                let  vc =  self.navigationController?.viewControllers[2]
-                self.navigationController?.popToViewController(vc!, animated: true)
+                self.downloadTicket()
+                
             }
         }
     }
@@ -96,7 +83,8 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
         super.viewDidLoad()
         db = Firestore.firestore()
         getUID() //Load current UID
-        
+        loadUser() //Load user details
+        loadVenue() //Load venue details
         //Assign labels as variables passed from previous view
         showLabel.text = show
         dateLabel.text = date
@@ -190,11 +178,15 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
         
         let formFields: [String: String] = ["user[name]":formName, "user[email]":formEmail, "user[seatRef]":formSeatRef, "user[show]": formShow, "user[venue]": formVenue, "user[date]": formDate]
         
-        //Define request method as POST
-        let POST: HTTPMethod = HTTPMethod.post
         //API Request function, taking the endpoint and method as parameters
+        let POST = HTTPMethod.post
         Alamofire.request(self.APIEndpoint, method: POST, parameters: formFields, encoding: URLEncoding()).responseString { response  in //Closure (No action needed)
+            self.downloadTicket()
+            self.updateUID()
         }
+        
+
+        
     }
     
     func downloadTicket()
@@ -207,13 +199,17 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
             .responseJSON { response in //Open closure to handle errors and results
                 //Error Handling & Converting JSON data to pass
                 let pass = try? PKPass(data: response.data!)
-                //Results handling...
+                //Results handling
                 let pkvc = PKAddPassesViewController(pass: pass!) //Create temporary view to present downloaded pass
                 pkvc!.delegate = self //Set delegate to current class
                 //Present temporary view to user
                 self.present(pkvc!, animated: true, completion: {() -> Void in
                     print("presented pkvc") //Trace output, executes once the temporary view has completed its animation
                 })
+                self.updateUID()
+                let  vc =  self.navigationController?.viewControllers[2]
+                self.navigationController?.popToViewController(vc!, animated: true)
+    
         }
     }
 

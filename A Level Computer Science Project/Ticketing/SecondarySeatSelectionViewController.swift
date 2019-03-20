@@ -49,8 +49,8 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     
     var seats = [Seat]() //Initialise array of Seat objects
     
-    let venueWidth = 11
-    let venueHeight = 11
+    let venueWidth = 30
+    let venueHeight = 12
     
     @IBOutlet weak var confirmBarButtonOutlet: UIBarButtonItem!
     @IBAction func confirmBarButtonAction(_ sender: Any) {
@@ -140,24 +140,28 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
         {
             for x in 0..<width
             {
-                seats.append(Seat(x: x + startPosition, y: y + 10))
+                seats.append(Seat(x: x + startPosition, y: y + 1))
             }
-            startPosition = startPosition + 1
+            startPosition = startPosition - 1
             width = width + 2
         }
+        print(seats, "seats")
+        createVenue()
     }
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
+        fullArray = ticket?.availableSeats
         getTransactionID()
         confirmBarButtonOutlet.isEnabled = false
         venueView.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
-        generateSeats()
         totalSeatsLabel.text = allocatedSeats?.description
         remainingSeats = allocatedSeats
         remainingSeatsLabel.text = allocatedSeats?.description
+        generateSeats()
+
         
        
     }
@@ -165,16 +169,18 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.listener.remove()
+        //self.listener.remove()
         print("listener removed")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print(dateIndex!, "dO")
+        /*
         
-        
-        let query = db.collection("shows").document(showName).collection(String(dateIndex))
+        let query = db.collection("shows").document(showName).collection(String(dateIndex!)).whereField("availableSeats", isGreaterThan: 0)
         self.listener =  query.addSnapshotListener { (documents, error) in
+            print(documents.debugDescription)
             guard let snapshot = documents else {
                 print("Error fetching documents results: \(error!)")
                 return
@@ -190,14 +196,11 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
             }
             
             self.ticket = results[0]
+            print(self.ticket.debugDescription, "OI")
             self.fullArray = self.ticket!.availableSeats
 
         }
-        
-        delayWithSeconds(0.2)
-        {
-            self.createVenue()
-        }
+ */
 
     }
 
@@ -207,6 +210,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     {
         // draw the seats
         var index = 1 //Define index of each seat UPDATE: starts at 1 rather than 0
+        
         for seat in seats //Loop through each seat in the seats array
         {
             //Define each seat position
@@ -248,17 +252,19 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     //Checks if seat is reserved, returns boolean
     func isSeatReserved(seat: UIView) -> Bool //Take in seat from loop as parameter
     {
+        print(fullArray, "full")
         //Iterate through seats pulled from database
         for i in fullArray! {
+            print(seat.tag, "tg")
             //Check if seat is present in array
             if seat.tag == fullArray![i]
             {
-                return false //Seat is available
+                return true //Seat is available
             } else {
-                return true //Seat is reserved
+                return false //Seat is reserved
             }
         }
-        return false //Default case
+        return true //Default case
     }
     
     var picked = [Int]()
