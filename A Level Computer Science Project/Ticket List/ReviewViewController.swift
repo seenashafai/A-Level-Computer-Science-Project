@@ -22,8 +22,6 @@ class ReviewViewController: UIViewController, UITextViewDelegate {
     var ticket: UserTicket? //Pre-loaded from previous class
     var db: Firestore!
     
-    
-    
     var alerts = Alerts()
     var user = FirebaseUser()
     
@@ -34,7 +32,7 @@ class ReviewViewController: UIViewController, UITextViewDelegate {
         //get Review data
         let review = reviewTextView.text //Get description
         let starRating: Double = cosmosView.rating //Get star rating
-        var dateIndex = String(ticket!.dateIndex) //Get date index and convert to String
+        let dateIndex = String(ticket!.dateIndex) //Get date index and convert to String
         
         let email = user.getCurrentUserEmail() //Get email of current user to use as node name
         
@@ -80,19 +78,8 @@ class ReviewViewController: UIViewController, UITextViewDelegate {
 
         // Do any additional setup after loading the view.
     }
-    
 
-    func UI(_ block: @escaping ()->Void) {
-        DispatchQueue.main.async(execute: block)
-    }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+
 
 }
