@@ -67,7 +67,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
             //Error Handling
         ])  { err in //CLOSURE: validation of error variable
             if err != nil { //If the error returned is not empty
-                print("error", err?.localizedDescription!) //Output error message
+                print(err?.localizedDescription) //Output error message
             } else //No error returned
             {
                 print("success") //Console output for testing

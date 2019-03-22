@@ -14,7 +14,7 @@ import MaterialComponents.MaterialSnackbar
 import PKHUD
 
 class ReviewsTableViewController: UITableViewController {
-
+    
     //MARK: - Initialise Firebase Properties
     var documents: [DocumentSnapshot] = []
     var listener: ListenerRegistration!
@@ -24,23 +24,9 @@ class ReviewsTableViewController: UITableViewController {
     var user = FirebaseUser()
     var show: Show?
     var alerts = Alerts()
+    var dateIndex: Int?
     
     //MARK: - Firebase Queries
-    
-    fileprivate func baseQuery() -> Query{
-        let email = user.getCurrentUserEmail()
-        print(show!.name, "showName")
-        return db.collection("shows").document(show!.name).collection("1").document("reviews").collection("userReviews")
-    }
- 
-    
-    fileprivate var query: Query? {
-        didSet {
-            if let listener = listener{
-                listener.remove()
-            }
-        }
-    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -52,75 +38,81 @@ class ReviewsTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.listener =  query?.addSnapshotListener { (documents, error) in
-            guard let snapshot = documents else {
-                print("Error fetching documents results: \(error!)")
-                return
+        //Set query to location of reviews in database
+        let query = db.collection("shows").document(show!.name).collection(String(dateIndex!)).document("reviews").collection("userReviews")
+        self.listener =  query.addSnapshotListener { (documents, error) in //Attach listener
+            guard let snapshot = documents else { //Validate that result is not nil
+                print("Error fetching documents results: \(error!)") //Output error if result is nil
+                return //Exit function
             }
             
-            
+            //Map results into Review class structure
             let results = snapshot.documents.map { (document) -> Review in
-                if let review = Review(dictionary: document.data()) {
-                    print(document.data(), "docData")
-                    print(review, "reviewDict")
-                    return review
-                } else {
-                    print(document.data(), "docData")
+                if let review = Review(dictionary: document.data()) { //Convert dictionary to Review object
+                    return review //Return Review object
+                } else { //Mapping failed- incompatible data. Forced fatal error
                     fatalError("Unable to initialize type \(Review.self) with dictionary \(document.data())")
                 }
             }
             
-            self.dbReviews = results
-            self.documents = snapshot.documents
-            self.tableView.reloadData()
+            self.dbReviews = results //Update the reviews array with the data from the database
+            self.tableView.reloadData() //Refresh tableview to output updated array data
             
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        db = Firestore.firestore()
-        self.query = baseQuery()
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+        db = Firestore.firestore() //Instantiate database
+        self.tableView.delegate = self //Set table delegate
+        self.tableView.dataSource = self //Set table datasource
     }
-
-    // MARK: - Table view data source
+    
+    //TableView Delegate
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
+    //TableView Datasource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return dbReviews.count
+        return dbReviews.count //Number of rows in table
     }
-
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(100)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ReviewTableViewCell
-        let review: Review
-        review = dbReviews[indexPath.row]
-        cell.cellNameLabel.text = String(review.email)
-        cell.cosmosView.rating = Double(review.starRating)
+        
+        let review: Review! //Define empty review object
+        review = dbReviews[indexPath.row] //Retrieve review details from array and cell index
+        cell.cellNameLabel.text = String(review.email) //Assign review email to cell label
+        cell.cosmosView.rating = Double(review.starRating) //Assign review star rating to Cosmos view
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let review: Review
-        review = dbReviews[indexPath.row]
+        let review: Review! //Define empty review object
+        review = dbReviews[indexPath.row] //Retrieve review details from array and cell index
         if review.description != "" {
+            //Instantiate popup view controller
             let popUpVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popup") as! PopUpViewController
+            //Add popup view into the current view
             self.addChild(popUpVC)
+            //Set the popup view frame as the frame of the current view
             popUpVC.view.frame = self.view.frame
-        
+            //Set the text field of the popup view as the review description
             popUpVC.textView.text = review.description
+            //Add popup view as subview
             self.view.addSubview(popUpVC.view)
+            //Set to parent
             popUpVC.didMove(toParent: self)
+            
+            
         } else {
-            self.present(alerts.noReviewDescription(), animated: true)
+            //Present alert if there is no description string
         }
     }
 }

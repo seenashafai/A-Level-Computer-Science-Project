@@ -23,7 +23,6 @@
 		04568D2521E7907D0055E142 /* TicketsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04568D2421E7907D0055E142 /* TicketsTableViewController.swift */; };
 		045D5ADA21AFF5C5001BA669 /* MVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D5AD921AFF5C5001BA669 /* MVC.swift */; };
 		046F38B92180C7880026EA16 /* Admin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046F38B82180C7880026EA16 /* Admin.storyboard */; };
-		046F38BE2180C83E0026EA16 /* InitialAdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */; };
 		0481240A21F13AC4004CDE29 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481240921F13AC4004CDE29 /* PopUpViewController.swift */; };
 		0481240C21F1465B004CDE29 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481240B21F1465B004CDE29 /* UserTableViewCell.swift */; };
 		0481240E21F1D510004CDE29 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481240D21F1D510004CDE29 /* UsersTableViewController.swift */; };
@@ -39,12 +38,10 @@
 		04904E0E209790C80043C97A /* A_Level_Computer_Science_ProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04904E0D209790C80043C97A /* A_Level_Computer_Science_ProjectUITests.swift */; };
 		049CD70421754C5700DD5429 /* TicketPortalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CD70321754C5700DD5429 /* TicketPortalViewController.swift */; };
 		049CD706217624C500DD5429 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049CD705217624C500DD5429 /* User.swift */; };
-		04C4507C2181CDCD009ECD30 /* QRDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C4507B2181CDCD009ECD30 /* QRDetailsViewController.swift */; };
 		04C450802181D545009ECD30 /* PKUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C4507F2181D545009ECD30 /* PKUser.swift */; };
 		04C450882181F33A009ECD30 /* PKBarcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C450872181F33A009ECD30 /* PKBarcode.swift */; };
 		04F4106B21F73F5F000F8BCE /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4106A21F73F5F000F8BCE /* UserDetailsViewController.swift */; };
 		04F4106D21F74E13000F8BCE /* DataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4106C21F74E13000F8BCE /* DataTableViewController.swift */; };
-		04F4106F21F74F74000F8BCE /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4106E21F74F74000F8BCE /* Data.swift */; };
 		04F5848C218112D1007E0AAD /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F5848B218112D1007E0AAD /* QRScannerViewController.swift */; };
 		04F7126B21AC818C00E958D6 /* TicketConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7126A21AC818C00E958D6 /* TicketConfirmationViewController.swift */; };
 		04F7126D21AC81DF00E958D6 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7126C21AC81DF00E958D6 /* Transaction.swift */; };
@@ -55,7 +52,6 @@
 		37F0E7C0214FD21B00D9E335 /* ShowDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F0E7BF214FD21B00D9E335 /* ShowDetailViewController.swift */; };
 		37FFAFAC21944337003F6DD3 /* SecondarySeatSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FFAFAB21944337003F6DD3 /* SecondarySeatSelectionViewController.swift */; };
 		424C7276EBB653F4F0C34161 /* Pods_A_Level_Computer_Science_ProjectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 679ABF60FC7DCA2308ACF4AB /* Pods_A_Level_Computer_Science_ProjectUITests.framework */; };
-		BD4C2C1B218B57740059BBB4 /* AdminShowListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4C2C1A218B57740059BBB4 /* AdminShowListTableViewController.swift */; };
 		BD4C2C1D218C635A0059BBB4 /* AddShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4C2C1C218C635A0059BBB4 /* AddShowViewController.swift */; };
 		BD89FD7E2163ECF10050D379 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD89FD7D2163ECF10050D379 /* Validation.swift */; };
 		BD90ACCD21652154003C831A /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD90ACCC21652154003C831A /* Alerts.swift */; };
@@ -97,7 +93,6 @@
 		04568D2421E7907D0055E142 /* TicketsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketsTableViewController.swift; sourceTree = "<group>"; };
 		045D5AD921AFF5C5001BA669 /* MVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVC.swift; sourceTree = "<group>"; };
 		046F38B82180C7880026EA16 /* Admin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Admin.storyboard; sourceTree = "<group>"; };
-		046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialAdminViewController.swift; sourceTree = "<group>"; };
 		0481240921F13AC4004CDE29 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		0481240B21F1465B004CDE29 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		0481240D21F1D510004CDE29 /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
@@ -119,12 +114,10 @@
 		04904E0F209790C80043C97A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		049CD70321754C5700DD5429 /* TicketPortalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketPortalViewController.swift; sourceTree = "<group>"; };
 		049CD705217624C500DD5429 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		04C4507B2181CDCD009ECD30 /* QRDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRDetailsViewController.swift; sourceTree = "<group>"; };
 		04C4507F2181D545009ECD30 /* PKUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKUser.swift; sourceTree = "<group>"; };
 		04C450872181F33A009ECD30 /* PKBarcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKBarcode.swift; sourceTree = "<group>"; };
 		04F4106A21F73F5F000F8BCE /* UserDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
 		04F4106C21F74E13000F8BCE /* DataTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableViewController.swift; sourceTree = "<group>"; };
-		04F4106E21F74F74000F8BCE /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		04F5848B218112D1007E0AAD /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		04F7126A21AC818C00E958D6 /* TicketConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketConfirmationViewController.swift; sourceTree = "<group>"; };
 		04F7126C21AC81DF00E958D6 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
@@ -141,7 +134,6 @@
 		9524BA26A7BC9710475318F5 /* Pods_A_Level_Computer_Science_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_A_Level_Computer_Science_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9DC9798A5403709D709E26B /* Pods-A Level Computer Science ProjectUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science ProjectUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science ProjectUITests/Pods-A Level Computer Science ProjectUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B298EA4BC17B556A2C4D6809 /* Pods-A Level Computer Science Project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-A Level Computer Science Project.release.xcconfig"; path = "Pods/Target Support Files/Pods-A Level Computer Science Project/Pods-A Level Computer Science Project.release.xcconfig"; sourceTree = "<group>"; };
-		BD4C2C1A218B57740059BBB4 /* AdminShowListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminShowListTableViewController.swift; sourceTree = "<group>"; };
 		BD4C2C1C218C635A0059BBB4 /* AddShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShowViewController.swift; sourceTree = "<group>"; };
 		BD89FD7D2163ECF10050D379 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		BD90ACCC21652154003C831A /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
@@ -209,8 +201,8 @@
 			isa = PBXGroup;
 			children = (
 				04568D2421E7907D0055E142 /* TicketsTableViewController.swift */,
-				0453CDBA21E8FB92002DF163 /* ReviewViewController.swift */,
 				0453CDB621E7A7C4002DF163 /* TicketDetailsViewController.swift */,
+				0453CDBA21E8FB92002DF163 /* ReviewViewController.swift */,
 				0453CDB021E799E1002DF163 /* UserTicket.swift */,
 				0453CDBC21E8FBF2002DF163 /* Review.swift */,
 			);
@@ -229,16 +221,12 @@
 		046F38BC2180C8240026EA16 /* Admin */ = {
 			isa = PBXGroup;
 			children = (
-				046F38BD2180C83E0026EA16 /* InitialAdminViewController.swift */,
 				04F5848B218112D1007E0AAD /* QRScannerViewController.swift */,
-				BD4C2C1A218B57740059BBB4 /* AdminShowListTableViewController.swift */,
 				04F4106A21F73F5F000F8BCE /* UserDetailsViewController.swift */,
 				0481240D21F1D510004CDE29 /* UsersTableViewController.swift */,
-				04C4507B2181CDCD009ECD30 /* QRDetailsViewController.swift */,
 				04C4507F2181D545009ECD30 /* PKUser.swift */,
 				04C450872181F33A009ECD30 /* PKBarcode.swift */,
 				04F4106C21F74E13000F8BCE /* DataTableViewController.swift */,
-				04F4106E21F74F74000F8BCE /* Data.swift */,
 			);
 			path = Admin;
 			sourceTree = "<group>";
@@ -638,7 +626,6 @@
 				0481240E21F1D510004CDE29 /* UsersTableViewController.swift in Sources */,
 				045D5ADA21AFF5C5001BA669 /* MVC.swift in Sources */,
 				0453CDB921E7E8BB002DF163 /* ShowStatsViewController.swift in Sources */,
-				04C4507C2181CDCD009ECD30 /* QRDetailsViewController.swift in Sources */,
 				04C450802181D545009ECD30 /* PKUser.swift in Sources */,
 				04819CEF21B55EBB001E6471 /* TheatreMapViewController.swift in Sources */,
 				04F7126D21AC81DF00E958D6 /* Transaction.swift in Sources */,
@@ -647,14 +634,12 @@
 				0453CDB321E7A4F3002DF163 /* TicketTableViewCell.swift in Sources */,
 				37F0E7C0214FD21B00D9E335 /* ShowDetailViewController.swift in Sources */,
 				04568D2521E7907D0055E142 /* TicketsTableViewController.swift in Sources */,
-				BD4C2C1B218B57740059BBB4 /* AdminShowListTableViewController.swift in Sources */,
 				04876EFD21C5C09600E07836 /* MoreDetailsViewController.swift in Sources */,
 				04F7126B21AC818C00E958D6 /* TicketConfirmationViewController.swift in Sources */,
 				BD90ACCD21652154003C831A /* Alerts.swift in Sources */,
 				0432B46221EF8D4600E38876 /* ReviewsTableViewController.swift in Sources */,
 				BD4C2C1D218C635A0059BBB4 /* AddShowViewController.swift in Sources */,
 				37F0E7BC214FD1E400D9E335 /* LoginViewController.swift in Sources */,
-				046F38BE2180C83E0026EA16 /* InitialAdminViewController.swift in Sources */,
 				04F5848C218112D1007E0AAD /* QRScannerViewController.swift in Sources */,
 				049CD70421754C5700DD5429 /* TicketPortalViewController.swift in Sources */,
 				0453CDB121E799E1002DF163 /* UserTicket.swift in Sources */,
@@ -666,7 +651,6 @@
 				0453CDBD21E8FBF2002DF163 /* Review.swift in Sources */,
 				0453CDB721E7A7C4002DF163 /* TicketDetailsViewController.swift in Sources */,
 				0481240C21F1465B004CDE29 /* UserTableViewCell.swift in Sources */,
-				04F4106F21F74F74000F8BCE /* Data.swift in Sources */,
 				37FFAFAC21944337003F6DD3 /* SecondarySeatSelectionViewController.swift in Sources */,
 				37F0E7BE214FD20000D9E335 /* ShowListTableViewController.swift in Sources */,
 				04F4106B21F73F5F000F8BCE /* UserDetailsViewController.swift in Sources */,

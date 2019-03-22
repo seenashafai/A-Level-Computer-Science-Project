@@ -1,32 +1,27 @@
-//
 //  QRScannerViewController.swift
-//  A Level Computer Science Project
-//
-//  Created by Seena Shafai on 24/10/2018.
 //  Copyright © 2018 Seena Shafai. All rights reserved.
-//
 
 import UIKit
 import AVFoundation
 import MaterialComponents.MaterialSnackbar
-import PKHUD
-import Firebase
 import FirebaseFirestore
 import Alamofire.Swift
 
 class QRScannerViewController: UIViewController {
 
     //MARK: - Properties
-    var captureSession = AVCaptureSession()
-    var videoPreviewLayer: AVCaptureVideoPreviewLayer?
-    var globalMessage = ""
-    var barcodeMethods = Barcode()
-    let APIEndpoint = "http://ftpkdist.serveo.net"
-    var returnedUser: PKUser?
+    //Database Config
     var db: Firestore!
+
+    //Class Instances
+    var captureSession = AVCaptureSession()
+    var barcodeMethods = Barcode()
+
+    //Global variables
+    var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+    let APIEndpoint = "http://ftpkdist.serveo.net"
     var show: String?
     var dateIndex: String?
-
 
     
     //MARK: - View Lifecycle
@@ -36,7 +31,7 @@ class QRScannerViewController: UIViewController {
 
         // Get the back-facing camera for capturing videos
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .back)
-        
+        //Validation: ensure that the rear camera actually exists
         guard let captureDevice = deviceDiscoverySession.devices.first else {
             print("Failed to get the camera device")
             return
@@ -88,59 +83,40 @@ class QRScannerViewController: UIViewController {
     
     func presentQROutput(decodedMessage: String)
     {
-        if presentedViewController != nil
-        {
-            return
-        }
-        var user: PKUser?
         var email: String?
         var seats: String?
         var name: String?
         //JSON Decoding
         let barcode = barcodeMethods.decodeJSONString(JSONString: decodedMessage)
+        //Send HTTP GET request using new endpoint, default JSOn encoding and "application-json" content type header
         let endpoint = APIEndpoint + "/user_for_pass/\(String(describing: barcode!.pass_type_id))/\(String(describing: barcode!.serial_number))/\(String(describing: barcode!.authentication_token))"
         Alamofire.request(endpoint, method: HTTPMethod.get, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
-            print(response)
+            //Convert JSON result to dictionary with 'result.value'
             if let data = response.result.value as? [String: Any]
             {
-                //user = PKUser(dictionary: data as! [String : AnyObject])
-                email = data["email"] as! String
-                self.show = data["show"] as! String
-                seats = data["seatRef"] as! String
-                name = data["name"] as! String
-                self.dateIndex = data["dateIndex"] as! String
+                //Extract data from dictionary and assign it to local variables
+                email = data["email"] as? String
+                self.show = data["show"] as? String
+                seats = data["seatRef"] as? String
+                name = data["name"] as? String
+                self.dateIndex = data["dateIndex"] as? String
                 
             }
-        
-            
-            
-            //Flash a success message from PKHud
-            //HUD.flash(.success)
-            
+            //Set user attendance boolean to True
             self.userAttended(email: email!, show: self.show!)
+            //Present snackbar with name and seat references
             self.presentSnackbar(seat: seats!, name: name!)
-            /*
-            //Present snackbar with QR Code data
-            let message = MDCSnackbarMessage()
-            let action = MDCSnackbarMessageAction()
-            let actionHandler = {() in
-                self.performSegue(withIdentifier: "toQRDetails", sender: nil)
-            }
-            action.handler = actionHandler
-            action.title = "More"
-            message.action = action
-            message.text = "Name: \(self.returnedUser!.name), Seat: \(self.returnedUser!.email)"
-            MDCSnackbarManager.show(message)
- */
         }
         
 
     }
+    //Update records for users who have attended
     func userAttended(email: String, show: String)
     {
+        //Define location of attendance boolean in user's ticket
         let ticketRef = db.collection("users").document(email).collection("tickets").document(show)
         ticketRef.updateData([
-            "attendance": true
+            "attendance": true //set attendance boolean to true
             ])
         var attendees: Int!
         let strDateIndex = String(dateIndex!)
@@ -149,41 +125,25 @@ class QRScannerViewController: UIViewController {
             if let document = documentSnapshot {
                 attendees = document["attendees"] as? Int ?? 0
                 statsRef.updateData([
-                    "attendees": attendees + 1
+                    "attendees": attendees + 1 //Add 1 to attendance
                     ])
             }
         }
     }
-    
-    func load()
-    {
-        HUD.show(.systemActivity)
-    }
 
+    //Show snackbar on screen with JSON data
     func presentSnackbar(seat: String, name: String)
     {
+        //Initialise snackbar message
         let message = MDCSnackbarMessage()
-        let action = MDCSnackbarMessageAction()
-        let actionHandler = {() in
-            self.performSegue(withIdentifier: "toQRDetails", sender: nil)
-        }
-        action.handler = actionHandler
-        action.title = "More"
-        message.action = action
+        //Define message text
         message.text = "Name: \(name), Seat(s): \(seat)"
+        //Show message
         MDCSnackbarManager.show(message)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toQRDetails"
-        {
-            var destVC = segue.destination as! QRDetailsViewController
-            destVC.passVar = globalMessage
-        }
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.captureSession.startRunning()
+        self.captureSession.startRunning() //Re-start capture session on screen select
     }
     
     
@@ -194,7 +154,6 @@ extension QRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection)
     {
-        var decodedMessage: String!
         // Check if the metadataObjects array is not nil and it contains at least one object (i.e. a code).
         if metadataObjects.count == 0
         {
@@ -210,12 +169,9 @@ extension QRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
             if metadataObj.stringValue != nil
             {
                 print("QR Code detected")
-               // HUD.show(.systemActivity)
-                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                self.captureSession.stopRunning()
-                decodedMessage = metadataObj.stringValue!
-                globalMessage = metadataObj.stringValue!
-                presentQROutput(decodedMessage: decodedMessage)
+                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate) //Vibrate device
+                self.captureSession.stopRunning() //Pause video feed
+                presentQROutput(decodedMessage: metadataObj.stringValue!) //to HTTP GET
             }
         }
     }

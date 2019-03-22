@@ -9,103 +9,83 @@
 import UIKit
 import Firebase
 import FirebaseFirestore
+
 import SwiftDataTables
 
-
 class DataTableViewController: UIViewController {
-
+    
+    //DateTables Variables
     var dataTable: SwiftDataTable! = nil
-    var user: User?
-    var db: Firestore!
     var showDataArray = [[Any]]()
     var options = DataTableConfiguration()
     
-
+    //Class instances
+    var user: User?
+    var db: Firestore!
+    var show = showFunctions()
+    
+    
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         db = Firestore.firestore()
-        print(user.debugDescription, "USERDEBUG")
         getData()
+        
+        //UI features
         self.navigationController?.navigationBar.isTranslucent = false
-        self.title = "Show History"
+        self.title = "Show attendance" //Set title of table
         
-        self.view.backgroundColor = UIColor.white
-        
-        options.shouldContentWidthScaleToFillFrame = false
-        options.defaultOrdering = DataTableColumnOrder(index: 1, order: .ascending)
-        
-        
-        self.automaticallyAdjustsScrollViewInsets = false
-        
-       
-    }
-    func shouldAutorotate() -> Bool {
-        return true
-    }
-    
-    func arraySwap(array: [Any]) -> [Any]
-    {
-        var tempArray: [Any] = []
-        var sortedArray: [Any] = []
-        sortedArray = array
-
-        //Name & Seats
-        tempArray.append(array[0])
-        sortedArray[6] = tempArray[0]
-        
-        return array
     }
     
     func getData()
     {
-        var showData = [Any]()
-        let numberOfShows = user?.ticketsBooked
-        print(user?.showsBookedArray[0])
-        for i in 0..<numberOfShows!
+        var showData = [Any]() //Define sub-array
+        let numberOfShows = user?.showAttendance.count //Get number of shows booked from attendance dictionary
+        let showsBooked = Array((user?.showAttendance.keys)!) //Get names of booked shows from keys of attendance dictionary
+        
+        for i in 0..<numberOfShows! //Iterate through every show booked
         {
-            let showRef = db.collection("users").document((user?.email)!).collection("tickets").document((user?.showsBookedArray[i])!)
-            showRef.getDocument { (document, error ) in
-                if let document = document {
-                    let dict = document.data()!
-                    for i in dict {
+            //Define reference for each show booked
+            let showRef = db.collection("users").document((user?.email)!).collection("tickets").document(showsBooked[i])
+            showRef.getDocument { (document, error ) in //Get data from ticket booked for show
+                if let document = document { //Validate that snapshot is retrived
+                    let dict = document.data()! //Define retrieved dictionary
+                    let date = dict["date"] as! Timestamp //Get date as timestamp
+                    //Format date using external class
+                    let formattedDate = self.show.timestampDateConverter(timestamp: date, format: "dd MMMM YYYY")
+                    for _ in dict { //Iterate through resulting dictionary
                         
+                        //Assign values to sub-array
                         showData.append(dict["show"]!)
-                        showData.append(dict["date"]!)
+                        showData.append(formattedDate)
                         showData.append(self.convertBool(value: dict["attendance"]! as! Int))
                         showData.append(dict["seats"]!)
                         showData.append(dict["tickets"]!)
-                        showData.append(dict["ticketID"]!)
-
+                        
                     }
-                    print(showData, "showDataItem")
-                    print(self.showDataArray, "before")
-                    showData = self.arraySwap(array: showData)
+                    //Add sub-aray to main array
                     self.showDataArray.append(showData)
-                    print(self.showDataArray, "after")
-                    showData.removeAll()
-
-                    if self.showDataArray.count == self.user?.ticketsBooked {
+                    showData.removeAll() //Empty sub-array for next batch of values
+                    
+                    //Set headers and configuration (Framework specific)
+                    if self.showDataArray.count == numberOfShows {
                         self.dataTable = SwiftDataTable(
                             data: self.data(),
                             headerTitles: self.columnHeaders(),
                             options: self.options
                         )
-                    
-                    self.dataTable.backgroundColor = UIColor.init(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
-                    self.dataTable.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                    self.dataTable.frame = self.view.frame
-                    self.view.addSubview(self.dataTable);
+                        //More UI features
+                        self.dataTable.frame = self.view.frame
+                        self.view.addSubview(self.dataTable);
                     }
                 }
             }
         }
-        print(showDataArray, "out")
-        print(showData, "s2")
-
+        
     }
     
+    //Convert number boolean stored in Firestore into True/False string
     func convertBool(value: Int) -> String
     {
         switch value {
@@ -119,6 +99,7 @@ class DataTableViewController: UIViewController {
     }
 }
 
+//Set column headers for table
 extension DataTableViewController {
     func columnHeaders() -> [String] {
         return [
@@ -127,26 +108,14 @@ extension DataTableViewController {
             "Attendance",
             "Seats",
             "Tickets",
-            "TicketID"
-
         ]
     }
     
+    //Assign data to table
     func data() -> [[DataTableValueType]]{
-        //This would be your json object
-        var dataSet: [[Any]] = self.showDataArray
-        delayWithSeconds(1) {
-        for _ in 0..<0 {
-            print(self.showDataArray, "final2")
-            dataSet += self.showDataArray
-            }
-            print(dataSet, "ds")
-        }
-        
-        return dataSet.map {
+        return showDataArray.map { //Convert 2D array into readable data for spreadsheet
             $0.compactMap (DataTableValueType.init)
         }
-        
     }
 }
 

@@ -1,10 +1,6 @@
-//
 //  TicketConfirmationViewController.swift
-//  A Level Computer Science Project
-//
-//  Created by Seena Shafai on 26/11/2018.
 //  Copyright © 2018 Seena Shafai. All rights reserved.
-//
+
 
 import UIKit
 import Firebase
@@ -26,6 +22,7 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     var db: Firestore!
     var listener: ListenerRegistration!
     var user = FirebaseUser()
+    var showFuncs = showFunctions()
     let auth = Validation()
     let barcode = Barcode()
     let alerts = Alerts()
@@ -36,12 +33,15 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     var house: String?
     var block: String?
     var venue: String?
+    var startDate: Date?
+    var modifiedDate: Date?
     
     var show: String?
     var date: String?
     var tickets: String?
     var seats: String?
     var email: String?
+    var dateIndex: Int?
     
     
     @IBOutlet weak var showLabel: UILabel!
@@ -67,14 +67,17 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
         let userTicketRef = db.collection("users").document(email!).collection("tickets").document(show!)
         //Set data...
         
+        
+        
         //Set data at the defined location
         userTicketRef.setData([
             "ticketID": UID!,
             "show": show!,
             "seats": seats!,
             "tickets": tickets!,
-            "date": date!,
-            "attendance": false
+            "date": modifiedDate!,
+            "attendance": false,
+            "dateIndex": dateIndex!
             //Handle errors...
         ]) { err in //Define error variable
             //Validate error
@@ -144,6 +147,11 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
                 //Handle results if returned
                 let dictionary = document.data()!
                 self.venue = dictionary["venue"] as? String
+                
+                //Pull Date
+                let timestamp = dictionary["date"] as? Timestamp
+                self.startDate = timestamp?.dateValue()
+                self.modifiedDate = self.showFuncs.DateFromStart(date: self.startDate!, index: self.dateIndex!)
             }
         }
     }

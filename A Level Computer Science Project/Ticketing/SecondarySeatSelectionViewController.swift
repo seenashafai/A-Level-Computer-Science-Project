@@ -309,6 +309,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
             dest.seats = picked.description
             dest.tickets = String(allocatedSeats!)
             dest.show = showName
+            dest.dateIndex = dateIndex
         }
     }
  

@@ -23,21 +23,6 @@ class TicketsTableViewController: UITableViewController {
     var showFuncs = showFunctions()
     var user = FirebaseUser()
     
-    
-    
-    //MARK: - Firebase Queries
-    fileprivate func baseQuery() -> Query{
-        let email = user.getCurrentUserEmail()
-        return db.collection("users").document(email).collection("tickets")
-    }
-    fileprivate var query: Query? {
-        didSet {
-            if let listener = listener{
-                listener.remove()
-            }
-        }
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.listener.remove()
@@ -47,8 +32,9 @@ class TicketsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.listener =  query?.addSnapshotListener { (documents, error) in
+        let email = Auth.auth().currentUser?.email
+        let query = db.collection("users").document(email!).collection("tickets")
+        self.listener =  query.addSnapshotListener { (documents, error) in
             guard let snapshot = documents else {
                 print("Error fetching documents results: \(error!)")
                 return
@@ -63,7 +49,6 @@ class TicketsTableViewController: UITableViewController {
             }
             
             self.dbTickets = results
-            self.documents = snapshot.documents
             self.tableView.reloadData()
             
         }
@@ -71,39 +56,37 @@ class TicketsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
-        self.query = baseQuery()
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 1 //Number of sections
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return dbTickets.count
+        return dbTickets.count //Number of rows
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TicketTableViewCell
-        let ticket: UserTicket
-        ticket = dbTickets[indexPath.row]
+        //Instantiate custom cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let ticket: UserTicket //Creae empty ticket object
+        ticket = dbTickets[indexPath.row] //Populate ticket object
+        //Create date components
+        let suffix = showFuncs.suffixFromTimestamp(timestamp: ticket.date)
+        let date = showFuncs.timestampDateConverter(timestamp: ticket.date, format: "MMMM d")
+        let year = showFuncs.timestampDateConverter(timestamp: ticket.date, format: " YYYY")
         
-        cell.cellNameLabel.text = ticket.show
-        cell.cellDescriptionLabel.text = ticket.date
+        cell.textLabel!.text = ticket.show //Use ticket's show attribute as cell title
+        cell.detailTextLabel!.text = date + suffix + year //Display date components
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //Transition to next view on selection of cell
         performSegue(withIdentifier: "toTicketDetailsView", sender: nil)
     }
     
@@ -111,9 +94,13 @@ class TicketsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toTicketDetailsView"
         {
+            //Instantiate destination class
             let destinationVC = segue.destination as! TicketDetailsViewController
+            //Get index of cell selected from tableview
             let indexPath = self.tableView.indexPathForSelectedRow
+            //Use index to get ticket object associated with the selected cell
             let ticket = dbTickets[indexPath!.row]
+            //Pass object to next view
             destinationVC.ticket = ticket
             destinationVC.showName = ticket.show
         }
