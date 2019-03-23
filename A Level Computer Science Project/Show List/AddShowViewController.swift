@@ -129,8 +129,11 @@ class AddShowViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
+    //Preselect the date shown on date picker
     func initialiseDatePickerForEditing()
     {
+        //Set picker date to date of shiw
+        //date.dateValue extracts the Date type from the default Timestamp type
         datePickerView.setDate((show?.date.dateValue())!, animated: true)
     }
     
