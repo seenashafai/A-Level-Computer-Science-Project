@@ -21,6 +21,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
     var user = FirebaseUser()
     var showFuncs = showFunctions()
     var show: Show?
+    var alerts = Alerts()
     var ticket: Ticket?
     
     //Global Variables
@@ -141,8 +142,12 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         
         let timestamp: Timestamp = (show?.date)!
         let suffix = showFuncs.suffixFromTimestamp(timestamp: timestamp)
-        let format = "d, MMMM"
-        beginningDateLabel.text = "Beginning on:" + showFuncs.timestampDateConverter(timestamp: timestamp, format: format) + suffix
+        let dateFormat = "d"
+        let monthFormat = "MMMM"
+        let month = showFuncs.timestampDateConverter(timestamp: timestamp, format: monthFormat)
+        let date = showFuncs.timestampDateConverter(timestamp: timestamp, format: dateFormat)
+
+        beginningDateLabel.text = "Beginning on: " + date + suffix + " " + month
         
         let userEmail = Auth.auth().currentUser?.email
         let userRef = db.collection("users").document(userEmail!)
@@ -170,8 +175,6 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         super.viewWillAppear(animated)
         
         //Assign listener to get show details
-        print(ticketShowTitle, "tS")
-        print(dateIndex, "Di")
         let query =  db.collection("shows").document(ticketShowTitle).collection(String(dateIndex)).whereField("availableTickets", isGreaterThanOrEqualTo: 0)
         self.listener = query.addSnapshotListener { (documents, error) in
             //Handle any errors

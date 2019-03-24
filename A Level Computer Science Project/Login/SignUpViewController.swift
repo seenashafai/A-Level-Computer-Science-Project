@@ -61,8 +61,7 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             print("account created successfully") //Trace statement
             //Create alert to inform user that their account has successfully been created
             let registrationSuccessful = UIAlertController(title: "Success", message: "Account has successfully been created" +
-                "A verification email has been sent to you" +
-                "you will be unable to book tickets until you have verified your account.", preferredStyle: .alert)
+                "A verification email has been sent to you you will be unable to book tickets until you have verified your account.", preferredStyle: .alert)
             registrationSuccessful.addAction(UIAlertAction(title: "OK", style: .default, handler:
                 {action in self.navigationController?.popViewController(animated: true)
             }))
@@ -172,15 +171,13 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             else if validation.isValidEmail(emailStr: emailTextField.text!) == false
             {
                 print("Email Validation Error") //If not, output error
-                self.present(self.alerts.validationErrorAlertController(message: "Your email is not formatted correctly" +
-                    "Please ensure you have entered your email address correctly"), animated: true)
+                self.present(self.alerts.validationErrorAlertController(message: "Your email is not formatted correctly. Please ensure you have entered your email address correctly"), animated: true)
             }
             //Validate that the password meets the strength criteria
             else if validation.isValidPass(passStr: passwordTextField.text!) == false
             {
                 print("Password Validation Error") //If not, output error
-                self.present(self.alerts.validationErrorAlertController(message: "Your password is not acceptable. Please ensure you have fulfilfed" +
-                    "the required criteria for a strong password"), animated: true)
+                self.present(self.alerts.validationErrorAlertController(message: "Your password is not acceptable. Please ensure you have fulfilfed the required criteria for a strong password"), animated: true)
             }
             else
             {
