@@ -51,7 +51,6 @@ class ShowStatsViewController: UIViewController {
     var show: Show?
     var blockDict: [String: Any] = [:]
     var blockDataEntries = [PieChartDataEntry]()
-    var houseDataEntries = [PieChartDataEntry]()
     var starRatingsArray: [Double] = []
     var statsDict: [String: Any] = [:]
     var houseDict: [String: Int] = [:]
@@ -166,7 +165,11 @@ class ShowStatsViewController: UIViewController {
         let totalRatingsRef = db.collection("shows").document(show).collection(dateIndex).document("reviews")
         totalRatingsRef.getDocument {(documentSnapshot, error) in
             if let document = documentSnapshot { //Validate that the returned array isn't empty
-                self.starRatingsArray = (document["ratingsArray"] as? Array ?? [0.0]) //Assign the returned array to a local variable
+                self.starRatingsArray = (document["ratingsArray"] as? Array ?? []) //Assign the returned array to a local variable
+                if self.starRatingsArray.count < 1
+                {
+                    self.starRatingsArray = [0.0]
+                }
                 self.updateStarRating() //Update the star rating view graphically
             }
         }
