@@ -16,7 +16,6 @@ import PKHUD
 class ReviewsTableViewController: UITableViewController {
 
     //MARK: - Initialise Firebase Properties
-    var documents: [DocumentSnapshot] = []
     var listener: ListenerRegistration!
     var dbReviews = [Review]()
     var db: Firestore!
@@ -24,23 +23,7 @@ class ReviewsTableViewController: UITableViewController {
     var user = FirebaseUser()
     var show: Show?
     var alerts = Alerts()
-    
-    //MARK: - Firebase Queries
-    
-    fileprivate func baseQuery() -> Query{
-        let email = user.getCurrentUserEmail()
-        print(show!.name, "showName")
-        return db.collection("shows").document(show!.name).collection("1").document("reviews").collection("userReviews")
-    }
- 
-    
-    fileprivate var query: Query? {
-        didSet {
-            if let listener = listener{
-                listener.remove()
-            }
-        }
-    }
+    var dateIndex: Int?
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -52,7 +35,8 @@ class ReviewsTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.listener =  query?.addSnapshotListener { (documents, error) in
+        let query =  db.collection("shows").document(show!.name).collection(String(dateIndex!)).document("reviews").collection("userReviews")
+        self.listener =  query.addSnapshotListener { (documents, error) in
             guard let snapshot = documents else {
                 print("Error fetching documents results: \(error!)")
                 return
@@ -71,7 +55,6 @@ class ReviewsTableViewController: UITableViewController {
             }
             
             self.dbReviews = results
-            self.documents = snapshot.documents
             self.tableView.reloadData()
             
         }
@@ -80,7 +63,6 @@ class ReviewsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
-        self.query = baseQuery()
         self.tableView.delegate = self
         self.tableView.dataSource = self
     }
