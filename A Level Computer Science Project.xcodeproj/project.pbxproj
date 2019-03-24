@@ -220,6 +220,7 @@
 			children = (
 				04904DF1209790C70043C97A /* Main.storyboard */,
 				046F38B82180C7880026EA16 /* Admin.storyboard */,
+				04904DF6209790C80043C97A /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -278,7 +279,6 @@
 				0453CDB521E7A7A2002DF163 /* Ticket List */,
 				049CD70221754C3200DD5429 /* Ticketing */,
 				04904DF4209790C80043C97A /* Assets.xcassets */,
-				04904DF6209790C80043C97A /* LaunchScreen.storyboard */,
 				04904DF9209790C80043C97A /* Info.plist */,
 				040ABC8F2097934B00F07B6A /* GoogleService-Info.plist */,
 			);

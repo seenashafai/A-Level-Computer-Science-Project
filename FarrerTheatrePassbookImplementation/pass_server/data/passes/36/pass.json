@@ -2,10 +2,10 @@
   "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
   "formatVersion": 1,
   "organizationName": "Farrer Theatre",
-  "serialNumber": "66291b5dbd6f9088c8270d12ed82f896",
+  "serialNumber": "d839361c0f3b9bbb00a5bcd0002df6a6",
   "teamIdentifier": "AZQME83VC4",
-  "webServiceURL": "http://rogue01.local:6789/",
-  "authenticationToken": "083d21c6ca979842de6c5010982f17a0",
+  "webServiceURL": "http://rogue01.local:5757/",
+  "authenticationToken": "81e5181cf5a818d110c8a38fa98c2f50",
   "description": "Play Ticket",
   "foregroundColor": "#FFFFFF",
   "backgroundColor": "#FF6161",
@@ -23,13 +23,13 @@
   "barcode": {
     "messageEncoding": "utf-8",
     "format": "PKBarcodeFormatQR",
-    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"66291b5dbd6f9088c8270d12ed82f896\",\"authentication_token\":\"083d21c6ca979842de6c5010982f17a0\"}"
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"d839361c0f3b9bbb00a5bcd0002df6a6\",\"authentication_token\":\"81e5181cf5a818d110c8a38fa98c2f50\"}"
   },
   "eventTicket": {
     "headerFields": [
       {
         "key": "fullName",
-        "label": "seenas@btinternet.com",
+        "label": "seena.shafai@gmail.com",
         "value": "Seena Shafai"
       }
     ],
@@ -37,26 +37,26 @@
       {
         "key": "showTitle",
         "label": "Production",
-        "value": "TestShow5"
+        "value": "Hamlet"
       }
     ],
     "secondaryFields": [
       {
         "key": "date",
         "label": "Date",
-        "value": "Thursday 4th December"
+        "value": "6th November"
       }
     ],
     "auxiliaryFields": [
       {
         "key": "seatRef",
         "label": "Seat Reference",
-        "value": "[78]"
+        "value": "[3, 4, 5]"
       },
       {
         "label": "venue",
         "key": "VENUE",
-        "value": "Empty Space"
+        "value": "Farrer Theatre"
       }
     ]
   }

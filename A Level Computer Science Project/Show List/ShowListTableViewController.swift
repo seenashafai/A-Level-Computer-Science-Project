@@ -235,9 +235,6 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         alert.addAction(UIAlertAction(title: "Sort by Alphabetical Order", style: .default, handler: {(UIAlertAction) in
             self.sortByName()
         }))
-        alert.addAction(UIAlertAction(title: "Sort by Rating", style: .default, handler: {(UIAlertAction) in
-            print("rate")
-        }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in }
         )
         

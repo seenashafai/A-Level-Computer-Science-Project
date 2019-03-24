@@ -63,8 +63,7 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             let registrationSuccessful = UIAlertController(title: "Success", message: "Account has successfully been created" +
                 "A verification email has been sent to you you will be unable to book tickets until you have verified your account.", preferredStyle: .alert)
             registrationSuccessful.addAction(UIAlertAction(title: "OK", style: .default, handler:
-                {action in self.navigationController?.popViewController(animated: true)
-            }))
+                {action in }))
             //Show alert on screen
             self.present(registrationSuccessful, animated: true)
         
@@ -86,6 +85,7 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             } else
             {
                 print("success") //Trace statement
+                self.navigationController?.popToRootViewController(animated: true)
             }
         }
     }
