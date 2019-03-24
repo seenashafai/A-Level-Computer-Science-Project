@@ -20,6 +20,7 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     //Class Instances
     var user = FirebaseUser()
     let auth = Validation()
+    let showFuncs = showFunctions()
     
     //MARK: - User Properties
     var firstName: String?
@@ -29,10 +30,11 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
     var venue: String?
     
     var show: String?
-    var date: String?
+    var date: Timestamp?
     var tickets: String?
     var seats: String?
     var email: String?
+    var dateIndex: Int?
     
     
     @IBOutlet weak var showLabel: UILabel!
@@ -63,7 +65,8 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
             "seats": seats!,
             "tickets": tickets!,
             "date": date!,
-            "attendance": false
+            "attendance": false,
+            "dateIndex": dateIndex
             //Handle errors...
         ]) { err in //Define error variable
             //Validate error
@@ -87,7 +90,16 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
         loadVenue() //Load venue details
         //Assign labels as variables passed from previous view
         showLabel.text = show
-        dateLabel.text = date
+        
+        let timestamp: Timestamp = date!
+        let modifiedDate = showFuncs.DateFromStart(date: (date?.dateValue())!, index: dateIndex!)
+        let suffix = showFuncs.suffixFromTimestamp(timestamp: timestamp)
+        let dateFormat = "d"
+        let monthFormat = "MMMM"
+        let month = showFuncs.timestampDateConverter(timestamp: timestamp, format: monthFormat)
+        let day = showFuncs.timestampDateConverter(timestamp: timestamp, format: dateFormat)
+        
+        dateLabel.text = day + suffix + " " + month
         ticketsLabel.text = tickets
         seatsLabel.text = seats
         emailLabel.text = email
@@ -181,8 +193,9 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
         //API Request function, taking the endpoint and method as parameters
         let POST = HTTPMethod.post
         Alamofire.request(self.APIEndpoint, method: POST, parameters: formFields, encoding: URLEncoding()).responseString { response  in //Closure (No action needed)
-            self.downloadTicket()
-            self.updateUID()
+            delayWithSeconds(1) {
+                self.downloadTicket()
+            }
         }
         
 
@@ -205,11 +218,11 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
                 //Present temporary view to user
                 self.present(pkvc!, animated: true, completion: {() -> Void in
                     print("presented pkvc") //Trace output, executes once the temporary view has completed its animation
+                    self.updateUID()
+                    let  vc =  self.navigationController?.viewControllers[2]
+                    self.navigationController?.popToViewController(vc!, animated: true)
                 })
-                self.updateUID()
-                let  vc =  self.navigationController?.viewControllers[2]
-                self.navigationController?.popToViewController(vc!, animated: true)
-    
+                
         }
     }
 

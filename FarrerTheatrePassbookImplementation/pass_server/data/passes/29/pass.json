@@ -2,10 +2,10 @@
   "passTypeIdentifier": "pass.com.theatrePass.A-Level-CompSciProj",
   "formatVersion": 1,
   "organizationName": "Farrer Theatre",
-  "serialNumber": "08eed5bef4d25d9743ce7893cb019de2",
+  "serialNumber": "83864881c53fb3555c036578711b293a",
   "teamIdentifier": "AZQME83VC4",
-  "webServiceURL": "http://rogue01.local:6789/",
-  "authenticationToken": "05e8442b7c74b35ab34451323cbd50af",
+  "webServiceURL": "http://rogue01.local:5757/",
+  "authenticationToken": "50dc5d8746bb8b946beb1a0d42f4d76b",
   "description": "Play Ticket",
   "foregroundColor": "#FFFFFF",
   "backgroundColor": "#FF6161",
@@ -23,13 +23,13 @@
   "barcode": {
     "messageEncoding": "utf-8",
     "format": "PKBarcodeFormatQR",
-    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"08eed5bef4d25d9743ce7893cb019de2\",\"authentication_token\":\"05e8442b7c74b35ab34451323cbd50af\"}"
+    "message": "{\"pass_type_id\":\"pass.com.theatrePass.A-Level-CompSciProj\",\"serial_number\":\"83864881c53fb3555c036578711b293a\",\"authentication_token\":\"50dc5d8746bb8b946beb1a0d42f4d76b\"}"
   },
   "eventTicket": {
     "headerFields": [
       {
         "key": "fullName",
-        "label": "seenas@btinternet.com",
+        "label": "seena.shafai@gmail.com",
         "value": "Seena Shafai"
       }
     ],
@@ -37,26 +37,26 @@
       {
         "key": "showTitle",
         "label": "Production",
-        "value": "TestShow5"
+        "value": "Richard III"
       }
     ],
     "secondaryFields": [
       {
         "key": "date",
         "label": "Date",
-        "value": "Thursday 4th December"
+        "value": "9th May"
       }
     ],
     "auxiliaryFields": [
       {
         "key": "seatRef",
         "label": "Seat Reference",
-        "value": "[75]"
+        "value": "[1, 2]"
       },
       {
         "label": "venue",
         "key": "VENUE",
-        "value": "Empty Space"
+        "value": "Caccia Studio"
       }
     ]
   }

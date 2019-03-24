@@ -55,11 +55,13 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
         var ticketHoldersArray = ticket?.ticketHolders
         print(ticket.debugDescription)
         //Check if either validation returned false
+        /*
         if isTicketRequestValid2(requestedTickets: numberOfTickets!, availableTickets: (ticket?.availableTickets)!) == false || isUserValid(user: userEmail!, ticketHolders: ticketHoldersArray!) == false
         {
             print("Validation failed")
             return //Exit function
         }
+ */
         //Database Methods
         ticketHoldersArray?.append(userEmail!) //Add user's email to ticket holders array
         let ticketAvailabilityRef = db.collection("shows").document(ticketShowTitle).collection(String(dateIndex)).document("statistics") //Define database location
@@ -204,7 +206,7 @@ class TicketPortalViewController: UIViewController, UIPickerViewDelegate, UIPick
             destinationVC.ticket = ticket
             destinationVC.allocatedSeats = Int(ticketNumberTextField.text!)
             destinationVC.showName = ticketShowTitle
-            destinationVC.date = dateSelected
+            destinationVC.date = show?.date
             destinationVC.dateIndex = dateIndex
             destinationVC.currentUser = currentUser
             

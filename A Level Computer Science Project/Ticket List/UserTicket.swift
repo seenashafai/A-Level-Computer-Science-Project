@@ -7,13 +7,14 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 struct UserTicket {
     
     var attendance: Bool = false
     var ticketID: Int = 0
     var dateIndex: Int = 0
-    var date: String = ""
+    var date: Timestamp
     var seats: String = ""
     var show: String = ""
     var tickets: String = ""
@@ -36,7 +37,7 @@ extension UserTicket {
     init?(dictionary: [String: Any]) {
         guard let attendance = dictionary["attendance"] as? Bool,
             let dateIndex = dictionary["dateIndex"] as? Int,
-            let date = dictionary["date"] as? String,
+            let date = dictionary["date"] as? Timestamp,
             let ticketID = dictionary["ticketID"] as? Int,
             let seats = dictionary["seats"] as? String,
             let show = dictionary["show"] as? String,

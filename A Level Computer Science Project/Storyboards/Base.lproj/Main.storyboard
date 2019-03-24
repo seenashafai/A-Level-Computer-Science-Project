@@ -1761,7 +1761,7 @@
                     <tabBarItem key="tabBarItem" title="What's On" id="Wip-ui-s2b"/>
                     <navigationItem key="navigationItem" title="Show List" id="P9v-fG-sjO">
                         <rightBarButtonItems>
-                            <barButtonItem title="Sort" id="q5z-ak-luz">
+                            <barButtonItem id="q5z-ak-luz">
                                 <connections>
                                     <action selector="sortTableAction:" destination="2kP-bS-Sog" id="uvc-xw-g6M"/>
                                 </connections>

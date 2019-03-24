@@ -33,7 +33,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     var remainingSeats: Int?
     var dateIndex: Int!
     var showName: String!
-    var date: String!
+    var date: Timestamp!
     var transactionID: Int?
     var house: String?
     var block: String?
@@ -58,7 +58,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
         //Define database location for seating chart
         let statsRef = db.collection("shows").document(showName).collection(String(dateIndex)).document("statistics")
         statsRef.updateData([ //Update data in reference location
-            "availableSeats": updateSeatsArray(),
+            "availableSeats": compareSeats(),
         ])  { err in //CLOSURE: error handling
             if err != nil { //If the error is not nil
                 print(err?.localizedDescription) //Output API error
@@ -131,6 +131,12 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
         return array
     }
     
+    func compareSeats() -> [Int]
+    {
+        let seatsArray = fullArray!.filter { !picked.contains($0) }
+        return seatsArray
+    }
+    
     
     func generateSeats() {
         let numberOfRows: Int = 10
@@ -165,46 +171,6 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
         
        
     }
-
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        //self.listener.remove()
-        print("listener removed")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print(dateIndex!, "dO")
-        /*
-        
-        let query = db.collection("shows").document(showName).collection(String(dateIndex!)).whereField("availableSeats", isGreaterThan: 0)
-        self.listener =  query.addSnapshotListener { (documents, error) in
-            print(documents.debugDescription)
-            guard let snapshot = documents else {
-                print("Error fetching documents results: \(error!)")
-                return
-            }
-            
-            let results = snapshot.documents.map { (document) -> Ticket in
-                if let ticket = Ticket(dictionary: document.data()) {
-                    print(document.data(), "docData")
-                    return ticket
-                } else {
-                    fatalError("Unable to initialize type \(Ticket.self) with dictionary \(document.data())")
-                }
-            }
-            
-            self.ticket = results[0]
-            print(self.ticket.debugDescription, "OI")
-            self.fullArray = self.ticket!.availableSeats
-
-        }
- */
-
-    }
-
-    
     
     func createVenue()
     {
@@ -315,6 +281,7 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
             dest.seats = picked.description
             dest.tickets = String(allocatedSeats!)
             dest.show = showName
+            dest.dateIndex = dateIndex
         }
     }
  

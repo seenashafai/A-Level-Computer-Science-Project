@@ -30,6 +30,7 @@ class TicketDetailsViewController: UIViewController, PKAddPassesViewControllerDe
     var editable: Bool = false
     let alerts = Alerts()
     var docExists: Bool?
+    var dateString: String?
     
     @IBOutlet weak var addPassButton: UIButton!
     @IBAction func addPassAction(_ sender: Any) {
@@ -82,7 +83,7 @@ class TicketDetailsViewController: UIViewController, PKAddPassesViewControllerDe
         db = Firestore.firestore()
         doesReviewExist()
         showTextLabel.text = ticket?.show
-        dateTextLabel.text = ticket?.date
+        dateTextLabel.text = dateString
         ticketsTextLabel.text = ticket?.tickets
         seatsTextLabel.text = ticket?.seats
         if ticket?.attendance == true

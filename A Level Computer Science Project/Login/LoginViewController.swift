@@ -5,12 +5,15 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 class LoginViewController: UIViewController {
     
     //MARK: - Properties
     var alerts = Alerts()
     var user = FirebaseUser()
+    var db: Firestore!
+    var admin: Bool?
 
     //MARK: - IB Links
     
@@ -42,9 +45,9 @@ class LoginViewController: UIViewController {
             }
             else //No error returned by the API
             {
+                self.checkUserAdmin()
                 print("successful") //Trace output
-                //Take user to show list when successful
-                self.performSegue(withIdentifier: "toShowList", sender: self)
+
             }
         }
     }
@@ -67,8 +70,33 @@ class LoginViewController: UIViewController {
         return allPresent
     }
 
+    func checkUserAdmin()
+    {
+        let email = Auth.auth().currentUser?.email
+        let userRef = db.collection("users").document(email!)
+        userRef.getDocument {(documentSnapshot, error) in
+            if let document = documentSnapshot {
+                let dict = document.data()!
+                self.admin = dict["admin"] as? Bool
+                print(self.admin, "ad")
+                //Take user to show list when successful
+                self.performSegue(withIdentifier: "toShowList", sender: self)
+            }
+        }
+    }
+    
+    
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        db = Firestore.firestore()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toShowList"
+        {
+            let destVC = segue.destination as! ShowListTableViewController
+            destVC.userIsAdmin = admin
+        }
     }
 }

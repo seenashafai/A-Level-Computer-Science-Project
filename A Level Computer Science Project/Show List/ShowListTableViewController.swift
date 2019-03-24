@@ -11,7 +11,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     //MARK: - Variables
     var dateSortIndex = 0
     var nameSortIndex = 0
-    var userIsAdmin = true
+    var userIsAdmin: Bool?
     var swipeIndex: IndexPath?
     var blockStatsDict: [String: Any] = [:]
     var houseStatsDict: [String: Any] = [:]
@@ -183,12 +183,6 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
-
-        getHouseBlockStats()
-        self.dateSortIndex = 0
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        setSearchBarSettings()
         if userIsAdmin == true
         {
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(adminSettingsTapped))
@@ -196,6 +190,12 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
         else{
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(presentSortingActionSheet))
         }
+
+        getHouseBlockStats()
+        self.dateSortIndex = 0
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        setSearchBarSettings()
         
     }
 

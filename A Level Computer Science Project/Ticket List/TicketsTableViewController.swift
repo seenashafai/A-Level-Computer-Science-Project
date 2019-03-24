@@ -22,7 +22,7 @@ class TicketsTableViewController: UITableViewController {
     var db: Firestore!
     var showFuncs = showFunctions()
     var user = FirebaseUser()
-    
+    var dateString: String?
     
     
     //MARK: - Firebase Queries
@@ -74,11 +74,6 @@ class TicketsTableViewController: UITableViewController {
         self.query = baseQuery()
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
@@ -99,7 +94,15 @@ class TicketsTableViewController: UITableViewController {
         ticket = dbTickets[indexPath.row]
         
         cell.cellNameLabel.text = ticket.show
-        cell.cellDescriptionLabel.text = ticket.date
+        
+        let timestamp: Timestamp = ticket.date
+        let suffix = showFuncs.suffixFromTimestamp(timestamp: timestamp)
+        let dateFormat = "d"
+        let monthFormat = "MMMM"
+        let month = showFuncs.timestampDateConverter(timestamp: timestamp, format: monthFormat)
+        let date = showFuncs.timestampDateConverter(timestamp: timestamp, format: dateFormat)
+        cell.cellDescriptionLabel.text = date + suffix + " " + month
+        dateString = cell.cellDescriptionLabel.text
         return cell
     }
     
@@ -116,6 +119,7 @@ class TicketsTableViewController: UITableViewController {
             let ticket = dbTickets[indexPath!.row]
             destinationVC.ticket = ticket
             destinationVC.showName = ticket.show
+            destinationVC.dateString = dateString
         }
     }
 }
