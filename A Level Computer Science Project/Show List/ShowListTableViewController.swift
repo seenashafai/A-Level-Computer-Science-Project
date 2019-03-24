@@ -265,7 +265,7 @@ class ShowListTableViewController: UIViewController, UITableViewDelegate, UITabl
     func arrayGen() -> [Int]
     {
         var seatsArray = [Int]()
-        for i in 0..<100
+        for i in 0..<191
         {
             seatsArray.append(i)
         }
