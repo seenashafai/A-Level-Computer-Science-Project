@@ -219,7 +219,7 @@ class TicketConfirmationViewController: UIViewController, PKAddPassesViewControl
                 self.present(pkvc!, animated: true, completion: {() -> Void in
                     print("presented pkvc") //Trace output, executes once the temporary view has completed its animation
                     self.updateUID()
-                    let  vc =  self.navigationController?.viewControllers[2]
+                    let  vc =  self.navigationController?.viewControllers[3]
                     self.navigationController?.popToViewController(vc!, animated: true)
                 })
                 

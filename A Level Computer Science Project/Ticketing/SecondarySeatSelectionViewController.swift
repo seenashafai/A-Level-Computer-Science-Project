@@ -220,14 +220,13 @@ class SecondarySeatSelectionViewController: UIViewController, UIGestureRecognize
     {
         print(fullArray, "full")
         //Iterate through seats pulled from database
-        for i in fullArray! {
+        for i in 0..<((fullArray?.count)! - 1) {
             print(seat.tag, "tg")
             //Check if seat is present in array
             if seat.tag == fullArray![i]
             {
-                return true //Seat is available
-            } else {
-                return false //Seat is reserved
+                print("available", seat.tag)
+                return false //Seat is available
             }
         }
         return true //Default case
